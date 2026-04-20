@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "prosefairplaymediation",
+  "compatibility_date": "2026-04-20",
+  "assets": {
+    "directory": "./dist"
+  }
+}
