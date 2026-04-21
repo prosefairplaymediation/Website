@@ -125,6 +125,61 @@ const credentials = [
     </div>
   </section>
 
+  <!-- ========================== WHAT IS MEDIATION ========================== -->
+  <section class="mediation-explainer">
+    <div class="container explainer-grid">
+      <div class="explainer-head">
+        <p class="eyebrow-numeral">§</p>
+        <p class="kicker explainer-kicker">The Solution</p>
+        <h2 class="display explainer-title">
+          What is <span class="display-italic">mediation?</span>
+        </h2>
+      </div>
+
+      <div class="explainer-body">
+        <p class="explainer-lede lede">
+          Mediation is a confidential, structured process where a neutral
+          third party helps individuals resolve disputes outside of court.
+          Rather than a judge making decisions for you, mediation lets
+          both parties communicate, negotiate, and reach agreements together.
+        </p>
+
+        <div class="proSe-block">
+          <p class="kicker proSe-kicker">
+            <span class="kicker-dot" aria-hidden="true"></span>
+            Mediation for Pro Se Parties
+          </p>
+          <p class="proSe-intro">
+            For individuals representing themselves, mediation offers a
+            powerful alternative to navigating complex legal procedures alone.
+            It provides:
+          </p>
+
+          <ul class="proSe-list">
+            <li>
+              <span class="proSe-num display">01</span>
+              <p>A <strong>guided process</strong> — without the pressure of courtroom litigation.</p>
+            </li>
+            <li>
+              <span class="proSe-num display">02</span>
+              <p>A <strong>neutral environment</strong> to discuss issues openly.</p>
+            </li>
+            <li>
+              <span class="proSe-num display">03</span>
+              <p>The ability to reach <strong>agreements that reflect your real-life needs</strong> — not just legal outcomes.</p>
+            </li>
+          </ul>
+
+          <p class="proSe-close">
+            While I do not provide legal advice or representation, I help
+            facilitate productive conversations and keep the process focused,
+            respectful, and solution-oriented.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========================== ETHICS STRIP ========================== -->
   <section class="ethics-strip">
     <div class="container-narrow ethics-inner">
@@ -387,6 +442,137 @@ const credentials = [
   }
 
   /* ============================================================
+     WHAT IS MEDIATION — explainer
+     ============================================================ */
+  .mediation-explainer {
+    padding-block: var(--space-3xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .mediation-explainer::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 35%, var(--color-gold) 65%, transparent);
+    opacity: 0.55;
+  }
+  .explainer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .explainer-head {
+    position: sticky;
+    top: 5.5rem;
+  }
+  .explainer-head .eyebrow-numeral {
+    display: block;
+    color: var(--color-gold);
+    font-size: var(--step-4);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .explainer-kicker { margin-bottom: 0.85rem; }
+  .explainer-title {
+    font-size: var(--step-4);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.02em;
+    max-width: 12ch;
+  }
+
+  .explainer-body {
+    max-width: 62ch;
+  }
+  .explainer-lede {
+    font-size: var(--step-1);
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  .proSe-block {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .proSe-block::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 3rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .proSe-kicker {
+    margin-bottom: 0.85rem;
+  }
+  .proSe-intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .proSe-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .proSe-list li {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1rem 1.25rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .proSe-list li::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 1.5rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .proSe-num {
+    font-size: 1.35rem;
+    color: var(--color-gold-deep);
+    font-weight: 400;
+    font-variation-settings: "opsz" 48;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .proSe-list p {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+  .proSe-list strong {
+    color: var(--color-navy);
+    font-weight: 500;
+  }
+
+  .proSe-close {
+    margin-top: 1.75rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--color-gold);
+    background: color-mix(in srgb, var(--color-cream) 65%, transparent);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+    font-style: italic;
+  }
+
+  /* ============================================================
      ETHICS STRIP
      ============================================================ */
   .ethics-strip {
@@ -441,5 +627,7 @@ const credentials = [
     .profile-grid { grid-template-columns: 1fr; }
     .profile-figure { position: static; max-width: 26rem; margin-inline: auto; }
     .profile-credentials { grid-template-columns: 1fr; }
+    .explainer-grid { grid-template-columns: 1fr; }
+    .explainer-head { position: static; }
   }
 </style>

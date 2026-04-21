@@ -63,8 +63,9 @@ const steps = [
         </p>
 
         <h1 class="hero-title reveal reveal-d2">
-          <span class="hero-line-1 display">Stand on your own,</span>
-          <span class="hero-line-2 display display-italic">not alone.</span>
+          <span class="hero-line-1 display">Where we</span>
+          <span class="hero-line-2 display">level</span>
+          <span class="hero-line-3 display">the playing field.</span>
         </h1>
 
         <p class="lede reveal reveal-d3">
@@ -96,7 +97,7 @@ const steps = [
             <span></span><span></span>
           </div>
           <img
-            src="/logo_BG_color.png"
+            src="/logo_BG_color_Cropped.png"
             alt="Pro Se Fair Play Mediation LLC — Where we level the playing field."
             class="hero-logo"
             width="820" height="650"
@@ -294,7 +295,7 @@ const steps = [
 
   .hero-title {
     margin-top: 1.5rem;
-    font-size: var(--step-6);
+    font-size: clamp(2.5rem, 1.8rem + 3.4vw, 5rem);
     line-height: 0.94;
     color: var(--color-navy);
     letter-spacing: -0.025em;
@@ -302,11 +303,11 @@ const steps = [
   }
   .hero-title > span {
     display: block;
+    white-space: nowrap;
   }
   .hero-line-2 {
     color: var(--color-gold-deep);
-    padding-left: 0.15em;
-    font-weight: 300;
+    font-style: normal;
   }
 
   .hero-inner .lede {
