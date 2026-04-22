@@ -63,9 +63,11 @@ const steps = [
         </p>
 
         <h1 class="hero-title reveal reveal-d2">
-          <span class="hero-line-1 display">Where we</span>
-          <span class="hero-line-2 display">level</span>
-          <span class="hero-line-3 display">the playing field.</span>
+          <span class="hero-line-1 display">Where We</span>
+          <span class="hero-line-2 display">
+            <span class="level-box">Level</span>
+          </span>
+          <span class="hero-line-3 display">The Playing Field.</span>
         </h1>
 
         <p class="lede reveal reveal-d3">
@@ -104,7 +106,7 @@ const steps = [
             loading="eager"
             fetchpriority="high"
           />
-          <p class="hero-logo-caption smallcaps">Est. ·  Pro Se · Fair Play</p>
+          <p class="hero-logo-caption smallcaps">Est. 2026 · Pro Se · Fair Play</p>
         </div>
       </aside>
     </div>
@@ -306,8 +308,35 @@ const steps = [
     white-space: nowrap;
   }
   .hero-line-2 {
-    color: var(--color-gold-deep);
-    font-style: normal;
+    color: var(--color-navy);
+  }
+  .level-box {
+    position: relative;
+    display: inline-block;
+  }
+  .level-box::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.1em;
+    width: calc(100% + clamp(3rem, 6vw, 6rem));
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-gold) 0%,
+      var(--color-gold) 78%,
+      transparent 100%
+    );
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: level-out 1.2s var(--ease-out) 0.9s forwards;
+  }
+  @keyframes level-out {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .level-box::after { transform: scaleX(1); animation: none; }
   }
 
   .hero-inner .lede {

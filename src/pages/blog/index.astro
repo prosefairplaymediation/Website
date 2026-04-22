@@ -1,0 +1,245 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title="Articles · Pro Se Fair Play Mediation"
+  description="Practical guidance on mediation, self-representation, and navigating family law in Florida."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="blog-header">
+    <div class="container blog-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Articles
+      </p>
+      <h1 class="display blog-title reveal reveal-d2">
+        Insights for <span class="display-italic">clarity.</span>
+        <br />Guidance for resolution.
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Practical, real-world guidance to help you navigate mediation and
+        self-representation with confidence.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== ARTICLES ========================== -->
+  <section class="blog-list-section">
+    <div class="container">
+      <ol class="post-list">
+        {posts.map((post, idx) => (
+          <li class="post-row">
+            <a href={`/blog/${post.id}`} class="post-link">
+              <div class="post-meta">
+                <span class="post-num display">{String(idx + 1).padStart(2, "0")}</span>
+                <time class="post-date smallcaps" datetime={post.data.pubDate.toISOString()}>
+                  {dateFmt.format(post.data.pubDate)}
+                </time>
+                {post.data.readingTime && (
+                  <span class="post-reading">{post.data.readingTime}</span>
+                )}
+              </div>
+
+              <h2 class="display post-title">{post.data.title}</h2>
+              <p class="post-desc">{post.data.description}</p>
+
+              {post.data.tags.length > 0 && (
+                <ul class="post-tags">
+                  {post.data.tags.map((t) => (
+                    <li class="post-tag">{t}</li>
+                  ))}
+                </ul>
+              )}
+
+              <span class="link-underline post-cta">
+                Read article
+                <span class="arrow" aria-hidden="true">→</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+
+      {posts.length === 0 && (
+        <p class="empty-state">No articles yet — but they're coming.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 2rem, 7rem) clamp(3rem, 4vw + 1rem, 5rem);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .blog-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.035) 1px, transparent 1px);
+    background-size: 7rem 100%;
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    pointer-events: none;
+  }
+  .blog-header-inner { position: relative; }
+  .blog-title {
+    font-size: var(--step-5);
+    line-height: 1;
+    color: var(--color-navy);
+    margin-top: 1rem;
+    letter-spacing: -0.025em;
+    max-width: 18ch;
+    font-weight: 400;
+  }
+  .blog-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 300;
+  }
+  .blog-header .lede {
+    margin-top: 1.5rem;
+    max-width: 58ch;
+  }
+
+  /* Post list — editorial index */
+  .blog-list-section {
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .post-row {
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .post-row:last-child { border-bottom: 1px solid var(--color-divider); }
+  .post-row::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 3.5rem; height: 1px;
+    background: var(--color-gold);
+    transition: width 0.5s var(--ease-out);
+  }
+  .post-row:hover::before { width: 100%; }
+
+  .post-link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding: 2.25rem 0 2.25rem;
+    align-items: start;
+    color: inherit;
+    transition: transform 0.4s var(--ease-out);
+  }
+  .post-row:hover .post-link {
+    transform: translateX(6px);
+  }
+
+  .post-meta {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+  }
+  .post-num {
+    font-size: 1.1rem;
+    color: var(--color-gold-deep);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    font-variation-settings: "opsz" 24;
+  }
+  .post-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--color-slate);
+  }
+  .post-reading {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--color-slate);
+  }
+
+  .post-title {
+    grid-column: 1;
+    font-size: var(--step-3);
+    line-height: 1.08;
+    color: var(--color-navy);
+    letter-spacing: -0.02em;
+    max-width: 28ch;
+    font-weight: 400;
+  }
+  .post-desc {
+    grid-column: 1;
+    margin-top: 0.85rem;
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    max-width: 60ch;
+  }
+
+  .post-tags {
+    grid-column: 1;
+    list-style: none;
+    padding: 0;
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .post-tag {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-divider);
+    background: var(--color-paper);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-slate);
+    font-weight: 500;
+  }
+
+  .post-cta {
+    grid-column: 2;
+    align-self: end;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .empty-state {
+    padding: var(--space-2xl) 0;
+    text-align: center;
+    color: var(--color-slate);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 720px) {
+    .post-link { grid-template-columns: 1fr; }
+    .post-cta { grid-column: 1; align-self: start; margin-top: 1rem; }
+  }
+</style>

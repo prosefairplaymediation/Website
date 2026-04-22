@@ -1,0 +1,377 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} · Pro Se Fair Play Mediation`}
+  description={post.data.description}
+>
+  <!-- ========================== ARTICLE HEADER ========================== -->
+  <header class="article-header">
+    <div class="container-narrow article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/blog" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Articles
+        </a>
+      </p>
+
+      <h1 class="display article-title reveal reveal-d2">{post.data.title}</h1>
+
+      <p class="article-desc lede reveal reveal-d3">{post.data.description}</p>
+
+      <div class="article-meta reveal reveal-d4">
+        <div class="meta-item">
+          <span class="meta-label smallcaps">By</span>
+          <span class="meta-value">{post.data.author}</span>
+        </div>
+        <span class="meta-divider" aria-hidden="true"></span>
+        <div class="meta-item">
+          <span class="meta-label smallcaps">Published</span>
+          <time class="meta-value" datetime={post.data.pubDate.toISOString()}>
+            {dateFmt.format(post.data.pubDate)}
+          </time>
+        </div>
+        {post.data.readingTime && (
+          <>
+            <span class="meta-divider" aria-hidden="true"></span>
+            <div class="meta-item">
+              <span class="meta-label smallcaps">Read</span>
+              <span class="meta-value">{post.data.readingTime}</span>
+            </div>
+          </>
+        )}
+      </div>
+
+      {post.data.tags.length > 0 && (
+        <ul class="article-tags reveal reveal-d5">
+          {post.data.tags.map((t) => <li class="article-tag">{t}</li>)}
+        </ul>
+      )}
+    </div>
+  </header>
+
+  <!-- ========================== ARTICLE BODY ========================== -->
+  <article class="article-body">
+    <div class="container-narrow article-prose">
+      <Content />
+    </div>
+  </article>
+
+  <!-- ========================== FOOTER — Disclaimer + CTA ========================== -->
+  <section class="article-footer">
+    <div class="container-narrow article-footer-inner">
+      <hr class="rule-gold-left" />
+
+      <aside class="article-disclaimer">
+        <p class="smallcaps disclaimer-label">Disclaimer</p>
+        <p>
+          <strong>Not a law firm.</strong> We are not attorneys and do not
+          provide legal advice or representation. We provide document
+          preparation and mediation services for self-represented individuals
+          only. We do not represent clients in court.
+        </p>
+      </aside>
+
+      <div class="article-cta">
+        <a class="btn btn-primary" href="/book">
+          Book a Free 15-Minute Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="link-underline" href="/blog">
+          Read more articles
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     ARTICLE HEADER
+     ============================================================ */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6.5rem) clamp(2.5rem, 4vw, 4rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .article-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px);
+    background-size: 7rem 100%;
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    pointer-events: none;
+  }
+  .article-header-inner { position: relative; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+
+  .article-title {
+    margin-top: 1.25rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 26ch;
+    font-weight: 400;
+  }
+  .article-desc {
+    margin-top: 1.25rem;
+    max-width: 56ch;
+  }
+
+  .article-meta {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .article-meta::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 3rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .meta-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+  }
+  .meta-value {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 0.95rem;
+    color: var(--color-navy);
+  }
+  .meta-divider {
+    width: 1px; height: 1.4rem;
+    background: var(--color-divider);
+  }
+
+  .article-tags {
+    margin-top: 1.5rem;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .article-tag {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-divider);
+    background: var(--color-paper);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-slate);
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     ARTICLE BODY — editorial typography
+     ============================================================ */
+  .article-body {
+    padding-block: var(--space-2xl) var(--space-xl);
+    background: var(--color-cream);
+  }
+  .article-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.75;
+    color: var(--color-ink-soft);
+  }
+
+  /* First paragraph drop cap */
+  .article-prose > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 144;
+    font-weight: 500;
+    float: left;
+    font-size: 4.75em;
+    line-height: 0.85;
+    padding: 0.08em 0.14em 0 0;
+    color: var(--color-navy);
+  }
+  .article-prose > p {
+    margin-block: 1.35rem;
+  }
+  .article-prose > p:first-of-type { margin-top: 0; }
+
+  /* Headings */
+  .article-prose h2 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 96;
+    font-weight: 400;
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    margin-top: 3rem;
+    margin-bottom: 1.15rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .article-prose h2::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 2.5rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .article-prose h3 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 48;
+    font-weight: 500;
+    font-size: var(--step-2);
+    color: var(--color-navy);
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Blockquote — "Key takeaway" pull-quote */
+  .article-prose blockquote {
+    margin: 2rem 0;
+    padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+    background: var(--color-cream-warm);
+    border-left: 2px solid var(--color-gold);
+    position: relative;
+  }
+  .article-prose blockquote p {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 48;
+    font-size: var(--step-2);
+    line-height: 1.35;
+    color: var(--color-navy);
+    margin: 0;
+    font-weight: 400;
+  }
+  .article-prose blockquote strong {
+    display: inline;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-gold-deep);
+    margin-right: 0.1em;
+    font-variation-settings: "opsz" 48;
+  }
+
+  /* Inline styles */
+  .article-prose strong { color: var(--color-navy); font-weight: 500; }
+  .article-prose em { color: var(--color-ink); font-style: italic; }
+  .article-prose a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 92%;
+    transition: color 0.2s;
+  }
+  .article-prose a:hover { color: var(--color-gold-deep); }
+
+  .article-prose ul, .article-prose ol {
+    padding-left: 1.5rem;
+    margin-block: 1.25rem;
+  }
+  .article-prose li { margin-block: 0.4rem; }
+
+  .article-prose hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 15%, var(--color-gold) 85%, transparent);
+    margin-block: 2.5rem;
+  }
+
+  /* ============================================================
+     ARTICLE FOOTER
+     ============================================================ */
+  .article-footer {
+    padding-block: var(--space-xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .article-footer-inner { display: flex; flex-direction: column; gap: var(--space-lg); }
+
+  .rule-gold-left { margin-bottom: 0; }
+
+  .article-disclaimer {
+    padding: 1.5rem 1.75rem;
+    background: var(--color-cream-warm);
+    border: 1px solid var(--color-divider);
+    max-width: 70ch;
+  }
+  .disclaimer-label {
+    font-size: 0.7rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.65rem;
+    display: block;
+  }
+  .article-disclaimer p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .article-disclaimer strong {
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+
+  .article-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .article-prose > p:first-of-type::first-letter { font-size: 3.5em; }
+    .article-prose h2 { font-size: var(--step-2); }
+    .article-prose blockquote p { font-size: 1.15rem; }
+  }
+</style>
