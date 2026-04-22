@@ -55,60 +55,52 @@ const steps = [
   <section class="hero">
     <div class="hero-grain" aria-hidden="true"></div>
 
-    <div class="container hero-inner">
-      <div class="hero-left">
-        <p class="kicker reveal reveal-d1">
-          <span class="kicker-dot" aria-hidden="true"></span>
-          Florida Family Law · Mediation · Document Preparation
-        </p>
-
-        <h1 class="hero-title reveal reveal-d2">
-          <span class="hero-line-1 display">Where We</span>
-          <span class="hero-line-2 display">
-            <span class="level-box">Level</span>
-          </span>
-          <span class="hero-line-3 display">The Playing Field.</span>
-        </h1>
-
-        <p class="lede reveal reveal-d3">
-          We help self-represented parties in Florida navigate family law matters —
-          mediation, parenting plans, and court-ready documents — conducted in
-          accordance with the standards set by the Florida Supreme Court.
-        </p>
-
-        <div class="hero-ctas reveal reveal-d4">
-          <a class="btn btn-primary" href="/book">
-            Book a Consultation
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="btn btn-ghost" href="/services">See Services</a>
+    <div class="container hero-stack">
+      <div class="hero-logo-frame reveal reveal-d1">
+        <div class="hero-logo-rules" aria-hidden="true">
+          <span></span><span></span>
         </div>
-
-        <p class="hero-foot reveal reveal-d5">
-          <span class="smallcaps">Zoom-based</span>
-          <span class="hero-foot-sep" aria-hidden="true">·</span>
-          <span class="smallcaps">Confidential</span>
-          <span class="hero-foot-sep" aria-hidden="true">·</span>
-          <span class="smallcaps">Flat-fee where possible</span>
-        </p>
+        <img
+          src="/logo_BG_color_Cropped.png"
+          alt="Pro Se Fair Play Mediation LLC"
+          class="hero-logo"
+          width="820" height="650"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <p class="hero-logo-caption smallcaps">Est. 2026 · Pro Se · Fair Play</p>
       </div>
 
-      <aside class="hero-right reveal reveal-d3">
-        <div class="hero-logo-frame">
-          <div class="hero-logo-rules" aria-hidden="true">
-            <span></span><span></span>
-          </div>
-          <img
-            src="/logo_BG_color_Cropped.png"
-            alt="Pro Se Fair Play Mediation LLC — Where we level the playing field."
-            class="hero-logo"
-            width="820" height="650"
-            loading="eager"
-            fetchpriority="high"
-          />
-          <p class="hero-logo-caption smallcaps">Est. 2026 · Pro Se · Fair Play</p>
-        </div>
-      </aside>
+      <p class="kicker reveal reveal-d2">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Florida Family Law · Mediation · Document Preparation
+      </p>
+
+      <h1 class="hero-title display reveal reveal-d3">
+        Where We <span class="level-box">Level</span> The Playing Field.
+      </h1>
+
+      <p class="lede reveal reveal-d4">
+        We help self-represented parties in Florida navigate family law matters —
+        mediation, parenting plans, and court-ready documents — conducted in
+        accordance with the standards set by the Florida Supreme Court.
+      </p>
+
+      <div class="hero-ctas reveal reveal-d5">
+        <a class="btn btn-primary" href="/book">
+          Book a Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href="/services">See Services</a>
+      </div>
+
+      <p class="hero-foot reveal reveal-d6">
+        <span class="smallcaps">Zoom-based</span>
+        <span class="hero-foot-sep" aria-hidden="true">·</span>
+        <span class="smallcaps">Confidential</span>
+        <span class="hero-foot-sep" aria-hidden="true">·</span>
+        <span class="smallcaps">Flat-fee where possible</span>
+      </p>
     </div>
   </section>
 
@@ -276,11 +268,12 @@ const steps = [
     mix-blend-mode: multiply;
   }
 
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: var(--space-xl);
+  .hero-stack {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 0;
   }
 
   .kicker {
@@ -297,15 +290,13 @@ const steps = [
 
   .hero-title {
     margin-top: 1.5rem;
-    font-size: clamp(2.5rem, 1.8rem + 3.4vw, 5rem);
-    line-height: 0.94;
+    font-size: clamp(1.85rem, 1rem + 3.2vw, 4rem);
+    line-height: 1.08;
     color: var(--color-navy);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     font-weight: 400;
-  }
-  .hero-title > span {
-    display: block;
     white-space: nowrap;
+    max-width: 100%;
   }
   .hero-line-2 {
     color: var(--color-navy);
@@ -319,17 +310,17 @@ const steps = [
     position: absolute;
     left: 0;
     bottom: 0.1em;
-    width: calc(100% + clamp(3rem, 6vw, 6rem));
+    width: calc(100% + clamp(0.4rem, 1vw, 0.9rem));
     height: 2px;
     background: linear-gradient(
       90deg,
       var(--color-gold) 0%,
-      var(--color-gold) 78%,
+      var(--color-gold) 75%,
       transparent 100%
     );
     transform-origin: left;
     transform: scaleX(0);
-    animation: level-out 1.2s var(--ease-out) 0.9s forwards;
+    animation: level-out 2.0s var(--ease-out) 1.6s forwards;
   }
   @keyframes level-out {
     from { transform: scaleX(0); }
@@ -339,15 +330,16 @@ const steps = [
     .level-box::after { transform: scaleX(1); animation: none; }
   }
 
-  .hero-inner .lede {
-    margin-top: 1.75rem;
-    max-width: 46ch;
+  .hero-stack .lede {
+    margin-top: 1.5rem;
+    max-width: 58ch;
   }
 
   .hero-ctas {
     display: flex;
     gap: 0.85rem;
     flex-wrap: wrap;
+    justify-content: center;
     margin-top: 2rem;
   }
 
@@ -356,22 +348,22 @@ const steps = [
     display: flex;
     gap: 0.85rem;
     align-items: center;
+    justify-content: center;
     font-size: 0.85rem;
     color: var(--color-slate);
+    flex-wrap: wrap;
   }
   .hero-foot-sep {
     color: var(--color-gold);
   }
 
-  /* Hero right — logo showcase */
-  .hero-right {
-    position: relative;
-  }
+  /* Logo — now at top of stack, centered */
   .hero-logo-frame {
     position: relative;
-    padding: 2.25rem 1.5rem;
-    max-width: 34rem;
-    margin-left: auto;
+    padding: 2rem 1.5rem 1.75rem;
+    max-width: 28rem;
+    width: 100%;
+    margin: 0 auto 1.75rem;
   }
   .hero-logo-frame::before,
   .hero-logo-frame::after {
@@ -410,7 +402,7 @@ const steps = [
     -webkit-mask-image: radial-gradient(ellipse 78% 82% at center, black 55%, transparent 94%);
             mask-image: radial-gradient(ellipse 78% 82% at center, black 55%, transparent 94%);
   }
-  .hero-right:hover .hero-logo {
+  .hero-logo-frame:hover .hero-logo {
     transform: translateY(-3px);
   }
   .hero-logo-caption {
@@ -687,12 +679,11 @@ const steps = [
   /* ------------------------------------------------------------
      RESPONSIVE
      ------------------------------------------------------------ */
+  @media (max-width: 720px) {
+    .hero-title { white-space: normal; }
+  }
+
   @media (max-width: 960px) {
-    .hero-inner {
-      grid-template-columns: 1fr;
-      gap: var(--space-xl);
-    }
-    .hero-logo-frame { margin-left: 0; max-width: 28rem; }
     .section-head { grid-template-columns: 1fr; align-items: start; }
     .section-head-left { grid-template-columns: 1fr; gap: 0.25rem; }
     .services-grid { grid-template-columns: 1fr; border-left: 0; border-top: 1px solid var(--color-divider); }
