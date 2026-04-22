@@ -18,9 +18,9 @@
   --color-paper:      #FFFDF7;
 
   /* Type */
-  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-display: "Lora", "Iowan Old Style", Georgia, serif;
   --font-body:    "Newsreader", "Iowan Old Style", Georgia, serif;
-  --font-mark:    "Source Serif 4", serif;
+  --font-mark:    "Lora", serif;
 
   /* Scale (modular, 1.250 ratio) */
   --step-0:  clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
