@@ -1,5 +1,7 @@
 ---
+import pkg from "../../package.json";
 const year = new Date().getFullYear();
+const version = pkg.version;
 ---
 
 <footer class="footer">
@@ -48,7 +50,10 @@ const year = new Date().getFullYear();
         We offer document preparation and mediation services for self-represented individuals only.
         We do not represent clients in court.
       </p>
-      <p class="copy">© {year} Pro Se Fair Play Mediation, LLC. All rights reserved.</p>
+      <p class="copy">
+        © {year} Pro Se Fair Play Mediation, LLC. All rights reserved.
+        <span class="build-version" aria-label="Site build version">v{version}</span>
+      </p>
     </div>
   </div>
 </footer>
@@ -142,6 +147,17 @@ const year = new Date().getFullYear();
     color: color-mix(in srgb, var(--color-cream) 55%, var(--color-navy));
     text-align: right;
     align-self: end;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    align-items: flex-end;
+  }
+  .build-version {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    color: color-mix(in srgb, var(--color-cream) 28%, var(--color-navy-deep));
+    font-variant-numeric: tabular-nums;
   }
 
   @media (max-width: 780px) {
