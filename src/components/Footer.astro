@@ -14,15 +14,6 @@ const version = pkg.version;
 
       <nav class="footer-nav" aria-label="Footer">
         <div>
-          <h4>Practice</h4>
-          <ul>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/book">Book a Consultation</a></li>
-            <li><a href="/intake">Client Intake</a></li>
-            <li><a href="/pay">Payments</a></li>
-          </ul>
-        </div>
-        <div>
           <h4>Learn</h4>
           <ul>
             <li><a href="/about">About Marie</a></li>
@@ -60,7 +51,6 @@ const version = pkg.version;
 
 <style>
   .footer {
-    margin-top: var(--space-3xl);
     background: var(--color-navy-deep);
     color: var(--color-cream);
     position: relative;
@@ -99,7 +89,7 @@ const version = pkg.version;
 
   .footer-nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
   }
   .footer-nav h4 {

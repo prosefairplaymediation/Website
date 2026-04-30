@@ -1,0 +1,436 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const facts = [
+  { label: "Rate", value: "$600 / hour" },
+  { label: "Minimum", value: "Two hours" },
+  { label: "Format", value: "Zoom · Confidential" },
+  { label: "Sessions", value: "Half-day, full-day, same-day" },
+];
+
+const includes = [
+  "A neutral, structured environment for both parties to be heard",
+  "A guided negotiation process focused on practical outcomes",
+  "Confidential discussions under Chapter 44, Florida Statutes",
+  "If an agreement is reached: a Memorandum of Understanding summarizing the terms",
+  "A structured close that leaves both parties with clarity on next steps",
+];
+
+const rightFit = [
+  "Parenting plans and time-sharing disputes",
+  "Decision-making authority and parental responsibilities",
+  "Child support discussions",
+  "Post-judgment modifications",
+  "Uncontested matters needing a neutral facilitator",
+  "High-conflict matters requiring multi-session structure",
+];
+---
+
+<BaseLayout
+  title="Hourly Mediation · Pro Se Fair Play Mediation"
+  description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate, two-hour minimum. Conducted via Zoom in a structured, confidential environment."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/services" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Services
+        </a>
+      </p>
+      <h1 class="display svc-title reveal reveal-d2">
+        Hourly <span class="display-italic">Mediation</span>.
+      </h1>
+      <p class="lede reveal reveal-d3">
+        A neutral, guided conversation where both parties work toward a
+        mutually acceptable resolution — without a judge imposing a
+        decision. Conducted via Zoom, structured, confidential.
+      </p>
+      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
+        Book a Free Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================== AT-A-GLANCE ========================== -->
+  <section class="svc-facts">
+    <div class="container">
+      <dl class="facts-grid">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt class="fact-label smallcaps">{f.label}</dt>
+            <dd class="fact-value display">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="facts-note">
+        $600 hourly rate is a <strong>combined rate</strong>, commonly split
+        evenly between the two parties (e.g., $300 each per hour). One party
+        may also pay in full.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== OVERVIEW ========================== -->
+  <section class="svc-section">
+    <div class="container-narrow">
+      <p class="eyebrow-numeral">§</p>
+      <p class="kicker">Overview</p>
+      <h2 class="display svc-h2">What mediation actually looks like.</h2>
+
+      <div class="svc-prose">
+        <p class="dropcap">
+          Mediation is a confidential, structured process where a neutral
+          third party helps people resolve disputes outside of court. Rather
+          than a judge making decisions for you, mediation lets both parties
+          communicate, negotiate, and reach agreements together.
+        </p>
+        <p>
+          For self-represented parties, mediation is often faster, quieter,
+          and less expensive than litigating to a final hearing. It also
+          tends to produce agreements that reflect real-life needs — not
+          just legal outcomes.
+        </p>
+        <p>
+          The mediator's role is to keep the conversation productive and
+          focused. The mediator does not give legal advice, take sides, or
+          decide the outcome. The parties decide.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== WHAT'S INCLUDED ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <p class="kicker">What's included</p>
+      <h2 class="display svc-h2">In every session.</h2>
+
+      <ul class="includes-list">
+        {includes.map((item) => (
+          <li>
+            <svg class="check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <path d="M3 8.5 L6.5 12 L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== RIGHT FIT ========================== -->
+  <section class="svc-section">
+    <div class="container-narrow">
+      <p class="kicker">When it's the right fit</p>
+      <h2 class="display svc-h2">Common matters we mediate.</h2>
+
+      <ul class="matters-list-2col">
+        {rightFit.map((item) => (
+          <li><span class="matter-dot" aria-hidden="true"></span>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== IMPORTANT NOTE ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <p class="kicker">Important</p>
+      <h2 class="display svc-h2">A few things to know.</h2>
+
+      <div class="svc-prose">
+        <p>
+          We are <strong>not a law firm</strong>. The mediator does not
+          represent either party, does not provide legal advice or legal
+          opinions, does not file documents with the court, and does not
+          appear in court in any capacity.
+        </p>
+        <p>
+          All mediation services are conducted in accordance with the
+          Florida Supreme Court Rules for Certified and Court-Appointed
+          Mediators and Chapter 44 Florida Statutes. Parties are strongly
+          encouraged to consult independent legal counsel before signing
+          any agreement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <p class="kicker cta-kicker">Ready to talk?</p>
+      <h2 class="display cta-title">
+        Start with a <span class="display-italic">free</span> 15-minute consultation.
+      </h2>
+      <p class="lede cta-lede">
+        We'll review your situation, determine whether mediation is
+        appropriate, and outline what to expect — at no cost.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="link-underline cta-link" href="/services">
+          See other services
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .svc-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .svc-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px);
+    background-size: 7rem 100%;
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .svc-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .svc-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .svc-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+  }
+  .svc-header-cta {
+    margin-top: 1.75rem;
+  }
+
+  /* ============================================================
+     AT-A-GLANCE FACTS
+     ============================================================ */
+  .svc-facts {
+    padding-block: var(--space-xl);
+    background: var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem 2rem;
+    margin: 0;
+  }
+  .fact { display: flex; flex-direction: column; gap: 0.35rem; }
+  .fact-label {
+    font-size: 0.7rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+  }
+  .fact-value {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--color-navy);
+    font-variation-settings: "opsz" 24;
+    line-height: 1.2;
+  }
+  .facts-note {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-divider);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 70ch;
+    font-style: italic;
+  }
+  .facts-note strong { color: var(--color-navy); font-weight: 600; font-style: normal; }
+
+  /* ============================================================
+     SECTIONS
+     ============================================================ */
+  .svc-section {
+    padding-block: var(--space-2xl);
+  }
+  .svc-section-alt {
+    background: var(--color-cream-warm);
+  }
+  .svc-section .eyebrow-numeral {
+    color: var(--color-gold);
+    font-size: var(--step-3);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .svc-h2 {
+    margin-block: 0.75rem 1.5rem;
+    font-size: var(--step-3);
+    color: var(--color-navy);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    max-width: 22ch;
+  }
+  .svc-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 60ch;
+  }
+  .svc-prose p + p { margin-top: 1.25rem; }
+  .svc-prose strong { color: var(--color-navy); font-weight: 500; }
+
+  /* Includes list */
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: 60ch;
+  }
+  .includes-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: baseline;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+  .includes-list .check {
+    color: var(--color-gold-deep);
+    margin-top: 0.25rem;
+  }
+
+  /* Matters two-column list */
+  .matters-list-2col {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: 0.65rem;
+    max-width: 56rem;
+  }
+  .matters-list-2col li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.98rem;
+    color: var(--color-ink-soft);
+  }
+  .matter-dot {
+    width: 5px; height: 5px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .cta {
+    position: relative;
+    padding-block: var(--space-3xl);
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
+      var(--color-cream-warm);
+    color: var(--color-ink);
+    overflow: hidden;
+    border-top: 1px solid var(--color-divider);
+  }
+  .cta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-title {
+    margin-block: 1rem 1.5rem;
+    font-size: var(--step-4);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+    max-width: 22ch;
+  }
+  .cta-title .display-italic { color: var(--color-gold-deep); }
+  .cta-lede {
+    color: var(--color-ink-soft);
+    max-width: 56ch;
+  }
+  .cta-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .cta-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .cta-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+  .cta-link {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+  }
+  .cta-link:hover { color: var(--color-gold-deep); }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 720px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+    .matters-list-2col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .facts-grid { grid-template-columns: 1fr; }
+  }
+</style>

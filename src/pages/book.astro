@@ -1,0 +1,205 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consultation";
+---
+
+<BaseLayout
+  title="Book a Consultation · Pro Se Fair Play Mediation"
+  description="Schedule a free 15-minute consultation to determine whether mediation or document preparation is appropriate for your case."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="book-header">
+    <div class="container book-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Book · Free Consultation
+      </p>
+      <h1 class="display book-title reveal reveal-d2">
+        Schedule a <span class="display-italic">15-minute</span> consultation.
+      </h1>
+      <p class="lede reveal reveal-d3">
+        A short, no-cost conversation to understand your situation and
+        determine whether mediation or document preparation is appropriate
+        for your case. No legal advice — just clarity on what's possible
+        and what comes next.
+      </p>
+
+      <div class="expectations reveal reveal-d4">
+        <div class="expect">
+          <span class="expect-num display">01</span>
+          <p class="expect-body">Pick a time that works.</p>
+        </div>
+        <div class="expect">
+          <span class="expect-num display">02</span>
+          <p class="expect-body">Tell us briefly what's going on.</p>
+        </div>
+        <div class="expect">
+          <span class="expect-num display">03</span>
+          <p class="expect-body">We meet on Google Meet for 15 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================== CALENDLY EMBED ========================== -->
+  <section class="book-embed-section">
+    <div class="container">
+      <div
+        class="calendly-inline-widget"
+        data-url={calendlyUrl}
+      ></div>
+    </div>
+  </section>
+
+  <!-- Calendly widget loader — keep external, do not bundle -->
+  <script
+    is:inline
+    type="text/javascript"
+    src="https://assets.calendly.com/assets/external/widget.js"
+    async
+  ></script>
+
+  <!-- ========================== DISCLAIMER ========================== -->
+  <section class="book-disclaimer">
+    <div class="container-narrow">
+      <hr class="rule-gold-left" />
+      <p class="disclaimer-label smallcaps">A note before you book</p>
+      <p class="disclaimer-body">
+        <strong>Pro Se Fair Play Mediation is not a law firm.</strong> The
+        consultation does not create an attorney-client relationship and is
+        not legal advice. We provide mediation and document preparation
+        services for self-represented individuals; we do not represent
+        clients in court or file documents on their behalf.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .book-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .book-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px);
+    background-size: 7rem 100%;
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    pointer-events: none;
+  }
+  .book-header-inner { position: relative; max-width: 64rem; }
+  .book-title {
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    margin-top: 1rem;
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .book-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .book-header .lede {
+    margin-top: 1.5rem;
+    max-width: 56ch;
+  }
+
+  .expectations {
+    margin-top: 2.25rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .expectations::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 3rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .expect { display: flex; gap: 0.85rem; align-items: baseline; }
+  .expect-num {
+    font-size: 1.1rem;
+    color: var(--color-gold-deep);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    flex-shrink: 0;
+    font-variation-settings: "opsz" 24;
+  }
+  .expect-body {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     CALENDLY EMBED
+     ============================================================ */
+  .book-embed-section {
+    padding-block: var(--space-xl) var(--space-2xl);
+    background: var(--color-cream);
+  }
+  .calendly-inline-widget {
+    min-width: 320px;
+    height: clamp(720px, 90vh, 1100px);
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+  }
+
+  /* ============================================================
+     DISCLAIMER
+     ============================================================ */
+  .book-disclaimer {
+    padding-block: var(--space-lg) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .rule-gold-left { margin-bottom: 1.25rem; }
+  .disclaimer-label {
+    font-size: 0.7rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.85rem;
+    display: block;
+  }
+  .disclaimer-body {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+    max-width: 70ch;
+  }
+  .disclaimer-body strong {
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 720px) {
+    .expectations {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+  }
+</style>

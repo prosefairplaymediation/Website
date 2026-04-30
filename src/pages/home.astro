@@ -3,28 +3,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const services = [
   {
-    numeral: "I",
     title: "Hourly Mediation",
-    price: "$600 / hour",
-    priceNote: "Combined rate · commonly split between parties · two-hour minimum",
-    body: "A neutral, guided conversation — via Zoom, confidential, structured — to help both parties reach a mutually acceptable resolution without a judge imposing one.",
-    href: "/services#mediation",
+    bullets: [
+      "Neutral, guided family-law mediation",
+      "Confidential sessions, conducted via Zoom",
+      "Time-sharing, custody, and post-judgment matters",
+    ],
+    href: "/services/hourly-mediation",
+    image: "/three_people_table_argue.png",
   },
   {
-    numeral: "II",
     title: "Parenting Plan",
-    price: "$600 flat",
-    priceNote: "Document preparation only · court-ready format",
-    body: "A customized Parenting Plan tailored to your family's schedule and structure — time-sharing, decision-making, and parental responsibilities, delivered filing-ready.",
-    href: "/services#parenting-plan",
+    bullets: [
+      "Customized to your family's schedule and structure",
+      "Court-ready format, drafted from your inputs",
+      "Document preparation only — no court forms included",
+    ],
+    href: "/services/parenting-plan",
+    image: "/pen_documents.png",
   },
   {
-    numeral: "III",
     title: "Turn-Key Court Packet",
-    price: "$800 flat",
-    priceNote: "Includes up to two revisions · notarization where applicable",
-    body: "A complete, organized set of completed forms for your final hearing. Formatted for filing readiness so you can proceed efficiently through the court process.",
-    href: "/services#court-packet",
+    bullets: [
+      "All required Florida Supreme Court family-law forms",
+      "Notarized, organized, formatted — filing-ready",
+      "Includes up to two rounds of revisions",
+    ],
+    href: "/services/court-packet",
+    image: "/handshake2.png",
   },
 ];
 
@@ -68,12 +74,11 @@ const steps = [
           loading="eager"
           fetchpriority="high"
         />
-        <p class="hero-logo-caption smallcaps">Est. 2026 · Pro Se · Fair Play</p>
       </div>
 
       <p class="kicker reveal reveal-d2">
         <span class="kicker-dot" aria-hidden="true"></span>
-        Florida Family Law · Mediation · Document Preparation
+        Est. 2026 · Mediation · Document Preparation
       </p>
 
       <h1 class="hero-title display reveal reveal-d3">
@@ -91,7 +96,6 @@ const steps = [
           Book a Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
-        <a class="btn btn-ghost" href="/services">See Services</a>
       </div>
 
       <p class="hero-foot reveal reveal-d6">
@@ -109,7 +113,6 @@ const steps = [
     <div class="container">
       <header class="section-head">
         <div class="section-head-left">
-          <span class="eyebrow-numeral">I.</span>
           <div>
             <p class="kicker">What we do</p>
             <h2 class="display section-title">Three ways we step in beside you.</h2>
@@ -126,55 +129,44 @@ const steps = [
 
       <ol class="services-grid">
         {services.map((s) => (
-          <li class="service-card">
-            <a href={s.href} class="service-card-inner">
-              <span class="service-numeral display">{s.numeral}.</span>
+          <li class="service-card" tabindex="0" style={`--card-image: url('${s.image}');`}>
+            <div class="service-card-inner">
               <h3 class="service-title display">{s.title}</h3>
-              <p class="service-price display">{s.price}</p>
-              <p class="service-price-note">{s.priceNote}</p>
-              <p class="service-body">{s.body}</p>
-              <span class="link-underline service-link">
-                Learn more
-                <span class="arrow" aria-hidden="true">→</span>
-              </span>
-            </a>
+              <div class="service-reveal">
+                <ul class="service-bullets">
+                  {s.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+                <a href={s.href} class="service-button">
+                  Learn more
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
           </li>
         ))}
       </ol>
-    </div>
-  </section>
 
-  <!-- ========================== NOT A LAW FIRM — REFRAMED ========================== -->
-  <section class="section manifesto">
-    <div class="container-narrow">
-      <p class="eyebrow-numeral">II.</p>
-      <p class="kicker">A clear line</p>
-      <h2 class="manifesto-title display">
-        We are <span class="display-italic">not</span> your lawyer.
-        <br />We are on your side in a way lawyers can't be.
-      </h2>
-
-      <div class="manifesto-body dropcap">
-        <p>
-          The legal system was built on the assumption you'd hire someone to
-          translate it. Most people can't. So they arrive at the courthouse
-          alone, holding forms they don't understand, trying to remember rules
-          they were never taught.
-        </p>
-        <p>
-          We exist in the space between. We prepare the documents that have to
-          be exactly right. We facilitate the conversations that go better with
-          a neutral in the room. We won't argue your case — that's yours to
-          make. But we can make sure you arrive prepared to make it.
-        </p>
-      </div>
-
-      <blockquote class="pullquote">
-        <p class="display display-italic">
-          "You don't need a lawyer to be heard fairly. You need the right
-          preparation and a steady hand."
-        </p>
-      </blockquote>
+      <script>
+        // Mobile / touch: tap anywhere on the card toggles reveal.
+        // Tap on the inner "Learn more" link still navigates because we
+        // bail before toggling when the click target is the link.
+        const cards = document.querySelectorAll<HTMLElement>(".service-card");
+        cards.forEach((card) => {
+          card.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            if (target.closest(".service-link")) return;
+            card.classList.toggle("is-revealed");
+          });
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              const target = e.target as HTMLElement;
+              if (target.closest(".service-link")) return;
+              e.preventDefault();
+              card.classList.toggle("is-revealed");
+            }
+          });
+        });
+      </script>
     </div>
   </section>
 
@@ -183,7 +175,6 @@ const steps = [
     <div class="container">
       <header class="section-head">
         <div class="section-head-left">
-          <span class="eyebrow-numeral">III.</span>
           <div>
             <p class="kicker">How it works</p>
             <h2 class="display section-title">Three steps. No surprises.</h2>
@@ -420,6 +411,8 @@ const steps = [
     padding-block: var(--space-3xl);
     position: relative;
   }
+  .services { padding-bottom: var(--space-xl); }
+  .process { padding-top: var(--space-xl); }
   .section-head {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -454,123 +447,154 @@ const steps = [
   }
 
   /* ------------------------------------------------------------
-     SERVICES
+     SERVICES — photo cards with title-center → top reveal
      ------------------------------------------------------------ */
   .services-grid {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-left: 1px solid var(--color-divider);
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .service-card {
-    border-right: 1px solid var(--color-divider);
-  }
-  .service-card-inner {
-    display: block;
-    padding: 2rem 1.75rem 2.25rem;
-    height: 100%;
     position: relative;
-    transition: background 0.45s var(--ease-out);
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(to bottom, rgba(18, 33, 74, 0.55) 0%, rgba(18, 33, 74, 0.7) 100%),
+      var(--card-image);
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.6s var(--ease-out);
+    outline: none;
   }
-  .service-card-inner::before {
+  .service-card::before {
     content: "";
     position: absolute;
-    left: 0; top: 0;
-    width: 100%; height: 1px;
-    background: var(--color-gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.55s var(--ease-out);
+    inset: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.45s var(--ease-out);
+    pointer-events: none;
+    z-index: 2;
   }
-  .service-card-inner:hover {
-    background: color-mix(in srgb, var(--color-cream-warm) 50%, transparent);
+  .service-card-inner {
+    position: absolute;
+    inset: 0;
+    color: var(--color-cream);
+    z-index: 1;
   }
-  .service-card-inner:hover::before {
-    transform: scaleX(1);
-  }
-  .service-numeral {
-    display: block;
-    font-size: var(--step-3);
-    color: var(--color-gold);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1;
-    margin-bottom: 1.25rem;
-  }
+
   .service-title {
-    font-size: var(--step-2);
-    color: var(--color-navy);
-    letter-spacing: -0.01em;
-    margin-bottom: 0.5rem;
-  }
-  .service-price {
-    font-size: 1.15rem;
-    color: var(--color-gold-deep);
-    font-weight: 500;
-    font-variation-settings: "opsz" 24;
-    letter-spacing: 0.01em;
-    margin-bottom: 0.15rem;
-  }
-  .service-price-note {
-    font-size: 0.78rem;
-    color: var(--color-slate);
-    line-height: 1.45;
-    margin-bottom: 1.25rem;
-    font-style: italic;
-  }
-  .service-body {
-    color: var(--color-ink-soft);
-    line-height: 1.6;
-    margin-bottom: 1.75rem;
-  }
-  .service-link {
-    font-size: 0.875rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    font-size: clamp(1.85rem, 1rem + 2.4vw, 3rem);
+    color: var(--color-cream);
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    margin: 0;
+    text-align: center;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    transition: top 0.55s var(--ease-out), transform 0.55s var(--ease-out);
   }
 
-  /* ------------------------------------------------------------
-     MANIFESTO
-     ------------------------------------------------------------ */
-  .manifesto {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(27, 45, 90, 0.04), transparent 55%),
-      var(--color-cream-warm);
-    padding-block: var(--space-3xl);
+  .service-reveal {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s var(--ease-out) 0.1s, transform 0.55s var(--ease-out) 0.1s;
+    pointer-events: none;
   }
-  .manifesto .eyebrow-numeral {
-    display: block;
+
+  .service-bullets {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    list-style: none;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
   }
-  .manifesto .kicker {
-    margin-top: 0.5rem;
-  }
-  .manifesto-title {
-    margin-block: 1.25rem 2.5rem;
-    font-size: var(--step-5);
-    line-height: 1.02;
-    color: var(--color-navy);
-    letter-spacing: -0.02em;
-    max-width: 22ch;
-  }
-  .manifesto-body {
+  .service-bullets li {
     font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.65;
-    color: var(--color-ink-soft);
-    max-width: 58ch;
+    font-size: clamp(1.05rem, 0.85rem + 0.6vw, 1.3rem);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--color-cream) 88%, transparent);
+    padding-left: 0;
   }
-  .manifesto-body p + p { margin-top: 1.25rem; }
 
-  .pullquote {
-    margin-top: var(--space-xl);
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--color-gold);
-    max-width: 40ch;
+  .service-button {
+    position: absolute;
+    left: 50%;
+    bottom: 2.75rem;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.4rem;
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    border: 1px solid var(--color-gold);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    white-space: nowrap;
+    transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s var(--ease-out);
   }
-  .pullquote p {
-    font-size: var(--step-3);
-    line-height: 1.25;
-    color: var(--color-navy);
+  .service-button:hover {
+    background: var(--color-cream);
+    color: var(--color-navy-deep);
+    border-color: var(--color-cream);
+    box-shadow: 0 6px 20px -10px rgba(0, 0, 0, 0.5);
+  }
+  .service-button .arrow { transition: transform 0.3s var(--ease-out); }
+  .service-button:hover .arrow { transform: translateX(3px); }
+
+  /* REVEAL — desktop hover, keyboard focus, or .is-revealed for touch */
+  .service-card:hover,
+  .service-card:focus-within,
+  .service-card.is-revealed {
+    background-image:
+      linear-gradient(to bottom, rgba(18, 33, 74, 0.45) 0%, rgba(18, 33, 74, 0.94) 60%),
+      var(--card-image);
+  }
+  .service-card:hover::before,
+  .service-card:focus-within::before,
+  .service-card.is-revealed::before {
+    border-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  }
+  .service-card:hover .service-title,
+  .service-card:focus-within .service-title,
+  .service-card.is-revealed .service-title {
+    top: 1.5rem;
+    transform: translateY(0);
+  }
+  .service-card:hover .service-reveal,
+  .service-card:focus-within .service-reveal,
+  .service-card.is-revealed .service-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-title,
+    .service-reveal { transition: none; }
   }
 
   /* ------------------------------------------------------------
@@ -624,11 +648,12 @@ const steps = [
     position: relative;
     padding-block: var(--space-3xl);
     background:
-      radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.16), transparent 55%),
-      radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.1), transparent 45%),
-      var(--color-navy-deep);
-    color: var(--color-cream);
+      radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
+      var(--color-cream-warm);
+    color: var(--color-ink);
     overflow: hidden;
+    border-top: 1px solid var(--color-divider);
   }
   .cta::before {
     content: "";
@@ -636,19 +661,20 @@ const steps = [
     inset: 0 0 auto 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
-    opacity: 0.6;
+    opacity: 0.7;
   }
-  .cta-kicker { color: var(--color-gold); }
+  .cta-kicker { color: var(--color-gold-deep); }
   .cta-title {
     margin-block: 1rem 1.5rem;
     font-size: var(--step-5);
     line-height: 1.02;
     letter-spacing: -0.02em;
-    color: var(--color-cream);
+    color: var(--color-navy);
     max-width: 20ch;
   }
+  .cta-title .display-italic { color: var(--color-gold-deep); }
   .cta-lede {
-    color: color-mix(in srgb, var(--color-cream) 78%, var(--color-navy));
+    color: var(--color-ink-soft);
     max-width: 56ch;
   }
   .cta-actions {
@@ -659,21 +685,21 @@ const steps = [
     flex-wrap: wrap;
   }
   .cta-btn {
-    background: var(--color-gold);
-    color: var(--color-navy-deep);
-    border-color: var(--color-gold);
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
   }
   .cta-btn:hover {
-    background: var(--color-cream);
-    color: var(--color-navy-deep);
-    border-color: var(--color-cream);
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
   }
   .cta-link {
-    color: var(--color-cream);
+    color: var(--color-navy);
     background-image: linear-gradient(var(--color-gold), var(--color-gold));
   }
   .cta-link:hover {
-    color: var(--color-gold);
+    color: var(--color-gold-deep);
   }
 
   /* ------------------------------------------------------------
@@ -686,12 +712,10 @@ const steps = [
   @media (max-width: 960px) {
     .section-head { grid-template-columns: 1fr; align-items: start; }
     .section-head-left { grid-template-columns: 1fr; gap: 0.25rem; }
-    .services-grid { grid-template-columns: 1fr; border-left: 0; border-top: 1px solid var(--color-divider); }
-    .service-card { border-right: 0; border-bottom: 1px solid var(--color-divider); }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { aspect-ratio: 16 / 9; }
+    .service-reveal { top: 4.5rem; }
     .steps-grid { grid-template-columns: 1fr; }
   }
 
-  @media (max-width: 640px) {
-    .pullquote p { font-size: var(--step-2); }
-  }
 </style>

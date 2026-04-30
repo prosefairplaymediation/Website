@@ -1,0 +1,246 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const facts = [
+  { label: "Fee", value: "$800 flat" },
+  { label: "Revisions", value: "Up to two included" },
+  { label: "Format", value: "Filing-ready" },
+  { label: "Notarization", value: "Where applicable" },
+];
+
+const includes = [
+  "Custom Parenting Plan tailored to your family",
+  "Preparation of all required Florida Supreme Court family-law forms",
+  "Documents organized into a comprehensive court-ready packet",
+  "Formatting for filing readiness",
+  "Notarization of applicable documents",
+  "Up to two rounds of revisions",
+];
+
+const rightFit = [
+  "You want a complete, ready-to-file solution",
+  "You'd rather not navigate Florida Supreme Court forms on your own",
+  "You're moving toward a final hearing and need everything assembled",
+  "You want notarization handled as part of the package",
+];
+---
+
+<BaseLayout
+  title="Turn-Key Court Packet · Pro Se Fair Play Mediation"
+  description="Complete document preparation for self-represented parties in Florida. $800 flat fee covers Parenting Plan, all Florida Supreme Court family-law forms, formatting, and notarization."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/services" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Services
+        </a>
+      </p>
+      <h1 class="display svc-title reveal reveal-d2">
+        Turn-Key <span class="display-italic">Court Packet</span>.
+      </h1>
+      <p class="lede reveal reveal-d3">
+        A complete, organized set of completed documents — Parenting Plan,
+        required Florida Supreme Court family-law forms, formatting, and
+        notarization — assembled into a filing-ready packet so you can
+        proceed efficiently through the court process.
+      </p>
+      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
+        Book a Free Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================== AT-A-GLANCE ========================== -->
+  <section class="svc-facts">
+    <div class="container">
+      <dl class="facts-grid">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt class="fact-label smallcaps">{f.label}</dt>
+            <dd class="fact-value display">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="facts-note">
+        This is the <strong>full-service document option</strong>. If you
+        only need a Parenting Plan and are comfortable handling court forms
+        yourself, see the{" "}
+        <a class="link-underline" href="/services/parenting-plan">Parenting Plan Preparation</a>{" "}
+        service instead.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== OVERVIEW ========================== -->
+  <section class="svc-section">
+    <div class="container-narrow">
+      <p class="eyebrow-numeral">§</p>
+      <p class="kicker">Overview</p>
+      <h2 class="display svc-h2">Filing-ready, end to end.</h2>
+
+      <div class="svc-prose">
+        <p class="dropcap">
+          The Turn-Key Court Packet is for parties who want a single,
+          organized package of completed documents rather than piecing
+          forms together themselves. We complete the required Florida
+          Supreme Court family-law forms from the information you provide,
+          assemble them into a comprehensive packet, format everything for
+          filing readiness, and handle notarization where applicable.
+        </p>
+        <p>
+          The result is a packet you can take directly to filing — no
+          chasing down forms, no formatting confusion, no missing
+          signatures.
+        </p>
+        <p>
+          Up to two rounds of revisions are included, so adjustments after
+          the first draft are part of the service.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== WHAT'S INCLUDED ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <p class="kicker">What's included</p>
+      <h2 class="display svc-h2">In the packet.</h2>
+
+      <ul class="includes-list">
+        {includes.map((item) => (
+          <li>
+            <svg class="check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <path d="M3 8.5 L6.5 12 L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== RIGHT FIT ========================== -->
+  <section class="svc-section">
+    <div class="container-narrow">
+      <p class="kicker">When it's the right fit</p>
+      <h2 class="display svc-h2">Pick this if…</h2>
+
+      <ul class="matters-list-2col">
+        {rightFit.map((item) => (
+          <li><span class="matter-dot" aria-hidden="true"></span>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== IMPORTANT NOTE ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <p class="kicker">Important</p>
+      <h2 class="display svc-h2">We prepare. You file.</h2>
+
+      <div class="svc-prose">
+        <p>
+          We prepare all documents <strong>based on the information you
+          provide</strong>, but we do not file documents with the court on
+          your behalf. You submit the completed packet yourself.
+        </p>
+        <p>
+          We are not a law firm. The mediator does not provide legal advice
+          or legal strategy. You are strongly encouraged to have a licensed
+          attorney review the prepared documents before filing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <p class="kicker cta-kicker">Take the first step</p>
+      <h2 class="display cta-title">
+        Begin with a <span class="display-italic">free</span> 15-minute consultation.
+      </h2>
+      <p class="lede cta-lede">
+        We'll review your situation, confirm the Court Packet is the right
+        scope, and outline what we'll need from you to prepare it — at no
+        cost.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="link-underline cta-link" href="/services">
+          See other services
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Identical pattern to hourly-mediation.astro for visual consistency ---- */
+  .svc-header { position: relative; padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem); background: radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%), var(--color-cream); border-bottom: 1px solid var(--color-divider); overflow: hidden; }
+  .svc-header::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px); background-size: 7rem 100%; mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%); pointer-events: none; }
+  .svc-header-inner { position: relative; max-width: 64rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-gold-deep); font-weight: 600; transition: color 0.2s; }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-navy); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; }
+  .svc-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; }
+  .svc-header-cta { margin-top: 1.75rem; }
+
+  .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
+  .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
+  .fact { display: flex; flex-direction: column; gap: 0.35rem; }
+  .fact-label { font-size: 0.7rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-value { margin: 0; font-size: 1.15rem; color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
+  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .facts-note strong { color: var(--color-navy); font-weight: 600; font-style: normal; }
+  .facts-note a { font-style: normal; }
+
+  .svc-section { padding-block: var(--space-2xl); }
+  .svc-section-alt { background: var(--color-cream-warm); }
+  .svc-section .eyebrow-numeral { color: var(--color-gold); font-size: var(--step-3); display: block; margin-bottom: 0.25rem; }
+  .svc-h2 { margin-block: 0.75rem 1.5rem; font-size: var(--step-3); color: var(--color-navy); line-height: 1.05; letter-spacing: -0.015em; max-width: 22ch; }
+  .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
+  .svc-prose p + p { margin-top: 1.25rem; }
+  .svc-prose strong { color: var(--color-navy); font-weight: 500; }
+
+  .includes-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 60ch; }
+  .includes-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.85rem; align-items: baseline; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
+  .includes-list .check { color: var(--color-gold-deep); margin-top: 0.25rem; }
+
+  .matters-list-2col { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; row-gap: 0.65rem; max-width: 56rem; }
+  .matters-list-2col li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.98rem; color: var(--color-ink-soft); }
+  .matter-dot { width: 5px; height: 5px; background: var(--color-gold); border-radius: 50%; flex-shrink: 0; }
+
+  .cta { position: relative; padding-block: var(--space-3xl); background: radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%), var(--color-cream-warm); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
+  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
+  .cta-title .display-italic { color: var(--color-gold-deep); }
+  .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
+  .cta-actions { margin-top: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
+  .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+  .cta-link { color: var(--color-navy); background-image: linear-gradient(var(--color-gold), var(--color-gold)); }
+  .cta-link:hover { color: var(--color-gold-deep); }
+
+  @media (max-width: 720px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+    .matters-list-2col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .facts-grid { grid-template-columns: 1fr; }
+  }
+</style>
