@@ -154,13 +154,13 @@ const steps = [
         cards.forEach((card) => {
           card.addEventListener("click", (e) => {
             const target = e.target as HTMLElement;
-            if (target.closest(".service-link")) return;
+            if (target.closest(".service-button")) return;
             card.classList.toggle("is-revealed");
           });
           card.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
               const target = e.target as HTMLElement;
-              if (target.closest(".service-link")) return;
+              if (target.closest(".service-button")) return;
               e.preventDefault();
               card.classList.toggle("is-revealed");
             }
@@ -707,6 +707,19 @@ const steps = [
      ------------------------------------------------------------ */
   @media (max-width: 720px) {
     .hero-title { white-space: normal; }
+
+    /* Smaller button on narrow viewports so it doesn't crowd the bullets. */
+    .service-button {
+      padding: 0.55rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+    }
+    .service-bullets {
+      top: 44%;
+    }
+    .service-bullets li {
+      font-size: 0.95rem;
+    }
   }
 
   @media (max-width: 960px) {
@@ -714,7 +727,6 @@ const steps = [
     .section-head-left { grid-template-columns: 1fr; gap: 0.25rem; }
     .services-grid { grid-template-columns: 1fr; }
     .service-card { aspect-ratio: 16 / 9; }
-    .service-reveal { top: 4.5rem; }
     .steps-grid { grid-template-columns: 1fr; }
   }
 
