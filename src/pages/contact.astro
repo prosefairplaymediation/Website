@@ -1,0 +1,181 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const email = "info@prosefairplaymediation.com";
+---
+
+<BaseLayout
+  title="Contact · Pro Se Fair Play Mediation"
+  description="Reach out by email with questions about mediation or document preparation services."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="contact-header">
+    <div class="container contact-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Get in Touch
+      </p>
+      <h1 class="display contact-title reveal reveal-d2">
+        Have a <span class="display-italic">question?</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Feel free to email me with any questions about mediation,
+        document preparation, or whether what I offer fits your situation.
+        For booking a consultation, the scheduling page is the fastest way.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== EMAIL CARD ========================== -->
+  <section class="contact-body">
+    <div class="container-narrow contact-body-inner">
+      <div class="email-card">
+        <p class="email-label smallcaps">Email</p>
+        <a href={`mailto:${email}`} class="email-address display">{email}</a>
+        <p class="email-note">
+          I'll usually respond within one business day.
+        </p>
+      </div>
+
+      <div class="contact-secondary">
+        <p class="secondary-label">Ready to schedule instead?</p>
+        <a class="btn btn-primary contact-cta" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .contact-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .contact-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px);
+    background-size: 7rem 100%;
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    pointer-events: none;
+  }
+  .contact-header-inner { position: relative; max-width: 64rem; }
+  .contact-title {
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    margin-top: 1rem;
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .contact-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .contact-header .lede {
+    margin-top: 1.5rem;
+    max-width: 56ch;
+  }
+
+  /* ============================================================
+     EMAIL CARD
+     ============================================================ */
+  .contact-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .contact-body-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .email-card {
+    padding: clamp(2rem, 4vw, 3rem);
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-radius: 4px;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.18);
+  }
+  .email-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4rem; height: 2px;
+    background: var(--color-gold);
+  }
+  .email-label {
+    font-size: 0.72rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.85rem;
+    display: block;
+  }
+  .email-address {
+    display: block;
+    font-size: clamp(1.5rem, 0.95rem + 2vw, 2.5rem);
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    word-break: break-word;
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    padding-bottom: 4px;
+    transition: background-size 0.45s var(--ease-out), color 0.25s;
+  }
+  .email-address:hover {
+    background-size: 100% 2px;
+    color: var(--color-navy-deep);
+  }
+  .email-note {
+    margin-top: 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-slate);
+    font-style: italic;
+  }
+
+  /* ============================================================
+     SECONDARY CTA
+     ============================================================ */
+  .contact-secondary {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-divider);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .secondary-label {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 600px) {
+    .contact-secondary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
