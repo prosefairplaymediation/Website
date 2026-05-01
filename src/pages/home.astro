@@ -718,17 +718,57 @@ const steps = [
   @media (max-width: 720px) {
     .hero-title { white-space: normal; }
 
-    /* Smaller button on narrow viewports so it doesn't crowd the bullets. */
+    /* Smaller button on narrow viewports. */
     .service-button {
       padding: 0.55rem 1rem;
       font-size: 0.7rem;
       letter-spacing: 0.14em;
     }
-    .service-bullets {
-      top: 44%;
-    }
     .service-bullets li {
       font-size: 0.95rem;
+    }
+
+    /* When revealed on a phone, the 16:9 card is too short to hold title +
+       bullets + button using absolute positioning. Switch to flow layout
+       and let the card grow to fit content. */
+    .service-card.is-revealed,
+    .service-card:focus-within {
+      aspect-ratio: auto;
+    }
+    .service-card.is-revealed .service-card-inner,
+    .service-card:focus-within .service-card-inner {
+      position: relative;
+      inset: auto;
+      padding: 1.5rem;
+    }
+    .service-card.is-revealed .service-title,
+    .service-card:focus-within .service-title {
+      position: relative;
+      top: auto;
+      transform: none;
+      padding: 0;
+    }
+    .service-card.is-revealed .service-reveal,
+    .service-card:focus-within .service-reveal {
+      position: relative;
+      inset: auto;
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .service-card.is-revealed .service-bullets,
+    .service-card:focus-within .service-bullets {
+      position: static;
+      transform: none;
+      padding: 0;
+      top: auto;
+    }
+    .service-card.is-revealed .service-button,
+    .service-card:focus-within .service-button {
+      position: static;
+      transform: none;
     }
   }
 
