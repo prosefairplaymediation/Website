@@ -137,27 +137,6 @@ const rightFit = [
     </div>
   </section>
 
-  <!-- ========================== IMPORTANT NOTE ========================== -->
-  <section class="svc-section svc-section-alt">
-    <div class="container-narrow">
-      <p class="kicker">Important</p>
-      <h2 class="display svc-h2">We prepare. You file.</h2>
-
-      <div class="svc-prose">
-        <p>
-          We prepare all documents <strong>based on the information you
-          provide</strong>, but we do not file documents with the court on
-          your behalf. You submit the completed packet yourself.
-        </p>
-        <p>
-          We are not a law firm. The mediator does not provide legal advice
-          or legal strategy. You are strongly encouraged to have a licensed
-          attorney review the prepared documents before filing.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
@@ -186,17 +165,39 @@ const rightFit = [
 
 <style>
   /* ---- Identical pattern to hourly-mediation.astro for visual consistency ---- */
-  .svc-header { position: relative; padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem); background: radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%), var(--color-cream); border-bottom: 1px solid var(--color-divider); overflow: hidden; }
-  .svc-header::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(27, 45, 90, 0.03) 1px, transparent 1px); background-size: 7rem 100%; mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%); pointer-events: none; }
-  .svc-header-inner { position: relative; max-width: 64rem; }
-  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-gold-deep); font-weight: 600; transition: color 0.2s; }
-  .back-link:hover { color: var(--color-navy); }
+  .svc-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.9) 0%,
+        rgba(27, 42, 74, 0.78) 50%,
+        rgba(27, 42, 74, 0.9) 100%),
+      url('/alternative_dispute_resolution_papers.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .svc-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .svc-header .kicker { color: var(--color-gold); }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-gold); font-weight: 600; transition: color 0.2s; }
+  .back-link:hover { color: var(--color-cream); }
   .arrow-left { transition: transform 0.3s var(--ease-out); }
   .back-link:hover .arrow-left { transform: translateX(-3px); }
-  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
-  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-navy); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; }
-  .svc-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
-  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; }
+  .kicker-sep { color: color-mix(in srgb, var(--color-cream) 30%, transparent); margin-inline: 0.4rem; }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45); }
+  .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); }
   .svc-header-cta { margin-top: 1.75rem; }
 
   .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }

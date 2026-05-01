@@ -119,9 +119,9 @@ const steps = [
           </div>
         </div>
         <p class="section-intro lede">
-          Every case is different. Most reduce to one of three needs — a mediated
-          conversation, a document prepared correctly, or a session to figure out
-          what's next. We do those three well.
+          Every case is different. Whether you need a mediated conversation, a
+          document prepared correctly, or a session to figure out what's next,
+          we do those three well.
         </p>
       </header>
 
@@ -460,15 +460,25 @@ const steps = [
     position: relative;
     aspect-ratio: 21 / 9;
     overflow: hidden;
-    cursor: pointer;
     background-color: var(--color-navy-deep);
     background-image:
       linear-gradient(to bottom, rgba(18, 33, 74, 0.55) 0%, rgba(18, 33, 74, 0.7) 100%),
       var(--card-image);
     background-size: cover;
     background-position: center;
-    transition: background-image 0.6s var(--ease-out);
+    border-radius: 4px;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.08),
+      0 12px 32px -16px rgba(18, 33, 74, 0.35);
+    transition: background-image 0.6s var(--ease-out), box-shadow 0.4s var(--ease-out);
     outline: none;
+  }
+  .service-card:hover,
+  .service-card:focus-within,
+  .service-card.is-revealed {
+    box-shadow:
+      0 2px 4px rgba(18, 33, 74, 0.12),
+      0 20px 40px -18px rgba(18, 33, 74, 0.45);
   }
   .service-card::before {
     content: "";

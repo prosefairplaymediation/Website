@@ -1,7 +1,6 @@
 ---
 const links = [
   { href: "/about",    label: "About" },
-  { href: "/book",     label: "Book" },
   { href: "/blog",     label: "Blog" },
   { href: "/faq",      label: "FAQ" },
   { href: "/contact",  label: "Contact" },
@@ -13,7 +12,7 @@ const links = [
     <a href="/home" class="brand" aria-label="Pro Se Fair Play Mediation — home">
       <span class="brand-mark" aria-hidden="true">
         <!-- Simplified scales glyph in the brand color -->
-        <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 40 40" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 6 V34" />
           <path d="M8 34 H32" />
           <path d="M6 14 L14 14" />
@@ -61,44 +60,66 @@ const links = [
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
+    background: color-mix(in srgb, var(--color-navy-deep) 94%, transparent);
     backdrop-filter: saturate(140%) blur(10px);
     -webkit-backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--color-divider);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
   .nav-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-md);
-    padding-block: 1.05rem;
+    padding-block: 0.75rem;
   }
   .brand {
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
     color: var(--color-navy);
+    transition: color 0.25s var(--ease-out);
   }
   .brand-mark {
     color: var(--color-gold);
     display: grid; place-items: center;
+    transition: transform 0.5s var(--ease-out), color 0.25s var(--ease-out);
+    transform-origin: 50% 60%;
+  }
+  .brand:hover .brand-mark {
+    transform: rotate(8deg);
+    color: var(--color-gold-deep);
   }
   .brand-text { display: flex; flex-direction: column; line-height: 1; }
   .brand-name {
     font-family: var(--font-display);
-    font-variation-settings: "opsz" 24;
+    font-variation-settings: "opsz" 32;
     font-weight: 500;
-    font-size: 1.125rem;
+    font-size: 1.4rem;
     letter-spacing: 0.01em;
-    color: var(--color-navy);
+    color: var(--color-gold);
+    position: relative;
+    padding-bottom: 2px;
+    background-image: linear-gradient(var(--color-cream), var(--color-cream));
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    transition: background-size 0.4s var(--ease-out), color 0.25s var(--ease-out);
+  }
+  .brand:hover .brand-name {
+    background-size: 100% 2px;
+    color: var(--color-cream);
   }
   .brand-sub {
     font-family: var(--font-body);
     font-size: 0.7rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--color-slate);
+    color: color-mix(in srgb, var(--color-cream) 65%, transparent);
     margin-top: 0.25rem;
+    transition: color 0.25s var(--ease-out);
+  }
+  .brand:hover .brand-sub {
+    color: var(--color-gold);
   }
 
   .nav-desktop {
@@ -113,9 +134,9 @@ const links = [
     gap: 1.75rem;
   }
   .nav-desktop a:not(.nav-cta) {
-    font-size: 0.9375rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    color: var(--color-ink-soft);
+    color: color-mix(in srgb, var(--color-cream) 80%, transparent);
     position: relative;
     padding: 0.25rem 0;
     transition: color 0.2s;
@@ -124,17 +145,28 @@ const links = [
     content: "";
     position: absolute;
     left: 0; bottom: -2px;
-    height: 1px; width: 0;
+    height: 2px; width: 0;
     background: var(--color-gold);
     transition: width 0.4s var(--ease-out);
   }
   .nav-desktop a:not(.nav-cta):hover {
-    color: var(--color-navy);
+    color: var(--color-gold);
   }
   .nav-desktop a:not(.nav-cta):hover::after {
     width: 100%;
   }
-  .nav-cta { padding: 0.7rem 1.25rem; font-size: 0.875rem; }
+  .nav-cta {
+    padding: 0.65rem 1.3rem;
+    font-size: 1.1rem;
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    border-color: var(--color-gold);
+  }
+  .nav-cta:hover {
+    background: var(--color-cream);
+    color: var(--color-navy-deep);
+    border-color: var(--color-cream);
+  }
 
   .nav-toggle {
     display: none;
@@ -147,7 +179,7 @@ const links = [
   .nav-toggle span {
     display: block;
     width: 22px; height: 1.5px;
-    background: var(--color-ink);
+    background: var(--color-cream);
     transition: transform 0.35s var(--ease-out), opacity 0.25s;
   }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -158,8 +190,8 @@ const links = [
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s var(--ease-in-out);
-    background: var(--color-cream);
-    border-bottom: 1px solid var(--color-divider);
+    background: var(--color-navy-deep);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
   .nav-mobile[aria-hidden="false"] {
     max-height: 32rem;
@@ -176,16 +208,23 @@ const links = [
   .nav-mobile a:not(.mobile-cta) {
     display: block;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--color-divider);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-cream) 18%, transparent);
     font-family: var(--font-display);
     font-variation-settings: "opsz" 48;
     font-size: 1.5rem;
-    color: var(--color-ink);
+    color: var(--color-cream);
+    transition: color 0.2s;
+  }
+  .nav-mobile a:not(.mobile-cta):hover {
+    color: var(--color-gold);
   }
   .mobile-cta {
     margin-top: 0.75rem;
     justify-content: center;
     width: 100%;
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    border-color: var(--color-gold);
   }
 
   @media (max-width: 880px) {
