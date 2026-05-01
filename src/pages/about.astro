@@ -633,10 +633,28 @@ const credentials = [
   }
 
   @media (max-width: 600px) {
-    /* "VanGinHoven" is too long to fit at the default 4rem floor on phones —
-       shrink the name on narrow viewports so it fits the page width. */
+    /* Long single words ("VanGinHoven", and oversized headings) overflow
+       the viewport on phones at the default font-sizes. Tighten everything. */
     .profile-name {
       font-size: clamp(2.5rem, 1.6rem + 4vw, 4rem);
+      max-width: 100%;
+    }
+    .profile-h2 {
+      font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem);
+    }
+    .explainer-title {
+      font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem);
+    }
+    .profile-pullquote p {
+      font-size: clamp(1.5rem, 1.2rem + 2vw, 2rem);
+    }
+    .profile-pullquote {
+      padding-left: 1.25rem;
+      max-width: 100%;
+    }
+    /* Safety net: any display heading wraps gracefully if needed */
+    .display {
+      overflow-wrap: break-word;
     }
   }
 </style>
