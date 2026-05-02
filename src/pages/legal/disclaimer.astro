@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Disclaimer · Pro Se Fair Play Mediation"
+  description="Legal disclaimer for Pro Se Fair Play Mediation & Document Preparation Services, LLC."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Home
+        </a>
+        <span class="kicker-sep" aria-hidden="true">·</span>
+        Legal
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">Disclaimer</h1>
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="legal-body">
+    <div class="container-narrow legal-prose">
+      <p>
+        Pro Se Fair Play Mediation, LLC
+        is not a law firm and is not a substitute for the advice of an
+        attorney.
+      </p>
+
+      <p>
+        We are not attorneys and do not provide legal advice, legal
+        representation, or legal opinions. Our services are limited to
+        mediation and legal document preparation for individuals who are
+        representing themselves (pro se).
+      </p>
+
+      <p>
+        Nothing on this website, in our communications, or within any
+        materials provided should be construed as legal advice or as
+        creating an attorney-client relationship.
+      </p>
+
+      <p>
+        While we may provide general legal information and assist in the
+        preparation of court-approved forms, all decisions regarding your
+        case remain solely your responsibility. You are strongly encouraged
+        to consult with a licensed attorney for legal advice specific to
+        your situation.
+      </p>
+
+      <p>
+        Use of our services does not guarantee any particular outcome in
+        your case.
+      </p>
+
+      <p>
+        By using this website or our services, you acknowledge and agree that:
+      </p>
+
+      <ul>
+        <li>No attorney-client relationship is formed</li>
+        <li>We do not represent you in court</li>
+        <li>We do not file documents on your behalf</li>
+        <li>You are acting as a self-represented litigant</li>
+      </ul>
+
+      <p>
+        All mediation services are conducted in accordance with the
+        applicable rules, including Florida Supreme Court Rules for
+        Certified and Court-Appointed Mediators and Chapter 44 Florida
+        Statutes, where applicable.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .legal-header-inner { position: relative; max-width: 64rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .legal-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+
+  .legal-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .legal-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .legal-prose p + p { margin-top: 1.25rem; }
+  .legal-prose ul {
+    margin-block: 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .legal-prose li {
+    line-height: 1.55;
+  }
+
+  @media (max-width: 600px) {
+    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+  }
+</style>

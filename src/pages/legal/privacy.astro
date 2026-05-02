@@ -1,0 +1,196 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacy · Pro Se Fair Play Mediation"
+  description="How Pro Se Fair Play Mediation handles privacy and security — confidentiality of mediation sessions and infrastructure-level protections for the website."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Home
+        </a>
+        <span class="kicker-sep" aria-hidden="true">·</span>
+        Legal
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">
+        Privacy &amp; <span class="display-italic">Confidentiality</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        How your mediation, your communications, and your data are kept
+        private — both in session and in transit.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="legal-body">
+    <div class="container-narrow legal-prose">
+      <h2 class="display section-h2">Confidentiality of Mediation</h2>
+      <p>
+        Mediation is private. Discussions, negotiations, and potential
+        resolutions remain confidential, unlike court proceedings which
+        are part of the public record.
+      </p>
+      <p>
+        Confidentiality in Florida mediation is defined by Chapter
+        44 of the Florida Statutes and the Florida Supreme Court Rules
+        for Certified and Court-Appointed Mediators. Anything shared with
+        the mediator in session, except in narrow circumstances required
+        by law, stays in the room. See Florida Statutes 44.406 and 44.407.
+      </p>
+
+      <h2 class="display section-h2">Website Security</h2>
+      <p>
+        This website is hosted on Cloudflare's global network, which
+        provides several layers of security.
+      </p>
+      <ul>
+        <li>
+          <strong>HTTPS encryption everywhere</strong> — all traffic
+          between your browser and this site is encrypted with TLS, with
+          certificates auto-renewed.
+        </li>
+        <li>
+          <strong>No personal data stored on the website itself</strong>
+          — there is no database, and nothing to be stolen.
+        </li>
+      </ul>
+      <p>
+        That said, no internet transmission can be guaranteed 100% secure.
+        Information you share with us through any online channel is shared
+        at your own risk, with reasonable industry-standard protections
+        in place.
+      </p>
+
+      <h2 class="display section-h2">Information We Collect</h2>
+      <p>
+        We collect only the information you provide voluntarily:
+      </p>
+      <ul>
+        <li>Information submitted when booking a consultation (name, email, phone, brief description of your situation, conflict-check details)</li>
+        <li>Email correspondence you initiate with us</li>
+        <li>Standard server logs (IP address, browser type) for security and routine operation</li>
+      </ul>
+      <p>
+        We do not sell your information. We do not share it with third
+        parties except as necessary to provide our services such as scheduling and payment processing.
+      </p>
+
+      <h2 class="display section-h2">Questions</h2>
+      <p>
+        For questions about privacy or how your information is handled,
+        email <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .legal-header-inner { position: relative; max-width: 64rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .legal-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .legal-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .legal-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+  }
+
+  .legal-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .legal-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .legal-prose p + p { margin-top: 1.25rem; }
+  .legal-prose strong { color: var(--color-navy); font-weight: 600; }
+  .legal-prose ul {
+    margin-block: 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .legal-prose li {
+    line-height: 1.55;
+  }
+  .legal-prose a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 92%;
+  }
+  .legal-prose a:hover { color: var(--color-gold-deep); }
+
+  .section-h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    font-size: var(--step-3);
+    color: var(--color-navy);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .section-h2::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 2.5rem; height: 1px;
+    background: var(--color-gold);
+  }
+  .section-h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .section-h2:first-of-type::before {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .section-h2 { font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem); }
+  }
+</style>
