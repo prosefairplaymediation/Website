@@ -1,0 +1,322 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const faqs = [
+  {
+    q: "Why should I choose mediation instead of letting a judge decide?",
+    a: `Mediation allows you to maintain control over decisions that directly affect your life and your family. In court, outcomes are determined by a judge with limited time and limited insight into your day-to-day reality. Mediation provides a structured environment where you can actively participate in shaping the outcome — heard, understood, and involved in meaningful decision-making. This often leads to more practical, sustainable, and thoughtful resolutions.`,
+  },
+  {
+    q: "How do I know this process will be fair?",
+    a: `Fairness in mediation comes from structure — not chance. I manage the process to ensure balanced participation from both parties, controlled and respectful communication, and clear boundaries that prevent one-sided discussions. My role is not to take sides, but to maintain a neutral, structured environment where both parties can engage productively.`,
+  },
+  {
+    q: "Will I actually be heard, or will this feel like another stressful conversation?",
+    a: `You will be heard. Many clients come into mediation feeling overlooked, interrupted, or unable to fully express themselves. My role is to ensure that does not happen. I create a setting where each party has the opportunity to speak clearly, conversations are guided rather than chaotic, and communication remains focused and productive. The process is designed so you feel seen, respected, and engaged — not overwhelmed.`,
+  },
+  {
+    q: "What if the other party is difficult, controlling, or unwilling to cooperate?",
+    a: `This is one of the most common concerns — and one of the primary reasons mediation is needed. I guide the process in a way that maintains structure regardless of behavior, prevents conversations from escalating, and keeps discussions moving forward. While I cannot control the other party, I control the framework of the process, which is often what creates progress even in high-conflict situations.`,
+  },
+  {
+    q: "Is mediation a safe and confidential environment?",
+    a: `Yes. Mediation is conducted in a private, controlled, and confidential setting. This allows both parties to speak openly without unnecessary exposure, explore solutions without pressure, and focus on resolution rather than conflict. Confidentiality supports a more productive process and helps create a space where meaningful progress can occur.`,
+  },
+  {
+    q: "How are you selected as a mediator, and can attorneys be involved?",
+    a: `I am engaged as a mediator in two primary ways. Parties may privately and mutually choose me as their mediator — whether they are represented by counsel, unrepresented, or a combination of both. In other cases, the court requires mediation, and I may be appointed or selected to serve within that structure. In both situations I regularly work with parties represented by counsel as well as situations where only one party has an attorney. I remain a neutral facilitator throughout, maintaining a structured and balanced process.`,
+  },
+  {
+    q: "Do I need an attorney to work with you?",
+    a: `No. I work with individuals navigating matters independently, as well as clients who are represented by counsel. If attorneys are involved, I coordinate within that framework. If not, I ensure the process remains structured, clear, and accessible.`,
+  },
+  {
+    q: "Will you tell me what I should do or give legal advice?",
+    a: `My role is to guide the process — not to make decisions for you. I facilitate discussions, maintain structure, and help organize outcomes. All decisions remain yours. If legal advice is needed, you may consult with an attorney at any time.`,
+  },
+  {
+    q: "What if we don't reach an agreement?",
+    a: `Not all matters resolve immediately, and that is part of the process. Even without a full agreement, mediation often narrows the issues, improves communication, and creates a clearer path forward. This alone can significantly reduce time, stress, and cost moving forward.`,
+  },
+  {
+    q: "How does mediation help families specifically?",
+    a: `Mediation creates a structured environment where families can make thoughtful decisions without relying solely on the court. It allows you to create solutions that reflect your real-life needs, maintain greater control over outcomes, and reduce unnecessary conflict and disruption. Most importantly, it provides a setting where you can feel safe in the process, heard in your concerns, and seen in your role and perspective.`,
+  },
+  {
+    q: "What is the biggest benefit of working with you as a mediator?",
+    a: `The ability to move forward with clarity, control, and confidence. My approach is designed to reduce chaos and confusion, provide structure where it's needed most, and create outcomes that are organized and practical. This is not just about resolving a dispute — it's about creating a path forward that works.`,
+  },
+];
+---
+
+<BaseLayout
+  title="Frequently Asked Questions · Pro Se Fair Play Mediation"
+  description="Answers to the most common questions about mediation, fairness, confidentiality, and what to expect from working with Pro Se Fair Play Mediation."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="faq-header">
+    <div class="container faq-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Frequently Asked
+      </p>
+      <h1 class="display faq-title reveal reveal-d2">
+        Questions, <span class="display-italic">answered.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Most clients come to mediation with questions, uncertainty, and a
+        desire for resolution without unnecessary conflict. Below are
+        answers to the most important ones — so you can move forward with
+        clarity, confidence, and control.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== FAQ LIST ========================== -->
+  <section class="faq-body">
+    <div class="container-narrow">
+      <ol class="faq-list">
+        {faqs.map((item, idx) => (
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-summary">
+                <span class="faq-num display">{String(idx + 1).padStart(2, "0")}</span>
+                <span class="faq-question display">{item.q}</span>
+                <span class="faq-toggle" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                    <path d="M3 8 H13 M8 3 V13" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-answer">
+                <p>{item.a}</p>
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING CTA ========================== -->
+  <section class="faq-close">
+    <div class="container-narrow faq-close-inner">
+      <p class="kicker faq-close-kicker">Still have questions?</p>
+      <h2 class="display faq-close-title">
+        Every situation is <span class="display-italic">unique.</span>
+      </h2>
+      <p class="lede faq-close-lede">
+        The best way to understand your options is to start with a
+        conversation. You deserve a process where you feel safe, heard,
+        and in control — without unnecessary conflict, pressure, or
+        confusion.
+      </p>
+      <a class="btn btn-primary faq-close-cta" href="/book">
+        Book a Free Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .faq-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.78) 0%,
+        rgba(27, 42, 74, 0.62) 50%,
+        rgba(27, 42, 74, 0.78) 100%),
+      url('/mediation_blocks.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .faq-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .faq-header-inner {
+    position: relative;
+    max-width: 64rem;
+    z-index: 1;
+    padding-top: clamp(1.5rem, 3vw, 3rem);
+  }
+  .faq-header .kicker { color: var(--color-gold); }
+  .faq-header .kicker-dot { background: var(--color-gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent); }
+  .faq-title {
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-cream);
+    margin-top: 1rem;
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+  }
+  .faq-title .display-italic {
+    color: var(--color-gold);
+    font-weight: 400;
+  }
+  .faq-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+    color: color-mix(in srgb, var(--color-cream) 85%, transparent);
+  }
+
+  /* ============================================================
+     FAQ LIST
+     ============================================================ */
+  .faq-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .faq-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item {
+    border-top: 1px solid var(--color-divider);
+  }
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .faq-details summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .faq-details summary::-webkit-details-marker { display: none; }
+
+  .faq-summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 1.5rem 0.5rem 1.5rem 0;
+    transition: color 0.25s, background 0.3s var(--ease-out);
+  }
+  .faq-details:hover .faq-summary {
+    background: color-mix(in srgb, var(--color-cream-warm) 30%, transparent);
+  }
+  .faq-num {
+    font-size: 1rem;
+    color: var(--color-gold-deep);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    font-variation-settings: "opsz" 24;
+    align-self: center;
+  }
+  .faq-question {
+    font-size: clamp(1.15rem, 0.95rem + 0.7vw, 1.45rem);
+    color: var(--color-navy);
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+  .faq-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--color-gold-deep);
+    border: 1px solid var(--color-divider);
+    border-radius: 50%;
+    background: var(--color-paper);
+    transition: transform 0.4s var(--ease-out), background 0.25s, border-color 0.25s, color 0.25s;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .faq-details[open] .faq-toggle {
+    transform: rotate(45deg);
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+    color: var(--color-cream);
+  }
+
+  .faq-answer {
+    padding: 0 0.5rem 1.75rem clamp(2.5rem, 6vw, 4rem);
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+
+  /* ============================================================
+     CLOSING CTA
+     ============================================================ */
+  .faq-close {
+    position: relative;
+    padding-block: var(--space-3xl);
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
+      var(--color-cream-warm);
+    color: var(--color-ink);
+    overflow: hidden;
+    border-top: 1px solid var(--color-divider);
+  }
+  .faq-close::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .faq-close-kicker { color: var(--color-gold-deep); }
+  .faq-close-title {
+    margin-block: 1rem 1.5rem;
+    font-size: var(--step-4);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+    max-width: 22ch;
+  }
+  .faq-close-title .display-italic { color: var(--color-gold-deep); }
+  .faq-close-lede {
+    color: var(--color-ink-soft);
+    max-width: 56ch;
+  }
+  .faq-close-cta {
+    margin-top: 2rem;
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .faq-close-cta:hover {
+    background: var(--color-navy-deep);
+    border-color: var(--color-gold);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 600px) {
+    .faq-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .faq-summary {
+      gap: 0.85rem;
+      padding: 1.25rem 0;
+    }
+    .faq-num { font-size: 0.85rem; }
+    .faq-toggle { width: 1.85rem; height: 1.85rem; }
+    .faq-answer {
+      padding-left: clamp(1.5rem, 5vw, 2.75rem);
+      font-size: 1rem;
+    }
+  }
+</style>
