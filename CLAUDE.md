@@ -1,6 +1,6 @@
 # CLAUDE.md — Pro Se Fair Play Mediation site
 
-**Last updated:** 2026-04-30
+**Last updated:** 2026-05-03
 
 ## Overview
 
@@ -39,11 +39,11 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 **Navigation:** inverted — navy-deep sticky bar with gold/cream text and gold CTA button. Mobile menu inherits dark palette.
 
-**Photo-hero pattern:** service detail pages + `/book` feature full-width photo + navy diagonal gradient overlay (rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78), cream/gold text, soft fade-to-cream bottom. Intentional visual rhythm; image varies per page.
+**Photo-hero pattern:** `/book`, `/faq`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: justice_globe, mediation_blocks, mediator_puzzle, mediation_drawing, alternative_dispute_resolution_papers).
 
 ## Conventions & Content Rules
 
-- **Legal disclaimer language** must be verbatim from client's attorney-reviewed copy. Appears on `/legal/disclaimer` (when built) and in footer — **never paraphrase.**
+- **Legal disclaimer language** must be verbatim from client's attorney-reviewed copy. Lives on `/legal/disclaimer` (canonical) and a short version in the footer (every page) — **never paraphrase.** Other per-page disclaimers were intentionally trimmed; do not add new ones without asking.
 - **No client name in commit messages** — refer generically ("per client selection", "per client feedback").
 - **Leave unbuilt nav links as raw 404s** — dead links are the TODO list. Don't stub "coming soon" placeholders.
 - **Content expansion:** client-supplied text is often AI-generated and too long. Trim to essentials; don't expand.
@@ -112,28 +112,29 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Pages (Built)
 
-| Route | Purpose | Status |
-|-------|---------|--------|
-| `/` | Coming-soon gate (logo + "Launching soon", `noindex`) | Live |
-| `/home` | Real homepage — stacked hero, animated slogan, service cards (reveal on hover/tap), three-step process | Live |
-| `/services` | Overview of three service blocks with anchor nav | Live |
-| `/services/hourly-mediation` | Photo hero + facts grid + CTAs | Live |
-| `/services/parenting-plan` | Photo hero + layout pattern | Live |
-| `/services/court-packet` | Photo hero + layout pattern (darker overlay for bright paper) | Live |
-| `/about` | Magazine profile with bio, "What is Mediation?" explainer, ethics strip | Live |
-| `/book` | Photo hero + Calendly inline embed (free 15-min consult) + disclaimer | Live |
-| `/contact` | Email card + secondary CTA | Live |
-| `/blog`, `/blog/[...slug]` | Content collection (`src/content/blog/*.md`) — one article live | Live |
-| `/fonts` | Font preview (Lora selected); not linked from nav | Live |
+| Route | Purpose |
+|-------|---------|
+| `/` | Coming-soon gate (logo + "Launching soon", `noindex`) |
+| `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), three-step process, cream CTA before footer |
+| `/services/hourly-mediation` | Photo hero + facts grid + overview + what's included + right-fit + CTA |
+| `/services/parenting-plan` | Same layout pattern, cross-references court packet |
+| `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper) |
+| `/about` | Magazine profile with bio, professional photo, "What is Mediation?" explainer |
+| `/book` | Photo hero + Calendly inline embed (free 15-min consult) |
+| `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
+| `/contact` | Email card + secondary booking CTA |
+| `/blog` + `/blog/[...slug]` | Content collection (`src/content/blog/*.md`) — one article live |
+| `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
+| `/legal/terms` | Engagement Agreement download in PDF and Word formats |
+| `/legal/privacy` | Confidentiality of mediation, website security, data collection |
 
 ## Pages (Pending / Not Building)
 
 | Route | Status | Notes |
 |-------|--------|-------|
-| `/faq` | Pending | Referenced in nav + CTAs; not yet built |
-| `/legal/disclaimer`, `/legal/terms`, `/legal/privacy` | Pending | Footer links exist; disclaimer text locked in client copy; terms/privacy still draft |
 | `/pay` | Deferred | Stripe Payment Links. Client flow: consult-first → manual quote/payment after agreement |
 | `/intake` | Explicitly NO | Calendly's per-event custom questions (phone, situation, conflict-check, disclaimer) cover the need |
+
 
 ## Integrations
 
