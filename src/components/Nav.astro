@@ -25,8 +25,11 @@ const links = [
       <span class="brand-text">
         <span class="brand-name">Pro Se Fair Play</span>
         <span class="brand-sub">Mediation · LLC</span>
+        <span class="brand-slogan" aria-hidden="true">Where we level the playing field.</span>
       </span>
     </a>
+
+    <p class="nav-slogan" aria-hidden="true">Where we level the playing field.</p>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
@@ -120,6 +123,32 @@ const links = [
   }
   .brand:hover .brand-sub {
     color: var(--color-gold);
+  }
+
+  /* Mobile-only slogan under the brand name (replaces .brand-sub which is
+     hidden below 880px). Stays italic gold to echo the desktop nav-slogan. */
+  .brand-slogan {
+    display: none;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--color-gold);
+    margin-top: 0.3rem;
+  }
+
+  .nav-slogan {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    color: var(--color-gold);
+    white-space: nowrap;
+    pointer-events: none;
+    margin: 0 1rem;
   }
 
   .nav-desktop {
@@ -227,10 +256,18 @@ const links = [
     border-color: var(--color-gold);
   }
 
+  /* Hide nav slogan before things get cramped — below ~1255px the slogan
+     squeezes the brand text and forces "Pro Se Fair Play" / "Mediation · LLC"
+     to wrap awkwardly. */
+  @media (max-width: 1255px) {
+    .nav-slogan { display: none; }
+  }
+
   @media (max-width: 880px) {
     .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
     .brand-sub { display: none; }
+    .brand-slogan { display: block; }
   }
 </style>
 

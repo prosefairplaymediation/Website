@@ -177,6 +177,56 @@ a { color: inherit; text-decoration: none; }
   padding-inline: clamp(1.25rem, 4vw, 3rem);
 }
 
+/* Floating tag-along slogan — DISABLED. Kept for future re-enable.
+   Markup + script in BaseLayout.astro is also commented out.
+
+.floating-slogan {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+  padding: 0.95rem 0 0.95rem 2rem;
+  background: linear-gradient(
+    to right,
+    rgba(18, 33, 74, 0.88) 0%,
+    rgba(18, 33, 74, 0.85) 17%,
+    rgba(18, 33, 74, 0.6) 25%,
+    rgba(18, 33, 74, 0) 33%
+  );
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.floating-slogan-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 0.85rem + 0.85vw, 1.5rem);
+  letter-spacing: 0.005em;
+  color: var(--color-cream);
+  white-space: nowrap;
+  display: inline-block;
+}
+.floating-slogan.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.floating-slogan.is-docked {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition-duration: 0.35s;
+}
+@media (max-width: 1024px) {
+  .floating-slogan { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-slogan { transition: opacity 0.2s linear; transform: none; }
+  .floating-slogan.is-visible { transform: none; }
+  .floating-slogan.is-docked { transform: none; }
+}
+*/
+
 /* Buttons */
 .btn {
   display: inline-flex;

@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const facts = [
   { label: "Rate", value: "$600 / hour" },
   { label: "Minimum", value: "Two hours" },
-  { label: "Format", value: "Google Meet · Confidential" },
+  { label: "Format", value: "Zoom · Confidential" },
   { label: "Sessions", value: "Half-day, full-day, same-day" },
 ];
 
@@ -16,19 +16,11 @@ const includes = [
   "A structured close that leaves both parties with clarity on next steps",
 ];
 
-const rightFit = [
-  "Parenting plans and time-sharing disputes",
-  "Decision-making authority and parental responsibilities",
-  "Child support discussions",
-  "Post-judgment modifications",
-  "Uncontested matters needing a neutral facilitator",
-  "High-conflict matters requiring multi-session structure",
-];
 ---
 
 <BaseLayout
   title="Hourly Mediation · Pro Se Fair Play Mediation"
-  description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate, two-hour minimum. Conducted via Google Meet in a structured, confidential environment."
+  description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate, two-hour minimum. Conducted via Zoom in a structured, confidential environment."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
@@ -39,7 +31,7 @@ const rightFit = [
       <p class="lede reveal reveal-d3">
         A neutral, guided conversation where both parties work toward a
         mutually acceptable resolution — without a judge imposing a
-        decision. Conducted via Google Meet, structured, confidential.
+        decision. Conducted via Zoom, structured, confidential.
       </p>
       <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
         Book a Free Consultation
@@ -70,7 +62,6 @@ const rightFit = [
   <!-- ========================== OVERVIEW ========================== -->
   <section class="svc-section">
     <div class="container-narrow">
-      <p class="eyebrow-numeral">§</p>
       <p class="kicker">Overview</p>
       <h2 class="display svc-h2">What mediation actually looks like.</h2>
 
@@ -109,20 +100,6 @@ const rightFit = [
             </svg>
             <span>{item}</span>
           </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- ========================== RIGHT FIT ========================== -->
-  <section class="svc-section">
-    <div class="container-narrow">
-      <p class="kicker">When it's the right fit</p>
-      <h2 class="display svc-h2">Common matters we mediate.</h2>
-
-      <ul class="matters-list-2col">
-        {rightFit.map((item) => (
-          <li><span class="matter-dot" aria-hidden="true"></span>{item}</li>
         ))}
       </ul>
     </div>
@@ -263,12 +240,6 @@ const rightFit = [
   .svc-section-alt {
     background: var(--color-cream-warm);
   }
-  .svc-section .eyebrow-numeral {
-    color: var(--color-gold);
-    font-size: var(--step-3);
-    display: block;
-    margin-bottom: 0.25rem;
-  }
   .svc-h2 {
     margin-block: 0.75rem 1.5rem;
     font-size: var(--step-3);
@@ -311,41 +282,13 @@ const rightFit = [
     margin-top: 0.25rem;
   }
 
-  /* Matters two-column list */
-  .matters-list-2col {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
-    row-gap: 0.65rem;
-    max-width: 56rem;
-  }
-  .matters-list-2col li {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.98rem;
-    color: var(--color-ink-soft);
-  }
-  .matter-dot {
-    width: 5px; height: 5px;
-    background: var(--color-gold);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
   /* ============================================================
      CTA
      ============================================================ */
   .cta {
     position: relative;
     padding-block: var(--space-3xl);
-    background:
-      radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
-      radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
-      var(--color-cream-warm);
+    background: var(--color-cream);
     color: var(--color-ink);
     overflow: hidden;
     border-top: 1px solid var(--color-divider);
@@ -400,7 +343,6 @@ const rightFit = [
      ============================================================ */
   @media (max-width: 720px) {
     .facts-grid { grid-template-columns: 1fr 1fr; }
-    .matters-list-2col { grid-template-columns: 1fr; }
   }
   @media (max-width: 480px) {
     .facts-grid { grid-template-columns: 1fr; }

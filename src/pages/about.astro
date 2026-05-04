@@ -2,30 +2,29 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const credentials = [
-  { label: "Training", value: "Florida Supreme Court–trained Mediator" },
+  { label: "Training", value: "Certified Florida Supreme Court Family Law Mediator" },
   { label: "Jurisdiction", value: "State of Florida" },
   { label: "Practice", value: "Family Law · Pro Se Parties" },
-  { label: "Format", value: "Google Meet, Confidential" },
+  { label: "Format", value: "Zoom, Confidential" },
 ];
 ---
 
 <BaseLayout
   title="About Marie · Pro Se Fair Play Mediation"
-  description="Marie VanGinHoven is a Florida Supreme Court–trained mediator who helps self-represented individuals navigate family law with clarity, structure, and confidence."
+  description="Marie VanGinHoven is a Certified Florida Supreme Court Family Law Mediator who helps self-represented individuals navigate family law with clarity, structure, and care."
 >
   <!-- ========================== PROFILE HEADER ========================== -->
   <header class="profile-header">
     <div class="container profile-header-inner">
       <p class="kicker reveal reveal-d1">
         <span class="kicker-dot" aria-hidden="true"></span>
-        About · The Mediator
+        About Me
       </p>
       <h1 class="display profile-name reveal reveal-d2">
         Marie <span class="display-italic">VanGinHoven</span>
       </h1>
-      <p class="profile-title reveal reveal-d3">
-        <span class="profile-title-rule" aria-hidden="true"></span>
-        Florida Supreme Court–trained Mediator
+      <p class="profile-tagline display display-italic reveal reveal-d3">
+        A process you can trust. A space where you feel safe.
       </p>
     </div>
   </header>
@@ -52,56 +51,7 @@ const credentials = [
           <span class="smallcaps">Marie VanGinHoven</span>
           <span class="profile-caption-sub">Founder &amp; Mediator</span>
         </figcaption>
-      </figure>
 
-      <article class="profile-article reveal reveal-d3">
-        <p class="profile-eyebrow smallcaps">A note from Marie</p>
-
-        <p class="profile-p profile-p--opener dropcap">
-          I'm Marie, a Florida Supreme Court–trained mediator dedicated to
-          helping individuals navigate difficult legal situations with
-          clarity, structure, and confidence.
-        </p>
-
-        <p class="profile-p">
-          Having personally experienced the challenges of navigating the court
-          system without representation, I understand how overwhelming and
-          isolating the process can feel. That experience is what drives my
-          passion for helping others find practical, fair, and efficient
-          resolutions — without unnecessary conflict or confusion.
-        </p>
-
-        <p class="profile-p">
-          My approach is calm, neutral, and solutions-focused. I provide a
-          professional space where both parties can be heard, explore
-          options, and work toward mutually acceptable outcomes.
-        </p>
-
-        <blockquote class="profile-pullquote">
-          <p class="display display-italic">
-            You don't have to go through this alone.
-          </p>
-          <cite class="profile-pullquote-cite">— Marie</cite>
-        </blockquote>
-
-        <h2 class="profile-h2 display">What that looks like, in practice.</h2>
-
-        <p class="profile-p">
-          Most of the people I work with arrive stressed, uncertain, and
-          holding more questions than answers. My role is not to argue your
-          case but to make the process legible:
-          what needs to happen, what can be negotiated, what the paperwork
-          actually means, and how to walk into a final hearing prepared.
-        </p>
-        <p class="profile-p">
-          I am not an attorney. I do not give legal advice or represent either
-          party. What I do is quieter and, for many self-represented parties,
-          more useful: I prepare documents to be filing-ready, I keep difficult
-          conversations on track, and I help both sides leave the table with
-          a workable agreement where one is possible.
-        </p>
-
-        <!-- Credentials strip -->
         <dl class="profile-credentials">
           {credentials.map((c) => (
             <div class="cred">
@@ -110,6 +60,69 @@ const credentials = [
             </div>
           ))}
         </dl>
+      </figure>
+
+      <article class="profile-article reveal reveal-d3">
+        <p class="profile-eyebrow smallcaps">A note from Marie</p>
+
+        <p class="profile-p">
+          I created this practice with one goal in mind: to give people a
+          better way to move through difficult situations without feeling
+          overwhelmed, unheard, or out of control. Because that's what
+          most people experience when dealing with legal matters:
+          confusion, pressure, stress, and decisions being made for them
+          instead of by them. That's not how this process should feel.
+        </p>
+
+        <h2 class="profile-h2 display">My Background</h2>
+        <p class="profile-p">
+          I bring a strong foundation in legal operations, litigation
+          support, and case management as a Florida Supreme Court Family Law
+          Mediator. This means your process is not only structured and
+          organized, but also aligned with the standards and expectations
+          of the court system.
+        </p>
+        <p class="profile-p">
+          You're not just getting guidance — you're getting a process
+          that is thoughtful, organized, and professionally grounded.
+        </p>
+
+        <h2 class="profile-h2 display">My Approach</h2>
+        <p class="profile-p">
+          When you work with me, my role is simple: I guide the process,
+          you stay in control. I create a structured, calm environment
+          where you can speak openly, feel heard and respected, and
+          understand what's happening at every step. Nothing is rushed.
+          Nothing is forced. Every decision remains yours.
+        </p>
+
+        <h2 class="profile-h2 display">What You Can Expect</h2>
+        <p class="profile-p">
+          Clients come to me because they want something different — a
+          process that feels safe, not stressful; clear, not confusing;
+          balanced, not one-sided. Whether your situation is
+          straightforward or high-conflict, I keep things grounded,
+          focused, and moving forward.
+        </p>
+
+        <h2 class="profile-h2 display">Why This Matters</h2>
+        <p class="profile-p">
+          The decisions being made aren't just legal — they're personal.
+          They affect your family, your time, and your future. You
+          deserve to be part of that process in a real and meaningful
+          way, with the confidence that it's being handled correctly.
+        </p>
+
+        <blockquote class="profile-pullquote">
+          <p class="display display-italic">
+            This is your process. Your family. Your decisions.
+          </p>
+          <cite class="profile-pullquote-cite">— Marie</cite>
+        </blockquote>
+
+        <p class="profile-p">
+          I'm here to guide you through it with clarity, structure, and care.
+        </p>
 
         <div class="profile-ctas">
           <a class="btn btn-primary" href="/book">
@@ -118,55 +131,6 @@ const credentials = [
           </a>
         </div>
       </article>
-    </div>
-  </section>
-
-  <!-- ========================== WHAT IS MEDIATION ========================== -->
-  <section class="mediation-explainer">
-    <div class="container explainer-grid">
-      <div class="explainer-head">
-        <p class="eyebrow-numeral">§</p>
-        <p class="kicker explainer-kicker">The Solution</p>
-        <h2 class="display explainer-title">
-          What is <span class="display-italic">mediation?</span>
-        </h2>
-      </div>
-
-      <div class="explainer-body">
-        <p class="explainer-lede lede">
-          Mediation is a confidential, structured process where a neutral
-          third party helps individuals resolve disputes outside of court.
-          Rather than a judge making decisions for you, mediation lets
-          both parties communicate, negotiate, and reach agreements together.
-        </p>
-
-        <div class="proSe-block">
-          <p class="kicker proSe-kicker">
-            <span class="kicker-dot" aria-hidden="true"></span>
-            Mediation for Pro Se Parties
-          </p>
-          <p class="proSe-intro">
-            For individuals representing themselves, mediation offers a
-            powerful alternative to navigating complex legal procedures alone.
-            It provides:
-          </p>
-
-          <ul class="proSe-list">
-            <li>
-              <span class="proSe-num display">01</span>
-              <p>A <strong>guided process</strong> — without the pressure of courtroom litigation.</p>
-            </li>
-            <li>
-              <span class="proSe-num display">02</span>
-              <p>A <strong>neutral environment</strong> to discuss issues openly.</p>
-            </li>
-            <li>
-              <span class="proSe-num display">03</span>
-              <p>The ability to reach <strong>agreements that reflect your real-life needs</strong> — not just legal outcomes.</p>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -208,21 +172,13 @@ const credentials = [
     color: var(--color-gold-deep);
     font-weight: 300;
   }
-  .profile-title {
+  .profile-tagline {
     margin-top: 1.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-size: 0.88rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-slate);
-  }
-  .profile-title-rule {
-    display: inline-block;
-    width: 2.5rem; height: 1px;
-    background: var(--color-gold);
+    font-size: var(--step-2);
+    line-height: 1.25;
+    color: var(--color-navy);
+    max-width: 32ch;
+    font-weight: 400;
   }
 
   /* ============================================================
@@ -286,33 +242,35 @@ const credentials = [
   .profile-figure-corners span:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
 
   .profile-caption {
-    margin-top: 1rem;
-    font-size: 0.82rem;
-    letter-spacing: 0.22em;
+    margin-top: 1.25rem;
     color: var(--color-slate);
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    padding-top: 0.85rem;
+    gap: 0.5rem;
+    padding-top: 1rem;
     position: relative;
   }
   .profile-caption-line {
     position: absolute;
     top: 0; left: 0;
-    width: 2.25rem; height: 1px;
+    width: 2.5rem; height: 1px;
     background: var(--color-gold);
   }
   .profile-caption .smallcaps {
     color: var(--color-navy);
-    font-size: 0.9rem;
+    font-size: 2.16rem;
     font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.1;
   }
   .profile-caption-sub {
+    font-family: var(--font-display);
     font-style: italic;
     letter-spacing: 0.02em;
     text-transform: none;
-    font-size: 0.78rem;
-    color: var(--color-slate);
+    font-size: 1.84rem;
+    line-height: 1.2;
+    color: var(--color-gold-deep);
   }
 
   /* Article */
@@ -344,7 +302,6 @@ const credentials = [
     color: var(--color-ink-soft);
   }
   .profile-p + .profile-p { margin-top: 1.25rem; }
-  .profile-p--opener { font-size: calc(var(--step-1) * 1.08); }
 
   .profile-pullquote {
     margin-block: 2.5rem;
@@ -377,20 +334,24 @@ const credentials = [
     max-width: 22ch;
   }
 
-  /* Credentials */
+  /* Credentials — sits in the figure column under the photo caption */
   .profile-credentials {
-    margin-top: var(--space-xl);
-    padding: 1.5rem;
+    margin-top: 1.75rem;
+    padding: 1.25rem 1.25rem 1.35rem;
     background: var(--color-cream-warm);
     border-top: 1px solid var(--color-gold);
     border-bottom: 1px solid var(--color-divider);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem 2rem;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
-  .cred { display: flex; flex-direction: column; gap: 0.15rem; }
+  .cred {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
   .cred-label {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.24em;
@@ -399,7 +360,8 @@ const credentials = [
     margin: 0;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1rem;
+    font-size: 1.02rem;
+    line-height: 1.3;
     color: var(--color-navy);
   }
 
@@ -412,194 +374,11 @@ const credentials = [
   }
 
   /* ============================================================
-     WHAT IS MEDIATION — explainer
-     ============================================================ */
-  .mediation-explainer {
-    padding-block: var(--space-3xl);
-    background: var(--color-cream-warm);
-    border-top: 1px solid var(--color-divider);
-    border-bottom: 1px solid var(--color-divider);
-    position: relative;
-  }
-  .mediation-explainer::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-gold) 35%, var(--color-gold) 65%, transparent);
-    opacity: 0.55;
-  }
-  .explainer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.8fr;
-    gap: clamp(2.5rem, 5vw, 5rem);
-    align-items: start;
-  }
-  .explainer-head {
-    position: sticky;
-    top: 5.5rem;
-  }
-  .explainer-head .eyebrow-numeral {
-    display: block;
-    color: var(--color-gold);
-    font-size: var(--step-4);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .explainer-kicker { margin-bottom: 0.85rem; }
-  .explainer-title {
-    font-size: var(--step-4);
-    line-height: 1.02;
-    color: var(--color-navy);
-    letter-spacing: -0.02em;
-    max-width: 12ch;
-  }
-
-  .explainer-body {
-    max-width: 62ch;
-  }
-  .explainer-lede {
-    font-size: var(--step-1);
-    line-height: 1.65;
-    color: var(--color-ink-soft);
-  }
-
-  .proSe-block {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-divider);
-    position: relative;
-  }
-  .proSe-block::before {
-    content: "";
-    position: absolute;
-    top: -1px; left: 0;
-    width: 3rem; height: 1px;
-    background: var(--color-gold);
-  }
-  .proSe-kicker {
-    margin-bottom: 0.85rem;
-  }
-  .proSe-intro {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--color-ink-soft);
-  }
-
-  .proSe-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-  }
-  .proSe-list li {
-    display: grid;
-    grid-template-columns: 3rem 1fr;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 1rem 1.25rem;
-    background: var(--color-paper);
-    border: 1px solid var(--color-divider);
-    position: relative;
-  }
-  .proSe-list li::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 1.5rem; height: 1px;
-    background: var(--color-gold);
-  }
-  .proSe-num {
-    font-size: 1.35rem;
-    color: var(--color-gold-deep);
-    font-weight: 400;
-    font-variation-settings: "opsz" 48;
-    line-height: 1;
-    letter-spacing: -0.01em;
-  }
-  .proSe-list p {
-    font-size: 1rem;
-    line-height: 1.55;
-    color: var(--color-ink-soft);
-  }
-  .proSe-list strong {
-    color: var(--color-navy);
-    font-weight: 500;
-  }
-
-  .proSe-close {
-    margin-top: 1.75rem;
-    padding: 1.25rem 1.5rem;
-    border-left: 2px solid var(--color-gold);
-    background: color-mix(in srgb, var(--color-cream) 65%, transparent);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--color-ink-soft);
-    font-style: italic;
-  }
-
-  /* ============================================================
-     ETHICS STRIP
-     ============================================================ */
-  .ethics-strip {
-    background: var(--color-cream-warm);
-    color: var(--color-ink);
-    padding-block: var(--space-2xl);
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid var(--color-divider);
-  }
-  .ethics-strip::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
-    opacity: 0.7;
-  }
-  .ethics-inner {
-    position: relative;
-    text-align: left;
-  }
-  .ethics-strip .eyebrow-numeral {
-    color: var(--color-gold-deep);
-    font-size: var(--step-3);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .ethics-kicker { color: var(--color-gold-deep); }
-  .ethics-copy {
-    margin-top: 1.25rem;
-    font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.6;
-    color: var(--color-ink-soft);
-    max-width: 66ch;
-  }
-  .ethics-copy strong {
-    color: var(--color-navy);
-    font-weight: 600;
-  }
-  .ethics-foot {
-    margin-top: 1.5rem;
-    font-size: 0.88rem;
-    font-style: italic;
-    color: var(--color-slate);
-  }
-
-  /* ============================================================
      RESPONSIVE
      ============================================================ */
   @media (max-width: 900px) {
     .profile-grid { grid-template-columns: 1fr; }
     .profile-figure { position: static; max-width: 26rem; margin-inline: auto; }
-    .profile-credentials { grid-template-columns: 1fr; }
-    .explainer-grid { grid-template-columns: 1fr; }
-    .explainer-head { position: static; }
   }
 
   @media (max-width: 600px) {
@@ -609,11 +388,18 @@ const credentials = [
       font-size: clamp(2.5rem, 1.6rem + 4vw, 4rem);
       max-width: 100%;
     }
+    .profile-tagline {
+      font-size: clamp(1.1rem, 0.9rem + 1.2vw, 1.5rem);
+    }
+    .profile-caption .smallcaps {
+      font-size: clamp(1.4rem, 1.1rem + 2.8vw, 2.16rem);
+      letter-spacing: 0.08em;
+    }
+    .profile-caption-sub {
+      font-size: clamp(1.25rem, 1rem + 2.4vw, 1.84rem);
+    }
     .profile-h2 {
       font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem);
-    }
-    .explainer-title {
-      font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem);
     }
     .profile-pullquote p {
       font-size: clamp(1.5rem, 1.2rem + 2vw, 2rem);

@@ -36,11 +36,6 @@ const version = pkg.version;
     <hr class="rule" />
 
     <div class="footer-bottom">
-      <p class="disclaimer">
-        <strong>Not a law firm.</strong> We are not attorneys and do not provide legal advice or representation.
-        We offer document preparation and mediation services for self-represented individuals only.
-        We do not represent clients in court.
-      </p>
       <p class="copy">
         © {year} Pro Se Fair Play Mediation, LLC. All rights reserved.
         <span class="build-version" aria-label="Site build version">v{version}</span>
@@ -116,27 +111,14 @@ const version = pkg.version;
   }
 
   .footer-bottom {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: var(--space-lg);
-    align-items: start;
-  }
-  .disclaimer {
-    font-size: 0.8125rem;
-    line-height: 1.65;
-    color: color-mix(in srgb, var(--color-cream) 72%, var(--color-navy));
-    max-width: 70ch;
-  }
-  .disclaimer strong {
-    color: var(--color-gold);
-    font-weight: 600;
+    display: flex;
+    justify-content: flex-end;
   }
   .copy {
     font-size: 0.76rem;
     letter-spacing: 0.08em;
     color: color-mix(in srgb, var(--color-cream) 55%, var(--color-navy));
     text-align: right;
-    align-self: end;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -152,8 +134,8 @@ const version = pkg.version;
 
   @media (max-width: 780px) {
     .footer-top { grid-template-columns: 1fr; gap: var(--space-xl); }
-    .footer-bottom { grid-template-columns: 1fr; }
-    .copy { text-align: left; }
+    .footer-bottom { justify-content: flex-start; }
+    .copy { text-align: left; align-items: flex-start; }
     .footer-nav { grid-template-columns: repeat(2, 1fr); }
   }
 </style>

@@ -41,5 +41,35 @@ const {
       <slot />
     </main>
     <Footer />
+
+    {/*
+      Floating bottom-left slogan — disabled in favor of an in-nav slogan.
+      Kept here (and styles in global.css) for potential future re-enable.
+
+      <aside class="floating-slogan" aria-hidden="true">
+        <span class="floating-slogan-text">Where we level the playing field.</span>
+      </aside>
+
+      <script is:inline>
+        (function () {
+          const slogan = document.querySelector(".floating-slogan");
+          const footerMotto = document.querySelector(".footer-motto");
+          if (!slogan || !footerMotto) return;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => slogan.classList.add("is-visible"));
+          });
+
+          const obs = new IntersectionObserver(
+            (entries) => {
+              const entry = entries[0];
+              slogan.classList.toggle("is-docked", entry.isIntersecting);
+            },
+            { rootMargin: "0px 0px -20px 0px", threshold: 0 }
+          );
+          obs.observe(footerMotto);
+        })();
+      </script>
+    */}
   </body>
 </html>

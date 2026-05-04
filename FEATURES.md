@@ -30,7 +30,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 - **Static Astro 6 site** on Cloudflare Workers, deployed via `wrangler.jsonc`.
 - **Custom domain + SSL** at https://prosefairplaymediation.com (and `www`); DNS managed in Cloudflare (nameservers swapped from GoDaddy).
 - **Google Workspace email** at `info@prosefairplaymediation.com` ($8.40/mo). DKIM + SPF + DMARC configured.
-- **Calendly Standard tier** ($12/mo) connected to Stripe, Google Calendar, and Google Meet. Free 15-min consult is the only public event.
+- **Calendly Standard tier** ($12/mo) connected to Stripe, Google Calendar, and Zoom. Free 15-min consult is the only public event.
 - **Stripe account** created (EIN verification pending). Placeholder products in place; live config will follow EIN clearance.
 
 **Documentation**

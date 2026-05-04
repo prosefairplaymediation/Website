@@ -1,6 +1,6 @@
 # CLAUDE.md — Pro Se Fair Play Mediation site
 
-**Last updated:** 2026-05-03
+**Last updated:** 2026-05-03 (post-first-review)
 
 ## Overview
 
@@ -43,7 +43,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 ## Conventions & Content Rules
 
-- **Legal disclaimer language** must be verbatim from client's attorney-reviewed copy. Lives on `/legal/disclaimer` (canonical) and a short version in the footer (every page) — **never paraphrase.** Other per-page disclaimers were intentionally trimmed; do not add new ones without asking.
+- **Legal disclaimer language** must be verbatim from client's attorney-reviewed copy. Lives only on `/legal/disclaimer` (canonical, linked from the footer Legal column) — per client decision the disclaimer page is sufficient; do not paraphrase, and do not re-add a footer or per-page disclaimer block without asking.
 - **No client name in commit messages** — refer generically ("per client selection", "per client feedback").
 - **Leave unbuilt nav links as raw 404s** — dead links are the TODO list. Don't stub "coming soon" placeholders.
 - **Content expansion:** client-supplied text is often AI-generated and too long. Trim to essentials; don't expand.
@@ -143,7 +143,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | Service | Purpose | Status |
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
-| Calendly Standard | Booking + Google Calendar/Meet auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
+| Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
 | Stripe | Payment processing; EIN verification pending | Placeholder products created; live config pending EIN approval |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 
@@ -153,7 +153,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |------|---------|
 | `src/layouts/BaseLayout.astro` | HTML shell, font loading, nav, footer |
 | `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger) |
-| `src/components/Footer.astro` | Two-column nav (Learn + Legal), disclaimer, copyright, `v{version}` tag from package.json |
+| `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
 | `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle |
 | `src/content.config.ts` + `src/content/blog/*.md` | Blog schema + post collection |
