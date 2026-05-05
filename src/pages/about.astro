@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const credentials = [
-  { label: "Training", value: "Certified Florida Supreme Court Family Law Mediator" },
+  { label: "Training", value: "Florida Supreme Court Certified Family Mediator" },
   { label: "Jurisdiction", value: "State of Florida" },
   { label: "Practice", value: "Family Law · Pro Se Parties" },
   { label: "Format", value: "Zoom, Confidential" },
@@ -11,7 +11,7 @@ const credentials = [
 
 <BaseLayout
   title="About Marie · Pro Se Fair Play Mediation"
-  description="Marie VanGinHoven is a Certified Florida Supreme Court Family Law Mediator who helps self-represented individuals navigate family law with clarity, structure, and care."
+  description="Marie VanGinHoven, Florida Supreme Court Certified Family Mediator and founder of Pro Se Fair Play Mediation LLC, helps self-represented (pro se) parties prepare court-ready family law documents and navigate mediation."
 >
   <!-- ========================== PROFILE HEADER ========================== -->
   <header class="profile-header">
@@ -66,62 +66,37 @@ const credentials = [
         <p class="profile-eyebrow smallcaps">A note from Marie</p>
 
         <p class="profile-p">
-          I created this practice with one goal in mind: to give people a
-          better way to move through difficult situations without feeling
-          overwhelmed, unheard, or out of control. Because that's what
-          most people experience when dealing with legal matters:
-          confusion, pressure, stress, and decisions being made for them
-          instead of by them. That's not how this process should feel.
+          I am a Florida Supreme Court Certified Family Mediator and the
+          founder of Pro Se Fair Play Mediation LLC, a practice focused
+          on bringing structure and clarity to the legal process. My
+          work is centered on supporting individuals navigating legal
+          matters on their own — commonly referred to as <em>pro se</em>
+          — by guiding them through the preparation and completion of
+          family law documents, including customized parenting plans
+          and full, court-ready filings. This focus is what sets my
+          practice apart — providing a structured, efficient
+          alternative for individuals who want to move forward without
+          unnecessary complexity.
         </p>
 
-        <h2 class="profile-h2 display">My Background</h2>
         <p class="profile-p">
-          I bring a strong foundation in legal operations, litigation
-          support, and case management as a Florida Supreme Court Family Law
-          Mediator. This means your process is not only structured and
-          organized, but also aligned with the standards and expectations
-          of the court system.
-        </p>
-        <p class="profile-p">
-          You're not just getting guidance — you're getting a process
-          that is thoughtful, organized, and professionally grounded.
+          I also provide mediation services in matters where one or
+          both parties are represented by counsel, when engaged by the
+          client or their attorney.
         </p>
 
-        <h2 class="profile-h2 display">My Approach</h2>
         <p class="profile-p">
-          When you work with me, my role is simple: I guide the process,
-          you stay in control. I create a structured, calm environment
-          where you can speak openly, feel heard and respected, and
-          understand what's happening at every step. Nothing is rushed.
-          Nothing is forced. Every decision remains yours.
+          With a background in litigation, I bring a working knowledge
+          of court procedures and the precision required for properly
+          prepared filings. I apply that foundation to ensure each
+          matter is handled with structure, accuracy, and attention to
+          detail.
         </p>
 
-        <h2 class="profile-h2 display">What You Can Expect</h2>
         <p class="profile-p">
-          Clients come to me because they want something different — a
-          process that feels safe, not stressful; clear, not confusing;
-          balanced, not one-sided. Whether your situation is
-          straightforward or high-conflict, I keep things grounded,
-          focused, and moving forward.
-        </p>
-
-        <h2 class="profile-h2 display">Why This Matters</h2>
-        <p class="profile-p">
-          The decisions being made aren't just legal — they're personal.
-          They affect your family, your time, and your future. You
-          deserve to be part of that process in a real and meaningful
-          way, with the confidence that it's being handled correctly.
-        </p>
-
-        <blockquote class="profile-pullquote">
-          <p class="display display-italic">
-            This is your process. Your family. Your decisions.
-          </p>
-          <cite class="profile-pullquote-cite">— Marie</cite>
-        </blockquote>
-
-        <p class="profile-p">
-          I'm here to guide you through it with clarity, structure, and care.
+          Every matter is approached with precision, structure, and
+          attention to detail — ensuring a clear path forward. This is
+          where we level the playing field.
         </p>
 
         <div class="profile-ctas">
@@ -302,36 +277,9 @@ const credentials = [
     color: var(--color-ink-soft);
   }
   .profile-p + .profile-p { margin-top: 1.25rem; }
-
-  .profile-pullquote {
-    margin-block: 2.5rem;
-    padding: 1.5rem 0 1.5rem 1.75rem;
-    border-left: 2px solid var(--color-gold);
-    max-width: 46ch;
-  }
-  .profile-pullquote p {
-    font-size: var(--step-3);
-    line-height: 1.2;
-    color: var(--color-navy);
-    font-weight: 400;
-  }
-  .profile-pullquote-cite {
-    display: block;
-    margin-top: 0.85rem;
-    font-size: 0.85rem;
-    font-style: normal;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-slate);
-  }
-
-  .profile-h2 {
-    margin-block: 2rem 1.25rem;
-    font-size: var(--step-3);
-    color: var(--color-navy);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-    max-width: 22ch;
+  .profile-p em {
+    font-style: italic;
+    font-family: var(--font-display);
   }
 
   /* Credentials — sits in the figure column under the photo caption */
@@ -397,16 +345,6 @@ const credentials = [
     }
     .profile-caption-sub {
       font-size: clamp(1.25rem, 1rem + 2.4vw, 1.84rem);
-    }
-    .profile-h2 {
-      font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem);
-    }
-    .profile-pullquote p {
-      font-size: clamp(1.5rem, 1.2rem + 2vw, 2rem);
-    }
-    .profile-pullquote {
-      padding-left: 1.25rem;
-      max-width: 100%;
     }
     /* Safety net: any display heading wraps gracefully if needed */
     .display {
