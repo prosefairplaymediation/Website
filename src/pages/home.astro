@@ -225,6 +225,9 @@ const services = [
             });
           });
 
+          // Trigger when the top of the box has scrolled into roughly
+          // the top 40% of the viewport. Anchored to viewport — doesn't
+          // care if the box is taller than the screen (mobile portrait).
           var obs = new IntersectionObserver(
             function (entries) {
               entries.forEach(function (entry) {
@@ -234,7 +237,7 @@ const services = [
                 }
               });
             },
-            { threshold: 0.8 }
+            { threshold: 0, rootMargin: "0px 0px -40% 0px" }
           );
           obs.observe(box);
         }
@@ -679,6 +682,7 @@ const services = [
   .black-box {
     position: relative;
     padding-block: var(--space-xl);
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
     background: var(--color-cream);
     isolation: isolate;
   }
