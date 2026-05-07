@@ -82,40 +82,49 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
 <style>
   .blog-header {
     position: relative;
-    padding-block: clamp(4rem, 6vw + 2rem, 7rem) clamp(3rem, 4vw + 1rem, 5rem);
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(196, 154, 75, 0.08), transparent 55%),
-      var(--color-cream);
-    border-bottom: 1px solid var(--color-divider);
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.9) 0%,
+        rgba(27, 42, 74, 0.78) 50%,
+        rgba(27, 42, 74, 0.9) 100%),
+      url('/signdocs.jpeg');
+    background-size: cover;
+    background-position: center;
     overflow: hidden;
   }
-  .blog-header::before {
+  .blog-header::after {
+    /* Bottom fade so the section eases into the cream below */
     content: "";
     position: absolute;
-    inset: 0;
-    background-image: linear-gradient(to right, rgba(27, 45, 90, 0.035) 1px, transparent 1px);
-    background-size: 7rem 100%;
-    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
     pointer-events: none;
   }
-  .blog-header-inner { position: relative; }
+  .blog-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .blog-header .kicker { color: var(--color-gold); }
+  .blog-header .kicker-dot { background: var(--color-gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent); }
   .blog-title {
     font-size: var(--step-5);
     line-height: 1;
-    color: var(--color-navy);
+    color: var(--color-cream);
     margin-top: 1rem;
     letter-spacing: -0.025em;
     max-width: 18ch;
     font-weight: 400;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
   }
   .blog-title .display-italic {
-    color: var(--color-gold-deep);
-    font-weight: 300;
+    color: var(--color-gold);
+    font-weight: 400;
   }
   .blog-header .lede {
     margin-top: 1.5rem;
     max-width: 58ch;
+    color: color-mix(in srgb, var(--color-cream) 85%, transparent);
   }
 
   /* Post list — editorial index */
