@@ -44,7 +44,10 @@ const links = [
     </nav>
 
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="nav-toggle">
-      <span></span><span></span><span></span>
+      <span class="nav-toggle-bars" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+      <span class="nav-toggle-label" aria-hidden="true">close</span>
     </button>
   </div>
 
@@ -199,21 +202,54 @@ const links = [
 
   .nav-toggle {
     display: none;
-    width: 2.4rem; height: 2.4rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 2.4rem;
+    height: 2.4rem;
+    transition: border-color 0.25s var(--ease-out), padding 0.25s var(--ease-out), width 0.25s var(--ease-out), height 0.25s var(--ease-out);
   }
-  .nav-toggle span {
+  .nav-toggle-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-toggle-bars span {
     display: block;
     width: 22px; height: 1.5px;
     background: var(--color-cream);
     transition: transform 0.35s var(--ease-out), opacity 0.25s;
   }
-  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .nav-toggle-label {
+    display: none;
+    font-family: var(--font-body);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-cream);
+    margin-top: 0.3rem;
+    line-height: 1;
+  }
+  .nav-toggle[aria-expanded="true"] {
+    border-color: color-mix(in srgb, var(--color-cream) 55%, transparent);
+    width: auto;
+    height: auto;
+    padding: 0.45rem 0.55rem 0.4rem;
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-label {
+    display: block;
+  }
 
   .nav-mobile {
     max-height: 0;
