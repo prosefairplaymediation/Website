@@ -149,6 +149,48 @@ const services = [
     </div>
   </section>
 
+  <!-- ========================== BLACK BOX BAND ========================== -->
+  <section class="black-box" aria-labelledby="black-box-title">
+    <div class="container-narrow black-box-inner">
+      <h2 id="black-box-title" class="display black-box-title">
+        <span class="display-italic">Black Box</span> Mediation
+      </h2>
+
+      <div class="black-box-body">
+        <p>
+          Some matters require a heightened level of privacy, discretion,
+          and structure due to the sensitive nature of the issues
+          involved. Pro Se Fair Play Mediation offers our exclusive
+          <em>Black Box</em> mediation service for parties seeking an
+          added layer of confidentiality and personalized accommodations
+          throughout the mediation process.
+        </p>
+
+        <p>
+          This premium service is designed to provide a secure,
+          controlled, and professionally managed environment with
+          enhanced privacy measures, including private and isolated
+          meeting spaces, flexible scheduling options such as evenings
+          and weekends, and tailored accommodations based on the
+          specific needs of the parties involved.
+        </p>
+
+        <p>
+          <em>Black Box</em> mediations may be appropriate for
+          high-conflict family matters, business disputes, public-facing
+          individuals, professionals, executives, athletes, or any
+          situation where discretion and privacy are a priority.
+        </p>
+
+        <p>
+          Every matter is handled with professionalism, neutrality, and
+          the utmost respect for confidentiality. This is where we level
+          the playing field.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
@@ -571,6 +613,58 @@ const services = [
     .service-card,
     .service-title,
     .service-reveal { transition: none; }
+  }
+
+  /* ------------------------------------------------------------
+     BLACK BOX BAND — premium tier callout
+     ------------------------------------------------------------ */
+  .black-box {
+    position: relative;
+    padding-block: var(--space-2xl);
+    background: #0a0b10;
+    color: var(--color-cream);
+    border-top: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
+    isolation: isolate;
+  }
+  .black-box::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 35%, var(--color-gold) 65%, transparent);
+    opacity: 0.45;
+  }
+  .black-box-inner {
+    max-width: 56rem;
+  }
+  .black-box-title {
+    font-size: var(--step-4);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--color-cream);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .black-box-title .display-italic {
+    color: var(--color-gold);
+    font-weight: 400;
+  }
+  .black-box-body {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--color-cream) 80%, transparent);
+    max-width: 60ch;
+  }
+  .black-box-body p + p {
+    margin-top: 1.25rem;
+  }
+  .black-box-body em {
+    font-style: italic;
+    font-family: var(--font-display);
+    color: var(--color-gold);
+    font-weight: 500;
   }
 
   /* ------------------------------------------------------------
