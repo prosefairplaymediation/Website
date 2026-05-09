@@ -123,7 +123,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/book` | Photo hero + Calendly inline embed (free 15-min consult) |
 | `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
 | `/contact` | Email card + secondary booking CTA |
-| `/blog` + `/blog/[...slug]` | Content collection (`src/content/blog/*.md`) — one article live |
+| `/services` | Long-form services overview — photo hero + Family Mediation / Court-Ready Documents prose with Parenting Plan and Turn-key sub-sections |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |
 | `/legal/privacy` | Confidentiality of mediation, website security, data collection |
@@ -156,7 +156,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
 | `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle |
-| `src/content.config.ts` + `src/content/blog/*.md` | Blog schema + post collection |
+| `src/pages/services/index.astro` | Services overview page (replaced the blog after client decided to remove it) |
 
 ## Documentation
 

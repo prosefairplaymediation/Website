@@ -16,7 +16,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 - **Booking page** at `/book` — photo hero + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
 - **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion + closing CTA.
 - **Contact page** at `/contact` — email card linking to `info@`, secondary booking CTA.
-- **Blog** at `/blog` + content collections + first article (`/blog/a-practical-guide-to-mediation`).
+- **Services overview** at `/services` — long-form prose covering Family Mediation and Court-Ready Documents (with Parenting Plan and Turn-key sub-sections). Replaced the blog after client decided to remove it.
 - **Legal pages** — `/legal/disclaimer` (verbatim attorney copy), `/legal/terms` (PDF + Word Engagement Agreement download), `/legal/privacy` (confidentiality, security, info collected).
 
 **Site shell**
