@@ -36,7 +36,22 @@ const {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="mask-icon" href="/favicon.svg" color="#1B2D5A" />
+    <link rel="apple-touch-icon" href="/scales_icon.png" />
     <meta name="apple-mobile-web-app-title" content="Pro Se Fair Play" />
+
+    <!-- Open Graph / link-preview tags (iMessage, Slack, Facebook, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pro Se Fair Play Mediation, LLC" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
+    <meta property="og:image" content={new URL("/logo_BG_color_Cropped.png", Astro.site).href} />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/logo_BG_color_Cropped.png", Astro.site).href} />
 
     <!-- Schema.org structured data for the business. Using
          ProfessionalService rather than LegalService to stay

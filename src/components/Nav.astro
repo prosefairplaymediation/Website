@@ -370,7 +370,7 @@ const services = [
     background: var(--color-navy-deep);
     border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
-  .nav-mobile[aria-hidden="false"] {
+  .nav-mobile:not([inert]) {
     max-height: 48rem;
   }
   .nav-mobile ul {
