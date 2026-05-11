@@ -276,31 +276,45 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
   /* ============================================================
      RESPONSIVE
      ============================================================ */
-  /* Keep three columns through tablet portrait. At narrower widths the
-     icon stacks above the title so the title has full column width.
-     Drop to a single column only when there's no longer room. */
+  /* Stay in 3 columns at every width. Shrink icon/typography rather
+     than collapsing the grid. */
   @media (max-width: 720px) {
     .support-head {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5rem;
+      gap: 0.45rem;
     }
     .support-title {
-      font-size: clamp(1.15rem, 0.95rem + 1.4vw, 1.5rem);
+      font-size: clamp(0.95rem, 0.75rem + 1.6vw, 1.5rem);
     }
-  }
-  @media (max-width: 520px) {
     .support-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-lg);
-    }
-    .support-head {
-      flex-direction: row;
-      align-items: center;
       gap: 1rem;
     }
-    .support-title {
-      font-size: var(--step-2);
+    .support-icon svg {
+      width: 42px;
+      height: 42px;
+    }
+    .support-body {
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .support-note {
+      font-size: 0.88rem;
+    }
+  }
+  @media (max-width: 440px) {
+    .support-grid {
+      gap: 0.75rem;
+    }
+    .support-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+    .support-body {
+      font-size: 0.85rem;
+    }
+    .support-note {
+      font-size: 0.82rem;
     }
   }
 </style>
