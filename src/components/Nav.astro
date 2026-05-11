@@ -71,7 +71,7 @@ const services = [
     </button>
   </div>
 
-  <div class="nav-mobile" id="mobile-menu" aria-hidden="true">
+  <div class="nav-mobile" id="mobile-menu" inert>
     <ul>
       <li><a href="/about">About</a></li>
       <li class="mobile-section-label" aria-hidden="true">Services</li>
@@ -444,13 +444,17 @@ const services = [
       const expanded = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!expanded));
       toggle.setAttribute("aria-label", expanded ? "Open menu" : "Close menu");
-      menu.setAttribute("aria-hidden", String(expanded));
+      if (expanded) {
+        menu.setAttribute("inert", "");
+      } else {
+        menu.removeAttribute("inert");
+      }
     });
     menu.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         toggle.setAttribute("aria-expanded", "false");
         toggle.setAttribute("aria-label", "Open menu");
-        menu.setAttribute("aria-hidden", "true");
+        menu.setAttribute("inert", "");
       });
     });
   }
