@@ -2,6 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consultation";
+const email = "info@prosefairplaymediation.com";
+const phoneVanity = "1 (866) 88-FORPROSE";
+const phoneTel = "+18668836777";
+const phoneDigits = "1-866-883-6777";
 ---
 
 <BaseLayout
@@ -20,7 +24,7 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
         <span class="display-italic">One conversation away</span>.
       </h1>
       <p class="lede reveal reveal-d3">
-        Florida family law support: mediation and court-ready documents.
+        Florida family law support: mediation and court-ready documents. Free consultations
       </p>
     </div>
   </header>
@@ -115,7 +119,14 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
       </h2>
       <p class="lede landing-book-lede">
         Pick a time below. We'll review your situation and outline the
-        next steps that fit your case.
+        next steps that fit your case. Or reach out to me directly at
+        <a class="link-underline" href={`mailto:${email}`}>{email}</a>
+        or
+        <a
+          class="link-underline"
+          href={`tel:${phoneTel}`}
+          aria-label={`Call ${phoneDigits}`}
+        >{phoneVanity}</a>.
       </p>
       <div
         class="calendly-inline-widget"
@@ -181,7 +192,7 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
   }
   .landing-header .lede {
     margin-top: 1.5rem;
-    max-width: 60ch;
+    max-width: none;
     color: color-mix(in srgb, var(--color-cream) 85%, transparent);
   }
 

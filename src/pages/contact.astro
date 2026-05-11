@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const email = "info@prosefairplaymediation.com";
+const phoneVanity = "1 (866) 88-FORPROSE";
+const phoneDigits = "1-866-883-6777";
+const phoneTel = "+18668836777";
 ---
 
 <BaseLayout
@@ -19,19 +22,32 @@ const email = "info@prosefairplaymediation.com";
         Have a <span class="display-italic">question</span>?
       </h1>
       <p class="lede reveal reveal-d3">
-        Feel free to email me with any questions about mediation,
-        document preparation, or whether what I offer fits your situation.
-        For booking a consultation, the scheduling page is the fastest way.
+        Feel free to reach out by email or phone with any questions
+        about mediation, document preparation, or whether what I offer
+        fits your situation. For booking a consultation, the
+        scheduling page is the fastest way.
       </p>
     </div>
   </header>
 
-  <!-- ========================== EMAIL CARD ========================== -->
+  <!-- ========================== CONTACT CARDS ========================== -->
   <section class="contact-body">
     <div class="container-narrow contact-body-inner">
-      <div class="email-card">
-        <p class="email-label smallcaps">Email</p>
-        <a href={`mailto:${email}`} class="email-address display">{email}</a>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <p class="contact-label smallcaps">Email</p>
+          <a href={`mailto:${email}`} class="contact-value display">{email}</a>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-label smallcaps">Phone</p>
+          <a
+            href={`tel:${phoneTel}`}
+            class="contact-value display"
+            aria-label={`Call ${phoneDigits}`}
+          >{phoneVanity}</a>
+          <p class="contact-subnote">{phoneDigits}</p>
+        </div>
       </div>
 
       <div class="contact-secondary">
@@ -88,7 +104,7 @@ const email = "info@prosefairplaymediation.com";
   }
 
   /* ============================================================
-     EMAIL CARD
+     CONTACT CARDS
      ============================================================ */
   .contact-body {
     padding-block: var(--space-2xl) var(--space-3xl);
@@ -99,8 +115,12 @@ const email = "info@prosefairplaymediation.com";
     flex-direction: column;
     gap: var(--space-xl);
   }
-
-  .email-card {
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .contact-card {
     padding: clamp(2rem, 4vw, 3rem);
     background: var(--color-paper);
     border: 1px solid var(--color-divider);
@@ -110,14 +130,14 @@ const email = "info@prosefairplaymediation.com";
       0 1px 2px rgba(18, 33, 74, 0.04),
       0 12px 32px -16px rgba(18, 33, 74, 0.18);
   }
-  .email-card::before {
+  .contact-card::before {
     content: "";
     position: absolute;
     top: 0; left: 0;
     width: 4rem; height: 2px;
     background: var(--color-gold);
   }
-  .email-label {
+  .contact-label {
     font-size: 0.72rem;
     color: var(--color-gold-deep);
     font-weight: 700;
@@ -125,7 +145,7 @@ const email = "info@prosefairplaymediation.com";
     margin-bottom: 0.85rem;
     display: block;
   }
-  .email-address {
+  .contact-value {
     display: block;
     font-size: clamp(1.5rem, 0.95rem + 2vw, 2.5rem);
     color: var(--color-navy);
@@ -139,17 +159,17 @@ const email = "info@prosefairplaymediation.com";
     padding-bottom: 4px;
     transition: background-size 0.45s var(--ease-out), color 0.25s;
   }
-  .email-address:hover {
+  .contact-value:hover {
     background-size: 100% 2px;
     color: var(--color-navy-deep);
   }
-  .email-note {
-    margin-top: 1.25rem;
+  .contact-subnote {
+    margin-top: 0.75rem;
     font-family: var(--font-body);
-    font-size: 0.95rem;
-    line-height: 1.55;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
     color: var(--color-slate);
-    font-style: italic;
+    font-variant-numeric: tabular-nums;
   }
 
   /* ============================================================
