@@ -1,7 +1,7 @@
 {
   "name": "site",
   "type": "module",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.1.8"
   },
   "devDependencies": {

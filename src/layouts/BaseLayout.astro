@@ -32,10 +32,94 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1B2D5A" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="mask-icon" href="/favicon.svg" color="#1B2D5A" />
     <meta name="apple-mobile-web-app-title" content="Pro Se Fair Play" />
+
+    <!-- Schema.org structured data for the business. Using
+         ProfessionalService rather than LegalService to stay
+         consistent with the site's "not a law firm" disclaimer. -->
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Pro Se Fair Play Mediation, LLC",
+      "alternateName": "Pro Se Fair Play Mediation",
+      "url": "https://prosefairplaymediation.com",
+      "description": "Florida Supreme Court Certified Family Mediator providing professional family mediation and court-ready family law document preparation for self-represented (pro se) individuals.",
+      "email": "info@prosefairplaymediation.com",
+      "telephone": "+1-866-883-6777",
+      "image": "https://prosefairplaymediation.com/logo_BG_color_Cropped.png",
+      "logo": "https://prosefairplaymediation.com/logo_BG_color_Cropped.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Marie VanGinHoven",
+        "jobTitle": "Florida Supreme Court Certified Family Mediator"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Florida"
+      },
+      "serviceType": [
+        "Family Mediation",
+        "Parenting Plan Preparation",
+        "Family Law Document Preparation"
+      ],
+      "knowsAbout": [
+        "Family Law Mediation",
+        "Parenting Plans",
+        "Florida Supreme Court Family Law Forms",
+        "Self-Represented Litigation Support",
+        "Pro Se Document Preparation"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "url": "https://prosefairplaymediation.com/services/hourly-mediation",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "600.00",
+              "priceCurrency": "USD",
+              "unitText": "HUR"
+            },
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Hourly Family Mediation",
+              "description": "Neutral, structured family mediation conducted via Zoom. Two-hour minimum."
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://prosefairplaymediation.com/services/parenting-plan",
+            "price": "600.00",
+            "priceCurrency": "USD",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Parenting Plan Preparation",
+              "description": "Customized Parenting Plan tailored to your family, delivered in a clear, court-ready format."
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://prosefairplaymediation.com/services/court-packet",
+            "price": "800.00",
+            "priceCurrency": "USD",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Turn-Key Court Packet",
+              "description": "Complete family law document package, professionally organized and assembled into a filing-ready packet with notarization where applicable."
+            }
+          }
+        ]
+      },
+      "sameAs": []
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
