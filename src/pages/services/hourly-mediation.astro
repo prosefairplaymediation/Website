@@ -8,14 +8,6 @@ const facts = [
   { label: "Sessions", value: "Half-day, full-day, same-day" },
 ];
 
-const includes = [
-  "A neutral, structured environment for both parties to be heard",
-  "A guided negotiation process focused on practical outcomes",
-  "Confidential discussions under Chapter 44, Florida Statutes",
-  "If an agreement is reached: a Memorandum of Understanding summarizing the terms",
-  "A structured close that leaves both parties with clarity on next steps",
-];
-
 ---
 
 <BaseLayout
@@ -59,49 +51,37 @@ const includes = [
     </div>
   </section>
 
-  <!-- ========================== OVERVIEW ========================== -->
-  <section class="svc-section">
-    <div class="container-narrow">
-      <p class="kicker">Overview</p>
-      <h2 class="display svc-h2">What mediation actually looks like.</h2>
-
-      <div class="svc-prose">
-        <p class="dropcap">
-          Mediation is a confidential, structured process where a neutral
-          third party helps people resolve disputes outside of court. Rather
-          than a judge making decisions for you, mediation lets both parties
-          communicate, negotiate, and reach agreements together.
-        </p>
-        <p>
-          For self-represented parties, mediation is often faster, quieter,
-          and less expensive than litigating to a final hearing. It also
-          tends to produce agreements that reflect real-life needs — not
-          just legal outcomes.
-        </p>
-        <p>
-          The mediator's role is to keep the conversation productive and
-          focused. 
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================== WHAT'S INCLUDED ========================== -->
+  <!-- ========================== PROSE ========================== -->
   <section class="svc-section svc-section-alt">
     <div class="container-narrow">
-      <p class="kicker">What's included</p>
-      <h2 class="display svc-h2">In every session.</h2>
-
-      <ul class="includes-list">
-        {includes.map((item) => (
-          <li>
-            <svg class="check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-              <path d="M3 8.5 L6.5 12 L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="svc-prose">
+        <p>
+          I provide professional family mediation services designed to
+          help families navigate difficult transitions in a structured,
+          respectful, and supportive environment. My goal is to help
+          parties work toward practical and meaningful resolutions
+          outside of the courtroom whenever possible while reducing
+          unnecessary conflict, emotional stress, and financial strain
+          on the family.
+        </p>
+        <p>
+          As a neutral mediator, my role is to facilitate productive
+          communication, keep discussions focused and organized, and
+          help both parties navigate sensitive conversations with
+          professionalism. I understand that no two families are alike,
+          and every situation deserves thoughtful attention.
+        </p>
+        <p>
+          Mediation gives parents the opportunity to remain in control
+          of the decisions that will impact their lives and the
+          well-being of their children, rather than placing those
+          important decisions entirely in the hands of the court.
+          Through a calm and structured process, families are able to
+          work toward solutions that reflect their unique needs,
+          priorities, and long-term goals while creating a healthier
+          path forward for everyone involved.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -113,7 +93,7 @@ const includes = [
         Start with a <span class="display-italic">free</span> 15-minute consultation.
       </h2>
       <p class="lede cta-lede">
-        We'll review your situation, determine whether mediation is
+        I'll review your situation, determine whether mediation is
         appropriate, and outline what to expect — at no cost.
       </p>
       <div class="cta-actions">
@@ -240,14 +220,6 @@ const includes = [
   .svc-section-alt {
     background: var(--color-cream-warm);
   }
-  .svc-h2 {
-    margin-block: 0.75rem 1.5rem;
-    font-size: var(--step-3);
-    color: var(--color-navy);
-    line-height: 1.05;
-    letter-spacing: -0.015em;
-    max-width: 22ch;
-  }
   .svc-prose {
     font-family: var(--font-body);
     font-size: var(--step-1);
@@ -257,30 +229,6 @@ const includes = [
   }
   .svc-prose p + p { margin-top: 1.25rem; }
   .svc-prose strong { color: var(--color-navy); font-weight: 500; }
-
-  /* Includes list */
-  .includes-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    max-width: 60ch;
-  }
-  .includes-list li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.85rem;
-    align-items: baseline;
-    font-size: 1rem;
-    line-height: 1.55;
-    color: var(--color-ink-soft);
-  }
-  .includes-list .check {
-    color: var(--color-gold-deep);
-    margin-top: 0.25rem;
-  }
 
   /* ============================================================
      CTA

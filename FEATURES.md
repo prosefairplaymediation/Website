@@ -11,12 +11,11 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 **Pages**
 - **Coming-soon gate** at `/` (per client request) — `noindex`, minimal logo + tagline.
 - **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), three-step process, cream CTA.
-- **Service detail pages** — `/services/hourly-mediation`, `/services/parenting-plan`, `/services/court-packet`. Photo hero, facts grid, what's-included, when-it's-the-right-fit, "Book a Free Consultation" CTA.
+- **Service detail pages** — `/services/hourly-mediation`, `/services/parenting-plan`, `/services/court-packet`. Photo hero, facts grid, single prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu.
 - **About page** at `/about` — first-person bio, professional photo, "What is Mediation?" explainer.
 - **Booking page** at `/book` — photo hero + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
 - **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion + closing CTA.
 - **Contact page** at `/contact` — email card linking to `info@`, secondary booking CTA.
-- **Services overview** at `/services` — long-form prose covering Family Mediation and Court-Ready Documents (with Parenting Plan and Turn-key sub-sections). Replaced the blog after client decided to remove it.
 - **Legal pages** — `/legal/disclaimer` (verbatim attorney copy), `/legal/terms` (PDF + Word Engagement Agreement download), `/legal/privacy` (confidentiality, security, info collected).
 
 **Site shell**

@@ -8,15 +8,6 @@ const facts = [
   { label: "Includes", value: "Customized to your family" },
 ];
 
-const includes = [
-  "Time-sharing schedule designed around your family's actual life",
-  "Decision-making framework (education, healthcare, religion, etc.)",
-  "Holidays and school breaks",
-  "Communication protocols between parents",
-  "Transportation and exchange arrangements",
-  "Delivered in clear, court-ready format",
-];
-
 ---
 
 <BaseLayout
@@ -62,51 +53,33 @@ const includes = [
     </div>
   </section>
 
-  <!-- ========================== OVERVIEW ========================== -->
-  <section class="svc-section">
-    <div class="container-narrow">
-      <p class="kicker">Overview</p>
-      <h2 class="display svc-h2">A real plan for a real family.</h2>
-
-      <div class="svc-prose">
-        <p class="dropcap">
-          A Parenting Plan is the document that lays out how parents will
-          share time, raise their children, and make decisions together
-          after a separation. In Florida, it's required in most family-law
-          matters involving minor children.
-        </p>
-        <p>
-          Generic templates rarely fit real families. We work from the
-          schedules, priorities, and constraints you and the other party
-          actually have — and structure the plan to reflect that. Time
-          arrangements, decision-making authority, communication
-          expectations, and the small logistics that make plans hold up
-          over time.
-        </p>
-        <p>
-          Delivered in a clear, court-ready format that you can take to
-          filing.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================== WHAT'S INCLUDED ========================== -->
+  <!-- ========================== PROSE ========================== -->
   <section class="svc-section svc-section-alt">
     <div class="container-narrow">
-      <p class="kicker">What's included</p>
-      <h2 class="display svc-h2">In the prepared plan.</h2>
-
-      <ul class="includes-list">
-        {includes.map((item) => (
-          <li>
-            <svg class="check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-              <path d="M3 8.5 L6.5 12 L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="svc-prose">
+        <p>
+          For parents who need assistance preparing only a Parenting
+          Plan, I provide professionally customized parenting plans
+          tailored to the unique needs and schedules of each family.
+          These plans may address important issues such as
+          time-sharing schedules, holidays, transportation, parental
+          responsibility, communication guidelines, and child support
+          provisions.
+        </p>
+        <p>
+          This service is limited strictly to the preparation of the
+          Parenting Plan document itself and does not include
+          additional court forms or filing services. Clients are
+          responsible for filing the completed Parenting Plan with the
+          court independently.
+        </p>
+        <p>
+          Every Parenting Plan is prepared with close attention to
+          structure, clarity, organization, and procedural detail to
+          help families create a practical framework centered around
+          the best interests of their children.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -118,8 +91,8 @@ const includes = [
         Begin with a <span class="display-italic">free</span> 15-minute consultation.
       </h2>
       <p class="lede cta-lede">
-        We'll review your situation, confirm a Parenting Plan is the right
-        scope, and outline what we'll need from you to prepare it — at no
+        I'll review your situation, confirm a Parenting Plan is the right
+        scope, and outline what I'll need from you to prepare it — at no
         cost.
       </p>
       <div class="cta-actions">
@@ -180,14 +153,9 @@ const includes = [
 
   .svc-section { padding-block: var(--space-2xl); }
   .svc-section-alt { background: var(--color-cream-warm); }
-  .svc-h2 { margin-block: 0.75rem 1.5rem; font-size: var(--step-3); color: var(--color-navy); line-height: 1.05; letter-spacing: -0.015em; max-width: 22ch; }
   .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
   .svc-prose p + p { margin-top: 1.25rem; }
   .svc-prose strong { color: var(--color-navy); font-weight: 500; }
-
-  .includes-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 60ch; }
-  .includes-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.85rem; align-items: baseline; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
-  .includes-list .check { color: var(--color-gold-deep); margin-top: 0.25rem; }
 
   .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
   .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }

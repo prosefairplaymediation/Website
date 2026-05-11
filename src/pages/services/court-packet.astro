@@ -8,15 +8,6 @@ const facts = [
   { label: "Notarization", value: "Where applicable" },
 ];
 
-const includes = [
-  "Custom Parenting Plan tailored to your family",
-  "Preparation of all required Florida Supreme Court family-law forms",
-  "Documents organized into a comprehensive court-ready packet",
-  "Formatting for filing readiness",
-  "Notarization of applicable documents",
-  "Up to two rounds of revisions",
-];
-
 ---
 
 <BaseLayout
@@ -63,50 +54,41 @@ const includes = [
     </div>
   </section>
 
-  <!-- ========================== OVERVIEW ========================== -->
-  <section class="svc-section">
-    <div class="container-narrow">
-      <p class="kicker">Overview</p>
-      <h2 class="display svc-h2">Filing-ready, end to end.</h2>
-
-      <div class="svc-prose">
-        <p class="dropcap">
-          The Turn-Key Court Packet is for parties who want a single,
-          organized package of completed documents rather than piecing
-          forms together themselves. We complete the required Florida
-          Supreme Court family-law forms from the information you provide,
-          assemble them into a comprehensive packet, format everything for
-          filing readiness, and handle notarization where applicable.
-        </p>
-        <p>
-          The result is a packet you can take directly to filing — no
-          chasing down forms, no formatting confusion, no missing
-          signatures.
-        </p>
-        <p>
-          Up to two rounds of revisions are included, so adjustments after
-          the first draft are part of the service.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================== WHAT'S INCLUDED ========================== -->
+  <!-- ========================== PROSE ========================== -->
   <section class="svc-section svc-section-alt">
     <div class="container-narrow">
-      <p class="kicker">What's included</p>
-      <h2 class="display svc-h2">In the packet.</h2>
-
-      <ul class="includes-list">
-        {includes.map((item) => (
-          <li>
-            <svg class="check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-              <path d="M3 8.5 L6.5 12 L13 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="svc-prose">
+        <p>
+          For clients seeking a more comprehensive solution, I offer a
+          premium Turnkey Family Law Document Preparation Service
+          designed for self-represented individuals who want their
+          family law paperwork professionally organized, fully
+          prepared, and ready for filing.
+        </p>
+        <p>
+          This service includes the preparation and completion of the
+          mandatory family court forms and supporting documents
+          required for filing family law matters, including financial
+          affidavits, parenting plans, child support documentation,
+          settlement agreements, supplemental petitions, and other
+          court-required filings as applicable to the client's case.
+        </p>
+        <p>
+          Documents are professionally organized, fully prepared, and
+          notarized when required, providing clients with a streamlined
+          experience designed to minimize confusion and reduce the
+          stress often associated with navigating the court system
+          independently. The goal of this service is to allow clients
+          to walk into the courthouse with professionally prepared,
+          court-ready documents that are organized and ready to file.
+        </p>
+        <p>
+          Every matter is handled with professionalism, discretion,
+          care, and exceptional attention to detail to ensure clients
+          feel informed, prepared, and supported throughout the
+          process.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -118,8 +100,8 @@ const includes = [
         Begin with a <span class="display-italic">free</span> 15-minute consultation.
       </h2>
       <p class="lede cta-lede">
-        We'll review your situation, confirm the Court Packet is the right
-        scope, and outline what we'll need from you to prepare it — at no
+        I'll review your situation, confirm the Court Packet is the right
+        scope, and outline what I'll need from you to prepare it — at no
         cost.
       </p>
       <div class="cta-actions">
@@ -180,14 +162,9 @@ const includes = [
 
   .svc-section { padding-block: var(--space-2xl); }
   .svc-section-alt { background: var(--color-cream-warm); }
-  .svc-h2 { margin-block: 0.75rem 1.5rem; font-size: var(--step-3); color: var(--color-navy); line-height: 1.05; letter-spacing: -0.015em; max-width: 22ch; }
   .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
   .svc-prose p + p { margin-top: 1.25rem; }
   .svc-prose strong { color: var(--color-navy); font-weight: 500; }
-
-  .includes-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; max-width: 60ch; }
-  .includes-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.85rem; align-items: baseline; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
-  .includes-list .check { color: var(--color-gold-deep); margin-top: 0.25rem; }
 
   .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
   .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }

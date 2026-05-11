@@ -116,14 +116,13 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 |-------|---------|
 | `/` | Coming-soon gate (logo + "Launching soon", `noindex`) |
 | `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), three-step process, cream CTA before footer |
-| `/services/hourly-mediation` | Photo hero + facts grid + overview + what's included + right-fit + CTA |
-| `/services/parenting-plan` | Same layout pattern, cross-references court packet |
+| `/services/hourly-mediation` | Photo hero + facts grid + single prose section + CTA |
+| `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note |
 | `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper) |
 | `/about` | Magazine profile with bio, professional photo, "What is Mediation?" explainer |
 | `/book` | Photo hero + Calendly inline embed (free 15-min consult) |
 | `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
 | `/contact` | Email card + secondary booking CTA |
-| `/services` | Long-form services overview — photo hero + Family Mediation / Court-Ready Documents prose with Parenting Plan and Turn-key sub-sections |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |
 | `/legal/privacy` | Confidentiality of mediation, website security, data collection |
@@ -156,7 +155,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
 | `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle |
-| `src/pages/services/index.astro` | Services overview page (replaced the blog after client decided to remove it) |
+| `src/components/Nav.astro` | "Services" in the desktop nav is a dropdown trigger listing the three deep service pages; mobile menu shows them as a labeled sub-group |
 
 ## Documentation
 
