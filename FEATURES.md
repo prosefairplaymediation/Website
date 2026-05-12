@@ -10,7 +10,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 
 **Pages**
 - **Coming-soon gate** at `/` (per client request) — `noindex`, minimal logo + tagline. Pending the go-live flip.
-- **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), Black Box premium-tier callout with word-by-word reveal animation on scroll, cream CTA before footer.
+- **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), High-Profile & High-Conflict Resolution Services premium-tier callout with paragraph-by-paragraph reveal animation on scroll, cream CTA before footer.
 - **Service detail pages** — `/services/hourly-mediation`, `/services/parenting-plan`, `/services/court-packet`. Photo hero, facts grid, single prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu.
 - **About page** at `/about` — first-person bio (V4 copy), professional photo, credentials box ("Florida Supreme Court Certified Family Mediator").
 - **Booking page** at `/book` — photo hero + "Support that works around your life" three-column section with Lucide icons (clock / handshake / file-text) + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
@@ -33,7 +33,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 - **Custom domain + SSL** at https://prosefairplaymediation.com (and `www`); DNS managed in Cloudflare (nameservers swapped from GoDaddy).
 - **Google Workspace email** at `info@prosefairplaymediation.com` ($8.40/mo). DKIM + SPF + DMARC configured.
 - **Calendly Standard tier** ($12/mo) connected to Stripe, Google Calendar, and Zoom. Free 15-min consult is the only public event.
-- **Stripe** — fully configured, EIN verified, bank payouts enabled. Three paid products live: **Hourly Mediation** ($600 / hour, sold in 2/4/8-hour session blocks at $1,200 / $2,400 / $4,800), **Parenting Plan Preparation** ($600 flat), **Turn-Key Court Packet** ($800 flat).
+- **Stripe** — fully configured, EIN verified, bank payouts enabled. Three paid products live: **Hourly Mediation** ($400 / hour, sold in 2/4/8-hour session blocks at $800 / $1,600 / $3,200), **Parenting Plan Preparation** ($400 flat), **Turn-Key Court Packet** ($600 flat).
 - **Calendly Workflow** drafted to email the Engagement Agreement (Word + PDF links) on booking confirmation.
 
 **SEO foundation**

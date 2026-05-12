@@ -153,65 +153,40 @@ const services = [
   <section class="black-box" aria-labelledby="black-box-title">
     <div class="container-narrow black-box-inner">
       <h2 id="black-box-title" class="display black-box-title">
-        <span class="display-italic">Black Box</span> Mediation
+        High-Profile &amp; High-Conflict Resolution Services
       </h2>
 
       <div class="black-box-body">
         <p>
-          Certain matters require a heightened level of discretion,
-          privacy, and professional control. Pro Se Fair Play Mediation
-          offers an exclusive <em>Black Box</em> Mediation service
-          designed for high-profile individuals, executives, public
-          figures, athletes, entertainers, business owners, and parties
-          navigating sensitive or high-impact disputes requiring
-          elevated confidentiality protections.
+          Certain matters require an elevated level of discretion,
+          privacy, and professional oversight. Pro Se Fair Play
+          Mediation offers High-Profile &amp; High-Conflict Resolution
+          Services, a premium service designed for high-profile
+          individuals, executives, athletes, entertainers, business
+          owners, and parties involved in sensitive or high-conflict
+          disputes.
         </p>
 
         <p>
-          This premium mediation experience is tailored for clients who
-          value privacy, reputation management, scheduling flexibility,
-          and a secure, professionally managed environment throughout
-          the resolution process.
-        </p>
-
-        <p><em>Black Box</em> Mediation is ideal for:</p>
-
-        <ul class="black-box-list">
-          <li>Public-facing individuals and celebrities</li>
-          <li>Corporate executives and business professionals</li>
-          <li>High-net-worth individuals and families</li>
-          <li>Athletes, influencers, and entertainment professionals</li>
-          <li>High-conflict family or business disputes involving sensitive matters</li>
-          <li>Parties seeking discreet, structured conflict resolution outside of public exposure</li>
-        </ul>
-
-        <p>Services may include:</p>
-
-        <ul class="black-box-list">
-          <li>Private and isolated mediation accommodations</li>
-          <li>Flexible evening and weekend scheduling</li>
-          <li>Controlled communication protocols</li>
-          <li>Confidential virtual or in-person sessions</li>
-          <li>Tailored scheduling and customized session structures</li>
-          <li>Enhanced discretion throughout the mediation process</li>
-        </ul>
-
-        <p>
-          Every matter is approached with professionalism, neutrality,
-          precision, and the utmost respect for confidentiality. The
-          goal is to provide a calm, secure, and highly structured
-          environment where sensitive disputes can be addressed
-          privately and professionally.
+          This service is tailored for clients who value
+          confidentiality, reputation management, scheduling
+          flexibility, and a secure, professionally managed mediation
+          environment.
         </p>
 
         <p>
-          For clients requiring an elevated level of privacy and
-          discretion, <em>Black Box</em> Mediation offers a more refined
-          and confidential mediation experience.
+          High-Profile &amp; High-Conflict Resolution Services may
+          include private virtual or in-person sessions, controlled
+          communication protocols, flexible evening and weekend
+          scheduling, customized session structures, and enhanced
+          confidentiality measures throughout the process.
         </p>
 
         <p class="black-box-note">
-          Prices may vary for this service. Please inquire when booking.
+          Pricing for High-Profile &amp; High-Conflict Resolution
+          Services varies based on the nature and complexity of the
+          matter. Please inquire during booking for additional
+          information.
         </p>
       </div>
     </div>
@@ -763,48 +738,14 @@ const services = [
     margin-bottom: 1.25rem;
     font-weight: 400;
   }
-  .black-box-title .display-italic {
-    color: var(--color-gold);
-    font-weight: 400;
-  }
   .black-box-body {
     font-family: var(--font-body);
     font-size: 0.98rem;
     line-height: 1.65;
     color: color-mix(in srgb, var(--color-cream) 78%, transparent);
   }
-  .black-box-body p + p,
-  .black-box-body p + ul,
-  .black-box-body ul + p {
+  .black-box-body p + p {
     margin-top: 1rem;
-  }
-  .black-box-body em {
-    font-style: italic;
-    font-family: var(--font-display);
-    color: var(--color-gold);
-    font-weight: 500;
-  }
-  .black-box-list {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-  .black-box-list li {
-    position: relative;
-    padding-left: 1.25rem;
-  }
-  .black-box-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.7em;
-    width: 0.45rem;
-    height: 1px;
-    background: var(--color-gold);
-    opacity: 0.7;
   }
   .black-box-note {
     margin-top: 1.5rem;
@@ -813,11 +754,8 @@ const services = [
     font-size: 0.9rem;
   }
 
-  /* Paragraph-by-paragraph reveal — each paragraph's white text
-     fades in slowly, staggered, when the box is scrolled into view.
-     <em> children (the gold "Black Box" mentions) are left alone and
-     stay visible the whole time, so the white prose appears to slot
-     in around them.
+  /* Paragraph-by-paragraph reveal — each paragraph's text fades in
+     slowly, staggered, when the box is scrolled into view.
      Marked :global because the .bb-word spans are created at runtime
      by JS and won't carry Astro's scoped-style hash class. */
   :global(.bb-word) {

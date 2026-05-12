@@ -115,7 +115,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | Route | Purpose |
 |-------|---------|
 | `/` | Coming-soon gate (logo + "Launching soon", `noindex`) |
-| `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), Black Box premium-tier callout with word-by-word reveal animation, cream CTA before footer |
+| `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), High-Profile & High-Conflict Resolution Services premium-tier callout with paragraph-by-paragraph reveal animation, cream CTA before footer |
 | `/services/hourly-mediation` | Photo hero + facts grid + single prose section + CTA |
 | `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note |
 | `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper) |
@@ -144,7 +144,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
-| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan ($600 flat), Turn-Key Court Packet ($800 flat) |
+| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($400/hour, sold in 2/4/8-hour blocks at $800 / $1,600 / $3,200), Parenting Plan ($400 flat), Turn-Key Court Packet ($600 flat) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 | Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |
@@ -157,7 +157,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger) |
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
-| `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle, Black Box reveal animation script |
+| `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle, premium-tier callout reveal animation script |
 | `src/pages/landing.astro` | QR-code landing page — service cards + Calendly embed |
 | `astro.config.mjs` | Sitemap integration; site URL configured for canonical generation |
 
