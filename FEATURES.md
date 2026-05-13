@@ -15,7 +15,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 - **About page** at `/about` — first-person bio (V4 copy), professional photo, credentials box ("Florida Supreme Court Certified Family Mediator").
 - **Booking page** at `/book` — photo hero + "Support that works around your life" three-column section with Lucide icons (clock / handshake / file-text) + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
 - **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion (V2 copy from client) + closing CTA.
-- **Contact page** at `/contact` — email card + phone card (vanity `1 (866) 88-FORPROSE` / digit `1-866-883-6777`), secondary booking CTA.
+- **Contact page** at `/contact` — email card + phone card (vanity `1 (866) 88-FORPROSE` / digit `1-866-883-6777`) + eFax card (`561-652-9345`), secondary booking CTA.
 - **Landing page** at `/landing` — photo hero + three service cards (with prices, Lucide icons, "Learn more" links) + Calendly embed. Built as a QR-code destination for Marie's in-person outreach.
 - **Legal pages** — `/legal/disclaimer` (verbatim attorney copy, V2), `/legal/terms` (PDF + Word Engagement Agreement download), `/legal/privacy` (confidentiality, security, info collected).
 

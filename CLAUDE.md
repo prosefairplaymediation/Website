@@ -122,7 +122,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/about` | Magazine profile with bio, professional photo, "What is Mediation?" explainer |
 | `/book` | Photo hero + "Support that works around your life" three-column section with Lucide icons + Calendly inline embed (free 15-min consult) |
 | `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
-| `/contact` | Email card + phone card (vanity + digits) + secondary booking CTA |
+| `/contact` | Email card + phone card (vanity + digits) + eFax card + secondary booking CTA |
 | `/landing` | QR-code destination — photo hero, three service cards with prices + Lucide icons, Calendly embed below |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |

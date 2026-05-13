@@ -5,6 +5,7 @@ const email = "info@prosefairplaymediation.com";
 const phoneVanity = "1 (866) 88-FORPROSE";
 const phoneDigits = "1-866-883-6777";
 const phoneTel = "+18668836777";
+const faxDigits = "561-652-9345";
 ---
 
 <BaseLayout
@@ -22,7 +23,7 @@ const phoneTel = "+18668836777";
         Have a <span class="display-italic">question</span>?
       </h1>
       <p class="lede reveal reveal-d3">
-        Feel free to reach out by email or phone with any questions
+        Feel free to reach out by email, phone, or eFax with any questions
         about mediation, document preparation, or whether what I offer
         fits your situation. For booking a consultation, the
         scheduling page is the fastest way.
@@ -47,6 +48,11 @@ const phoneTel = "+18668836777";
             aria-label={`Call ${phoneDigits}`}
           >{phoneVanity}</a>
           <p class="contact-subnote">{phoneDigits}</p>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-label smallcaps">eFax</p>
+          <p class="contact-value display contact-value-static">{faxDigits}</p>
         </div>
       </div>
 
@@ -107,7 +113,7 @@ const phoneTel = "+18668836777";
      CONTACT CARDS
      ============================================================ */
   .contact-body {
-    padding-block: var(--space-2xl) var(--space-3xl);
+    padding-block: var(--space-lg) var(--space-3xl);
     background: var(--color-cream);
   }
   .contact-body-inner {
@@ -138,11 +144,11 @@ const phoneTel = "+18668836777";
     background: var(--color-gold);
   }
   .contact-label {
-    font-size: 0.72rem;
+    font-size: 1.05rem;
     color: var(--color-gold-deep);
     font-weight: 700;
-    letter-spacing: 0.24em;
-    margin-bottom: 0.85rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
     display: block;
   }
   .contact-value {
@@ -162,6 +168,14 @@ const phoneTel = "+18668836777";
   .contact-value:hover {
     background-size: 100% 2px;
     color: var(--color-navy-deep);
+  }
+  .contact-value-static {
+    background-image: none;
+    padding-bottom: 0;
+  }
+  .contact-value-static:hover {
+    background-size: 0% 2px;
+    color: var(--color-navy);
   }
   .contact-subnote {
     margin-top: 0.75rem;
