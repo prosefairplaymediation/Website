@@ -261,7 +261,7 @@ const phoneDigits = "1-866-883-6777";
   }
   .landing-card-body {
     font-family: var(--font-body);
-    font-size: 1.08rem;
+    font-size: 1.2rem;
     line-height: 1.55;
     color: var(--color-ink-soft);
   }
@@ -272,7 +272,7 @@ const phoneDigits = "1-866-883-6777";
     align-items: center;
     gap: 0.45rem;
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--color-gold-deep);
     transition: color 0.2s, gap 0.25s var(--ease-out);
@@ -288,46 +288,12 @@ const phoneDigits = "1-866-883-6777";
     transform: translateX(3px);
   }
 
-  /* Responsive — stay in 3 columns at every width.
-     Shrink icon/typography rather than collapsing the grid. */
+  /* Below 720px, 3 across gets too tight to read comfortably. Stack
+     to single column so each card can keep desktop typography. */
   @media (max-width: 720px) {
-    .landing-card-head {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.45rem;
-    }
-    .landing-card-title {
-      font-size: clamp(0.95rem, 0.75rem + 1.6vw, 1.5rem);
-    }
     .landing-services-grid {
-      gap: 1rem;
-    }
-    .landing-card-icon svg {
-      width: 42px;
-      height: 42px;
-    }
-    .landing-card-body {
-      font-size: 0.9rem;
-      line-height: 1.45;
-    }
-    .landing-card-price {
-      font-size: 1.25rem;
-      letter-spacing: 0.12em;
-    }
-    .landing-card-link {
-      font-size: 0.82rem;
-    }
-  }
-  @media (max-width: 440px) {
-    .landing-services-grid {
-      gap: 0.75rem;
-    }
-    .landing-card-icon svg {
-      width: 32px;
-      height: 32px;
-    }
-    .landing-card-body {
-      font-size: 0.82rem;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
     }
   }
 

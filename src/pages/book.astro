@@ -218,14 +218,14 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
   }
   .support-body {
     font-family: var(--font-body);
-    font-size: 1.18rem;
+    font-size: 1.2rem;
     line-height: 1.55;
     color: var(--color-ink-soft);
   }
   .support-note {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 1.08rem;
+    font-size: 1.1rem;
     line-height: 1.45;
     color: var(--color-gold-deep);
     margin-top: 0.15rem;
@@ -276,45 +276,12 @@ const calendlyUrl = "https://calendly.com/prosefairplaymediation-info/free-consu
   /* ============================================================
      RESPONSIVE
      ============================================================ */
-  /* Stay in 3 columns at every width. Shrink icon/typography rather
-     than collapsing the grid. */
+  /* Below 720px, 3 across gets too tight to read comfortably. Stack
+     to single column so each card can keep desktop typography. */
   @media (max-width: 720px) {
-    .support-head {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.45rem;
-    }
-    .support-title {
-      font-size: clamp(0.95rem, 0.75rem + 1.6vw, 1.5rem);
-    }
     .support-grid {
-      gap: 1rem;
-    }
-    .support-icon svg {
-      width: 42px;
-      height: 42px;
-    }
-    .support-body {
-      font-size: 0.92rem;
-      line-height: 1.5;
-    }
-    .support-note {
-      font-size: 0.88rem;
-    }
-  }
-  @media (max-width: 440px) {
-    .support-grid {
-      gap: 0.75rem;
-    }
-    .support-icon svg {
-      width: 32px;
-      height: 32px;
-    }
-    .support-body {
-      font-size: 0.85rem;
-    }
-    .support-note {
-      font-size: 0.82rem;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
     }
   }
 </style>
