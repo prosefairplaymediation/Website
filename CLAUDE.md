@@ -39,7 +39,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 **Navigation:** inverted — navy-deep sticky bar with gold/cream text and gold CTA button. Mobile menu inherits dark palette.
 
-**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `bigdocuments.jpeg` for court-packet with the darker overlay variant). Service-page hero ledes still use em dashes; trim if you touch them.
+**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (standard: rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78; darker variant: 0.9 → 0.78 → 0.9), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `stamppaint.png` for court-packet using the darker overlay variant). Service-page hero ledes still use em dashes; trim if you touch them.
 
 ## Conventions & Content Rules
 
@@ -144,7 +144,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
-| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($400/hour, sold in 2/4/8-hour blocks at $800 / $1,600 / $3,200), Parenting Plan ($400 flat), Turn-Key Court Packet ($600 flat) |
+| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan ($400 flat), Turn-Key Court Packet ($600 flat) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 | Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |

@@ -33,7 +33,7 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 - **Custom domain + SSL** at https://prosefairplaymediation.com (and `www`); DNS managed in Cloudflare (nameservers swapped from GoDaddy).
 - **Google Workspace email** at `info@prosefairplaymediation.com` ($8.40/mo). DKIM + SPF + DMARC configured.
 - **Calendly Standard tier** ($12/mo) connected to Stripe, Google Calendar, and Zoom. Free 15-min consult is the only public event.
-- **Stripe** — fully configured, EIN verified, bank payouts enabled. Three paid products live: **Hourly Mediation** ($400 / hour, sold in 2/4/8-hour session blocks at $800 / $1,600 / $3,200), **Parenting Plan Preparation** ($400 flat), **Turn-Key Court Packet** ($600 flat).
+- **Stripe** — fully configured, EIN verified, bank payouts enabled. Three paid products live: **Hourly Mediation** ($600 / hour, sold in 2/4/8-hour session blocks at $1,200 / $2,400 / $4,800), **Parenting Plan Preparation** ($400 flat), **Turn-Key Court Packet** ($600 flat).
 - **Calendly Workflow** drafted to email the Engagement Agreement (Word + PDF links) on booking confirmation.
 
 **SEO foundation**
