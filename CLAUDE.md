@@ -39,7 +39,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 **Navigation:** inverted — navy-deep sticky bar with gold/cream text and gold CTA button. Mobile menu inherits dark palette.
 
-**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (standard: rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78; darker variant: 0.9 → 0.78 → 0.9), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `stamppaint.png` for court-packet using the darker overlay variant). Service-page hero ledes still use em dashes; trim if you touch them.
+**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (standard: rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78; darker variant: 0.9 → 0.78 → 0.9), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `stampgavel.png` for court-packet using the darker overlay variant). Service-page hero ledes still use em dashes; trim if you touch them.
 
 ## Conventions & Content Rules
 
