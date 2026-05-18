@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import GoldService from "../../components/GoldService.astro";
 
 const facts = [
   { label: "Rate", value: "$600 / hour" },
@@ -84,6 +85,9 @@ const facts = [
       </div>
     </div>
   </section>
+
+  <!-- ========================== GOLD SERVICE ========================== -->
+  <GoldService />
 
   <!-- ========================== CTA ========================== -->
   <section class="cta">
@@ -236,7 +240,7 @@ const facts = [
   .cta {
     position: relative;
     padding-block: var(--space-3xl);
-    background: var(--color-cream);
+    background: var(--color-cream-warm);
     color: var(--color-ink);
     overflow: hidden;
     border-top: 1px solid var(--color-divider);

@@ -10,8 +10,8 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 
 **Pages**
 - **Coming-soon gate** at `/` (per client request) — `noindex`, minimal logo + tagline. Pending the go-live flip.
-- **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), High-Profile & High-Conflict Resolution Services premium-tier callout with paragraph-by-paragraph reveal animation on scroll, cream CTA before footer.
-- **Service detail pages** — `/services/hourly-mediation`, `/services/parenting-plan`, `/services/court-packet`. Photo hero, facts grid, single prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu.
+- **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation on scroll (gold "Gold Service" wordmark always visible, cream prose fades in around it), cream CTA before footer.
+- **Service detail pages** — `/services/hourly-mediation`, `/services/parenting-plan`, `/services/court-packet`. Photo hero, facts grid, single prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu. Hourly mediation additionally embeds the Gold Service premium-tier callout between prose and CTA (extracted into `src/components/GoldService.astro` for reuse).
 - **About page** at `/about` — first-person bio (V4 copy), professional photo, credentials box ("Florida Supreme Court Certified Family Mediator").
 - **Booking page** at `/book` — photo hero + "Support that works around your life" three-column section with Lucide icons (clock / handshake / file-text) + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
 - **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion (V2 copy from client) + closing CTA.

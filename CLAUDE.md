@@ -115,8 +115,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | Route | Purpose |
 |-------|---------|
 | `/` | Coming-soon gate (logo + "Launching soon", `noindex`) |
-| `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), High-Profile & High-Conflict Resolution Services premium-tier callout with paragraph-by-paragraph reveal animation, cream CTA before footer |
-| `/services/hourly-mediation` | Photo hero + facts grid + single prose section + CTA |
+| `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation (gold "Gold Service" wordmark stays visible while cream text fades in around it), cream CTA before footer |
+| `/services/hourly-mediation` | Photo hero + facts grid + prose section + Gold Service callout + CTA (CTA on cream-warm to keep the cream/cream-warm alternation) |
 | `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note |
 | `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper) |
 | `/about` | Magazine profile with bio, professional photo, "What is Mediation?" explainer |
@@ -157,7 +157,8 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger) |
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
-| `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle, premium-tier callout reveal animation script |
+| `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle |
+| `src/components/GoldService.astro` | Dark-box "Gold Service" premium-tier callout (markup + CSS + paragraph-fade JS). Used by `/home` and `/services/hourly-mediation`. Gold `<em>` wordmarks stay visible; cream prose fades in around them. |
 | `src/pages/landing.astro` | QR-code landing page — service cards + Calendly embed |
 | `astro.config.mjs` | Sitemap integration; site URL configured for canonical generation |
 
