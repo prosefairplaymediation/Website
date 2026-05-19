@@ -37,7 +37,7 @@
 
       <p class="black-box-note">
         Pricing for <em>Gold Service Mediation</em> varies based on the nature
-        and complexity of the matter. Please inquire during booking for
+        and complexity of the matter. Please <a href="/book" class="black-box-link">inquire during booking</a> for
         additional information.
       </p>
     </div>
@@ -63,11 +63,20 @@
               ? block.querySelectorAll("li")
               : [block];
             hosts.forEach(function (host) {
+              // Collect text nodes anywhere under the host, descending
+              // into inline elements like <a>, but skipping <em> so the
+              // gold wordmarks stay visible while prose fades.
               var textNodes = [];
-              for (var j = 0; j < host.childNodes.length; j++) {
-                var n = host.childNodes[j];
-                if (n.nodeType === 3) textNodes.push(n);
-              }
+              (function walk(node) {
+                for (var j = 0; j < node.childNodes.length; j++) {
+                  var n = node.childNodes[j];
+                  if (n.nodeType === 3) {
+                    textNodes.push(n);
+                  } else if (n.nodeType === 1 && n.tagName !== "EM") {
+                    walk(n);
+                  }
+                }
+              })(host);
               textNodes.forEach(function (tn) {
                 var text = tn.nodeValue;
                 if (text === "") return;
@@ -184,6 +193,19 @@
     font-style: italic;
     color: color-mix(in srgb, var(--color-cream) 60%, transparent);
     font-size: 0.9rem;
+  }
+  .black-box-link {
+    color: var(--color-gold);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 50%, transparent);
+    text-underline-offset: 3px;
+    font-style: normal;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .black-box-link:hover,
+  .black-box-link:focus-visible {
+    color: var(--color-cream);
+    text-decoration-color: var(--color-cream);
   }
 
   /* Paragraph-by-paragraph reveal. Marked :global because the

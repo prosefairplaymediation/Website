@@ -1,0 +1,165 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Online Notary Services · Pro Se Fair Play Mediation"
+  description="Professional online notary services for family law forms, parenting plans, affidavits, and business documents. Included with the Turnkey Package; available as a $10 add-on with the Parenting Plan service."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <h1 class="display svc-title reveal reveal-d2">
+        Online <span class="display-italic">Notary Services</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Certified online notary for family law forms, parenting plans,
+        affidavits, and business documents — designed to make the
+        document process simple, efficient, and seamless.
+      </p>
+      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
+        Book a Free Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================== PROSE ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <div class="svc-prose">
+        <p>
+          Pro Se Fair Play Mediation LLC offers professional online
+          notary services through a certified online notary designed to
+          make the document process simple, efficient, and seamless.
+        </p>
+        <p>
+          Online notary services are available for family law forms,
+          parenting plans, affidavits, business documents, and other
+          documents requiring notarization.
+        </p>
+
+        <h3 class="svc-subhead"><a href="/services/court-packet">Turnkey Document Preparation Service</a></h3>
+        <p>
+          Online notary services are included at no additional cost as
+          part of the Turnkey Package. Clients receive fully completed
+          and notarized court-ready documents prepared for filing.
+        </p>
+
+        <h3 class="svc-subhead"><a href="/services/parenting-plan">Parenting Plan Only Service</a></h3>
+        <p>
+          Clients selecting the Parenting Plan Only Service may add
+          online notary services for a small $10 fee, if needed.
+        </p>
+
+        <p class="svc-closing">
+          Thank you for trusting Pro Se Fair Play Mediation LLC with
+          your notary service needs. Every client is appreciated, and
+          every matter is handled with professionalism, care, and
+          attention to detail.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <p class="kicker cta-kicker">Add notary to your service</p>
+      <h2 class="display cta-title">
+        Begin with a <span class="display-italic">free</span> 15-minute consultation.
+      </h2>
+      <p class="lede cta-lede">
+        I'd like to discuss your matter and determine which service is
+        the right fit. The consultation is free, with no commitment.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Identical pattern to hourly-mediation.astro for visual consistency ---- */
+  .svc-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.78) 0%,
+        rgba(27, 42, 74, 0.62) 50%,
+        rgba(27, 42, 74, 0.78) 100%),
+      url('/Notary.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .svc-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .svc-header .kicker { color: var(--color-gold); }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45); }
+  .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); }
+  .svc-header-cta { margin-top: 1.75rem; }
+
+  .svc-section { padding-block: var(--space-2xl); }
+  .svc-section-alt { background: var(--color-cream-warm); }
+  .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
+  .svc-prose p + p { margin-top: 1.25rem; }
+  .svc-prose strong { color: var(--color-navy); font-weight: 500; }
+  .svc-subhead {
+    margin-top: 2.25rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+  }
+  .svc-subhead a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .svc-subhead a:hover,
+  .svc-subhead a:focus-visible {
+    color: var(--color-gold-deep);
+    text-decoration-color: var(--color-gold-deep);
+  }
+  .svc-closing {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+    font-style: italic;
+    color: color-mix(in srgb, var(--color-ink-soft) 85%, transparent);
+  }
+
+  .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
+  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
+  .cta-title .display-italic { color: var(--color-gold-deep); }
+  .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
+  .cta-actions { margin-top: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
+  .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+
+</style>

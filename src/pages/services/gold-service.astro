@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GoldService from "../../components/GoldService.astro";
+---
+
+<BaseLayout
+  title="Gold Service Mediation · Pro Se Fair Play Mediation"
+  description="Premium mediation for high-profile individuals, executives, and parties in sensitive or high-conflict disputes. Private, discreet, and professionally managed."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <h1 class="display svc-title reveal reveal-d2">
+        <span class="display-italic">Gold Service</span> Mediation<span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Mediation tailored for high-profile individuals and parties in
+        sensitive disputes — private, discreet, and professionally
+        managed with elevated care.
+      </p>
+      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
+        Book a Free Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+
+  <!-- ========================== GOLD SERVICE ========================== -->
+  <GoldService />
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <p class="kicker cta-kicker">Discretion · Privacy · Professionalism</p>
+      <h2 class="display cta-title">
+        Start with a <span class="display-italic">free</span> 15-minute consultation.
+      </h2>
+      <p class="lede cta-lede">
+        I'd like to discuss your matter and determine whether Gold
+        Service Mediation is the right fit. The consultation is free
+        and confidential.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Identical pattern to hourly-mediation.astro for visual consistency ---- */
+  .svc-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.78) 0%,
+        rgba(27, 42, 74, 0.62) 50%,
+        rgba(27, 42, 74, 0.78) 100%),
+      url('/Goldservice.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .svc-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .svc-header .kicker { color: var(--color-gold); }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45); }
+  .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); }
+  .svc-header-cta { margin-top: 1.75rem; }
+
+  .svc-facts { padding-block: var(--space-md); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
+  .facts-note { margin: 0; font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .facts-note a { font-style: normal; }
+
+  .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream-warm); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
+  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
+  .cta-title .display-italic { color: var(--color-gold-deep); }
+  .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
+  .cta-actions { margin-top: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
+  .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+
+</style>

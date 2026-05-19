@@ -1,8 +1,10 @@
 ---
 const services = [
   { href: "/services/hourly-mediation",  label: "Hourly Mediation" },
+  { href: "/services/gold-service",      label: "Gold Service Mediation" },
   { href: "/services/parenting-plan",    label: "Parenting Plan Preparation" },
   { href: "/services/court-packet",      label: "Turn-Key Court Packet" },
+  { href: "/services/notary",            label: "Online Notary Services" },
 ];
 ---
 
@@ -10,16 +12,7 @@ const services = [
   <div class="container nav-inner">
     <a href="/home" class="brand" aria-label="Pro Se Fair Play Mediation — home">
       <span class="brand-mark" aria-hidden="true">
-        <!-- Simplified scales glyph in the brand color -->
-        <svg viewBox="0 0 40 40" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 6 V34" />
-          <path d="M8 34 H32" />
-          <path d="M6 14 L14 14" />
-          <path d="M26 14 L34 14" />
-          <path d="M10 14 L6 24 Q10 26 14 24 Z" />
-          <path d="M30 14 L26 24 Q30 26 34 24 Z" />
-          <circle cx="20" cy="8" r="1.6" fill="currentColor" />
-        </svg>
+        <img src="/GOLD-LOGO.png" alt="" width="42" height="42" loading="eager" decoding="async" />
       </span>
       <span class="brand-text">
         <span class="brand-name">Pro Se Fair Play</span>
@@ -108,16 +101,20 @@ const services = [
     gap: 0.7rem;
     color: var(--color-navy);
     transition: color 0.25s var(--ease-out);
+    flex-shrink: 0;
   }
   .brand-mark {
-    color: var(--color-gold);
     display: grid; place-items: center;
-    transition: transform 0.5s var(--ease-out), color 0.25s var(--ease-out);
+    transition: transform 0.5s var(--ease-out);
     transform-origin: 50% 60%;
+  }
+  .brand-mark img {
+    display: block;
+    height: auto;
+    max-width: 100%;
   }
   .brand:hover .brand-mark {
     transform: rotate(8deg);
-    color: var(--color-gold-deep);
   }
   .brand-text { display: flex; flex-direction: column; line-height: 1; }
   .brand-name {
@@ -129,6 +126,7 @@ const services = [
     color: var(--color-gold);
     position: relative;
     padding-bottom: 2px;
+    white-space: nowrap;
     background-image: linear-gradient(var(--color-cream), var(--color-cream));
     background-repeat: no-repeat;
     background-size: 0% 2px;
