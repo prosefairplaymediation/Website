@@ -245,12 +245,33 @@ const services = [
     flex-direction: column;
     gap: 0;
   }
+  /* Invisible hover bridge — extends the menu's hoverable area up
+     into the 0.5rem gap between trigger and menu so a slow pointer
+     moving from trigger to menu doesn't cross dead space and lose
+     :hover (WCAG 1.4.13 Hoverable). */
+  .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+  }
   .has-dropdown:hover .dropdown-menu,
   .has-dropdown:focus-within .dropdown-menu,
   .dropdown-trigger[aria-expanded="true"] + .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+  /* Escape sets this class on the wrapper to force the menu closed
+     even while focus-within or :hover would otherwise keep it open.
+     The class is cleared by JS when the user moves pointer out or
+     focus leaves the wrapper, so the next interaction works normally. */
+  .has-dropdown.is-dismissed .dropdown-menu {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-4px) !important;
   }
   .dropdown-menu li + li {
     border-top: 1px solid color-mix(in srgb, var(--color-gold) 22%, transparent);
@@ -485,15 +506,25 @@ const services = [
 
     if (wrapper) {
       // Hover opens the menu via CSS; mirror to aria-expanded so the
-      // accessibility tree matches the visual state.
-      wrapper.addEventListener("mouseenter", () => setExpanded(true));
-      wrapper.addEventListener("mouseleave", () => setExpanded(false));
-      // Same for keyboard focus traversal into/out of the menu.
+      // accessibility tree matches the visual state. is-dismissed
+      // is NOT cleared on focusin — that event fires when Escape
+      // moves focus from a menu item back to the trigger, and
+      // clearing then would reopen the menu we just dismissed.
+      // Mouseenter and focusout (leaving the wrapper) clear it.
+      wrapper.addEventListener("mouseenter", () => {
+        wrapper.classList.remove("is-dismissed");
+        setExpanded(true);
+      });
+      wrapper.addEventListener("mouseleave", () => {
+        wrapper.classList.remove("is-dismissed");
+        setExpanded(false);
+      });
       wrapper.addEventListener("focusin", () => setExpanded(true));
       wrapper.addEventListener("focusout", (e) => {
-        // Only close when focus actually leaves the wrapper, not when
-        // it moves between elements inside it.
-        if (!wrapper.contains(e.relatedTarget as Node)) setExpanded(false);
+        if (!wrapper.contains(e.relatedTarget as Node)) {
+          wrapper.classList.remove("is-dismissed");
+          setExpanded(false);
+        }
       });
     }
 
@@ -504,6 +535,10 @@ const services = [
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         setExpanded(false);
+        // Force the menu closed even though :hover / :focus-within
+        // would otherwise keep it open. Class is cleared by the
+        // mouse/focus handlers above on the next interaction.
+        if (wrapper) wrapper.classList.add("is-dismissed");
         // Return focus to the trigger so the user knows where they are.
         if (document.activeElement && wrapper?.contains(document.activeElement)) {
           dropdownTrigger.focus();
