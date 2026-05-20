@@ -110,6 +110,77 @@ const facts = [
       </div>
     </div>
   </section>
+
+  <!-- ========================== CANCELLATION + REFUND POLICY ========================== -->
+  <section class="refund">
+    <div class="container-narrow">
+      <p class="refund-kicker smallcaps">Mediation</p>
+      <h2 class="display refund-title">Cancellation, Rescheduling &amp; Refund Policy</h2>
+      <div class="refund-body">
+        <p>
+          At Pro Se Fair Play Mediation LLC, mediation sessions involve
+          reserved professional time, scheduling coordination between
+          parties, and advance preparation to ensure a productive and
+          structured process. I understand that life happens and strive
+          to maintain a policy that is both fair to clients and
+          respectful of the time reserved for each matter.
+        </p>
+
+        <h3 class="refund-subhead">Cancellations &amp; Rescheduling</h3>
+        <p>
+          Cancellations or rescheduling requests made more than
+          twenty-four (24) hours prior to a scheduled session are
+          eligible for either:
+        </p>
+        <ul class="refund-list">
+          <li>a full refund to the original payment method, or</li>
+          <li>a full session credit to be applied toward a future mediation session.</li>
+        </ul>
+        <p>
+          For cancellations made less than twenty-four (24) hours
+          before the scheduled session, fifty percent (50%) of the
+          mediation retainer will be retained as a reserved session
+          and preparation fee. The remaining balance may be applied
+          as a one-time credit toward a rescheduled session scheduled
+          within thirty (30) days, subject to availability.
+        </p>
+        <p>
+          Clients who fail to appear for a scheduled mediation session
+          without notice will forfeit the full mediation retainer.
+        </p>
+
+        <h3 class="refund-subhead">Courtesy Rescheduling</h3>
+        <p>
+          One courtesy reschedule may be accommodated for unforeseen
+          circumstances, provided reasonable notice is given and
+          scheduling availability permits.
+        </p>
+
+        <h3 class="refund-subhead">Emergency Circumstances</h3>
+        <p>
+          Emergency situations and unforeseen events may be considered
+          on a case-by-case basis at the sole discretion of Pro Se
+          Fair Play Mediation LLC.
+        </p>
+
+        <h3 class="refund-subhead">Refund Processing</h3>
+        <p>
+          Approved refunds will be processed to the original payment
+          method. Processing times may vary depending on the financial
+          institution or payment provider.
+        </p>
+
+        <h3 class="refund-subhead">Reserved Professional Time</h3>
+        <p>
+          By scheduling a mediation session, clients acknowledge that
+          mediation appointments involve reserved professional time
+          and preparation that cannot typically be reassigned on short
+          notice. This policy is intended to maintain fairness,
+          scheduling integrity, and availability for all parties.
+        </p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -246,7 +317,7 @@ const facts = [
   .cta {
     position: relative;
     padding-block: var(--space-3xl);
-    background: var(--color-cream-warm);
+    background: var(--color-cream);
     color: var(--color-ink);
     overflow: hidden;
     border-top: 1px solid var(--color-divider);
@@ -299,6 +370,67 @@ const facts = [
   /* ============================================================
      RESPONSIVE
      ============================================================ */
+  /* ============================================================
+     CANCELLATION + REFUND POLICY
+     ============================================================ */
+  .refund {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .refund::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.55;
+  }
+  .refund-kicker {
+    font-size: 1.05rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .refund-title {
+    font-size: var(--step-3);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-navy);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .refund-body {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  .refund-body p + p { margin-top: 1.25rem; }
+  .refund-subhead {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  .refund-list {
+    margin: 0.75rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .refund-list li { line-height: 1.55; }
+
   @media (max-width: 720px) {
     .facts-grid { grid-template-columns: 1fr 1fr; }
   }
