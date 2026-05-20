@@ -150,7 +150,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
 | Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan ($400 flat), Turn-Key Court Packet ($600 flat) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
-| Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout |
+| Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout. Custom events: **Pay funnel** — `pay_intent_click` (entry buttons on /home, /landing, /services/parenting-plan, /services/court-packet — params: `source`, `product`), `pay_checkout_click` (the actual Pay Now buttons on /pay — params: `product`, `value`, `currency`), `pay_complete` (fires on /thank-you load — `source: 'stripe_redirect'`). **Booking** — `book_intent_click` (single delegated listener in BaseLayout, fires on any click on `<a href="/book">` site-wide — param: `source` = the path the click came from). Actual purchase data lives in Stripe Dashboard. |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |
 
 ## Key Components

@@ -36,6 +36,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       </div>
     </div>
   </header>
+
+  <script is:inline>
+    // Fire a GA4 event whenever the post-payment thank-you page loads.
+    // Stripe Payment Links don't pass transaction details back on
+    // redirect, so this is a simple counter — actual purchase data
+    // lives in the Stripe Dashboard. Pairs with pay_checkout_click
+    // (fired on /pay) to give a rough completion-rate view in GA4.
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "pay_complete", { source: "stripe_redirect" });
+    }
+  </script>
 </BaseLayout>
 
 <style>

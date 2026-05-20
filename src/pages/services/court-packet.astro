@@ -31,7 +31,11 @@ const facts = [
           Book a Free Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
-        <a class="btn svc-header-cta svc-header-cta-pay" href="/pay">
+        <a
+          class="btn svc-header-cta svc-header-cta-pay"
+          href="/pay"
+          onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'court_packet_page',product:'court_packet'})"
+        >
           Pay for a Court Packet
           <span class="arrow" aria-hidden="true">→</span>
         </a>

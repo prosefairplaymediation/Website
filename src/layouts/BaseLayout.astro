@@ -29,6 +29,20 @@ const {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-NH6HKR18MZ');
+
+      // Delegated listener: any click on a /book link anywhere on
+      // the site fires a single book_intent_click event. Source is
+      // the path the user clicked from so we can see where bookings
+      // originate without per-button onclicks scattered everywhere.
+      document.addEventListener("click", function (e) {
+        var link = e.target && e.target.closest && e.target.closest('a[href="/book"]');
+        if (!link) return;
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "book_intent_click", {
+            source: window.location.pathname,
+          });
+        }
+      });
     </script>
 
     <title>{title}</title>

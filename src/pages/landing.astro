@@ -143,7 +143,12 @@ const phoneDigits = "1-866-883-6777";
 
       <p class="landing-pay-strip">
         Already agreed on a Parenting Plan or Turn-Key Court Packet service?
-        <a class="btn btn-primary landing-pay-btn" href="/pay">
+        <a
+          class="btn btn-primary landing-pay-btn"
+          href="/pay"
+          aria-label="Pay for a Parenting Plan or Turn-Key Court Packet"
+          onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'landing',product:'either'})"
+        >
           Pay here
           <span class="arrow" aria-hidden="true">→</span>
         </a>

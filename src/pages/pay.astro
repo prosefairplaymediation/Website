@@ -8,16 +8,20 @@ const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
 
 const products = [
   {
+    slug: "parenting_plan",
     title: "Parenting Plan Preparation",
     price: "$400 flat",
+    value: 400,
     description:
       "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
     detail: "/services/parenting-plan",
     payUrl: parentingPlanUrl,
   },
   {
+    slug: "court_packet",
     title: "Turn-Key Court Packet",
     price: "$600 flat",
+    value: 600,
     description:
       "A complete, organized set of family-law documents — Parenting Plan, required Florida Supreme Court forms, and notarization where applicable — assembled into a filing-ready packet.",
     detail: "/services/court-packet",
@@ -84,6 +88,8 @@ const products = [
                 href={p.payUrl}
                 class="btn btn-primary pay-btn"
                 data-pay-btn
+                data-product={p.slug}
+                data-value={p.value}
                 aria-disabled="true"
                 tabindex="-1"
                 aria-label={`Pay now for ${p.title}`}
@@ -131,12 +137,22 @@ const products = [
       checkbox.addEventListener("change", sync);
 
       // Anchor tags can't be truly disabled — block clicks while the
-      // checkbox is unchecked.
+      // checkbox is unchecked. When enabled, fire a GA4 event before
+      // the browser navigates away to Stripe so we can measure how
+      // often each product's Pay Now button is actually used.
       buttons.forEach(function (btn) {
         btn.addEventListener("click", function (e) {
           if (btn.getAttribute("aria-disabled") === "true") {
             e.preventDefault();
             checkbox.focus();
+            return;
+          }
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "pay_checkout_click", {
+              product: btn.dataset.product || "unknown",
+              value: Number(btn.dataset.value) || 0,
+              currency: "USD",
+            });
           }
         });
       });
