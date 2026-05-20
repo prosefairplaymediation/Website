@@ -26,10 +26,16 @@ const facts = [
         and the other party provide, delivered in a clear, court-ready
         format.
       </p>
-      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
-        Book a Free Consultation
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
+      <div class="svc-header-ctas reveal reveal-d4">
+        <a class="btn btn-primary svc-header-cta" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn svc-header-cta svc-header-cta-pay" href="/pay">
+          Pay for a Parenting Plan
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -118,6 +124,36 @@ const facts = [
       </div>
     </div>
   </section>
+
+  <!-- ========================== REFUND POLICY ========================== -->
+  <section class="refund">
+    <div class="container-narrow">
+      <p class="refund-kicker smallcaps">Document Preparation</p>
+      <h2 class="display refund-title">Refund Policy</h2>
+      <div class="refund-body">
+        <p>
+          Document preparation services are customized for each client
+          and matter. Because of the time, attention, and preparation
+          involved, refunds are available prior to the start of
+          drafting or document preparation work.
+        </p>
+        <p>
+          Once work has begun, payments may be applied as a credit
+          toward ongoing or future services based on the status of the
+          matter and the work completed.
+        </p>
+        <p>
+          Once completed drafts or finalized documents have been
+          delivered, services are considered earned and non-refundable.
+        </p>
+        <p>
+          I understand that unexpected situations can arise, and
+          reasonable requests related to unforeseen circumstances will
+          always be considered with care on a case-by-case basis.
+        </p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -146,16 +182,36 @@ const facts = [
     pointer-events: none;
   }
   .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
-  .svc-header .kicker { color: var(--color-gold); }
+  .svc-header .kicker { color: var(--color-gold); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
   .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-gold); font-weight: 600; transition: color 0.2s; }
   .back-link:hover { color: var(--color-cream); }
   .arrow-left { transition: transform 0.3s var(--ease-out); }
   .back-link:hover .arrow-left { transform: translateX(-3px); }
   .kicker-sep { color: color-mix(in srgb, var(--color-cream) 30%, transparent); margin-inline: 0.4rem; }
-  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45); }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
   .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
-  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); }
-  .svc-header-cta { margin-top: 1.75rem; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
+  .svc-header-cta { margin-top: 0; }
+  .svc-header-ctas {
+    margin-top: 1.75rem;
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .svc-header-cta-pay {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border: 1px solid var(--color-gold);
+  }
+  .svc-header-cta-pay:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+  }
+  .svc-header-cta-pay .arrow { transition: transform 0.4s var(--ease-out); }
+  .svc-header-cta-pay:hover .arrow { transform: translateX(4px); }
 
   .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
   .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
@@ -183,6 +239,48 @@ const facts = [
   .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
   .cta-link { color: var(--color-navy); background-image: linear-gradient(var(--color-gold), var(--color-gold)); }
   .cta-link:hover { color: var(--color-gold-deep); }
+
+  /* ============================================================
+     REFUND POLICY
+     ============================================================ */
+  .refund {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .refund::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.55;
+  }
+  .refund-kicker {
+    font-size: 1.05rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .refund-title {
+    font-size: var(--step-3);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-navy);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .refund-body {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  .refund-body p + p { margin-top: 1.25rem; }
 
   @media (max-width: 720px) {
     .facts-grid { grid-template-columns: 1fr 1fr; }

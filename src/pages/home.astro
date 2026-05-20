@@ -61,7 +61,7 @@ const services = [
 
       <p class="kicker reveal reveal-d2">
         <span class="kicker-dot" aria-hidden="true"></span>
-        Mediation · Document Preparation
+        Mediation · Document Preparation · Notary Public
       </p>
 
       <h1 class="hero-title display reveal reveal-d3">
@@ -91,6 +91,19 @@ const services = [
     </div>
   </section>
 
+  <!-- ========================== ALREADY-AGREED PAY STRIP ========================== -->
+  <section class="pay-strip" aria-label="Self-pay shortcut">
+    <div class="container pay-strip-inner">
+      <p class="pay-strip-text">
+        Already agreed on a Parenting Plan or Turn-Key Court Packet service?
+      </p>
+      <a class="btn btn-primary pay-strip-btn" href="/pay">
+        Pay here
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
   <!-- ========================== SERVICES ========================== -->
   <section class="section services">
     <div class="container">
@@ -108,14 +121,14 @@ const services = [
 
       <ol class="services-grid">
         {services.map((s) => (
-          <li class="service-card" tabindex="0" style={`--card-image: url('${s.image}');`}>
+          <li class="service-card" style={`--card-image: url('${s.image}');`}>
             <div class="service-card-inner">
               <h3 class="service-title display">{s.title}</h3>
               <div class="service-reveal">
                 <ul class="service-bullets">
                   {s.bullets.map((b) => <li>{b}</li>)}
                 </ul>
-                <a href={s.href} class="service-button">
+                <a href={s.href} class="service-button" aria-label={`Learn more about ${s.title}`}>
                   Learn more
                   <span class="arrow" aria-hidden="true">→</span>
                 </a>
@@ -129,6 +142,8 @@ const services = [
         // Mobile / touch: tap anywhere on the card toggles reveal.
         // Tap on the inner "Learn more" link still navigates because we
         // bail before toggling when the click target is the link.
+        // Keyboard users get the reveal via :focus-within on the link
+        // inside — no need for tabindex on the card itself (WCAG 2.4.3).
         const cards = document.querySelectorAll<HTMLElement>(".service-card");
         cards.forEach((card) => {
           card.addEventListener("click", (e) => {
@@ -136,14 +151,19 @@ const services = [
             if (target.closest(".service-button")) return;
             card.classList.toggle("is-revealed");
           });
-          card.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              const target = e.target as HTMLElement;
-              if (target.closest(".service-button")) return;
-              e.preventDefault();
-              card.classList.toggle("is-revealed");
-            }
+        });
+
+        // WCAG 1.4.13: Escape dismisses the revealed state without
+        // requiring focus or pointer to leave the area.
+        document.addEventListener("keydown", (e) => {
+          if (e.key !== "Escape") return;
+          document.querySelectorAll(".service-card.is-revealed").forEach((c) => {
+            c.classList.remove("is-revealed");
           });
+          const focused = document.activeElement as HTMLElement | null;
+          if (focused && focused.closest(".service-card")) {
+            focused.blur();
+          }
         });
       </script>
     </div>
@@ -297,7 +317,7 @@ const services = [
     align-items: center;
     justify-content: center;
     font-size: 0.85rem;
-    color: var(--color-slate);
+    color: var(--color-ink-soft);
     flex-wrap: wrap;
   }
   .hero-foot-sep {
@@ -406,6 +426,33 @@ const services = [
     margin-bottom: var(--space-xl);
     background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold) 20%, var(--color-divider) 20%, var(--color-divider) 100%);
     height: 1px;
+  }
+
+  /* ------------------------------------------------------------
+     ALREADY-AGREED PAY STRIP
+     ------------------------------------------------------------ */
+  .pay-strip {
+    background: var(--color-cream-warm);
+    border-block: 1px solid var(--color-divider);
+    padding-block: 1.5rem;
+  }
+  .pay-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .pay-strip-text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+  .pay-strip-btn {
+    padding: 0.65rem 1.3rem;
+    font-size: 0.9rem;
   }
 
   /* ------------------------------------------------------------

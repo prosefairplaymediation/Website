@@ -32,9 +32,9 @@ const phoneDigits = "1-866-883-6777";
   <!-- ========================== SERVICES ========================== -->
   <section class="landing-services">
     <div class="container">
-      <div class="landing-services-grid">
+      <ul class="landing-services-grid" role="list">
 
-        <article class="landing-card">
+        <li class="landing-card">
           <div class="landing-card-head">
             <span class="landing-card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -53,13 +53,17 @@ const phoneDigits = "1-866-883-6777";
             toward a mutually acceptable resolution. Conducted via
             Zoom, structured, confidential.
           </p>
-          <a href="/services/hourly-mediation" class="landing-card-link">
+          <a
+            href="/services/hourly-mediation"
+            class="landing-card-link"
+            aria-label="Learn more about Hourly Mediation"
+          >
             Learn more
             <span class="arrow" aria-hidden="true">→</span>
           </a>
-        </article>
+        </li>
 
-        <article class="landing-card">
+        <li class="landing-card">
           <div class="landing-card-head">
             <span class="landing-card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -78,13 +82,17 @@ const phoneDigits = "1-866-883-6777";
             schedule, structure, and needs. Delivered in a clear,
             court-ready format.
           </p>
-          <a href="/services/parenting-plan" class="landing-card-link">
+          <a
+            href="/services/parenting-plan"
+            class="landing-card-link"
+            aria-label="Learn more about Parenting Plan Preparation"
+          >
             Learn more
             <span class="arrow" aria-hidden="true">→</span>
           </a>
-        </article>
+        </li>
 
-        <article class="landing-card">
+        <li class="landing-card">
           <div class="landing-card-head">
             <span class="landing-card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -101,13 +109,17 @@ const phoneDigits = "1-866-883-6777";
             assembled into a filing-ready packet with notarization
             where applicable.
           </p>
-          <a href="/services/court-packet" class="landing-card-link">
+          <a
+            href="/services/court-packet"
+            class="landing-card-link"
+            aria-label="Learn more about the Turn-Key Court Packet"
+          >
             Learn more
             <span class="arrow" aria-hidden="true">→</span>
           </a>
-        </article>
+        </li>
 
-      </div>
+      </ul>
     </div>
   </section>
 
@@ -128,6 +140,15 @@ const phoneDigits = "1-866-883-6777";
           aria-label={`Call ${phoneDigits}`}
         >{phoneVanity}</a>.
       </p>
+
+      <p class="landing-pay-strip">
+        Already agreed on a Parenting Plan or Turn-Key Court Packet service?
+        <a class="btn btn-primary landing-pay-btn" href="/pay">
+          Pay here
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </p>
+
       <div
         class="calendly-inline-widget"
         data-url={calendlyUrl}
@@ -171,7 +192,10 @@ const phoneDigits = "1-866-883-6777";
     pointer-events: none;
   }
   .landing-header-inner { position: relative; max-width: 64rem; z-index: 1; }
-  .landing-header .kicker { color: var(--color-gold); }
+  .landing-header .kicker {
+    color: var(--color-gold);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+  }
   .landing-header .kicker-dot {
     background: var(--color-gold);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent);
@@ -184,7 +208,7 @@ const phoneDigits = "1-866-883-6777";
     letter-spacing: -0.025em;
     max-width: 22ch;
     font-weight: 400;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
   .landing-title .display-italic {
     color: var(--color-gold);
@@ -194,6 +218,7 @@ const phoneDigits = "1-866-883-6777";
     margin-top: 1.5rem;
     max-width: none;
     color: color-mix(in srgb, var(--color-cream) 85%, transparent);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
 
   /* ============================================================
@@ -214,6 +239,9 @@ const phoneDigits = "1-866-883-6777";
     opacity: 0.45;
   }
   .landing-services-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(1.5rem, 3vw, 3rem);
@@ -319,6 +347,22 @@ const phoneDigits = "1-866-883-6777";
     margin-top: 1rem;
     max-width: 56ch;
     color: var(--color-ink-soft);
+  }
+  .landing-pay-strip {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+  }
+  .landing-pay-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
   .calendly-inline-widget {
     margin-top: var(--space-lg);

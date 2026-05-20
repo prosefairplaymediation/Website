@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Thank You · Pro Se Fair Play Mediation"
+  description="Payment received. Marie will be in touch shortly to discuss your document preparation requirements."
+  noindex
+>
+  <header class="thanks-header">
+    <div class="container thanks-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Payment Received
+      </p>
+      <h1 class="display thanks-title reveal reveal-d2">
+        Thank <span class="display-italic">you</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Payment received. Marie will contact you shortly to discuss
+        your Document Preparation requirements and gather any
+        information needed to get started.
+      </p>
+      <p class="thanks-receipt reveal reveal-d4">
+        A receipt has been emailed to you by Stripe. Please keep it for
+        your records.
+      </p>
+      <div class="thanks-actions reveal reveal-d5">
+        <a class="btn btn-primary" href="/home">
+          Back to home
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="link-underline thanks-actions-link" href="/contact">
+          Or contact me directly
+        </a>
+      </div>
+    </div>
+  </header>
+</BaseLayout>
+
+<style>
+  .thanks-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(4rem, 6vw + 1rem, 7rem);
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(196, 154, 75, 0.1), transparent 60%),
+      var(--color-cream);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .thanks-header-inner {
+    position: relative;
+    max-width: 56rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .thanks-header .kicker {
+    color: var(--color-gold-deep);
+    justify-content: center;
+  }
+  .thanks-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .thanks-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .thanks-header .lede {
+    margin-top: 1.5rem;
+    max-width: 52ch;
+    margin-inline: auto;
+    color: var(--color-ink-soft);
+  }
+  .thanks-receipt {
+    margin-top: 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+    max-width: 48ch;
+    margin-inline: auto;
+    font-style: italic;
+  }
+  .thanks-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .thanks-actions-link { font-size: 0.95rem; }
+</style>

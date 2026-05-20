@@ -1,0 +1,253 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Engagement Agreement · Pro Se Fair Play Mediation"
+  description="The Engagement Agreement governing services with Pro Se Fair Play Mediation, LLC. Provided here for reference; opens in a new tab from the payment page."
+  noindex
+>
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/pay" class="back-link">
+          <span class="arrow-left" aria-hidden="true">←</span>
+          Back to payment
+        </a>
+        <span class="kicker-sep" aria-hidden="true">·</span>
+        Reference
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">
+        Engagement <span class="display-italic">Agreement</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Please review carefully before checking the agreement box on
+        the payment page. A downloadable PDF and Word copy are also
+        available on the <a class="link-underline" href="/legal/terms">Agreement</a> page.
+      </p>
+    </div>
+  </header>
+
+  <section class="legal-body">
+    <div class="container-narrow legal-prose">
+      <div class="agreement-meta">
+        <p class="agreement-tagline">Where We Level the Playing Field</p>
+        <address class="agreement-contact">
+          700 South Rosemary Avenue, Suite 204<br />
+          West Palm Beach, Florida 33401<br />
+          <a href="tel:+18668836777">1-866-88-FORPROSE</a><br />
+          <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a><br />
+          <a href="https://www.prosefairplaymediation.com">www.prosefairplaymediation.com</a>
+        </address>
+        <p class="agreement-stamp smallcaps">Confidential Client Engagement Document</p>
+        <p class="agreement-preface">
+          This Agreement contains important terms and conditions
+          regarding mediation and document preparation services. Please
+          review carefully before signing.
+        </p>
+      </div>
+
+      <h2 class="section-h2">1. Nature of Services</h2>
+      <p>
+        Pro Se Fair Play Mediation LLC provides mediation, neutral
+        facilitation, family mediation, high-conflict dispute
+        facilitation, document preparation services for self-represented
+        individuals, administrative support services, parenting plan
+        drafting assistance based solely upon client-provided
+        information, court form preparation services, and scheduling
+        assistance.
+      </p>
+      <p>
+        The Company is not a law firm and does not provide legal advice
+        or legal representation.
+      </p>
+
+      <h2 class="section-h2">2. No Attorney-Client Relationship</h2>
+      <p>
+        No attorney-client relationship is created by this Agreement.
+        Clients are encouraged to seek independent legal counsel
+        regarding their legal rights and obligations.
+      </p>
+
+      <h2 class="section-h2">3. Mediation Services</h2>
+      <p>
+        The mediator acts solely as a neutral facilitator and does not
+        advocate for either party. No guarantees regarding settlement
+        or outcomes are made.
+      </p>
+
+      <h2 class="section-h2">4. Confidentiality</h2>
+      <p>
+        To the fullest extent permitted under Florida law, mediation
+        communications shall remain confidential pursuant to Chapter
+        44, Florida Statutes, and applicable Florida mediation rules.
+      </p>
+
+      <h2 class="section-h2">5. Document Preparation Services</h2>
+      <p>
+        The Company acts solely as a scrivener and administrative
+        preparer. All information inserted into forms or documents is
+        supplied by the Client.
+      </p>
+
+      <h2 class="section-h2">6. Fees and Payment Terms</h2>
+      <p>
+        All fees are earned upon commencement of services unless
+        otherwise agreed in writing. Additional charges may apply for
+        rush services, revisions, administrative support, or
+        rescheduled sessions.
+      </p>
+
+      <h2 class="section-h2">7. No Guarantee of Results</h2>
+      <p>
+        The Company makes no guarantees regarding mediation outcomes,
+        judicial rulings, settlement terms, or litigation results.
+      </p>
+
+      <h2 class="section-h2">8. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, the Company's total
+        liability shall not exceed the amount actually paid by Client
+        for services rendered.
+      </p>
+
+      <h2 class="section-h2">9. Dispute Resolution</h2>
+      <p>
+        Any dispute arising under this Agreement shall first be
+        submitted to mediation in Palm Beach County, Florida. Florida
+        law shall govern this Agreement.
+      </p>
+
+      <h2 class="section-h2">10. Important Legal Disclaimer</h2>
+      <p>
+        Pro Se Fair Play Mediation LLC is not a law firm. We are not
+        attorneys and do not provide legal advice or legal
+        representation. We provide mediation and document preparation
+        services for self-represented individuals only.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .legal-header-inner { position: relative; max-width: 64rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .legal-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .legal-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .legal-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+  }
+
+  .legal-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .legal-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .legal-prose p + p { margin-top: 1.25rem; }
+  .legal-prose strong { color: var(--color-navy); font-weight: 600; }
+  .legal-prose a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 92%;
+  }
+  .legal-prose a:hover { color: var(--color-gold-deep); }
+
+  .agreement-meta {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+    text-align: center;
+  }
+  .agreement-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-gold-deep);
+    margin-bottom: 1.25rem;
+  }
+  .agreement-contact {
+    font-style: normal;
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .agreement-stamp {
+    font-size: 0.78rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .agreement-preface {
+    font-style: italic;
+    color: var(--color-ink-soft);
+    max-width: 56ch;
+    margin-inline: auto;
+  }
+
+  .section-h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    color: var(--color-navy);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-divider);
+    position: relative;
+  }
+  .section-h2::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 2.5rem; height: 1px;
+    background: var(--color-gold);
+  }
+
+  @media (max-width: 600px) {
+    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .section-h2 { font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem); }
+  }
+</style>

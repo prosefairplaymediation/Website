@@ -31,7 +31,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 **Palette** (tokens in `src/styles/global.css`):
 - Navy `#1B2D5A`, navy-deep `#12214A`
-- Gold `#C49A4B`, gold-deep `#9E7C34`
+- Gold `#C49A4B`, gold-deep `#7C5E22` (gold-deep darkened from #9E7C34 to clear WCAG AA 4.5:1 on cream surfaces — only use the lighter #C49A4B as text on dark backgrounds where it passes contrast)
 - Cream `#FAF7F0`, cream-warm `#F3ECDC`, paper `#FFFDF7`
 - Ink `#1A1C22`, slate `#5C6070`, divider `#E8DFCA`
 
@@ -39,7 +39,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 
 **Navigation:** inverted — navy-deep sticky bar with gold/cream text and gold CTA button. Mobile menu inherits dark palette.
 
-**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the three service detail pages all use a full-width photo background + navy diagonal gradient overlay (standard: rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78; darker variant: 0.9 → 0.78 → 0.9), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `stampgavel.png` for court-packet using the darker overlay variant). Service-page hero ledes still use em dashes; trim if you touch them.
+**Photo-hero pattern:** `/book`, `/faq`, `/landing`, and the five service detail pages all use a full-width photo background + navy diagonal gradient overlay (standard: rgba 15,27,50,0.78 → 27,42,74,0.62 → 27,42,74,0.78; darker variant: 0.9 → 0.78 → 0.9), cream/gold text, and a soft fade-to-cream bottom. Repeated structure is intentional rhythm; image varies per page (currently: `justice_globe.jpg` for `/book` and `/landing`, `scales.jpeg` for `/faq`, `handshake4.jpeg` for hourly-mediation, `documents2.jpeg` for parenting-plan, `stampgavel.png` for court-packet using the darker overlay variant, `Goldservice.png` for gold-service, `Notary.png` for notary). Hero h1 trailing periods render gold across all pages (wrapped in `.display-italic`); CTA titles unchanged. Service-page hero ledes still use em dashes; trim if you touch them.
 
 ## Conventions & Content Rules
 
@@ -47,7 +47,7 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 - **No client name in commit messages** — refer generically ("per client selection", "per client feedback").
 - **Leave unbuilt nav links as raw 404s** — dead links are the TODO list. Don't stub "coming soon" placeholders.
 - **Content expansion:** client-supplied text is often AI-generated and too long. Trim to essentials; don't expand.
-- **Scope:** Stripe (live products), Calendly Standard tier, static pages. No custom backend, CMS, or dashboard. Stripe and Calendly are decoupled — Marie manually qualifies clients; no Stripe-Calendly automation beyond the built-in payment-on-booking flow.
+- **Scope:** Stripe (live products + Payment Links for self-pay on `/pay`), Calendly Standard tier, static pages. No custom backend, CMS, or dashboard. Stripe and Calendly are decoupled — Marie manually qualifies clients; no Stripe-Calendly automation beyond the built-in payment-on-booking flow. Self-pay (Parenting Plan + Court Packet) added late in scope per client request, short-circuiting the consult-first model; Hourly Mediation remains consult-first (no self-pay link).
 
 ## Development Guidelines
 
@@ -117,8 +117,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/` | Coming-soon gate (logo + "Launching soon", `noindex`) |
 | `/home` | Real homepage — stacked hero, animated slogan, photo service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation (gold "Gold Service" wordmark stays visible while cream text fades in around it), cream CTA before footer |
 | `/services/hourly-mediation` | Photo hero + facts grid + prose section + Gold Service callout + CTA (CTA on cream-warm to keep the cream/cream-warm alternation) |
-| `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note |
-| `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper) |
+| `/services/gold-service` | Photo hero (`Goldservice.png`) + embedded `<GoldService />` callout + CTA. Dedicated landing page for the premium tier; CTA copy emphasizes discretion/privacy/professionalism |
+| `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note. Notary line clarifies it's a $10 add-on (not included), with link to `/services/notary` |
+| `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper). Notary included at no extra cost |
+| `/services/notary` | Photo hero (`Notary.png`) + prose with two subheaded blocks linking to court-packet (included) and parenting-plan ($10 add-on) + closing thank-you + CTA |
 | `/about` | Magazine profile with bio, professional photo, "What is Mediation?" explainer |
 | `/book` | Photo hero + "Support that works around your life" three-column section with Lucide icons + Calendly inline embed (free 15-min consult) |
 | `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
@@ -127,12 +129,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |
 | `/legal/privacy` | Confidentiality of mediation, website security, data collection |
+| `/pay` | Self-pay landing. Engagement-Agreement checkbox (gates Pay buttons) + two product cards (Parenting Plan $400, Court Packet $600). Buttons are `<a href>` to live Stripe Payment Links (`buy.stripe.com/...`) — zero backend. After-payment redirect to `/thank-you` is configured on the Stripe side per Payment Link. Checkbox link opens `/pay/agreement` in a new tab. |
+| `/pay/agreement` | Readable HTML version of the Engagement Agreement (10 numbered sections + contact-block header), styled like the other legal pages. Opens in a new tab from the `/pay` checkbox. `noindex`; excluded from sitemap. `/legal/terms` still hosts the canonical PDF + Word downloads. |
+| `/thank-you` | Post-payment landing — Stripe redirects here on success. Centered "Thanks, Marie will contact you shortly to discuss your Document Preparation requirements." `noindex` (excluded from sitemap, robots meta set). |
 
 ## Pages (Pending / Not Building)
 
 | Route | Status | Notes |
 |-------|--------|-------|
-| `/pay` | Deferred | Stripe Payment Links. Client flow: consult-first → manual quote/payment after agreement |
 | `/intake` | Explicitly NO | Calendly's per-event custom questions (phone, situation, conflict-check, disclaimer) cover the need |
 
 
@@ -154,7 +158,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | File | Purpose |
 |------|---------|
 | `src/layouts/BaseLayout.astro` | HTML shell, font loading, nav, footer |
-| `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger) |
+| `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger). Brand mark uses `/GOLD-LOGO.png`; brand block locked with `flex-shrink: 0` to prevent compression on narrow widths. Services dropdown lists all five service pages (Hourly, Gold Service, Parenting Plan, Court Packet, Notary) |
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
 | `src/pages/home.astro` | Homepage logic, service-card data, reveal toggle |

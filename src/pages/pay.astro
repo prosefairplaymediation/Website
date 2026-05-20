@@ -1,0 +1,347 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Stripe Payment Links (Stripe Dashboard > Payment Links).
+// After-payment redirect set to /thank-you on the Stripe side.
+const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
+const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
+
+const products = [
+  {
+    title: "Parenting Plan Preparation",
+    price: "$400 flat",
+    description:
+      "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
+    detail: "/services/parenting-plan",
+    payUrl: parentingPlanUrl,
+  },
+  {
+    title: "Turn-Key Court Packet",
+    price: "$600 flat",
+    description:
+      "A complete, organized set of family-law documents — Parenting Plan, required Florida Supreme Court forms, and notarization where applicable — assembled into a filing-ready packet.",
+    detail: "/services/court-packet",
+    payUrl: courtPacketUrl,
+  },
+];
+---
+
+<BaseLayout
+  title="Pay for a Service · Pro Se Fair Play Mediation"
+  description="Pay online for Parenting Plan Preparation or the Turn-Key Court Packet. Secure payment processed by Stripe."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="pay-header">
+    <div class="container pay-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Secure Payment
+      </p>
+      <h1 class="display pay-title reveal reveal-d2">
+        Document services <span class="display-italic">payment portal</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        For clients who have already discussed their case and agreed on
+        the scope of work. Select your service below to pay securely
+        through Stripe. Payment is processed on Stripe's hosted
+        checkout; no card details are stored on this site.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== AGREEMENT GATE ========================== -->
+  <section class="pay-body">
+    <div class="container-narrow">
+      <form
+        id="pay-form"
+        class="pay-agreement"
+        onsubmit="event.preventDefault();"
+        novalidate
+      >
+        <label class="pay-checkbox">
+          <input type="checkbox" id="pay-agree" />
+          <span class="pay-checkbox-mark" aria-hidden="true"></span>
+          <span class="pay-checkbox-text">
+            I have read and agree to the{" "}
+            <a class="link-underline" href="/pay/agreement" target="_blank" rel="noopener">
+              Engagement Agreement
+            </a>.
+          </span>
+        </label>
+      </form>
+
+      <!-- ========================== PRODUCTS ========================== -->
+      <ul class="pay-products" role="list">
+        {products.map((p) => (
+          <li class="pay-card">
+            <div class="pay-card-head">
+              <h2 class="pay-card-title display">{p.title}</h2>
+              <p class="pay-card-price smallcaps">{p.price}</p>
+            </div>
+            <p class="pay-card-body">{p.description}</p>
+            <div class="pay-card-actions">
+              <a
+                href={p.payUrl}
+                class="btn btn-primary pay-btn"
+                data-pay-btn
+                aria-disabled="true"
+                tabindex="-1"
+                aria-label={`Pay now for ${p.title}`}
+              >
+                Pay Now
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+              <a
+                class="link-underline pay-detail-link"
+                href={p.detail}
+                aria-label={`${p.title} service details`}
+              >
+                Service details
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="pay-foot">
+        Need to talk first? <a class="link-underline" href="/book">Book a free 15-minute consultation</a>.
+      </p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      const checkbox = document.getElementById("pay-agree");
+      const buttons = document.querySelectorAll("[data-pay-btn]");
+      if (!checkbox || buttons.length === 0) return;
+
+      function sync() {
+        const enabled = checkbox.checked;
+        buttons.forEach(function (btn) {
+          if (enabled) {
+            btn.setAttribute("aria-disabled", "false");
+            btn.removeAttribute("tabindex");
+          } else {
+            btn.setAttribute("aria-disabled", "true");
+            btn.setAttribute("tabindex", "-1");
+          }
+        });
+      }
+
+      checkbox.addEventListener("change", sync);
+
+      // Anchor tags can't be truly disabled — block clicks while the
+      // checkbox is unchecked.
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          if (btn.getAttribute("aria-disabled") === "true") {
+            e.preventDefault();
+            checkbox.focus();
+          }
+        });
+      });
+
+      sync();
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .pay-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .pay-header-inner { position: relative; max-width: 64rem; }
+  .pay-title {
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    margin-top: 1rem;
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .pay-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .pay-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     BODY
+     ============================================================ */
+  .pay-body {
+    padding-block: var(--space-xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+
+  /* ============================================================
+     AGREEMENT CHECKBOX
+     ============================================================ */
+  .pay-agreement {
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-left: 3px solid var(--color-gold);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: var(--space-lg);
+  }
+  .pay-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+  .pay-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+  .pay-checkbox-mark {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    border: 1.5px solid var(--color-gold);
+    border-radius: 3px;
+    background: var(--color-cream);
+    position: relative;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pay-checkbox-mark::after {
+    content: "";
+    position: absolute;
+    top: 3px; left: 7px;
+    width: 5px; height: 10px;
+    border: solid var(--color-cream);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .pay-checkbox input:checked ~ .pay-checkbox-mark {
+    background: var(--color-gold-deep);
+    border-color: var(--color-gold-deep);
+  }
+  .pay-checkbox input:checked ~ .pay-checkbox-mark::after {
+    opacity: 1;
+  }
+  .pay-checkbox input:focus-visible ~ .pay-checkbox-mark {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+  .pay-checkbox-text strong { color: var(--color-navy); }
+
+  /* ============================================================
+     PRODUCT CARDS
+     ============================================================ */
+  .pay-products {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+  .pay-card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-top: 2px solid var(--color-gold);
+    padding: 1.75rem 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.15);
+  }
+  .pay-card-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .pay-card-title {
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: var(--color-navy);
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .pay-card-price {
+    font-size: 1.35rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+  .pay-card-body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    flex: 1;
+  }
+  .pay-card-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .pay-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+  .pay-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+  .pay-btn[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+  .pay-btn[aria-disabled="true"]:hover {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .pay-detail-link {
+    font-size: 0.95rem;
+  }
+
+  /* ============================================================
+     FOOT
+     ============================================================ */
+  .pay-foot {
+    margin-top: var(--space-xl);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    text-align: center;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 720px) {
+    .pay-products {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

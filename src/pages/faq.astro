@@ -80,7 +80,7 @@ const faqs = [
           <li class="faq-item">
             <details class="faq-details">
               <summary class="faq-summary">
-                <span class="faq-num display">{String(idx + 1).padStart(2, "0")}</span>
+                <span class="faq-num display" aria-hidden="true">{String(idx + 1).padStart(2, "0")}</span>
                 <span class="faq-question display">{item.q}</span>
                 <span class="faq-toggle" aria-hidden="true">
                   <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
@@ -151,7 +151,10 @@ const faqs = [
     z-index: 1;
     padding-top: clamp(1.5rem, 3vw, 3rem);
   }
-  .faq-header .kicker { color: var(--color-gold); }
+  .faq-header .kicker {
+    color: var(--color-gold);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+  }
   .faq-header .kicker-dot { background: var(--color-gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent); }
   .faq-title {
     font-size: var(--step-5);
@@ -161,7 +164,7 @@ const faqs = [
     letter-spacing: -0.025em;
     max-width: 22ch;
     font-weight: 400;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
   .faq-title .display-italic {
     color: var(--color-gold);
@@ -171,6 +174,7 @@ const faqs = [
     margin-top: 1.5rem;
     max-width: 60ch;
     color: color-mix(in srgb, var(--color-cream) 85%, transparent);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
 
   /* ============================================================

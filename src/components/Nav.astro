@@ -17,11 +17,10 @@ const services = [
       <span class="brand-text">
         <span class="brand-name">Pro Se Fair Play</span>
         <span class="brand-sub">Mediation · LLC</span>
-        <span class="brand-slogan" aria-hidden="true">Where we level the playing field.</span>
       </span>
     </a>
 
-    <p class="nav-slogan" aria-hidden="true">Where we level the playing field.</p>
+    <p class="nav-slogan">Where we level the playing field.</p>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
@@ -148,19 +147,6 @@ const services = [
   }
   .brand:hover .brand-sub {
     color: var(--color-gold);
-  }
-
-  /* Mobile-only slogan under the brand name (replaces .brand-sub which is
-     hidden below 880px). Stays italic gold to echo the desktop nav-slogan. */
-  .brand-slogan {
-    display: none;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 0.85rem;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-    color: var(--color-gold);
-    margin-top: 0.3rem;
   }
 
   .nav-slogan {
@@ -419,9 +405,10 @@ const services = [
     border-color: var(--color-gold);
   }
 
-  /* Hide nav slogan before things get cramped — below ~1255px the slogan
-     squeezes the brand text and forces "Pro Se Fair Play" / "Mediation · LLC"
-     to wrap awkwardly. */
+  /* Hide nav slogan in the mid-width zone — below ~1255px the centered
+     slogan squeezes the brand text and forces "Pro Se Fair Play" /
+     "Mediation · LLC" to wrap awkwardly. Re-shown at mobile widths as
+     a full-width row below the brand (see ≤880px). */
   @media (max-width: 1255px) {
     .nav-slogan { display: none; }
   }
@@ -429,8 +416,30 @@ const services = [
   @media (max-width: 880px) {
     .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
-    .brand-sub { display: none; }
-    .brand-slogan { display: block; }
+
+    /* Grid layout puts brand + hamburger on row 1, slogan as its own
+       row below — visually under the brand text (left-aligned with an
+       indent past the icon so it lines up with "Pro Se Fair Play"). */
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "brand toggle"
+        "slogan slogan";
+      align-items: center;
+      row-gap: 0.3rem;
+    }
+    .brand { grid-area: brand; }
+    .nav-toggle { grid-area: toggle; }
+    .nav-slogan {
+      display: block;
+      grid-area: slogan;
+      text-align: left;
+      font-size: 0.85rem;
+      margin: 0;
+      padding-left: calc(42px + 0.7rem);
+      white-space: normal;
+    }
   }
 </style>
 
@@ -457,32 +466,55 @@ const services = [
     });
   }
 
-  // Desktop Services dropdown — hover handles itself via CSS,
-  // this gives click/keyboard control too.
+  // Desktop Services dropdown — CSS handles the visual reveal on
+  // :hover and :focus-within. The JS here keeps aria-expanded in sync
+  // so screen readers see the correct state regardless of which trigger
+  // opened the menu (click, hover, or keyboard focus). WCAG 1.4.13
+  // also requires dismiss via Escape and persistence while pointer
+  // hovers the menu — both handled below.
   const dropdownTrigger = document.getElementById("services-trigger");
   if (dropdownTrigger) {
-    const closeDropdown = () => dropdownTrigger.setAttribute("aria-expanded", "false");
+    const wrapper = dropdownTrigger.closest(".has-dropdown");
+    const setExpanded = (v) => dropdownTrigger.setAttribute("aria-expanded", String(v));
 
     dropdownTrigger.addEventListener("click", (e) => {
       e.stopPropagation();
       const open = dropdownTrigger.getAttribute("aria-expanded") === "true";
-      dropdownTrigger.setAttribute("aria-expanded", String(!open));
+      setExpanded(!open);
     });
 
+    if (wrapper) {
+      // Hover opens the menu via CSS; mirror to aria-expanded so the
+      // accessibility tree matches the visual state.
+      wrapper.addEventListener("mouseenter", () => setExpanded(true));
+      wrapper.addEventListener("mouseleave", () => setExpanded(false));
+      // Same for keyboard focus traversal into/out of the menu.
+      wrapper.addEventListener("focusin", () => setExpanded(true));
+      wrapper.addEventListener("focusout", (e) => {
+        // Only close when focus actually leaves the wrapper, not when
+        // it moves between elements inside it.
+        if (!wrapper.contains(e.relatedTarget as Node)) setExpanded(false);
+      });
+    }
+
     document.addEventListener("click", (e) => {
-      const wrapper = dropdownTrigger.closest(".has-dropdown");
-      if (wrapper && !wrapper.contains(e.target as Node)) closeDropdown();
+      if (wrapper && !wrapper.contains(e.target as Node)) setExpanded(false);
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeDropdown();
+      if (e.key === "Escape") {
+        setExpanded(false);
+        // Return focus to the trigger so the user knows where they are.
+        if (document.activeElement && wrapper?.contains(document.activeElement)) {
+          dropdownTrigger.focus();
+        }
+      }
     });
 
     // Close when any dropdown item is clicked (so navigation feels clean)
-    const wrapper = dropdownTrigger.closest(".has-dropdown");
     if (wrapper) {
       wrapper.querySelectorAll(".dropdown-menu a").forEach(a => {
-        a.addEventListener("click", () => closeDropdown());
+        a.addEventListener("click", () => setExpanded(false));
       });
     }
   }
