@@ -1,0 +1,293 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const intakeForms = [
+  {
+    prefix: "Intake Form:",
+    name: "Parental Decision-making",
+    sublabel: "Microsoft Word · ~29 KB",
+    href: "/Parental_Decisions_Intake_PSFP.docx",
+  },
+  {
+    prefix: "Intake Form:",
+    name: "Financial Information",
+    sublabel: "Microsoft Word · ~17 KB",
+    href: "/Financial_Info_Intake_PSFP.docx",
+  },
+];
+
+const agreementFormats = [
+  {
+    label: "Engagement Agreement PDF",
+    sublabel: "Portable Document · ~111 KB",
+    href: "/Pro_Se_Fair_Play_Engagement_Agreement.pdf",
+  },
+  {
+    label: "Engagement Agreement DOC",
+    sublabel: "Microsoft Word · ~106 KB",
+    href: "/Pro_Se_Fair_Play_Engagement_Agreement.docx",
+  },
+];
+
+const externalForms = {
+  label: "Florida Family Law Forms",
+  sublabel: "Florida Courts · official forms portal",
+  href: "https://www.flcourts.gov/Services/Family-Courts/domestic-relations-court-resources/family-law-forms",
+  external: true,
+};
+---
+
+<BaseLayout
+  title="Document Portal · Pro Se Fair Play Mediation"
+  description="Intake forms, engagement agreement, and links to Florida family law forms — everything you might need to download or reference for self-represented family law matters."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Resources
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">
+        Document <span class="display-italic">Portal</span>.
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Forms, the engagement agreement, and links to the official
+        Florida family law forms — all in one place for download or
+        reference.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== INTAKE ========================== -->
+  <section class="legal-body">
+    <div class="container-narrow">
+      <p class="formats-label smallcaps">Intake Forms</p>
+      <ul class="download-stack" role="list">
+        {intakeForms.map((f) => (
+          <li class="download-card">
+            <div class="download-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 5 H20 L26 11 V27 H8 Z" />
+                <path d="M20 5 V11 H26" />
+                <path d="M16 16 V23 M12 19 L16 23 L20 19" />
+              </svg>
+            </div>
+            <div class="download-info">
+              <p class="download-label">
+                <span class="download-label-prefix">{f.prefix}</span>
+                <span class="download-label-name">{f.name}</span>
+              </p>
+              <p class="download-sub">{f.sublabel}</p>
+            </div>
+            <a
+              class="btn btn-primary download-btn"
+              href={f.href}
+              download
+              aria-label={`Download ${f.prefix} ${f.name} (${f.sublabel})`}
+            >
+              Download
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== AGREEMENT ========================== -->
+  <section class="legal-body legal-body-alt">
+    <div class="container-narrow">
+      <p class="formats-label smallcaps">Engagement Agreement</p>
+      <ul class="download-stack" role="list">
+        {agreementFormats.map((f) => (
+          <li class="download-card">
+            <div class="download-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 5 H20 L26 11 V27 H8 Z" />
+                <path d="M20 5 V11 H26" />
+                <path d="M16 16 V23 M12 19 L16 23 L20 19" />
+              </svg>
+            </div>
+            <div class="download-info">
+              <p class="download-label">{f.label}</p>
+              <p class="download-sub">{f.sublabel}</p>
+            </div>
+            <a
+              class="btn btn-primary download-btn"
+              href={f.href}
+              download
+              aria-label={`Download Engagement Agreement (${f.label}, ${f.sublabel})`}
+            >
+              Download
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== EXTERNAL ========================== -->
+  <section class="legal-body">
+    <div class="container-narrow">
+      <p class="formats-label smallcaps">Florida Family Law Forms</p>
+      <ul class="download-stack" role="list">
+        <li class="download-card">
+          <div class="download-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 19 L19 13" />
+              <path d="M11 13 H19 V21" />
+              <path d="M5 11 V25 A2 2 0 0 0 7 27 H21 A2 2 0 0 0 23 25 V19" />
+            </svg>
+          </div>
+          <div class="download-info">
+            <p class="download-label">{externalForms.label}</p>
+            <p class="download-sub">{externalForms.sublabel}</p>
+          </div>
+          <a
+            class="btn btn-primary download-btn"
+            href={externalForms.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Florida Family Law Forms on flcourts.gov in a new tab"
+          >
+            Open
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .legal-header-inner { position: relative; max-width: 64rem; }
+  .legal-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 22ch;
+    font-weight: 400;
+  }
+  .legal-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .legal-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+  }
+
+  /* Alternating cream / cream-warm bands so the three sections read
+     as distinct categories. */
+  .legal-body {
+    padding-block: var(--space-xl) var(--space-xl);
+    background: var(--color-cream);
+  }
+  .legal-body-alt {
+    background: var(--color-cream-warm);
+    border-block: 1px solid var(--color-divider);
+  }
+  .legal-body:last-of-type {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .formats-label {
+    font-size: 1.2rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .download-stack {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .download-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    padding: clamp(2rem, 4vw, 3rem);
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-radius: 4px;
+    position: relative;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.18);
+  }
+  .download-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4rem; height: 2px;
+    background: var(--color-gold);
+  }
+  .download-icon {
+    color: var(--color-gold-deep);
+    display: grid;
+    place-items: center;
+    width: 4rem; height: 4rem;
+  }
+  .download-icon svg { width: 44px; height: 44px; }
+  .download-info { min-width: 0; }
+  .download-label {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 0.95rem + 2vw, 2.5rem);
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+    display: block;
+    text-transform: none;
+  }
+  /* Two-line intake-form label: "Intake Form:" stacks above the name
+     so the name doesn't get awkward-wrapped mid-word on narrow widths. */
+  .download-label-prefix,
+  .download-label-name {
+    display: block;
+  }
+  .download-label-name {
+    white-space: nowrap;
+  }
+  .download-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-slate);
+    font-style: italic;
+    line-height: 1.45;
+  }
+  .download-btn {
+    white-space: nowrap;
+    padding: 1.1rem 2rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .download-card {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .download-btn { justify-self: flex-start; }
+  }
+</style>

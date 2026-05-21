@@ -114,8 +114,8 @@ const facts = [
   <!-- ========================== CANCELLATION + REFUND POLICY ========================== -->
   <section class="refund">
     <div class="container-narrow">
-      <p class="refund-kicker smallcaps">Mediation</p>
-      <h2 class="display refund-title">Cancellation, Rescheduling &amp; Refund Policy</h2>
+      <p class="refund-kicker">Mediation</p>
+      <h2 class="display refund-title">Refund Policy</h2>
       <div class="refund-body">
         <p>
           At Pro Se Fair Play Mediation LLC, mediation sessions involve
@@ -267,7 +267,7 @@ const facts = [
   }
   .fact { display: flex; flex-direction: column; gap: 0.35rem; }
   .fact-label {
-    font-size: 0.7rem;
+    font-size: 1.00rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.24em;
@@ -317,7 +317,7 @@ const facts = [
   .cta {
     position: relative;
     padding-block: var(--space-3xl);
-    background: var(--color-cream);
+    background: var(--color-cream-warm);
     color: var(--color-ink);
     overflow: hidden;
     border-top: 1px solid var(--color-divider);
@@ -330,7 +330,7 @@ const facts = [
     background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
     opacity: 0.7;
   }
-  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-kicker { color: var(--color-gold-deep); font-size: 0.97rem; }
   .cta-title {
     margin-block: 1rem 1.5rem;
     font-size: var(--step-4);
@@ -375,7 +375,7 @@ const facts = [
      ============================================================ */
   .refund {
     padding-block: var(--space-2xl) var(--space-3xl);
-    background: var(--color-cream-warm);
+    background: var(--color-cream);
     border-top: 1px solid var(--color-divider);
     position: relative;
   }
@@ -388,17 +388,18 @@ const facts = [
     opacity: 0.55;
   }
   .refund-kicker {
-    font-size: 1.05rem;
+    font-size: 0.97rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
     display: block;
   }
   .refund-title {
-    font-size: var(--step-3);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    font-size: var(--step-4);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
     color: var(--color-navy);
     margin-bottom: 1.5rem;
     font-weight: 400;

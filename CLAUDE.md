@@ -125,6 +125,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/book` | Photo hero + "Support that works around your life" three-column section with Lucide icons + Calendly inline embed (free 15-min consult) |
 | `/faq` | Photo hero + 11-question native HTML accordion + closing CTA |
 | `/contact` | Email card + phone card (vanity + digits) + eFax card + secondary booking CTA |
+| `/documents` | Three-section portal: Intake Forms (`Parental_Decisions_Intake_PSFP.docx`, `Financial_Info_Intake_PSFP.docx`), Engagement Agreement (links to `/legal/terms`), and the official Florida Family Law Forms (external `flcourts.gov` link). Reuses the `/legal/terms` download-card pattern; alternating cream / cream-warm bands per section. |
 | `/landing` | QR-code destination — photo hero, three service cards with prices + Lucide icons, Calendly embed below |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |

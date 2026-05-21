@@ -131,7 +131,7 @@ const facts = [
   <!-- ========================== REFUND POLICY ========================== -->
   <section class="refund">
     <div class="container-narrow">
-      <p class="refund-kicker smallcaps">Document Preparation</p>
+      <p class="refund-kicker">Document Preparation</p>
       <h2 class="display refund-title">Refund Policy</h2>
       <div class="refund-body">
         <p>
@@ -219,7 +219,7 @@ const facts = [
   .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
   .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
   .fact { display: flex; flex-direction: column; gap: 0.35rem; }
-  .fact-label { font-size: 0.7rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-label { font-size: 1.00rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
   .fact-value { margin: 0; font-size: 1.15rem; color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
   .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
   .facts-note strong { color: var(--color-navy); font-weight: 600; font-style: normal; }
@@ -233,7 +233,7 @@ const facts = [
 
   .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
   .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
-  .cta-kicker { color: var(--color-gold-deep); }
+  .cta-kicker { color: var(--color-gold-deep); font-size: 0.97rem; }
   .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
   .cta-title .display-italic { color: var(--color-gold-deep); }
   .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
@@ -261,17 +261,18 @@ const facts = [
     opacity: 0.55;
   }
   .refund-kicker {
-    font-size: 1.05rem;
+    font-size: 0.97rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
     display: block;
   }
   .refund-title {
-    font-size: var(--step-3);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    font-size: var(--step-4);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
     color: var(--color-navy);
     margin-bottom: 1.5rem;
     font-weight: 400;

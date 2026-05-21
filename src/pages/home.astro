@@ -270,9 +270,6 @@ const services = [
     white-space: nowrap;
     max-width: 100%;
   }
-  .hero-line-2 {
-    color: var(--color-navy);
-  }
   .level-box {
     position: relative;
     display: inline-block;
@@ -371,14 +368,6 @@ const services = [
     height: auto;
     filter: drop-shadow(0 30px 40px rgba(27, 45, 90, 0.08));
   }
-  .hero-logo-caption {
-    margin-top: 1.25rem;
-    text-align: center;
-    font-size: 0.7rem;
-    color: var(--color-slate);
-    letter-spacing: 0.28em;
-  }
-
   /* ------------------------------------------------------------
      SECTIONS (generic)
      ------------------------------------------------------------ */
@@ -406,15 +395,6 @@ const services = [
   .section-head.services-head .section-intro {
     margin-top: 1rem;
     max-width: 78ch;
-  }
-  .section-head-left {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 1.5rem;
-    align-items: start;
-  }
-  .eyebrow-numeral {
-    padding-top: 0.3rem;
   }
   .section-title {
     margin-top: 0.5rem;
@@ -746,7 +726,6 @@ const services = [
 
   @media (max-width: 960px) {
     .section-head { grid-template-columns: 1fr; align-items: start; }
-    .section-head-left { grid-template-columns: 1fr; gap: 0.25rem; }
     .services-grid { grid-template-columns: 1fr; }
     .service-card { aspect-ratio: 16 / 9; }
   }

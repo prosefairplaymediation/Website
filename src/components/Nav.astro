@@ -35,8 +35,8 @@ const services = [
           >
             Services
             <span class="dropdown-chevron" aria-hidden="true">
-              <svg viewBox="0 0 12 8" width="12" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 1.5 L6 6.5 L11 1.5" />
+              <svg viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 2.5 L7 7.5 L12 2.5" />
               </svg>
             </span>
           </button>
@@ -46,6 +46,7 @@ const services = [
             ))}
           </ul>
         </li>
+        <li><a href="/documents">Documents</a></li>
         <li><a href="/faq">FAQ</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
@@ -70,6 +71,7 @@ const services = [
       {services.map(s => (
         <li><a class="mobile-sub" href={s.href}>{s.label}</a></li>
       ))}
+      <li><a href="/documents">Documents</a></li>
       <li><a href="/faq">FAQ</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a class="btn btn-primary mobile-cta" href="/book">Book Consultation <span class="arrow">→</span></a></li>
@@ -104,13 +106,17 @@ const services = [
   }
   .brand-mark {
     display: grid; place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
     transition: transform 0.5s var(--ease-out);
     transform-origin: 50% 60%;
   }
   .brand-mark img {
     display: block;
-    height: auto;
-    max-width: 100%;
+    width: 42px;
+    height: 42px;
+    max-width: none;
   }
   .brand:hover .brand-mark {
     transform: rotate(8deg);
@@ -212,8 +218,18 @@ const services = [
   }
   .dropdown-chevron {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--color-gold);
+    flex-shrink: 0;
+    width: 14px;
+    height: 10px;
     transition: transform 0.3s var(--ease-out);
+  }
+  .dropdown-chevron svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
   .has-dropdown:hover .dropdown-chevron,
   .has-dropdown:focus-within .dropdown-chevron,
@@ -326,26 +342,27 @@ const services = [
     padding: 0;
     border: 1px solid transparent;
     border-radius: 4px;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 3rem;
+    height: 3rem;
     transition: border-color 0.25s var(--ease-out), padding 0.25s var(--ease-out), width 0.25s var(--ease-out), height 0.25s var(--ease-out);
   }
   .nav-toggle-bars {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     align-items: center;
     justify-content: center;
   }
   .nav-toggle-bars span {
     display: block;
-    width: 22px; height: 1.5px;
+    width: 28px; height: 2.5px;
     background: var(--color-cream);
+    border-radius: 1px;
     transition: transform 0.35s var(--ease-out), opacity 0.25s;
   }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
   .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
-  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
 
   .nav-toggle-label {
     display: none;
@@ -405,7 +422,7 @@ const services = [
     margin-top: 0.5rem;
     padding: 0.5rem 0 0;
     font-family: var(--font-body);
-    font-size: 0.72rem;
+    font-size: 0.95rem;
     font-weight: 700;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -426,41 +443,53 @@ const services = [
     border-color: var(--color-gold);
   }
 
-  /* Hide nav slogan in the mid-width zone — below ~1255px the centered
-     slogan squeezes the brand text and forces "Pro Se Fair Play" /
-     "Mediation · LLC" to wrap awkwardly. Re-shown at mobile widths as
-     a full-width row below the brand (see ≤880px). */
-  @media (max-width: 1255px) {
-    .nav-slogan { display: none; }
-  }
-
-  @media (max-width: 880px) {
-    .nav-desktop { display: none; }
-    .nav-toggle { display: flex; }
-
-    /* Grid layout puts brand + hamburger on row 1, slogan as its own
-       row below — visually under the brand text (left-aligned with an
-       indent past the icon so it lines up with "Pro Se Fair Play"). */
+  /* Mid-width zone (~1001–1285px): the centered slogan squeezes the
+     brand text, so move it under the brand block on its own row while
+     keeping the desktop nav visible on the right. */
+  @media (max-width: 1285px) {
     .nav-inner {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
       grid-template-areas:
-        "brand toggle"
-        "slogan slogan";
+        "brand   desktop"
+        "slogan  desktop";
       align-items: center;
       row-gap: 0.3rem;
     }
     .brand { grid-area: brand; }
-    .nav-toggle { grid-area: toggle; }
+    .nav-desktop {
+      grid-area: desktop;
+      justify-self: end;
+      align-self: center;
+    }
     .nav-slogan {
       display: block;
       grid-area: slogan;
+      flex: none;
       text-align: left;
       font-size: 0.85rem;
       margin: 0;
       padding-left: calc(42px + 0.7rem);
       white-space: normal;
     }
+  }
+
+  /* Mobile (~≤1088px): hide desktop nav, show hamburger. Slogan
+     still sits under the brand block; the right column becomes the
+     toggle button instead of the desktop nav. Breakpoint sits where
+     the desktop layout actually starts overflowing (book button +
+     slogan + nav items + new Documents entry stop fitting). */
+  @media (max-width: 1088px) {
+    .nav-desktop { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-inner {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "brand toggle"
+        "slogan slogan";
+    }
+    .nav-toggle { grid-area: toggle; }
   }
 </style>
 
