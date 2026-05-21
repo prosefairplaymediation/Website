@@ -62,7 +62,7 @@ const externalForms = {
   <!-- ========================== INTAKE ========================== -->
   <section class="legal-body">
     <div class="container-narrow">
-      <p class="formats-label smallcaps">Intake Forms</p>
+      <h2 class="formats-label">Intake Forms</h2>
       <ul class="download-stack" role="list">
         {intakeForms.map((f) => (
           <li class="download-card">
@@ -98,7 +98,7 @@ const externalForms = {
   <!-- ========================== AGREEMENT ========================== -->
   <section class="legal-body legal-body-alt">
     <div class="container-narrow">
-      <p class="formats-label smallcaps">Engagement Agreement</p>
+      <h2 class="formats-label">Engagement Agreement</h2>
       <ul class="download-stack" role="list">
         {agreementFormats.map((f) => (
           <li class="download-card">
@@ -131,7 +131,7 @@ const externalForms = {
   <!-- ========================== EXTERNAL ========================== -->
   <section class="legal-body">
     <div class="container-narrow">
-      <p class="formats-label smallcaps">Florida Family Law Forms</p>
+      <h2 class="formats-label">Florida Family Law Forms</h2>
       <ul class="download-stack" role="list">
         <li class="download-card">
           <div class="download-icon" aria-hidden="true">
@@ -205,11 +205,12 @@ const externalForms = {
   }
 
   .formats-label {
+    margin: 0 0 1.5rem;
     font-size: 1.2rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
-    margin-bottom: 1.5rem;
+    text-transform: uppercase;
     display: block;
   }
   .download-stack {

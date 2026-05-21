@@ -43,7 +43,7 @@ const formats = [
   <!-- ========================== DOWNLOAD CARDS ========================== -->
   <section class="legal-body">
     <div class="container-narrow">
-      <p class="formats-label smallcaps">Choose a format</p>
+      <h2 class="formats-label">Choose a format</h2>
 
       <div class="download-stack">
         {formats.map((f) => (
@@ -116,11 +116,12 @@ const formats = [
   }
 
   .formats-label {
+    margin: 0 0 1.5rem;
     font-size: 1.2rem;
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
-    margin-bottom: 1.5rem;
+    text-transform: uppercase;
     display: block;
   }
   .download-stack {

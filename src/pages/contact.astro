@@ -36,12 +36,12 @@ const faxDigits = "561-652-9345";
     <div class="container-narrow contact-body-inner">
       <div class="contact-cards">
         <div class="contact-card">
-          <p class="contact-label smallcaps">Email</p>
+          <p class="contact-label">Email</p>
           <a href={`mailto:${email}`} class="contact-value display">{email}</a>
         </div>
 
         <div class="contact-card">
-          <p class="contact-label smallcaps">Phone</p>
+          <p class="contact-label">Phone</p>
           <a
             href={`tel:${phoneTel}`}
             class="contact-value display"
@@ -51,7 +51,7 @@ const faxDigits = "561-652-9345";
         </div>
 
         <div class="contact-card">
-          <p class="contact-label smallcaps">eFax</p>
+          <p class="contact-label">eFax</p>
           <p class="contact-value display contact-value-static">{faxDigits}</p>
         </div>
       </div>
@@ -148,6 +148,7 @@ const faxDigits = "561-652-9345";
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
     display: block;
   }
