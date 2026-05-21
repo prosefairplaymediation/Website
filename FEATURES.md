@@ -2,7 +2,7 @@
 
 Tracking what's shipped, what's planned, what's deferred, and what's been ruled out. Update as scope evolves.
 
-**Last updated:** 2026-05-11
+**Last updated:** 2026-05-21
 
 ---
 
@@ -56,9 +56,13 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 
 ## Decided / Next
 
-- **End-to-end booking + payment test** — $1 test charge through Calendly → Stripe → refund, then delete the test event. (Also worth doing a small test charge through one of the new `/pay` Payment Links now that they're live, to confirm the `/thank-you` redirect lands cleanly.)
 - **Go-live moment** — flip `/` from coming-soon to the real homepage once client signs off. Backend (Stripe, Calendly, email, GA, GSC) is ready.
-- **Coworker WCAG 2.1 AA audit pass** — formal accessibility audit by Dave's coworker. ANDI clean as of last check; coworker's full pass will identify any deeper issues.
+- **Coworker WCAG 2.1 AA retest (optional)** — the initial audit was completed and all findings were addressed across v0.9.11–v0.9.18 (covering 1.3.1, 1.3.2, 1.4.3, 1.4.13, 2.4.1, 2.4.3, 2.4.4). A second pass would only catch anything missed the first time; may skip.
+
+## Done
+
+- **End-to-end Stripe Payment Link test** — $1 self-pay test charge through one of the `/pay` buttons confirmed working; `/thank-you` redirect lands cleanly; seller email notification fires (after enabling the "Successful payments" toggle under Stripe → Settings → Communication preferences → Account, which is buried and default-off).
+- **WCAG audit response** — all initial findings + follow-up findings addressed across v0.9.11–v0.9.18.
 
 ---
 
