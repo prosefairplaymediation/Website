@@ -126,33 +126,52 @@ const phoneDigits = "1-866-883-6777";
   <!-- ========================== BOOK ========================== -->
   <section class="landing-book">
     <div class="container landing-book-inner">
-      <h2 class="display landing-book-title">
-        Book a <span class="display-italic">free</span> 15-minute consultation.
-      </h2>
-      <p class="lede landing-book-lede">
-        Pick a time below. I'll review your situation and outline the
-        next steps that fit your case. Or reach out to me directly at
-        <a class="link-underline" href={`mailto:${email}`}>{email}</a>
-        or
-        <a
-          class="link-underline"
-          href={`tel:${phoneTel}`}
-          aria-label={`Call ${phoneDigits}`}
-        >{phoneVanity}</a>.
-      </p>
+      <div class="landing-book-row">
+        <div class="landing-book-text">
+          <h2 class="display landing-book-title">
+            Book a <span class="display-italic">free</span> 15-minute consultation.
+          </h2>
+          <p class="lede landing-book-lede">
+            Pick a time below. I'll review your situation and outline the
+            next steps that fit your case. Or reach out to me directly at
+            <a class="link-underline" href={`mailto:${email}`}>{email}</a>
+            or
+            <a
+              class="link-underline"
+              href={`tel:${phoneTel}`}
+              aria-label={`Call ${phoneDigits}`}
+            >{phoneVanity}</a>.
+          </p>
 
-      <p class="landing-pay-strip">
-        Already agreed on a Parenting Plan or Turn-Key Court Packet service?
-        <a
-          class="btn btn-primary landing-pay-btn"
-          href="/pay"
-          aria-label="Pay for a Parenting Plan or Turn-Key Court Packet"
-          onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'landing',product:'either'})"
-        >
-          Pay here
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </p>
+          <p class="landing-pay-strip">
+            Already agreed on a Parenting Plan or Turn-Key Court Packet service?
+            <a
+              class="btn btn-primary landing-pay-btn"
+              href="/pay"
+              aria-label="Pay for a Parenting Plan or Turn-Key Court Packet"
+              onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'landing',product:'either'})"
+            >
+              Pay here
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        </div>
+
+        <figure class="landing-book-figure">
+          <div class="landing-book-figure-frame">
+            <img
+              src="/new_Landing.jpg"
+              alt="Portrait of Marie VanGinHoven"
+              width="3608" height="5779"
+              loading="lazy"
+              class="landing-book-img"
+            />
+            <div class="landing-book-figure-corners" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </figure>
+      </div>
 
       <div
         class="calendly-inline-widget"
@@ -370,6 +389,59 @@ const phoneDigits = "1-866-883-6777";
     font-size: 0.9rem;
     border-color: var(--color-gold);
   }
+
+  /* Two-column row above the Calendly embed: text/CTA/pay-strip on the
+     left, portrait on the right. Lets the left column breathe and gives
+     the photo a natural home. */
+  .landing-book-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .landing-book-figure {
+    margin: 0;
+  }
+  .landing-book-figure-frame {
+    position: relative;
+    padding: 0.6rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 18px 40px -20px rgba(18, 33, 74, 0.2);
+  }
+  .landing-book-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .landing-book-figure-corners span {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--color-gold);
+    border-style: solid;
+    border-width: 0;
+  }
+  .landing-book-figure-corners span:nth-child(1) { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+  .landing-book-figure-corners span:nth-child(2) { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+  .landing-book-figure-corners span:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+  .landing-book-figure-corners span:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+  @media (max-width: 900px) {
+    .landing-book-row {
+      grid-template-columns: 1fr;
+    }
+    .landing-book-figure {
+      max-width: 22rem;
+      margin-inline: auto;
+      order: -1;
+    }
+  }
+
   .calendly-inline-widget {
     margin-top: var(--space-lg);
     min-width: 320px;
