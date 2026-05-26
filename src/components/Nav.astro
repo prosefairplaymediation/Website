@@ -393,7 +393,14 @@ const services = [
     border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
   .nav-mobile:not([inert]) {
-    max-height: 48rem;
+    /* Cap at viewport minus sticky nav row so the menu never extends past
+       the screen on phones. dvh accounts for mobile browser chrome. */
+    max-height: min(48rem, calc(100dvh - 5rem));
+    /* Allow internal scroll when the menu's content exceeds the cap; the
+       contain value blocks scroll chaining to the body underneath. */
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-mobile ul {
     list-style: none;
@@ -497,22 +504,27 @@ const services = [
   const toggle = document.getElementById("nav-toggle");
   const menu = document.getElementById("mobile-menu");
   if (toggle && menu) {
+    // Lock body scroll while the mobile menu is open so swipes on the
+    // menu can't bleed through to the page underneath. Restored when
+    // the menu closes (toggle click or link click).
+    const closeMenu = () => {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      menu.setAttribute("inert", "");
+      document.body.style.overflow = "";
+    };
+    const openMenu = () => {
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close menu");
+      menu.removeAttribute("inert");
+      document.body.style.overflow = "hidden";
+    };
     toggle.addEventListener("click", () => {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!expanded));
-      toggle.setAttribute("aria-label", expanded ? "Open menu" : "Close menu");
-      if (expanded) {
-        menu.setAttribute("inert", "");
-      } else {
-        menu.removeAttribute("inert");
-      }
+      if (expanded) closeMenu(); else openMenu();
     });
     menu.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => {
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Open menu");
-        menu.setAttribute("inert", "");
-      });
+      a.addEventListener("click", () => closeMenu());
     });
   }
 
