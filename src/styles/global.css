@@ -72,6 +72,27 @@ input, button, textarea, select { font: inherit; color: inherit; }
 button { background: none; border: 0; cursor: pointer; padding: 0; }
 a { color: inherit; text-decoration: none; }
 
+/* Copy prevention — text selection disabled site-wide at client request.
+   This is a soft deterrent only (it does not stop View Source, DevTools,
+   or screen readers). It does NOT affect accessibility: screen readers
+   read the DOM / accessibility tree, not the visual text selection.
+   Form fields and cards re-enable selection so typing/editing still
+   works and visitors can copy contact details, prices, addresses, etc.
+   To revert: delete this block. */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+input, textarea, select,
+[class*="-card"], [class*="-card"] * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 /* Selection */
 ::selection {
   background: var(--color-gold);

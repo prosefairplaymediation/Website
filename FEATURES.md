@@ -2,34 +2,36 @@
 
 Tracking what's shipped, what's planned, what's deferred, and what's been ruled out. Update as scope evolves.
 
-**Last updated:** 2026-05-21
+**Last updated:** 2026-05-26
+
+> **🚀 Launched 2026-05-26 (v1.0.x).** The coming-soon gate at `/` was replaced with the real homepage. Site is live and indexable at https://prosefairplaymediation.com.
 
 ---
 
 ## Shipped
 
 **Pages**
-- **Coming-soon gate** at `/` (per client request) — `noindex`, minimal logo + tagline. Pending the go-live flip.
-- **Homepage** at `/home` — editorial-legal design, photo-driven service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation on scroll (gold "Gold Service" wordmark always visible, cream prose fades in around it), cream CTA before footer.
-- **Service detail pages** — five total: `/services/hourly-mediation`, `/services/gold-service`, `/services/parenting-plan`, `/services/court-packet`, `/services/notary`. Photo hero, facts grid (where applicable), prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu. Hourly mediation and Gold Service both embed the Gold Service premium-tier callout via the shared `src/components/GoldService.astro`. Notary page cross-links to Court Packet (notary included at no cost) and Parenting Plan ($10 add-on). Parenting Plan prose calls out the notary add-on with a link back to `/services/notary`.
-- **About page** at `/about` — first-person bio (V4 copy), professional photo, credentials box ("Florida Supreme Court Certified Family Mediator").
+- **Homepage** at `/` — editorial-legal design, photo-driven service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation on scroll (gold "Gold Service" wordmark always visible, cream prose fades in around it), "Already agreed?" pay strip, cream CTA before footer. Lives in `src/pages/index.astro` (the old coming-soon gate was retired at launch; the old `/home` route is gone).
+- **Service detail pages** — five total: `/services/hourly-mediation`, `/services/gold-service`, `/services/parenting-plan`, `/services/court-packet`, `/services/notary`. Photo hero, facts grid (where applicable), prose section, "Book a Free Consultation" CTA. Reached from the desktop nav's "Services" dropdown trigger and a labeled sub-group in the mobile menu. Hourly mediation and Gold Service both embed the Gold Service premium-tier callout via the shared `src/components/GoldService.astro`. Notary page cross-links to Court Packet (notary included at no cost) and Parenting Plan ($10 add-on). Parenting Plan prose calls out the notary add-on with a link back to `/services/notary`. Refund/cancellation policy sections on all three paid-service pages.
+- **About page** at `/about` — first-person bio (V4 copy), sticky portrait of Marie (`new_Aboutme.jpg`) at native aspect with a warm gold radial aura and cream-blend overlay (the studio photo has cooler tones; the aura knits it into the cream/gold palette), credentials box ("Florida Supreme Court Certified Family Mediator", Notary Public).
 - **Booking page** at `/book` — photo hero + "Support that works around your life" three-column section with Lucide icons (clock / handshake / file-text) + Calendly inline embed (free 15-min consult). Custom intake questions inside Calendly cover phone, situation, conflict-check, disclaimer.
-- **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion (V2 copy from client) + closing CTA.
-- **Contact page** at `/contact` — email card + phone card (vanity `1 (866) 88-FORPROSE` / digit `1-866-883-6777`) + eFax card (`561-652-9345`), secondary booking CTA.
-- **Landing page** at `/landing` — photo hero + three service cards (with prices, Lucide icons, "Learn more" links) + Calendly embed. Built as a QR-code destination for Marie's in-person outreach.
-- **Legal pages** — `/legal/disclaimer` (verbatim attorney copy, V2), `/legal/terms` (PDF + Word Engagement Agreement download), `/legal/privacy` (confidentiality, security, info collected).
-- **Document Portal** at `/documents` — single page unifying three document categories: Intake Forms (two Word docs supplied by client), Engagement Agreement (links to `/legal/terms`), and Florida Family Law Forms (external link to flcourts.gov). Reuses the `/legal/terms` download-card pattern with alternating cream / cream-warm bands. Reached via a new "Documents" entry in the desktop nav and mobile menu.
-- **Self-pay page** at `/pay` — Engagement-Agreement checkbox at top (gates the Pay buttons via a tiny vanilla-JS toggle) + two product cards (Parenting Plan $400, Turn-Key Court Packet $600). Pay buttons are `<a href>` links to Stripe Payment Links — zero backend, zero database. Entry points: secondary "Pay for a Parenting Plan" / "Pay for a Court Packet" CTAs in the respective service hero rows; an "Already agreed?" strip between hero and services on `/home`; same strip between phone number and Calendly on `/landing`. Added late in scope per client request; short-circuits the consult-first model that Hourly still uses.
-- **Thank-you page** at `/thank-you` — post-payment redirect target. `noindex`, excluded from sitemap. Copy: "Marie will contact you shortly to discuss your Document Preparation requirements." Stripe sends the receipt email; this page just confirms.
+- **FAQ page** at `/faq` — photo hero + 11-question native HTML accordion (V2 copy from client) + closing CTA. Sticky portrait (`new_FAQ.jpg`) alongside the question list (stacks above on ≤900px).
+- **Contact page** at `/contact` — two-column header (text on left, portrait `New_Contact.jpg` on right). Email + phone (vanity `1 (866) 88-FORPROSE` / digit `1-866-883-6777`) + eFax (`561-652-9345`) cards, secondary booking CTA.
+- **Landing page** at `/landing` — photo hero + three service cards (with prices, Lucide icons, "Learn more" links). Below, a two-column "Book a free consultation" row with text/CTA/pay-strip on the left and a portrait (`new_Landing.jpg`) on the right, then Calendly embed full-width. Built as a QR-code destination for Marie's in-person outreach.
+- **Legal pages** — `/legal/disclaimer` (verbatim attorney copy, V2, with a WCAG 2.1 AA accessibility statement section appended), `/legal/terms` (PDF + Word Engagement Agreement download), `/legal/privacy` (confidentiality, security, info collected).
+- **Document Portal** at `/documents` — single page unifying three document categories: Intake Forms (two Word docs supplied by client), Engagement Agreement (PDF + Word downloads inlined), and Florida Family Law Forms (external link to flcourts.gov). Same two-column header pattern as `/contact` (portrait `new_Landing.jpg` on right). Alternating cream / cream-warm bands per section. Reached via a "Documents" entry in the desktop nav and mobile menu (nav order: Services → FAQ → Documents → Contact). Download cards use CSS container queries so labels scale with the card column and collapse cleanly to single-column at narrow widths (no more clipping into the Download button).
+- **Self-pay page** at `/pay` — Engagement-Agreement checkbox at top (gates the Pay buttons via a tiny vanilla-JS toggle) + two product cards (Parenting Plan $400, Turn-Key Court Packet $600). Pay buttons are `<a href>` links to Stripe Payment Links — zero backend, zero database. Entry points: secondary "Pay for a Parenting Plan" / "Pay for a Court Packet" CTAs in the respective service hero rows; an "Already agreed?" strip between hero and services on `/`; same strip between phone number and Calendly on `/landing`. Added late in scope per client request; short-circuits the consult-first model that Hourly still uses.
+- **Thank-you page** at `/thank-you` — post-payment redirect target. `noindex`, excluded from sitemap. Copy: "Marie will contact you shortly to discuss your Document Preparation requirements." Stripe sends the receipt email; this page just confirms. "Back to home" CTA points to `/`.
 
 **Site shell**
-- Sticky inverted nav (navy bg, gold/cream type, gold CTA) with hamburger mobile menu. Brand mark is `/GOLD-LOGO.png` (replaced the inline SVG scales glyph); brand block locked with `flex-shrink: 0` so the logo + name don't compress on narrow widths. Desktop has "Services" dropdown listing all five service pages (Hourly Mediation, Gold Service Mediation, Parenting Plan Preparation, Turn-Key Court Packet, Online Notary Services) — hover/click/keyboard accessible, gold hairline separators, sliding gold-bar hover accent; mobile menu shows them as a labeled sub-group. Slogan "Where we level the playing field." appears in the desktop nav center area (≥1255px) and under the brand name on mobile. Mobile close button is a labeled box with "close" text. Mobile menu uses `inert` for accessibility (ANDI verified clean).
+- Sticky inverted nav (navy bg, gold/cream type, gold CTA) with hamburger mobile menu. Brand mark is `/GOLD-LOGO.png` (links to `/`); brand block locked with `flex-shrink: 0` so the logo + name don't compress on narrow widths. Desktop has "Services" dropdown listing all five service pages (Hourly Mediation, Gold Service Mediation, Parenting Plan Preparation, Turn-Key Court Packet, Online Notary Services) — hover/click/keyboard accessible, gold hairline separators, sliding gold-bar hover accent; mobile menu shows them as a labeled sub-group. Top-level nav order: Services → FAQ → Documents → Contact. Slogan "Where we level the playing field." appears in the desktop nav center area (≥1255px) and under the brand name on mobile. Mobile close button is a labeled box with "close" text. Mobile menu uses `inert` for accessibility (ANDI verified clean) and caps its height at `min(48rem, calc(100dvh - 5rem))` with internal scroll + body-scroll lock so swipes don't bleed through to the page underneath.
 - Footer with Learn (About / FAQ / Contact) + Legal (Disclaimer / Agreement / Privacy) columns, copyright, build-version tag pulled from `package.json`. Footer disclaimer paragraph removed (canonical disclaimer is sufficient).
 - Lora (display) + Newsreader (body) typography pairing.
 - Maximalist favicon bundle: `.svg`, `.ico`, `.png` (96×96), apple-touch-icon (180×180), web app manifest, 192×192 and 512×512 Android icons. Branded webmanifest (navy theme color, cream background, proper short/long names).
 - Husky pre-commit hook auto-bumps patch version on every commit.
 - Em dashes removed site-wide per client stylistic preference.
-- Hero-title period-color contrast standardized across `/faq`, `/book`, `/blog` (before deletion), `/contact`, service heroes, etc.
+- Hero-title period-color contrast standardized across `/faq`, `/book`, `/contact`, service heroes, etc.
+- All content photos compressed to JPG (public/ dropped from ~25 MB to ~6 MB — substantial LCP improvement, especially on mobile). Only logos, favicons, manifest icons, and QR codes remain as PNG.
 
 **Infrastructure & integrations**
 - **Static Astro 6 site** on Cloudflare Workers, deployed via `wrangler.jsonc`.
@@ -54,15 +56,12 @@ Tracking what's shipped, what's planned, what's deferred, and what's been ruled 
 
 ---
 
-## Decided / Next
+## Watch list
 
-- **Go-live moment** — flip `/` from coming-soon to the real homepage once client signs off. Backend (Stripe, Calendly, email, GA, GSC) is ready.
-- **Coworker WCAG 2.1 AA retest (optional)** — the initial audit was completed and all findings were addressed across v0.9.11–v0.9.18 (covering 1.3.1, 1.3.2, 1.4.3, 1.4.13, 2.4.1, 2.4.3, 2.4.4). A second pass would only catch anything missed the first time; may skip.
+Active post-launch items — not new scope, just things to keep an eye on.
 
-## Done
-
-- **End-to-end Stripe Payment Link test** — $1 self-pay test charge through one of the `/pay` buttons confirmed working; `/thank-you` redirect lands cleanly; seller email notification fires (after enabling the "Successful payments" toggle under Stripe → Settings → Communication preferences → Account, which is buried and default-off).
-- **WCAG audit response** — all initial findings + follow-up findings addressed across v0.9.11–v0.9.18.
+- **GSC indexing** — sitemap resubmitted at launch; URL Inspection → Request Indexing was used on `/`. Monitor coverage over the next 1–2 weeks. Old "discovered, not indexed" entries should crawl as Google works through the queue.
+- **Coworker WCAG 2.1 AA retest (optional)** — the initial audit was completed and all findings were addressed pre-launch. A second pass would only catch anything missed the first time; may skip.
 
 ---
 
@@ -84,8 +83,7 @@ Agreed in principle but explicitly deferred. Not in current scope.
 
 ## Out of scope (decided NO)
 
-- **Public paid booking pages** that bypass the consult funnel. Client wants manual gate: she emails private Calendly+Stripe links only after consult + agreement + payment.
-- **Direct mediation booking on the site** — client must speak to her first.
+
 - **Accepting Zelle, Apple Pay, etc. natively** beyond what Stripe provides out of the box.
-- **Payment plans / split payments** between mediation parties — handled manually if at all.
-- **Blog at `/blog`** — built initially with a content collection and one article, removed entirely per client decision. Replaced briefly by a `/services` overview page that was then also removed; the three deep `/services/*` pages remain as the canonical service destinations.
+- **Payment plans / split payments** between mediation parties — handled manually via split invoicing
+
