@@ -47,9 +47,6 @@ const services = [
 
     <div class="container hero-stack">
       <div class="hero-logo-frame reveal reveal-d1">
-        <div class="hero-logo-rules" aria-hidden="true">
-          <span></span><span></span>
-        </div>
         <img
           src="/FULL-LOGO-LARGE..png"
           alt="Pro Se Fair Play Mediation LLC"
@@ -328,41 +325,11 @@ const services = [
 
   /* Logo — now at top of stack, centered */
   .hero-logo-frame {
-    position: relative;
     padding: 2rem 1.5rem 1.75rem;
     max-width: 47rem;
     width: 100%;
     margin: 0 auto 1.75rem;
   }
-  .hero-logo-frame::before,
-  .hero-logo-frame::after {
-    content: "";
-    position: absolute;
-    background: var(--color-gold);
-    opacity: 0.5;
-  }
-  .hero-logo-frame::before {
-    top: 0; left: 10%;
-    width: 1px; height: 2.5rem;
-  }
-  .hero-logo-frame::after {
-    bottom: 0; right: 10%;
-    width: 1px; height: 2.5rem;
-  }
-  .hero-logo-rules {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  .hero-logo-rules span {
-    position: absolute;
-    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
-    height: 1px;
-    opacity: 0.45;
-    left: 10%; right: 10%;
-  }
-  .hero-logo-rules span:nth-child(1) { top: 0; }
-  .hero-logo-rules span:nth-child(2) { bottom: 0; }
   .hero-logo {
     width: 100%;
     height: auto;
