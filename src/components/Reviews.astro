@@ -1,0 +1,52 @@
+---
+// Reviews.astro — Google reviews via Featurable.
+//
+// The Featurable widget renders into the LIGHT DOM (no iframe, no shadow
+// DOM — verified against their bundle.js), so we style its internal
+// classes directly from this component's scoped <style>. We do NOT use
+// Featurable's in-dashboard "Custom CSS editor" (it does not persist on
+// the free tier). Their warning that "site CSS won't affect the widget"
+// does not apply to a light-DOM widget.
+//
+// Selectors are scoped under .reviews via :global() so the generic
+// Featurable class names (.parent / .slider / .widget) can't leak onto
+// anything else on the site. The widget id is the one Featurable issued
+// for this account's widget.
+---
+
+<section class="reviews">
+  <div class="container reviews-inner">
+    <div class="reviews-widget">
+      <div id="featurable-837481b2-3b16-48ff-8ed0-a6dad2fe99f4" data-featurable-async></div>
+    </div>
+  </div>
+</section>
+
+<!-- Featurable widget loader — keep external, do not bundle -->
+<script
+  is:inline
+  src="https://featurable.com/assets/bundle.js"
+  defer
+  charset="UTF-8"
+></script>
+
+<style>
+  .reviews {
+    padding-block: var(--space-2xl);
+    background: var(--color-cream);
+    position: relative;
+  }
+  /* Blend the Featurable widget onto our cream section — strip its default
+     white container backgrounds so it doesn't sit in a hard white box.
+     The review cards themselves keep their own background (a different
+     class), which reads as our paper-card-on-cream pattern. Scoped under
+     .reviews; :global() because Featurable injects this DOM at runtime. */
+  .reviews :global(.parent),
+  .reviews :global(.widget),
+  .reviews :global(.widget__container),
+  .reviews :global(.widget__body),
+  .reviews :global(.slider),
+  .reviews :global(.slider--mobile) {
+    background: transparent !important;
+  }
+</style>

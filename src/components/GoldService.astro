@@ -4,9 +4,14 @@
 // pages. Paragraph-by-paragraph fade-in on scroll; the gold "Gold
 // Service" wordmark inside <em> tags is left untouched so it stays
 // visible the whole time while cream prose fills in around it.
+//
+// `surface` controls the section band behind the dark box: "cream"
+// (default) or "warm" (cream-warm) — used on the homepage so this band
+// alternates against the cream Services/Reviews bands around it.
+const { surface = "cream" } = Astro.props;
 ---
 
-<section class="black-box" aria-labelledby="gold-service-title">
+<section class:list={["black-box", surface === "warm" && "black-box--warm"]} aria-labelledby="gold-service-title">
   <div class="container-narrow black-box-inner">
     <h2 id="gold-service-title" class="display black-box-title">
       <em>Gold Service Mediation</em>
@@ -126,6 +131,11 @@
     padding-inline: clamp(1.25rem, 4vw, 3rem);
     background: var(--color-cream);
     isolation: isolate;
+  }
+  /* Homepage variant — darker cream band so the section alternates
+     against the cream Services / Reviews bands on either side. */
+  .black-box--warm {
+    background: var(--color-cream-warm);
   }
   .black-box-inner {
     max-width: 40rem;
