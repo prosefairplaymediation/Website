@@ -42,82 +42,34 @@ const services = [
   title="Pro Se Fair Play Mediation, LLC · Mediation & Document Preparation"
   description="Mediation and document preparation for self-represented individuals. Where we level the playing field."
 >
-  <!-- ========================== HERO ========================== -->
-  <section class="hero">
-    <div class="hero-grain" aria-hidden="true"></div>
-
-    <div class="container hero-stack">
-      <div class="hero-logo-frame reveal reveal-d1">
-        <img
-          src="/FULL-LOGO-LARGE..png"
-          alt="Pro Se Fair Play Mediation LLC"
-          class="hero-logo"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
-
-      <p class="kicker reveal reveal-d2">
-        Mediation · Document Preparation · Notary Public
-      </p>
-
-      <h1 class="hero-title display reveal reveal-d3">
-        Where We <span class="level-box">Level</span> The Playing Field<span class="display-italic">.</span>
-      </h1>
-
-      <p class="lede reveal reveal-d4">
-        I help self-represented parties in Florida navigate family law matters —
-        mediation, parenting plans, and court-ready documents — conducted in
-        accordance with the standards set by the Florida Supreme Court.
-      </p>
-
-      <div class="hero-ctas reveal reveal-d5">
-        <a class="btn btn-primary" href="/book">
-          Book a Consultation
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      <p class="hero-foot reveal reveal-d6">
-        <span class="smallcaps">Zoom</span>
-        <span class="hero-foot-sep" aria-hidden="true">·</span>
-        <span class="smallcaps">Confidential</span>
-        <span class="hero-foot-sep" aria-hidden="true">·</span>
-        <span class="smallcaps">Flat-fee where possible</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ========================== ALREADY-AGREED PAY STRIP ========================== -->
-  <section class="pay-strip" aria-label="Self-pay shortcut">
-    <div class="container pay-strip-inner">
-      <p class="pay-strip-text">
-        Already agreed on a Parenting Plan or Turn-Key Court Packet service?
-      </p>
-      <a
-        class="btn btn-primary pay-strip-btn"
-        href="/pay"
-        aria-label="Pay for a Parenting Plan or Turn-Key Court Packet"
-        onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'home',product:'either'})"
-      >
-        Pay here
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
-
   <!-- ========================== SERVICES ========================== -->
   <section class="section services">
     <div class="container">
       <header class="section-head services-head">
-        <p class="kicker">What I do</p>
-        <h2 class="display section-title">Three ways I step in beside you.</h2>
+        <h1 class="display section-title">Three ways I step in beside you.</h1>
         <p class="section-intro lede">
           Every case is different. Whether you need a mediated conversation, a
           document prepared correctly, or a session to figure out what's next,
           I do those three well.
         </p>
       </header>
+
+      <div class="pay-strip" aria-label="Self-pay shortcut">
+        <div class="pay-strip-inner">
+          <p class="pay-strip-text">
+            Already agreed on a Parenting Plan or Turn-Key Court Packet service?
+          </p>
+          <a
+            class="btn btn-primary pay-strip-btn"
+            href="/pay"
+            aria-label="Pay for a Parenting Plan or Turn-Key Court Packet"
+            onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'home',product:'either'})"
+          >
+            Pay here
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
 
       <ol class="services-grid">
         {services.map((s) => (
@@ -251,12 +203,6 @@ const services = [
     align-items: center;
     gap: 0.65rem;
   }
-  .kicker-dot {
-    width: 6px; height: 6px;
-    background: var(--color-gold);
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 18%, transparent);
-  }
 
   .hero-title {
     margin-top: 1.5rem;
@@ -343,7 +289,7 @@ const services = [
     padding-block: var(--space-3xl);
     position: relative;
   }
-  .services { padding-block: var(--space-xl); }
+  .services { padding-block: var(--space-lg) var(--space-xl); }
 
   .section-head {
     display: grid;
@@ -355,9 +301,10 @@ const services = [
   /* Services head — stacked, not left/right. */
   .section-head.services-head {
     display: block;
+    margin-bottom: var(--space-md);
   }
   .section-head.services-head .section-title {
-    margin-top: 0.75rem;
+    margin-top: 0;
     max-width: none;
   }
   .section-head.services-head .section-intro {
@@ -380,27 +327,29 @@ const services = [
      ALREADY-AGREED PAY STRIP
      ------------------------------------------------------------ */
   .pay-strip {
-    background: var(--color-cream-warm);
-    border-block: 1px solid var(--color-divider);
-    padding-block: 1.5rem;
-  }
-  .pay-strip-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    padding-block: var(--space-xs);
+    margin-bottom: var(--space-md);
     text-align: center;
   }
+  .pay-strip-inner {
+    max-width: 56ch;
+    margin-inline: auto;
+  }
   .pay-strip-text {
+    display: inline;
     font-family: var(--font-body);
-    font-size: 1.05rem;
-    color: var(--color-ink-soft);
+    font-size: 0.8rem;
+    color: var(--color-slate);
     margin: 0;
   }
   .pay-strip-btn {
-    padding: 0.65rem 1.3rem;
-    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
     border-color: var(--color-gold);
   }
 

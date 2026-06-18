@@ -491,12 +491,27 @@ const services = [
     .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
     .nav-inner {
+      position: relative;
       grid-template-columns: 1fr auto;
       grid-template-areas:
-        "brand toggle"
-        "slogan slogan";
+        "brand  toggle"
+        "slogan toggle";
+      row-gap: 0.1rem;
     }
-    .nav-toggle { grid-area: toggle; }
+    /* Hamburger spans both rows and centers against the full banner. */
+    .nav-toggle { grid-area: toggle; align-self: center; }
+    /* Float the logo out of the brand row so it centers against the full
+       banner height (not just the name/sub line). Paired with the
+       centered hamburger, both now sit vertically centered, with
+       name / sub / slogan stacked to their right. */
+    .brand-mark {
+      position: absolute;
+      left: clamp(1.25rem, 4vw, 3rem);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .brand:hover .brand-mark { transform: translateY(-50%) rotate(8deg); }
+    .brand-text { padding-left: calc(42px + 0.7rem); }
   }
 </style>
 
