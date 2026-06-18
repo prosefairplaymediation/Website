@@ -25,6 +25,7 @@ const services = [
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
         <li><a href="/about">About</a></li>
+        <li><a href="/process">The Mediation Process</a></li>
         <li class="has-dropdown">
           <button
             type="button"
@@ -67,6 +68,7 @@ const services = [
   <div class="nav-mobile" id="mobile-menu" inert>
     <ul>
       <li><a href="/about">About</a></li>
+      <li><a href="/process">The Mediation Process</a></li>
       <li class="mobile-section-label" aria-hidden="true">Services</li>
       {services.map(s => (
         <li><a class="mobile-sub" href={s.href}>{s.label}</a></li>
@@ -89,14 +91,26 @@ const services = [
     -webkit-backdrop-filter: saturate(140%) blur(10px);
     border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
+  /* Brand stage-left with the slogan tucked beneath it, full nav
+     right-aligned. (The long "The Mediation Process" link makes a
+     centered-slogan row overflow, so this is the layout at every
+     desktop width; the mobile query below swaps the right column to
+     the hamburger toggle.) */
   .nav-inner {
-    display: flex;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "brand   desktop"
+      "slogan  desktop";
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
+    row-gap: 0.3rem;
+    column-gap: var(--space-md);
     padding-block: 0.75rem;
   }
   .brand {
+    grid-area: brand;
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
@@ -104,7 +118,14 @@ const services = [
     transition: color 0.25s var(--ease-out);
     flex-shrink: 0;
   }
+  /* Logo floats out of the brand flow and centers vertically against
+     the full banner height (both the name row and the slogan row),
+     at every width. Brand text and slogan are padded to clear it. */
   .brand-mark {
+    position: absolute;
+    left: clamp(1.25rem, 4vw, 3rem);
+    top: 50%;
+    transform: translateY(-50%);
     display: grid; place-items: center;
     flex-shrink: 0;
     width: 42px;
@@ -119,9 +140,14 @@ const services = [
     max-width: none;
   }
   .brand:hover .brand-mark {
-    transform: rotate(8deg);
+    transform: translateY(-50%) rotate(8deg);
   }
-  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    padding-left: calc(42px + 0.7rem);
+  }
   .brand-name {
     font-family: var(--font-display);
     font-variation-settings: "opsz" 32;
@@ -156,19 +182,22 @@ const services = [
   }
 
   .nav-slogan {
-    flex: 1;
-    text-align: center;
+    grid-area: slogan;
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 1.15rem;
+    font-size: 0.85rem;
     letter-spacing: 0.01em;
     color: var(--color-gold);
-    white-space: nowrap;
     pointer-events: none;
-    margin: 0 1rem;
+    margin: 0;
+    padding-left: calc(42px + 0.7rem);
+    white-space: nowrap;
   }
 
   .nav-desktop {
+    grid-area: desktop;
+    justify-self: end;
+    align-self: center;
     display: flex;
     align-items: center;
     gap: 2.25rem;
@@ -177,6 +206,7 @@ const services = [
     list-style: none;
     padding: 0;
     display: flex;
+    align-items: center;
     gap: 1.75rem;
   }
   .nav-desktop > ul > li > a:not(.nav-cta),
@@ -191,6 +221,7 @@ const services = [
     position: relative;
     padding: 0.25rem 0;
     transition: color 0.2s;
+    white-space: nowrap;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -450,48 +481,18 @@ const services = [
     border-color: var(--color-gold);
   }
 
-  /* Mid-width zone (~1001–1285px): the centered slogan squeezes the
-     brand text, so move it under the brand block on its own row while
-     keeping the desktop nav visible on the right. */
-  @media (max-width: 1285px) {
-    .nav-inner {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      grid-template-areas:
-        "brand   desktop"
-        "slogan  desktop";
-      align-items: center;
-      row-gap: 0.3rem;
-    }
-    .brand { grid-area: brand; }
-    .nav-desktop {
-      grid-area: desktop;
-      justify-self: end;
-      align-self: center;
-    }
-    .nav-slogan {
-      display: block;
-      grid-area: slogan;
-      flex: none;
-      text-align: left;
-      font-size: 0.85rem;
-      margin: 0;
-      padding-left: calc(42px + 0.7rem);
-      white-space: normal;
-    }
-  }
-
-  /* Mobile (~≤1088px): hide desktop nav, show hamburger. Slogan
+  /* Mobile (~≤1240px): hide desktop nav, show hamburger. Slogan
      still sits under the brand block; the right column becomes the
      toggle button instead of the desktop nav. Breakpoint sits where
      the desktop layout actually starts overflowing (book button +
-     slogan + nav items + new Documents entry stop fitting). */
-  @media (max-width: 1088px) {
+     slogan + nav items + the Process entry stop fitting). */
+  @media (max-width: 1240px) {
     .nav-desktop { display: none; }
     .nav-toggle { display: flex; }
+    /* Swap the right column from the nav to the hamburger toggle. The
+       brand / slogan / centered-logo treatment is inherited from the
+       base rules above. */
     .nav-inner {
-      position: relative;
       grid-template-columns: 1fr auto;
       grid-template-areas:
         "brand  toggle"
@@ -500,18 +501,6 @@ const services = [
     }
     /* Hamburger spans both rows and centers against the full banner. */
     .nav-toggle { grid-area: toggle; align-self: center; }
-    /* Float the logo out of the brand row so it centers against the full
-       banner height (not just the name/sub line). Paired with the
-       centered hamburger, both now sit vertically centered, with
-       name / sub / slogan stacked to their right. */
-    .brand-mark {
-      position: absolute;
-      left: clamp(1.25rem, 4vw, 3rem);
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .brand:hover .brand-mark { transform: translateY(-50%) rotate(8deg); }
-    .brand-text { padding-left: calc(42px + 0.7rem); }
   }
 </style>
 
