@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GoldService from "../components/GoldService.astro";
 import Reviews from "../components/Reviews.astro";
+import YouTubeFacade from "../components/YouTubeFacade.astro";
 
 const services = [
   {
@@ -42,6 +43,18 @@ const services = [
   title="Pro Se Fair Play Mediation, LLC · Mediation & Document Preparation"
   description="Mediation and document preparation for self-represented individuals. Where we level the playing field."
 >
+  <!-- ========================== INTRO VIDEO ========================== -->
+  <section class="home-video">
+    <div class="container">
+      <div class="home-video-frame">
+        <YouTubeFacade
+          id="O1IBKr2QabI"
+          title="Play introduction video — Pro Se Fair Play Mediation"
+        />
+      </div>
+    </div>
+  </section>
+
   <!-- ========================== SERVICES ========================== -->
   <section class="section services">
     <div class="container">
@@ -290,6 +303,17 @@ const services = [
     position: relative;
   }
   .services { padding-block: var(--space-lg) var(--space-xl); }
+
+  /* ------------------------------------------------------------
+     HOME INTRO VIDEO — front and center, above the services head
+     ------------------------------------------------------------ */
+  .home-video {
+    padding-block: var(--space-lg) 0;
+  }
+  .home-video-frame {
+    max-width: 62rem;
+    margin-inline: auto;
+  }
 
   .section-head {
     display: grid;

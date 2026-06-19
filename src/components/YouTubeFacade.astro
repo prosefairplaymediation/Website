@@ -1,0 +1,139 @@
+---
+/**
+ * Lightweight YouTube embed: shows only the poster thumbnail + a play
+ * button on load (no YouTube iframe, scripts, or cookies until the user
+ * clicks). On click it swaps in the privacy-mode player and starts
+ * playback. Keeps the page fast and the privacy policy clean while still
+ * giving a full-quality, sound-on player on demand.
+ */
+interface Props {
+  id: string;
+  title?: string;
+}
+const { id, title = "Play video" } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+const thumbFallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+---
+
+<div class="yt-facade" data-yt-id={id} data-yt-title={title}>
+  <button type="button" class="yt-facade-btn" aria-label={title}>
+    <img
+      src={thumb}
+      alt=""
+      class="yt-facade-thumb"
+      loading="lazy"
+      width="1280"
+      height="720"
+      onerror={`this.onerror=null;this.src='${thumbFallback}'`}
+    />
+    <span class="yt-facade-play" aria-hidden="true">
+      <svg viewBox="0 0 68 48" width="68" height="48">
+        <path
+          class="yt-facade-play-bg"
+          d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C66.94 34.95 67 24 67 24s-.06-10.95-1.48-16.26z"
+        />
+        <path d="M45 24 27 14v20z" fill="#fff" />
+      </svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".yt-facade").forEach((el) => {
+    const btn = el.querySelector<HTMLButtonElement>(".yt-facade-btn");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      const id = el.dataset.ytId;
+      if (!id) return;
+      const iframe = document.createElement("iframe");
+      // Privacy-enhanced host; autoplay is allowed here because the
+      // click is a user gesture (so it plays with sound). rel=0 keeps
+      // end-screen suggestions to the same channel.
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = el.dataset.ytTitle ?? "YouTube video player";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      el.replaceChildren(iframe);
+    });
+  });
+</script>
+
+<style>
+  .yt-facade {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--color-navy-deep);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.08),
+      0 22px 50px -26px rgba(18, 33, 74, 0.5);
+  }
+  .yt-facade-btn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background: none;
+    display: grid;
+    place-items: center;
+  }
+  .yt-facade-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .yt-facade-play {
+    position: relative;
+    z-index: 1;
+    width: clamp(54px, 8vw, 84px);
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45));
+    transition: transform 0.3s var(--ease-out);
+  }
+  .yt-facade-play svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .yt-facade-play-bg {
+    fill: var(--color-navy-deep);
+    fill-opacity: 0.85;
+    transition: fill 0.25s var(--ease-out), fill-opacity 0.25s var(--ease-out);
+  }
+  .yt-facade-btn:hover .yt-facade-play,
+  .yt-facade-btn:focus-visible .yt-facade-play {
+    transform: scale(1.06);
+  }
+  .yt-facade-btn:hover .yt-facade-play-bg,
+  .yt-facade-btn:focus-visible .yt-facade-play-bg {
+    fill: var(--color-gold);
+    fill-opacity: 1;
+  }
+  .yt-facade-btn:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  /* The iframe is injected by JS at runtime, so it never receives
+     Astro's scoped style attribute — :global keeps this rule from being
+     scoped (and dropped) so the player actually fills the frame. The
+     parent .yt-facade stays scoped, so it's still safely contained. */
+  .yt-facade :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .yt-facade-play { transition: none; }
+  }
+</style>
