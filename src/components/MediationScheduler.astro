@@ -40,10 +40,9 @@ const { calendlyUrl, duration } = Astro.props;
         reserve your session. Once it's booked, a confirmation and Zoom
         details will be emailed to you.
       </p>
-      <p class="thanks-receipt reveal reveal-d4">
+      <p class="lede reveal reveal-d4">
         If both parties are attending, please agree on a time that works for
-        everyone before booking. A receipt has been emailed to you by Stripe —
-        please keep it for your records.
+        everyone before booking.
       </p>
     </div>
   </header>
@@ -51,6 +50,12 @@ const { calendlyUrl, duration } = Astro.props;
   <!-- ========================== SCHEDULER ========================== -->
   <section class="sched-section">
     <div class="container">
+      <p class="sched-note">
+        <strong>Splitting the cost with the other party?</strong> Only one of
+        you needs to schedule. If your agreed-upon time already shows as
+        unavailable, that means the other party has booked it — your session is
+        set, and you do not need to book again.
+      </p>
       <div class="calendly-inline-widget" data-url={calendlyUrl}></div>
       <p class="sched-foot">
         Trouble scheduling, or need a different time?
@@ -125,15 +130,6 @@ const { calendlyUrl, duration } = Astro.props;
     margin-inline: auto;
     color: var(--color-ink-soft);
   }
-  .thanks-receipt {
-    margin-top: 1.25rem;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--color-ink-soft);
-    max-width: 54ch;
-    margin-inline: auto;
-    font-style: italic;
-  }
 
   /* ============================================================
      SCHEDULER — Calendly inline embed (same treatment as /book)
@@ -142,6 +138,18 @@ const { calendlyUrl, duration } = Astro.props;
     padding-block: var(--space-xl) var(--space-2xl);
     background: var(--color-cream);
   }
+  .sched-note {
+    margin: 0 0 var(--space-lg);
+    padding: 1rem 1.25rem;
+    background: var(--color-cream-warm);
+    border: 1px solid var(--color-divider);
+    border-left: 3px solid var(--color-gold);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .sched-note strong { color: var(--color-navy); }
   .calendly-inline-widget {
     min-width: 320px;
     height: clamp(720px, 90vh, 1100px);
@@ -154,5 +162,14 @@ const { calendlyUrl, duration } = Astro.props;
     font-size: 1rem;
     color: var(--color-ink-soft);
     text-align: center;
+  }
+
+  /* On phones the section's top padding stacks on the header's bottom
+     padding, leaving too big a gap above the split-payment note — tighten
+     it so the note sits closer to the header copy. */
+  @media (max-width: 600px) {
+    .sched-section {
+      padding-top: var(--space-md);
+    }
   }
 </style>

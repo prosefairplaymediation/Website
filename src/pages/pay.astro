@@ -491,4 +491,25 @@ const documentProducts = [
       grid-template-columns: 1fr;
     }
   }
+
+  /* On phones, tighten the big stacked gaps: above the agreement checkbox
+     (body top padding stacking on the header) and above each section's gold
+     rule (the between-sections margin). The space below the rule, down to the
+     cards, is left as-is. */
+  @media (max-width: 600px) {
+    .pay-body {
+      padding-top: var(--space-md);
+    }
+    .pay-section + .pay-section {
+      margin-top: var(--space-lg);
+    }
+    /* Tighten the space around the divider between duration groups —
+       4rem above + 4rem below is far too much stacked on a phone. Keep the
+       above-line gap small (card sits near the divider) but leave room below
+       it so the next group heading isn't cramped against the line. */
+    .pay-group + .pay-group {
+      margin-top: var(--space-md);
+      padding-top: var(--space-lg);
+    }
+  }
 </style>
