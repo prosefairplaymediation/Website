@@ -1,34 +1,132 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PayCard from "../components/PayCard.astro";
 
-// Stripe Payment Links (Stripe Dashboard > Payment Links).
-// After-payment redirect set to /thank-you on the Stripe side.
-const hourlyMediationUrl = "https://buy.stripe.com/28EeVcfuk9GEbcVg7y3sI03";
-const hourlyMediationSplitUrl = "https://buy.stripe.com/cNi4gybe4bOMep7bRi3sI04";
+// Stripe Payment Links (Stripe Dashboard > Payment Links). Each mediation
+// link redirects (Stripe side) to the matching /thank-you-*-hour scheduling
+// page; the 1-hour VIP link redirects to /thank-you-one-hour; document-service
+// links redirect to /thank-you. Mediation is a linear $600/hour combined rate
+// (1h $600 → 8h $4,800); VIP is a flat $650.
+const med1hFullUrl = "https://buy.stripe.com/28EeVcfuk9GEbcVg7y3sI03";
+const med1hSplitUrl = "https://buy.stripe.com/cNi4gybe4bOMep7bRi3sI04";
+const med2hFullUrl = "https://buy.stripe.com/dRm14m1DubOMcgZ8F63sI05";
+const med2hSplitUrl = "https://buy.stripe.com/9B69ASfukf0Y2Gp7B23sI06";
+const med4hFullUrl = "https://buy.stripe.com/aFafZgbe48CAa8R1cE3sI07";
+const med4hSplitUrl = "https://buy.stripe.com/aFaeVceqgaKIgxf9Ja3sI08";
+const med8hFullUrl = "https://buy.stripe.com/bJe3cufukdWUftb3kM3sI09";
+const med8hSplitUrl = "https://buy.stripe.com/5kQ28qfukf0Ydl32gI3sI0a";
+const med1hVipUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
+
 const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
 const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
 
-const products = [
+const mediationDetail = "/services/hourly-mediation";
+
+// Each duration shows its Full (one payer) and Split (per party) cards.
+const mediationGroups = [
   {
-    slug: "hourly_mediation",
-    title: "Hourly Mediation — Full Hour",
-    price: "$600 / hour",
-    value: 600,
-    description:
-      "One full hour of family-law mediation, conducted via Zoom. This link charges the entire $600 combined hourly rate to a single payer — it is not split between the parties.",
-    detail: "/services/hourly-mediation",
-    payUrl: hourlyMediationUrl,
+    duration: "One Hour",
+    cards: [
+      {
+        slug: "mediation_1h_full",
+        title: "Full Rate",
+        context: "One-Hour Mediation, full rate",
+        price: "$600",
+        value: 600,
+        description:
+          "The full combined rate for a one-hour mediation session, charged to a single payer — not split between the parties.",
+        payUrl: med1hFullUrl,
+      },
+      {
+        slug: "mediation_1h_split",
+        title: "Split Rate",
+        context: "One-Hour Mediation, split rate",
+        price: "$300 / party",
+        value: 300,
+        description:
+          "One party's half of a one-hour mediation session. Use this when the two parties split the cost evenly; each pays their share separately.",
+        payUrl: med1hSplitUrl,
+      },
+    ],
   },
   {
-    slug: "hourly_mediation_split",
-    title: "Hourly Mediation — Split Rate",
-    price: "$300 / hour",
-    value: 300,
-    description:
-      "One party's half of the $600 combined hourly rate — $300 per hour, per party. Use this when the two parties are splitting the cost evenly; each party pays their share separately.",
-    detail: "/services/hourly-mediation",
-    payUrl: hourlyMediationSplitUrl,
+    duration: "Two Hours",
+    cards: [
+      {
+        slug: "mediation_2h_full",
+        title: "Full Rate",
+        context: "Two-Hour Mediation, full rate",
+        price: "$1,200",
+        value: 1200,
+        description:
+          "The full combined rate for a two-hour mediation session, charged to a single payer — not split between the parties.",
+        payUrl: med2hFullUrl,
+      },
+      {
+        slug: "mediation_2h_split",
+        title: "Split Rate",
+        context: "Two-Hour Mediation, split rate",
+        price: "$600 / party",
+        value: 600,
+        description:
+          "One party's half of a two-hour mediation session. Use this when the two parties split the cost evenly; each pays their share separately.",
+        payUrl: med2hSplitUrl,
+      },
+    ],
   },
+  {
+    duration: "Half Day",
+    cards: [
+      {
+        slug: "mediation_4h_full",
+        title: "Full Rate",
+        context: "Four-Hour Mediation, full rate",
+        price: "$2,400",
+        value: 2400,
+        description:
+          "The full combined rate for a four-hour mediation session, charged to a single payer — not split between the parties.",
+        payUrl: med4hFullUrl,
+      },
+      {
+        slug: "mediation_4h_split",
+        title: "Split Rate",
+        context: "Four-Hour Mediation, split rate",
+        price: "$1,200 / party",
+        value: 1200,
+        description:
+          "One party's half of a four-hour mediation session. Use this when the two parties split the cost evenly; each pays their share separately.",
+        payUrl: med4hSplitUrl,
+      },
+    ],
+  },
+  {
+    duration: "Full Day",
+    cards: [
+      {
+        slug: "mediation_8h_full",
+        title: "Full Rate",
+        context: "Eight-Hour Mediation, full rate",
+        price: "$4,800",
+        value: 4800,
+        description:
+          "The full combined rate for an eight-hour mediation session, charged to a single payer — not split between the parties.",
+        payUrl: med8hFullUrl,
+      },
+      {
+        slug: "mediation_8h_split",
+        title: "Split Rate",
+        context: "Eight-Hour Mediation, split rate",
+        price: "$2,400 / party",
+        value: 2400,
+        description:
+          "One party's half of an eight-hour mediation session. Use this when the two parties split the cost evenly; each pays their share separately.",
+        payUrl: med8hSplitUrl,
+      },
+    ],
+  },
+];
+
+const documentProducts = [
   {
     slug: "parenting_plan",
     title: "Parenting Plan Preparation",
@@ -54,7 +152,7 @@ const products = [
 
 <BaseLayout
   title="Pay for a Service · Pro Se Fair Play Mediation"
-  description="Pay online for Hourly Mediation, Parenting Plan Preparation, or the Turn-Key Court Packet. Secure payment processed by Stripe."
+  description="Pay online for mediation (hourly, half-day, or full-day), Parenting Plan Preparation, or the Turn-Key Court Packet. Secure payment processed by Stripe."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="pay-header">
@@ -75,7 +173,7 @@ const products = [
     </div>
   </header>
 
-  <!-- ========================== AGREEMENT GATE ========================== -->
+  <!-- ========================== BODY ========================== -->
   <section class="pay-body">
     <div class="container-narrow">
       <form
@@ -96,40 +194,66 @@ const products = [
         </label>
       </form>
 
-      <!-- ========================== PRODUCTS ========================== -->
-      <ul class="pay-products" role="list">
-        {products.map((p) => (
-          <li class="pay-card">
-            <div class="pay-card-head">
-              <h2 class="pay-card-title display">{p.title}</h2>
-              <p class="pay-card-price smallcaps">{p.price}</p>
-            </div>
-            <p class="pay-card-body">{p.description}</p>
-            <div class="pay-card-actions">
-              <a
-                href={p.payUrl}
-                class="btn btn-primary pay-btn"
-                data-pay-btn
-                data-product={p.slug}
-                data-value={p.value}
-                aria-disabled="true"
-                tabindex="-1"
-                aria-label={`Pay now for ${p.title}`}
-              >
-                Pay Now
-                <span class="arrow" aria-hidden="true">→</span>
-              </a>
-              <a
-                class="link-underline pay-detail-link"
-                href={p.detail}
-                aria-label={`${p.title} service details`}
-              >
-                Service details
-              </a>
-            </div>
-          </li>
+      <!-- ========================== MEDIATION ========================== -->
+      <div class="pay-section">
+        <h2 class="pay-section-title display">Mediation</h2>
+        {mediationGroups.map((group) => (
+          <div class="pay-group">
+            <h3 class="pay-group-title">{group.duration}</h3>
+            <ul class="pay-products" role="list">
+              {group.cards.map((c) => (
+                <PayCard
+                  title={c.title}
+                  context={c.context}
+                  price={c.price}
+                  description={c.description}
+                  detail={mediationDetail}
+                  payUrl={c.payUrl}
+                  slug={c.slug}
+                  value={c.value}
+                  headingLevel="h4"
+                />
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+
+        <div class="pay-group">
+          <h3 class="pay-group-title">Gold Service</h3>
+          <ul class="pay-products pay-products--single" role="list">
+            <PayCard
+              title="One-Hour"
+              context="One-Hour Gold Service Mediation"
+              price="$650"
+              description="A one-hour Gold Service mediation session, charged to a single payer."
+              detail={mediationDetail}
+              payUrl={med1hVipUrl}
+              slug="mediation_1h_vip"
+              value={650}
+              headingLevel="h4"
+            />
+          </ul>
+        </div>
+      </div>
+
+      <!-- ========================== DOCUMENT SERVICES ========================== -->
+      <div class="pay-section">
+        <h2 class="pay-section-title display">Document Services</h2>
+        <ul class="pay-products" role="list">
+          {documentProducts.map((p) => (
+            <PayCard
+              title={p.title}
+              price={p.price}
+              description={p.description}
+              detail={p.detail}
+              payUrl={p.payUrl}
+              slug={p.slug}
+              value={p.value}
+              headingLevel="h3"
+            />
+          ))}
+        </ul>
+      </div>
 
       <p class="pay-foot">
         Need to talk first? <a class="link-underline" href="/book">Book a free 15-minute consultation</a>.
@@ -157,6 +281,13 @@ const products = [
       }
 
       checkbox.addEventListener("change", sync);
+
+      // The browser restores the checkbox state on back/forward navigation
+      // (e.g. returning from Stripe), but no "change" event fires for that
+      // restore — so the buttons would stay in their disabled markup default
+      // while the box shows checked. Re-sync on pageshow, which fires on
+      // initial load, bfcache restores, and back-navigation alike.
+      window.addEventListener("pageshow", sync);
 
       // Anchor tags can't be truly disabled — block clicks while the
       // checkbox is unchecked. When enabled, fire a GA4 event before
@@ -288,7 +419,39 @@ const products = [
   .pay-checkbox-text strong { color: var(--color-navy); }
 
   /* ============================================================
-     PRODUCT CARDS
+     SECTIONS & DURATION GROUPS
+     ============================================================ */
+  .pay-section + .pay-section {
+    margin-top: var(--space-2xl);
+  }
+  .pay-section-title {
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    margin-bottom: var(--space-lg);
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--color-gold);
+  }
+  /* Divider + spacing between successive duration groups. */
+  .pay-group + .pay-group {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-divider);
+  }
+  .pay-group-title {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+    margin-bottom: 1rem;
+  }
+
+  /* ============================================================
+     PRODUCT GRID (cards themselves live in PayCard.astro)
      ============================================================ */
   .pay-products {
     list-style: none;
@@ -298,69 +461,15 @@ const products = [
     grid-template-columns: 1fr 1fr;
     gap: clamp(1.25rem, 3vw, 2rem);
   }
-  .pay-card {
-    background: var(--color-paper);
-    border: 1px solid var(--color-divider);
-    border-top: 2px solid var(--color-gold);
-    padding: 1.75rem 1.75rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    box-shadow:
-      0 1px 2px rgba(18, 33, 74, 0.04),
-      0 12px 32px -16px rgba(18, 33, 74, 0.15);
+  /* A section with a single card (VIP) — hold it to one column's width so
+     it matches the paired cards above instead of stretching the full row. */
+  .pay-products--single {
+    grid-template-columns: 1fr;
   }
-  .pay-card-head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-  .pay-card-title {
-    font-size: var(--step-2);
-    line-height: 1.15;
-    color: var(--color-navy);
-    letter-spacing: -0.01em;
-    font-weight: 400;
-  }
-  .pay-card-price {
-    font-size: 1.35rem;
-    color: var(--color-gold-deep);
-    font-weight: 700;
-    letter-spacing: 0.14em;
-  }
-  .pay-card-body {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: var(--color-ink-soft);
-    flex: 1;
-  }
-  .pay-card-actions {
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
-  .pay-btn {
-    background: var(--color-navy);
-    color: var(--color-cream);
-    border-color: var(--color-navy);
-    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
-  }
-  .pay-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
-  .pay-btn[aria-disabled="true"] {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: auto;
-  }
-  .pay-btn[aria-disabled="true"]:hover {
-    background: var(--color-navy);
-    color: var(--color-cream);
-    border-color: var(--color-navy);
-  }
-  .pay-detail-link {
-    font-size: 0.95rem;
+  @media (min-width: 721px) {
+    .pay-products--single {
+      max-width: calc((100% - clamp(1.25rem, 3vw, 2rem)) / 2);
+    }
   }
 
   /* ============================================================

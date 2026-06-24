@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+/**
+ * Post-payment mediation scheduling page. One per session length — the
+ * matching Stripe payment links (full + split for that duration) redirect
+ * here, and it embeds the Calendly event of the same length.
+ *
+ * The Calendly event MUST be a one-on-one (single-seat) event type, NOT a
+ * group/multi-seat event, so a booked slot disappears from availability
+ * entirely and can't be double-booked. Attendee count is a Zoom concern,
+ * unrelated to the single-seat booking model.
+ */
+interface Props {
+  /** Calendly single-seat event URL for this session length. */
+  calendlyUrl: string;
+  /** Title-case session length for display, e.g. "Eight-Hour". */
+  duration: string;
+}
+const { calendlyUrl, duration } = Astro.props;
+---
+
+<BaseLayout
+  title={`Schedule Your ${duration} Mediation · Pro Se Fair Play Mediation`}
+  description={`Payment received. Choose a time below to reserve your ${duration.toLowerCase()} mediation session.`}
+  noindex
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="thanks-header">
+    <div class="container thanks-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Payment Received
+      </p>
+      <h1 class="display thanks-title reveal reveal-d2">
+        Schedule your <span class="display-italic">{duration}</span> session<span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Thank you — your payment has been received. Choose a time below to
+        reserve your session. Once it's booked, a confirmation and Zoom
+        details will be emailed to you.
+      </p>
+      <p class="thanks-receipt reveal reveal-d4">
+        If both parties are attending, please agree on a time that works for
+        everyone before booking. A receipt has been emailed to you by Stripe —
+        please keep it for your records.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== SCHEDULER ========================== -->
+  <section class="sched-section">
+    <div class="container">
+      <div class="calendly-inline-widget" data-url={calendlyUrl}></div>
+      <p class="sched-foot">
+        Trouble scheduling, or need a different time?
+        <a class="link-underline" href="/contact">Contact me directly</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calendly widget loader — keep external, do not bundle -->
+  <script
+    is:inline
+    type="text/javascript"
+    src="https://assets.calendly.com/assets/external/widget.js"
+    async
+  ></script>
+
+  <script is:inline>
+    // Fire a GA4 event whenever a post-payment mediation page loads.
+    // Stripe Payment Links don't pass transaction details back on redirect,
+    // so this is a simple counter — actual purchase data lives in the Stripe
+    // Dashboard. Tagged product:"mediation" to separate it from the document
+    // services thank-you page.
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "pay_complete", {
+        source: "stripe_redirect",
+        product: "mediation",
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER — confirmation banner (cream, centred). Mirrors
+     /thank-you, but without the 70vh fill since a scheduler sits
+     directly beneath it.
+     ============================================================ */
+  .thanks-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(196, 154, 75, 0.1), transparent 60%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .thanks-header-inner {
+    position: relative;
+    max-width: 56rem;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .thanks-header .kicker {
+    color: var(--color-gold-deep);
+    justify-content: center;
+  }
+  .thanks-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .thanks-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .thanks-header .lede {
+    margin-top: 1.5rem;
+    max-width: 52ch;
+    margin-inline: auto;
+    color: var(--color-ink-soft);
+  }
+  .thanks-receipt {
+    margin-top: 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+    max-width: 54ch;
+    margin-inline: auto;
+    font-style: italic;
+  }
+
+  /* ============================================================
+     SCHEDULER — Calendly inline embed (same treatment as /book)
+     ============================================================ */
+  .sched-section {
+    padding-block: var(--space-xl) var(--space-2xl);
+    background: var(--color-cream);
+  }
+  .calendly-inline-widget {
+    min-width: 320px;
+    height: clamp(720px, 90vh, 1100px);
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+  }
+  .sched-foot {
+    margin-top: var(--space-lg);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    text-align: center;
+  }
+</style>

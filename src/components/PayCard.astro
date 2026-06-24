@@ -1,0 +1,134 @@
+---
+/**
+ * A single product card in the payment portal. The Pay Now button starts
+ * disabled (aria-disabled) and is enabled by the agreement-checkbox script
+ * on /pay via the [data-pay-btn] hook.
+ */
+interface Props {
+  title: string;
+  /** Full, stand-alone label for screen readers (defaults to title). */
+  context?: string;
+  price: string;
+  description: string;
+  detail: string;
+  payUrl: string;
+  slug: string;
+  value: number;
+  /** Heading level so the card nests correctly under its section. */
+  headingLevel?: "h3" | "h4";
+}
+const {
+  title,
+  context = Astro.props.title,
+  price,
+  description,
+  detail,
+  payUrl,
+  slug,
+  value,
+  headingLevel = "h3",
+} = Astro.props;
+const Heading = headingLevel;
+---
+
+<li class="pay-card">
+  <div class="pay-card-head">
+    <Heading class="pay-card-title display">{title}</Heading>
+    <p class="pay-card-price smallcaps">{price}</p>
+  </div>
+  <p class="pay-card-body">{description}</p>
+  <div class="pay-card-actions">
+    <a
+      href={payUrl}
+      class="btn btn-primary pay-btn"
+      data-pay-btn
+      data-product={slug}
+      data-value={value}
+      aria-disabled="true"
+      tabindex="-1"
+      aria-label={`Pay now for ${context}`}
+    >
+      Pay Now
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <a
+      class="link-underline pay-detail-link"
+      href={detail}
+      aria-label={`${context} — service details`}
+    >
+      Service details
+    </a>
+  </div>
+</li>
+
+<style>
+  .pay-card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-top: 2px solid var(--color-gold);
+    padding: 1.75rem 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.15);
+  }
+  .pay-card-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .pay-card-title {
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: var(--color-navy);
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    margin: 0;
+  }
+  .pay-card-price {
+    font-size: 1.35rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+  .pay-card-body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    flex: 1;
+  }
+  .pay-card-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .pay-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+  .pay-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+  .pay-btn[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+  .pay-btn[aria-disabled="true"]:hover {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .pay-detail-link {
+    font-size: 0.95rem;
+  }
+</style>
