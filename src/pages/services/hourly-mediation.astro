@@ -26,10 +26,20 @@ const facts = [
         mutually acceptable resolution — without a judge imposing a
         decision. Conducted via Zoom, structured, confidential.
       </p>
-      <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
-        Book a Free Consultation
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
+      <div class="svc-header-ctas reveal reveal-d4">
+        <a class="btn btn-primary svc-header-cta" href="/book">
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a
+          class="btn svc-header-cta svc-header-cta-pay"
+          href="/pay"
+          onclick="if(window.gtag)gtag('event','pay_intent_click',{source:'hourly_mediation_page',product:'hourly_mediation'})"
+        >
+          Pay for Mediation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -247,9 +257,27 @@ const facts = [
     color: color-mix(in srgb, var(--color-cream) 85%, transparent);
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
-  .svc-header-cta {
+  .svc-header-cta { margin-top: 0; }
+  .svc-header-ctas {
     margin-top: 1.75rem;
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
+  .svc-header-cta-pay {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border: 1px solid var(--color-gold);
+  }
+  .svc-header-cta-pay:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+  }
+  .svc-header-cta-pay .arrow { transition: transform 0.4s var(--ease-out); }
+  .svc-header-cta-pay:hover .arrow { transform: translateX(4px); }
 
   /* ============================================================
      AT-A-GLANCE FACTS

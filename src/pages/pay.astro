@@ -3,10 +3,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Stripe Payment Links (Stripe Dashboard > Payment Links).
 // After-payment redirect set to /thank-you on the Stripe side.
+const hourlyMediationUrl = "https://buy.stripe.com/28EeVcfuk9GEbcVg7y3sI03";
+const hourlyMediationSplitUrl = "https://buy.stripe.com/cNi4gybe4bOMep7bRi3sI04";
 const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
 const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
 
 const products = [
+  {
+    slug: "hourly_mediation",
+    title: "Hourly Mediation — Full Hour",
+    price: "$600 / hour",
+    value: 600,
+    description:
+      "One full hour of family-law mediation, conducted via Zoom. This link charges the entire $600 combined hourly rate to a single payer — it is not split between the parties.",
+    detail: "/services/hourly-mediation",
+    payUrl: hourlyMediationUrl,
+  },
+  {
+    slug: "hourly_mediation_split",
+    title: "Hourly Mediation — Split Rate",
+    price: "$300 / hour",
+    value: 300,
+    description:
+      "One party's half of the $600 combined hourly rate — $300 per hour, per party. Use this when the two parties are splitting the cost evenly; each party pays their share separately.",
+    detail: "/services/hourly-mediation",
+    payUrl: hourlyMediationSplitUrl,
+  },
   {
     slug: "parenting_plan",
     title: "Parenting Plan Preparation",
@@ -32,7 +54,7 @@ const products = [
 
 <BaseLayout
   title="Pay for a Service · Pro Se Fair Play Mediation"
-  description="Pay online for Parenting Plan Preparation or the Turn-Key Court Packet. Secure payment processed by Stripe."
+  description="Pay online for Hourly Mediation, Parenting Plan Preparation, or the Turn-Key Court Packet. Secure payment processed by Stripe."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="pay-header">
@@ -42,7 +64,7 @@ const products = [
         Secure Payment
       </p>
       <h1 class="display pay-title reveal reveal-d2">
-        Document services <span class="display-italic">payment portal</span><span class="display-italic">.</span>
+        Service <span class="display-italic">payment portal</span><span class="display-italic">.</span>
       </h1>
       <p class="lede reveal reveal-d3">
         For clients who have already discussed their case and agreed on
