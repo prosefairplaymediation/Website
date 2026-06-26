@@ -1,6 +1,6 @@
 # CLAUDE.md — Pro Se Fair Play Mediation site
 
-**Last updated:** 2026-05-26
+**Last updated:** 2026-06-26
 
 ## Overview
 
@@ -13,8 +13,25 @@ Freelance brochure/services site for a Florida family-law **mediation + document
 - **Astro 6** (static SSG, strict TypeScript)
 - **Cloudflare Workers** for deployment (`wrangler.jsonc`)
 - **Node 22+** (enforced via Volta)
-- **Git:** private GitHub repo; every push triggers Cloudflare rebuild
+- **Git:** private GitHub repo on the **`prosefairplaymediation`** account (migrated here 2026-06-26); every push triggers Cloudflare rebuild. **Push routing is account-critical. See "Git remote routing" below.**
 - **Husky pre-commit hook** auto-bumps `package.json` patch version
+
+## Git remote routing (ACCOUNT-CRITICAL — read before any push)
+
+This repo intentionally pushes to a **separate GitHub account** (`prosefairplaymediation`), **NOT** Dave's normal personal/work account (`dleepernoinc`). This is deliberate handover prep. The client will eventually own this repo. Pushing to the wrong account leaks the project into Dave's personal account.
+
+**How the routing works (automatic; nothing to toggle per push):**
+- `origin` → `git@github-prosefp:prosefairplaymediation/Website.git`
+- `github-prosefp` is an SSH host alias in `~/.ssh/config` pointing at `github.com`, using the dedicated key `~/.ssh/id_ed25519_prosefp` with `IdentitiesOnly yes`. That key is attached **only** to the `prosefairplaymediation` account.
+- Therefore `git push` (to `origin`) always authenticates as `prosefairplaymediation`. Dave's normal account (HTTPS + Git Credential Manager, used by his other repos) is never involved for this repo.
+- `old-origin` → the old `https://github.com/dleepernoinc/prosefairplaymediation.git`, kept ONLY as an emergency fallback.
+
+**Hard rules:**
+- **Always push to `origin`. NEVER push to `old-origin`.**
+- **Never change `origin`** to the `dleepernoinc` remote, and never re-add a `dleepernoinc` remote as `origin`.
+- Before pushing, if there is any doubt, verify with `git remote get-url origin`. It must be `git@github-prosefp:prosefairplaymediation/Website.git`. If it shows anything else, **STOP and flag it** rather than pushing.
+- Committing/pushing still requires Dave's explicit go-ahead (unchanged).
+- Cloudflare builds the live site from this new repo as of 2026-06-26.
 
 ## Local Development
 
