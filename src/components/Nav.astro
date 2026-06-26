@@ -6,6 +6,12 @@ const services = [
   { href: "/services/court-packet",      label: "Turn-Key Court Packet" },
   { href: "/services/notary",            label: "Online Notary Services" },
 ];
+
+const processPages = [
+  { href: "/process/how-mediation-works", label: "How Mediation Works" },
+  { href: "/process/child-support-rules", label: "Updated Child Support Rules" },
+  { href: "/process/alimony-rules",       label: "Updated Alimony Rules" },
+];
 ---
 
 <header class="nav-root">
@@ -25,7 +31,27 @@ const services = [
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
         <li><a href="/about">About</a></li>
-        <li><a href="/process">The Mediation Process</a></li>
+        <li class="has-dropdown">
+          <button
+            type="button"
+            class="dropdown-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            id="process-trigger"
+          >
+            The Mediation Process
+            <span class="dropdown-chevron" aria-hidden="true">
+              <svg viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 2.5 L7 7.5 L12 2.5" />
+              </svg>
+            </span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="process-trigger">
+            {processPages.map(p => (
+              <li><a href={p.href}>{p.label}</a></li>
+            ))}
+          </ul>
+        </li>
         <li class="has-dropdown">
           <button
             type="button"
@@ -47,14 +73,11 @@ const services = [
             ))}
           </ul>
         </li>
+        <li><a href="/pricing">Pricing</a></li>
         <li><a href="/faq">FAQ</a></li>
         <li><a href="/documents">Documents</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <a class="btn btn-primary nav-cta" href="/book">
-        Book Consultation
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
     </nav>
 
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" id="nav-toggle">
@@ -68,15 +91,19 @@ const services = [
   <div class="nav-mobile" id="mobile-menu" inert>
     <ul>
       <li><a href="/about">About</a></li>
-      <li><a href="/process">The Mediation Process</a></li>
+      <li class="mobile-section-label" aria-hidden="true">The Mediation Process</li>
+      {processPages.map(p => (
+        <li><a class="mobile-sub" href={p.href}>{p.label}</a></li>
+      ))}
       <li class="mobile-section-label" aria-hidden="true">Services</li>
       {services.map(s => (
         <li><a class="mobile-sub" href={s.href}>{s.label}</a></li>
       ))}
+      <li><a href="/pricing">Pricing</a></li>
       <li><a href="/faq">FAQ</a></li>
       <li><a href="/documents">Documents</a></li>
       <li><a href="/contact">Contact</a></li>
-      <li><a class="btn btn-primary mobile-cta" href="/book">Book Consultation <span class="arrow">→</span></a></li>
+      <li><a class="btn btn-primary mobile-cta" href="/book">Book a Free, Private Consultation <span class="arrow">→</span></a></li>
     </ul>
   </div>
 </header>
@@ -532,70 +559,66 @@ const services = [
     });
   }
 
-  // Desktop Services dropdown — CSS handles the visual reveal on
-  // :hover and :focus-within. The JS here keeps aria-expanded in sync
-  // so screen readers see the correct state regardless of which trigger
-  // opened the menu (click, hover, or keyboard focus). WCAG 1.4.13
-  // also requires dismiss via Escape and persistence while pointer
-  // hovers the menu — both handled below.
-  const dropdownTrigger = document.getElementById("services-trigger");
-  if (dropdownTrigger) {
-    const wrapper = dropdownTrigger.closest(".has-dropdown");
-    const setExpanded = (v) => dropdownTrigger.setAttribute("aria-expanded", String(v));
+  // Desktop dropdowns (The Mediation Process, Services) — CSS handles the
+  // visual reveal on :hover and :focus-within. The JS keeps aria-expanded in
+  // sync for screen readers and handles WCAG 1.4.13 (Escape to dismiss,
+  // persistence while hovering). Generalized over every .has-dropdown so any
+  // number of dropdowns behave identically.
+  const dropdowns = document.querySelectorAll<HTMLElement>(".has-dropdown");
+  dropdowns.forEach((wrapper) => {
+    const trigger = wrapper.querySelector<HTMLElement>(".dropdown-trigger");
+    if (!trigger) return;
+    const setExpanded = (v: boolean) => trigger.setAttribute("aria-expanded", String(v));
 
-    dropdownTrigger.addEventListener("click", (e) => {
+    trigger.addEventListener("click", (e) => {
       e.stopPropagation();
-      const open = dropdownTrigger.getAttribute("aria-expanded") === "true";
-      setExpanded(!open);
+      setExpanded(trigger.getAttribute("aria-expanded") !== "true");
     });
 
-    if (wrapper) {
-      // Hover opens the menu via CSS; mirror to aria-expanded so the
-      // accessibility tree matches the visual state. is-dismissed
-      // is NOT cleared on focusin — that event fires when Escape
-      // moves focus from a menu item back to the trigger, and
-      // clearing then would reopen the menu we just dismissed.
-      // Mouseenter and focusout (leaving the wrapper) clear it.
-      wrapper.addEventListener("mouseenter", () => {
-        wrapper.classList.remove("is-dismissed");
-        setExpanded(true);
-      });
-      wrapper.addEventListener("mouseleave", () => {
-        wrapper.classList.remove("is-dismissed");
-        setExpanded(false);
-      });
-      wrapper.addEventListener("focusin", () => setExpanded(true));
-      wrapper.addEventListener("focusout", (e) => {
-        if (!wrapper.contains(e.relatedTarget as Node)) {
-          wrapper.classList.remove("is-dismissed");
-          setExpanded(false);
-        }
-      });
-    }
-
-    document.addEventListener("click", (e) => {
-      if (wrapper && !wrapper.contains(e.target as Node)) setExpanded(false);
+    // Hover/focus mirror to aria-expanded. is-dismissed is NOT cleared on
+    // focusin (that fires when Escape returns focus to the trigger, which
+    // would reopen the menu we just dismissed). Mouseenter and focusout clear it.
+    wrapper.addEventListener("mouseenter", () => {
+      wrapper.classList.remove("is-dismissed");
+      setExpanded(true);
     });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
+    wrapper.addEventListener("mouseleave", () => {
+      wrapper.classList.remove("is-dismissed");
+      setExpanded(false);
+    });
+    wrapper.addEventListener("focusin", () => setExpanded(true));
+    wrapper.addEventListener("focusout", (e) => {
+      if (!wrapper.contains(e.relatedTarget as Node)) {
+        wrapper.classList.remove("is-dismissed");
         setExpanded(false);
-        // Force the menu closed even though :hover / :focus-within
-        // would otherwise keep it open. Class is cleared by the
-        // mouse/focus handlers above on the next interaction.
-        if (wrapper) wrapper.classList.add("is-dismissed");
-        // Return focus to the trigger so the user knows where they are.
-        if (document.activeElement && wrapper?.contains(document.activeElement)) {
-          dropdownTrigger.focus();
-        }
       }
     });
 
-    // Close when any dropdown item is clicked (so navigation feels clean)
-    if (wrapper) {
-      wrapper.querySelectorAll(".dropdown-menu a").forEach(a => {
-        a.addEventListener("click", () => setExpanded(false));
-      });
-    }
-  }
+    // Close when a menu item is clicked (so navigation feels clean).
+    wrapper.querySelectorAll(".dropdown-menu a").forEach((a) => {
+      a.addEventListener("click", () => setExpanded(false));
+    });
+  });
+
+  // Click outside closes any open dropdown.
+  document.addEventListener("click", (e) => {
+    dropdowns.forEach((wrapper) => {
+      if (!wrapper.contains(e.target as Node)) {
+        wrapper.querySelector(".dropdown-trigger")?.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // Escape dismisses every open dropdown and returns focus to its trigger.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    dropdowns.forEach((wrapper) => {
+      const trigger = wrapper.querySelector<HTMLElement>(".dropdown-trigger");
+      trigger?.setAttribute("aria-expanded", "false");
+      wrapper.classList.add("is-dismissed");
+      if (document.activeElement && wrapper.contains(document.activeElement)) {
+        trigger?.focus();
+      }
+    });
+  });
 </script>

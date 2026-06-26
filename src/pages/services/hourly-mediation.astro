@@ -4,7 +4,6 @@ import GoldService from "../../components/GoldService.astro";
 
 const facts = [
   { label: "Rate", value: "$600 / hour" },
-  { label: "Minimum", value: "Two hours" },
   { label: "Format", value: "Zoom · Confidential" },
   { label: "Sessions", value: "Half-day, full-day, same-day" },
 ];
@@ -13,7 +12,7 @@ const facts = [
 
 <BaseLayout
   title="Hourly Mediation · Pro Se Fair Play Mediation"
-  description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate, two-hour minimum. Conducted via Zoom in a structured, confidential environment."
+  description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate. Conducted via Zoom in a structured, confidential environment."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
@@ -28,7 +27,7 @@ const facts = [
       </p>
       <div class="svc-header-ctas reveal reveal-d4">
         <a class="btn btn-primary svc-header-cta" href="/book">
-          Book a Free Consultation
+          Book a Free, Private Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
         <a
@@ -104,17 +103,9 @@ const facts = [
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
-      <p class="kicker cta-kicker">Ready to talk?</p>
-      <h2 class="display cta-title">
-        Start with a <span class="display-italic">free</span> 15-minute consultation.
-      </h2>
-      <p class="lede cta-lede">
-        I'd like to discuss your case and determine whether mediation is
-        the right fit. The consultation is free, with no commitment.
-      </p>
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
-          Book a Free Consultation
+          Book a Free, Private Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -289,7 +280,7 @@ const facts = [
   }
   .facts-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem 2rem;
     margin: 0;
   }
@@ -344,7 +335,7 @@ const facts = [
      ============================================================ */
   .cta {
     position: relative;
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-lg);
     background: var(--color-cream-warm);
     color: var(--color-ink);
     overflow: hidden;
@@ -373,8 +364,9 @@ const facts = [
     max-width: 56ch;
   }
   .cta-actions {
-    margin-top: 2rem;
+    margin-top: 0;
     display: flex;
+    justify-content: center;
     gap: 1.5rem;
     align-items: center;
     flex-wrap: wrap;
@@ -461,9 +453,6 @@ const facts = [
   .refund-list li { line-height: 1.55; }
 
   @media (max-width: 720px) {
-    .facts-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 480px) {
     .facts-grid { grid-template-columns: 1fr; }
   }
 </style>

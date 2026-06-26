@@ -18,7 +18,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         document process simple, efficient, and seamless.
       </p>
       <a class="btn btn-primary svc-header-cta reveal reveal-d4" href="/book">
-        Book a Free Consultation
+        Book a Free, Private Consultation
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
@@ -65,17 +65,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
-      <p class="kicker cta-kicker">Add notary to your service</p>
-      <h2 class="display cta-title">
-        Begin with a <span class="display-italic">free</span> 15-minute consultation.
-      </h2>
-      <p class="lede cta-lede">
-        I'd like to discuss your matter and determine which service is
-        the right fit. The consultation is free, with no commitment.
-      </p>
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
-          Book a Free Consultation
+          Book a Free, Private Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -152,13 +144,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     color: color-mix(in srgb, var(--color-ink-soft) 85%, transparent);
   }
 
-  .cta { position: relative; padding-block: var(--space-3xl); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta { position: relative; padding-block: var(--space-lg); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
   .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
   .cta-kicker { color: var(--color-gold-deep); }
   .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
   .cta-title .display-italic { color: var(--color-gold-deep); }
   .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
-  .cta-actions { margin-top: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-actions { margin-top: 0; display: flex; justify-content: center; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
   .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
   .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
 

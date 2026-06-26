@@ -1,0 +1,361 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Service-level pricing, pulled from the individual service pages.
+const services = [
+  {
+    name: "Hourly Mediation",
+    price: "$600 / hour",
+    note: "Combined rate, commonly split evenly between both parties ($300 each per hour). Book a single hour, half-day, or full-day session.",
+    href: "/services/hourly-mediation",
+    payHref: "/pay#mediation",
+  },
+  {
+    name: "Gold Service Mediation",
+    price: "$650 / hour",
+    note: "Premium, private mediation for high-profile individuals and sensitive or high-conflict matters. Discreet, with elevated scheduling and confidentiality.",
+    href: "/services/gold-service",
+    payHref: "/pay#gold-service",
+  },
+  {
+    name: "Parenting Plan Preparation",
+    price: "$400 flat",
+    note: "A customized, court-ready Parenting Plan, drafted from the information you provide. Document preparation only.",
+    href: "/services/parenting-plan",
+    payHref: "/pay#document-services",
+  },
+  {
+    name: "Turn-Key Court Packet",
+    price: "$600 flat",
+    note: "A complete, filing-ready packet: Parenting Plan, the required Florida Supreme Court forms, and notarization where applicable.",
+    href: "/services/court-packet",
+    payHref: "/pay#document-services",
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing · Pro Se Fair Play Mediation"
+  description="Up-front pricing for mediation and document preparation services, plus the refund and cancellation policies that apply to each."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="pricing-header">
+    <div class="container pricing-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Fees &amp; Policies
+      </p>
+      <h1 class="display pricing-title reveal reveal-d2">
+        Pricing<span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Clear, up-front pricing for every service, plus the refund and
+        cancellation policies that go with it. No surprises.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== PRICING ========================== -->
+  <section class="pricing-body">
+    <div class="container-narrow">
+      <h2 class="section-label">Services</h2>
+      <ul class="price-list" role="list">
+        {services.map((s) => (
+          <li class="price-row">
+            <div class="price-row-info">
+              <h3 class="price-row-name display">
+                <a href={s.href}>{s.name}</a>
+              </h3>
+              <p class="price-row-note">{s.note}</p>
+            </div>
+            <div class="price-row-action">
+              <p class="price-row-amount smallcaps">{s.price}</p>
+              {s.payHref && (
+                <a class="btn btn-primary price-row-btn" href={s.payHref} aria-label={`Book now: ${s.name}`}>
+                  Book Now
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================== REFUND POLICIES ========================== -->
+  <section class="pricing-body pricing-body-alt">
+    <div class="container-narrow">
+      <h2 class="section-label">Refund &amp; Cancellation Policies</h2>
+
+      <article class="policy">
+        <h3 class="policy-title display">Mediation</h3>
+        <div class="policy-body">
+          <p>
+            At Pro Se Fair Play Mediation LLC, mediation sessions involve
+            reserved professional time, scheduling coordination between
+            parties, and advance preparation to ensure a productive and
+            structured process. I understand that life happens and strive
+            to maintain a policy that is both fair to clients and
+            respectful of the time reserved for each matter.
+          </p>
+
+          <h4 class="policy-subhead">Cancellations &amp; Rescheduling</h4>
+          <p>
+            Cancellations or rescheduling requests made more than
+            twenty-four (24) hours prior to a scheduled session are
+            eligible for either:
+          </p>
+          <ul class="policy-list">
+            <li>a full refund to the original payment method, or</li>
+            <li>a full session credit to be applied toward a future mediation session.</li>
+          </ul>
+          <p>
+            For cancellations made less than twenty-four (24) hours
+            before the scheduled session, fifty percent (50%) of the
+            mediation retainer will be retained as a reserved session
+            and preparation fee. The remaining balance may be applied
+            as a one-time credit toward a rescheduled session scheduled
+            within thirty (30) days, subject to availability.
+          </p>
+          <p>
+            Clients who fail to appear for a scheduled mediation session
+            without notice will forfeit the full mediation retainer.
+          </p>
+
+          <h4 class="policy-subhead">Courtesy Rescheduling</h4>
+          <p>
+            One courtesy reschedule may be accommodated for unforeseen
+            circumstances, provided reasonable notice is given and
+            scheduling availability permits.
+          </p>
+
+          <h4 class="policy-subhead">Emergency Circumstances</h4>
+          <p>
+            Emergency situations and unforeseen events may be considered
+            on a case-by-case basis at the sole discretion of Pro Se
+            Fair Play Mediation LLC.
+          </p>
+
+          <h4 class="policy-subhead">Refund Processing</h4>
+          <p>
+            Approved refunds will be processed to the original payment
+            method. Processing times may vary depending on the financial
+            institution or payment provider.
+          </p>
+
+          <h4 class="policy-subhead">Reserved Professional Time</h4>
+          <p>
+            By scheduling a mediation session, clients acknowledge that
+            mediation appointments involve reserved professional time
+            and preparation that cannot typically be reassigned on short
+            notice. This policy is intended to maintain fairness,
+            scheduling integrity, and availability for all parties.
+          </p>
+        </div>
+      </article>
+
+      <article class="policy">
+        <h3 class="policy-title display">Document Preparation</h3>
+        <div class="policy-body">
+          <p>
+            Document preparation services are customized for each client
+            and matter. Because of the time, attention, and preparation
+            involved, refunds are available prior to the start of
+            drafting or document preparation work.
+          </p>
+          <p>
+            Once work has begun, payments may be applied as a credit
+            toward ongoing or future services based on the status of the
+            matter and the work completed.
+          </p>
+          <p>
+            Once completed drafts or finalized documents have been
+            delivered, services are considered earned and non-refundable.
+          </p>
+          <p>
+            I understand that unexpected situations can arise, and
+            reasonable requests related to unforeseen circumstances will
+            always be considered with care on a case-by-case basis.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .pricing-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .pricing-header-inner { position: relative; max-width: 64rem; }
+  .pricing-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .pricing-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  .pricing-header .lede { margin-top: 1.5rem; max-width: 60ch; color: var(--color-ink-soft); }
+
+  /* ============================================================
+     BODY BANDS
+     ============================================================ */
+  .pricing-body {
+    padding-block: var(--space-2xl);
+    background: var(--color-cream);
+  }
+  /* Tighten the first section up under the header. */
+  .pricing-body:first-of-type {
+    padding-top: var(--space-md);
+  }
+  .pricing-body-alt {
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .section-label {
+    margin: 0 0 var(--space-md);
+    font-size: 1.2rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* ============================================================
+     PRICE LIST
+     ============================================================ */
+  .price-list { list-style: none; padding: 0; margin: 0; }
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-divider);
+  }
+  .price-row:last-child { border-bottom: 1px solid var(--color-divider); }
+  .price-row-info { min-width: 0; }
+  .price-row-name {
+    font-size: var(--step-2);
+    line-height: 1.15;
+    color: var(--color-navy);
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    margin: 0 0 0.4rem;
+  }
+  .price-row-name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .price-row-name a:hover,
+  .price-row-name a:focus-visible {
+    color: var(--color-gold-deep);
+    text-decoration-color: var(--color-gold-deep);
+  }
+  .price-row-note {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    max-width: 60ch;
+  }
+  .price-row-action {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+  .price-row-amount {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .price-row-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .price-row-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+
+  /* ============================================================
+     POLICIES
+     ============================================================ */
+  .policy + .policy {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-divider);
+  }
+  .policy-title {
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+  .policy-body {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+  .policy-body p + p { margin-top: 1.25rem; }
+  .policy-subhead {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  .policy-list {
+    margin: 0.75rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .policy-list li { line-height: 1.55; }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 600px) {
+    .pricing-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .price-row { flex-direction: column; gap: 0.75rem; }
+    .price-row-amount { text-align: left; }
+    .price-row-action { align-items: flex-start; }
+  }
+</style>

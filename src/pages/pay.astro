@@ -4,9 +4,9 @@ import PayCard from "../components/PayCard.astro";
 
 // Stripe Payment Links (Stripe Dashboard > Payment Links). Each mediation
 // link redirects (Stripe side) to the matching /thank-you-*-hour scheduling
-// page; the 1-hour VIP link redirects to /thank-you-one-hour; document-service
-// links redirect to /thank-you. Mediation is a linear $600/hour combined rate
-// (1h $600 → 8h $4,800); VIP is a flat $650.
+// page; the 1-hour Gold Service link redirects to /thank-you-one-hour;
+// document-service links redirect to /thank-you. Mediation is a linear
+// $600/hour combined rate (1h $600 to 8h $4,800); Gold Service is a flat $650.
 const med1hFullUrl = "https://buy.stripe.com/28EeVcfuk9GEbcVg7y3sI03";
 const med1hSplitUrl = "https://buy.stripe.com/cNi4gybe4bOMep7bRi3sI04";
 const med2hFullUrl = "https://buy.stripe.com/dRm14m1DubOMcgZ8F63sI05";
@@ -15,7 +15,7 @@ const med4hFullUrl = "https://buy.stripe.com/aFafZgbe48CAa8R1cE3sI07";
 const med4hSplitUrl = "https://buy.stripe.com/aFaeVceqgaKIgxf9Ja3sI08";
 const med8hFullUrl = "https://buy.stripe.com/bJe3cufukdWUftb3kM3sI09";
 const med8hSplitUrl = "https://buy.stripe.com/5kQ28qfukf0Ydl32gI3sI0a";
-const med1hVipUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
+const med1hGoldUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
 
 const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
 const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
@@ -195,7 +195,7 @@ const documentProducts = [
       </form>
 
       <!-- ========================== MEDIATION ========================== -->
-      <div class="pay-section">
+      <div class="pay-section" id="mediation">
         <h2 class="pay-section-title display">Mediation</h2>
         {mediationGroups.map((group) => (
           <div class="pay-group">
@@ -218,7 +218,7 @@ const documentProducts = [
           </div>
         ))}
 
-        <div class="pay-group">
+        <div class="pay-group" id="gold-service">
           <h3 class="pay-group-title">Gold Service</h3>
           <ul class="pay-products pay-products--single" role="list">
             <PayCard
@@ -227,8 +227,8 @@ const documentProducts = [
               price="$650"
               description="A one-hour Gold Service mediation session, charged to a single payer."
               detail={mediationDetail}
-              payUrl={med1hVipUrl}
-              slug="mediation_1h_vip"
+              payUrl={med1hGoldUrl}
+              slug="mediation_1h_gold"
               value={650}
               headingLevel="h4"
             />
@@ -237,7 +237,7 @@ const documentProducts = [
       </div>
 
       <!-- ========================== DOCUMENT SERVICES ========================== -->
-      <div class="pay-section">
+      <div class="pay-section" id="document-services">
         <h2 class="pay-section-title display">Document Services</h2>
         <ul class="pay-products" role="list">
           {documentProducts.map((p) => (
@@ -424,6 +424,12 @@ const documentProducts = [
   .pay-section + .pay-section {
     margin-top: var(--space-2xl);
   }
+  /* Offset anchor jumps so the target heading clears the sticky nav. */
+  #mediation,
+  #gold-service,
+  #document-services {
+    scroll-margin-top: 6rem;
+  }
   .pay-section-title {
     font-size: var(--step-3);
     line-height: 1.1;
@@ -461,8 +467,8 @@ const documentProducts = [
     grid-template-columns: 1fr 1fr;
     gap: clamp(1.25rem, 3vw, 2rem);
   }
-  /* A section with a single card (VIP) — hold it to one column's width so
-     it matches the paired cards above instead of stretching the full row. */
+  /* A section with a single card (Gold Service) holds it to one column's width
+     so it matches the paired cards above instead of stretching the full row. */
   .pay-products--single {
     grid-template-columns: 1fr;
   }

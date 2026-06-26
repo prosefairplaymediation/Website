@@ -113,17 +113,8 @@ const faqs = [
   <!-- ========================== CLOSING CTA ========================== -->
   <section class="faq-close">
     <div class="container-narrow faq-close-inner">
-      <p class="kicker faq-close-kicker">Still have questions?</p>
-      <h2 class="display faq-close-title">
-        Need help <span class="display-italic">navigating</span> the family court process?
-      </h2>
-      <p class="lede faq-close-lede">
-        Schedule a consultation to discuss mediation, parenting plans,
-        child support documents, or fully prepared court-ready filings
-        tailored to your situation.
-      </p>
       <a class="btn btn-primary faq-close-cta" href="/book">
-        Book a Free Consultation
+        Book a Free, Private Consultation
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
@@ -283,7 +274,7 @@ const faqs = [
      ============================================================ */
   .faq-close {
     position: relative;
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-lg);
     background:
       radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
       radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
@@ -314,8 +305,9 @@ const faqs = [
     color: var(--color-ink-soft);
     max-width: 56ch;
   }
+  .faq-close-inner { text-align: center; }
   .faq-close-cta {
-    margin-top: 2rem;
+    margin-top: 0;
     background: var(--color-navy);
     color: var(--color-cream);
     border-color: var(--color-navy);

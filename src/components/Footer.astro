@@ -17,7 +17,9 @@ const version = pkg.version;
           <h4>Learn</h4>
           <ul>
             <li><a href="/about">About</a></li>
-            <li><a href="/process">The Mediation Process</a></li>
+            <li><a href="/process/how-mediation-works">How Mediation Works</a></li>
+            <li><a href="/process/child-support-rules">Updated Child Support Rules</a></li>
+            <li><a href="/process/alimony-rules">Updated Alimony Rules</a></li>
             <li><a href="/faq">FAQ</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
@@ -139,5 +141,14 @@ const version = pkg.version;
     .footer-bottom { justify-content: flex-start; }
     .copy { text-align: left; align-items: flex-start; }
     .footer-nav { grid-template-columns: repeat(2, 1fr); }
+    /* Keep the slogan on one line: drop the width cap and scale the font
+       to fit the phone width. */
+    .footer-motto {
+      max-width: none;
+      white-space: nowrap;
+      font-size: clamp(1.2rem, 5.1vw, 1.7rem);
+    }
+    /* Right (Legal) column hugs the right edge. */
+    .footer-nav > div:last-child { text-align: right; }
   }
 </style>

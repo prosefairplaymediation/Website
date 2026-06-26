@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const phases = [
   {
@@ -136,16 +136,8 @@ const outcomes = [
   <!-- ========================== CLOSING CTA ========================== -->
   <section class="process-close">
     <div class="container-narrow process-close-inner">
-      <p class="kicker process-close-kicker">Ready to begin?</p>
-      <h2 class="display process-close-title">
-        Take the <span class="display-italic">first step</span> toward resolution.
-      </h2>
-      <p class="lede process-close-lede">
-        Schedule a consultation to talk through your situation and find out
-        whether mediation is the right path forward.
-      </p>
       <a class="btn btn-primary process-close-cta" href="/book">
-        Book a Free Consultation
+        Book a Free, Private Consultation
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
@@ -343,7 +335,7 @@ const outcomes = [
      ============================================================ */
   .process-close {
     position: relative;
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-lg);
     background:
       radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
       radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
@@ -374,8 +366,9 @@ const outcomes = [
     color: var(--color-ink-soft);
     max-width: 56ch;
   }
+  .process-close-inner { text-align: center; }
   .process-close-cta {
-    margin-top: 2rem;
+    margin-top: 0;
     background: var(--color-navy);
     color: var(--color-cream);
     border-color: var(--color-navy);

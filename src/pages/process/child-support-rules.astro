@@ -1,0 +1,243 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Updated Child Support Rules · Pro Se Fair Play Mediation"
+  description="If you're getting divorced, establishing paternity, or modifying child support, here's what you need to know about Florida's child support laws in 2026."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="article-header">
+    <div class="container article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Florida Family Law
+      </p>
+      <h1 class="display article-title reveal reveal-d2">
+        Updated <span class="title-keep"><span class="display-italic">Child Support</span> Rules<span class="display-italic">.</span></span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        If you're getting divorced, establishing paternity, or modifying child
+        support, here's what you need to know about Florida's child support
+        laws in 2026.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="article-body">
+    <div class="container-narrow article-prose">
+      <h2>How Is Child Support Calculated?</h2>
+      <p>
+        Florida uses the Income Shares Model, which means both parents share the
+        financial responsibility of raising their child.
+      </p>
+      <p>The court looks at things like:</p>
+      <ul>
+        <li>Each parent's income</li>
+        <li>The number of overnight visits each parent has</li>
+        <li>Health insurance costs</li>
+        <li>Childcare expenses</li>
+        <li>The number of children</li>
+      </ul>
+      <p>These guidelines are found in Florida Statute § 61.30.</p>
+
+      <h2>What's New in 2026?</h2>
+
+      <h3>Courts Must Follow the Guidelines More Closely</h3>
+      <p>
+        Judges are less likely to order child support above or below the
+        guideline amount unless there is a very good reason. If they do, they
+        must explain their decision in writing.
+      </p>
+
+      <h3>Parenting Time Matters More Than Ever</h3>
+      <p>
+        The more overnights a parent spends with the child, the more that may
+        affect child support. In many cases, increased parenting time can lower
+        a parent's child support obligation.
+      </p>
+
+      <h3>Changes for Paternity Cases</h3>
+      <p>
+        Beginning July 1, 2026, new procedures help streamline child support in
+        paternity cases involving children born to unmarried parents.
+      </p>
+
+      <h3>Easier Court Access</h3>
+      <p>Many Florida family courts now allow:</p>
+      <ul>
+        <li>Electronic filing (e-Filing)</li>
+        <li>Virtual hearings by Zoom</li>
+        <li>Online submission of financial documents</li>
+      </ul>
+      <p>
+        This makes the court process faster and more convenient for many
+        families.
+      </p>
+
+      <h3>Child Support Can Be Modified</h3>
+      <p>
+        If your financial situation changes significantly, or your parenting
+        schedule changes, you may be able to ask the court to modify your child
+        support order.
+      </p>
+
+      <h2>How Is Child Support Enforced?</h2>
+      <p>
+        If child support is not paid, Florida has several enforcement options,
+        including:
+      </p>
+      <ul>
+        <li>Wage garnishment</li>
+        <li>Driver's license suspension</li>
+        <li>Intercepting federal tax refunds</li>
+        <li>Other collection methods through the Florida Department of Revenue</li>
+      </ul>
+
+      <h2>Why Mediation Can Help</h2>
+      <p>
+        Instead of asking a judge to decide everything, many parents choose
+        mediation. Mediation gives parents the opportunity to work together to
+        create parenting and financial agreements that fit their family's
+        unique needs while staying within Florida law.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING CTA ========================== -->
+  <section class="article-cta">
+    <div class="container-narrow article-cta-inner">
+      <a class="btn btn-primary article-cta-btn" href="/book">
+        Book a Free, Private Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER — cream, mirrors the legal pages
+     ============================================================ */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .article-header-inner { position: relative; max-width: 64rem; }
+  .article-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.04;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 20ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .article-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  /* Keep "Child Support Rules." together so it drops as one block
+     ("Updated" / "Child Support Rules.") on desktop. */
+  .article-title .title-keep { white-space: nowrap; }
+  .article-header .lede {
+    margin-top: 1.5rem;
+    max-width: 62ch;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     BODY PROSE
+     ============================================================ */
+  .article-body {
+    padding-block: var(--space-lg) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .article-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .article-prose p { max-width: 64ch; }
+  .article-prose p + p,
+  .article-prose ul + p { margin-top: 1.25rem; }
+  .article-prose h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .article-prose h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .article-prose h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  .article-prose ul {
+    margin: 1rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    max-width: 64ch;
+  }
+  .article-prose li { line-height: 1.55; }
+  .article-prose strong { color: var(--color-navy); font-weight: 600; }
+
+  /* ============================================================
+     CLOSING CTA — button only
+     ============================================================ */
+  .article-cta {
+    position: relative;
+    padding-block: var(--space-lg);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .article-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .article-cta-inner { display: flex; justify-content: center; }
+  .article-cta-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .article-cta-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+
+  @media (max-width: 600px) {
+    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    /* On phones, let the title wrap freely (balanced) instead of forcing
+       the desktop one-block break. */
+    .article-title .title-keep { white-space: normal; }
+  }
+</style>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import GoldService from "../components/GoldService.astro";
 import Reviews from "../components/Reviews.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
 
@@ -55,8 +54,8 @@ const services = [
     </div>
   </section>
 
-  <!-- ========================== SERVICES ========================== -->
-  <section class="section services">
+  <!-- ========================== SERVICES INTRO ========================== -->
+  <section class="section services-intro">
     <div class="container">
       <header class="section-head services-head">
         <h1 class="display section-title">Three ways I step in beside you.</h1>
@@ -83,7 +82,17 @@ const services = [
           </a>
         </div>
       </div>
+    </div>
+  </section>
 
+  <!-- ========================== REVIEWS ========================== -->
+  <div class="home-reviews">
+    <Reviews />
+  </div>
+
+  <!-- ========================== SERVICE CARDS ========================== -->
+  <section class="section services-cards">
+    <div class="container">
       <ol class="services-grid">
         {services.map((s) => (
           <li class="service-card" style={`--card-image: url('${s.image}');`}>
@@ -134,32 +143,12 @@ const services = [
     </div>
   </section>
 
-  <!-- ========================== GOLD SERVICE BAND ========================== -->
-  <GoldService surface="warm" />
-
-  <!-- ========================== REVIEWS ========================== -->
-  <Reviews />
-
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
-      <p class="kicker cta-kicker">The next step</p>
-      <h2 class="display cta-title">
-        Book a consultation.<br />
-        <span class="display-italic">Find out what's possible.</span>
-      </h2>
-      <p class="lede cta-lede">
-        Fifteen minutes, straightforward conversation, no fee.
-        You leave with a clearer picture of your case and a plan — whether or
-        not you work with me afterward.
-      </p>
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
-          Schedule a Time
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="link-underline cta-link" href="/contact">
-          Have a question first?
+          Book a Free, Private Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -302,7 +291,16 @@ const services = [
     padding-block: var(--space-3xl);
     position: relative;
   }
-  .services { padding-block: var(--space-lg) var(--space-xl); }
+  /* Services split into intro (heading + pay strip) and cards, with the
+     Reviews band sitting between them. Reviews brings its own vertical
+     padding, so the inner edges here are flush. */
+  .services-intro { padding-block: var(--space-lg) 0; }
+  .services-cards { padding-block: 0 var(--space-xl); }
+  /* The shared Reviews band carries generous padding for /book; tighten it
+     here so it doesn't leave a chasm between the pay strip and the cards. */
+  .home-reviews :global(.reviews) {
+    padding-block: 0 var(--space-lg);
+  }
 
   /* ------------------------------------------------------------
      HOME INTRO VIDEO — front and center, above the services head
@@ -546,7 +544,7 @@ const services = [
      ------------------------------------------------------------ */
   .cta {
     position: relative;
-    padding-block: var(--space-3xl);
+    padding-block: var(--space-lg);
     background:
       radial-gradient(ellipse at 80% 50%, rgba(196, 154, 75, 0.14), transparent 55%),
       radial-gradient(ellipse at 20% 80%, rgba(196, 154, 75, 0.08), transparent 45%),
@@ -578,8 +576,9 @@ const services = [
     max-width: 56ch;
   }
   .cta-actions {
-    margin-top: 2rem;
+    margin-top: 0;
     display: flex;
+    justify-content: center;
     gap: 1.5rem;
     align-items: center;
     flex-wrap: wrap;

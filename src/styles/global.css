@@ -50,6 +50,17 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* On phones, scale down the large spacing tokens so two stacked section
+   paddings (e.g. one section's bottom + the next section's top) don't
+   compound into a huge vertical gap between sections. */
+@media (max-width: 600px) {
+  :root {
+    --space-xl:  2.5rem;
+    --space-2xl: 3.5rem;
+    --space-3xl: 5rem;
+  }
+}
+
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }

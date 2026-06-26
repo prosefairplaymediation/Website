@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Updated Alimony Rules · Pro Se Fair Play Mediation"
+  description="Florida's alimony laws changed on July 1, 2023. Permanent alimony is no longer available; courts now focus on shorter-term support designed to help a spouse become financially independent."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="article-header">
+    <div class="container article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Florida Family Law
+      </p>
+      <h1 class="display article-title reveal reveal-d2">
+        Updated <span class="title-keep"><span class="display-italic">Alimony</span> Rules<span class="display-italic">.</span></span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Florida's alimony laws changed on July 1, 2023. One of the biggest
+        changes is that permanent alimony is no longer available. Instead,
+        courts now focus on shorter-term forms of financial support designed to
+        help a spouse become financially independent.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="article-body">
+    <div class="container-narrow article-prose">
+      <h2>Types of Alimony in Florida</h2>
+
+      <h3>Bridge-the-Gap Alimony</h3>
+      <p>
+        This is short-term support that helps a spouse adjust to life after
+        divorce. It can last up to two years.
+      </p>
+
+      <h3>Rehabilitative Alimony</h3>
+      <p>
+        This type of alimony helps a spouse gain the education, training, or
+        skills needed to return to work. It requires a specific rehabilitation
+        plan approved by the court.
+      </p>
+
+      <h3>Durational Alimony</h3>
+      <p>
+        Durational alimony provides financial support for a limited period of
+        time. The maximum length depends on how long the marriage lasted:
+      </p>
+      <ul>
+        <li>Less than 3 years: Generally not available.</li>
+        <li>3 to 10 years (Short-Term Marriage): Up to 50% of the length of the marriage.</li>
+        <li>10 to 20 years (Moderate-Term Marriage): Up to 60% of the length of the marriage.</li>
+        <li>20 years or more (Long-Term Marriage): Up to 75% of the length of the marriage.</li>
+      </ul>
+      <p>
+        The length of the marriage is calculated from the date of marriage to
+        the date the divorce petition is filed.
+      </p>
+
+      <h2>How Is the Amount Determined?</h2>
+      <p>The court generally awards the lower of:</p>
+      <ul>
+        <li>The receiving spouse's reasonable financial need, or</li>
+        <li>35% of the difference between the spouses' net incomes (after taxes).</li>
+      </ul>
+      <p>
+        The court also considers many other factors, including each spouse's
+        income, earning ability, health, age, contributions during the
+        marriage, and overall financial circumstances.
+      </p>
+
+      <h2>The Advantage of Mediation</h2>
+      <p>
+        When a judge decides your case, the court must follow Florida law.
+        During mediation, however, you and your spouse have the opportunity to
+        create your own agreement. As long as both parties voluntarily agree,
+        mediation often provides more flexibility and allows families to reach
+        practical solutions tailored to their unique needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING CTA ========================== -->
+  <section class="article-cta">
+    <div class="container-narrow article-cta-inner">
+      <a class="btn btn-primary article-cta-btn" href="/book">
+        Book a Free, Private Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER — cream, mirrors the legal pages
+     ============================================================ */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .article-header-inner { position: relative; max-width: 64rem; }
+  .article-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.04;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 20ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .article-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  /* Keep "Alimony Rules." together so it drops as one block
+     ("Updated" / "Alimony Rules.") on desktop. */
+  .article-title .title-keep { white-space: nowrap; }
+  .article-header .lede {
+    margin-top: 1.5rem;
+    max-width: 62ch;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     BODY PROSE
+     ============================================================ */
+  .article-body {
+    padding-block: var(--space-lg) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .article-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .article-prose p { max-width: 64ch; }
+  .article-prose p + p,
+  .article-prose ul + p { margin-top: 1.25rem; }
+  .article-prose h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .article-prose h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .article-prose h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  .article-prose ul {
+    margin: 1rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    max-width: 64ch;
+  }
+  .article-prose li { line-height: 1.55; }
+  .article-prose strong { color: var(--color-navy); font-weight: 600; }
+
+  /* ============================================================
+     CLOSING CTA — button only
+     ============================================================ */
+  .article-cta {
+    position: relative;
+    padding-block: var(--space-lg);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .article-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .article-cta-inner { display: flex; justify-content: center; }
+  .article-cta-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .article-cta-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+
+  @media (max-width: 600px) {
+    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    /* On phones, let the title wrap freely (balanced) instead of forcing
+       the desktop one-block break. */
+    .article-title .title-keep { white-space: normal; }
+  }
+</style>
