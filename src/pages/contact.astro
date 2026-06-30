@@ -4,7 +4,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const email = "info@prosefairplaymediation.com";
 const phoneDisplay = "(561) 941-0896";
 const phoneTel = "+15619410896";
-const faxDigits = "561-652-9345";
+// eFax temporarily removed (number expired). Restore when renewed:
+// const faxDigits = "561-652-9345";
 ---
 
 <BaseLayout
@@ -23,7 +24,7 @@ const faxDigits = "561-652-9345";
           Have a <span class="display-italic">question</span>?
         </h1>
         <p class="lede reveal reveal-d3">
-          Feel free to reach out by email, phone, or eFax with any questions
+          Feel free to reach out by email or phone with any questions
           about mediation, document preparation, or whether what I offer
           fits your situation. For booking a consultation, the
           scheduling page is the fastest way.
@@ -60,10 +61,12 @@ const faxDigits = "561-652-9345";
           >{phoneDisplay}</a>
         </div>
 
+        {/* eFax temporarily removed (number expired). Design kept for easy restore:
         <div class="contact-card">
           <p class="contact-label">eFax</p>
           <p class="contact-value display contact-value-static">{faxDigits}</p>
         </div>
+        */}
       </div>
 
       <div class="contact-secondary">
