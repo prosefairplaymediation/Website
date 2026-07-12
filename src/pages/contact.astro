@@ -10,7 +10,7 @@ const phoneTel = "+15619410896";
 
 <BaseLayout
   title="Contact · Pro Se Fair Play Mediation"
-  description="Reach out by email with questions about mediation or document preparation services."
+  description="Call and reach a live, U.S.-based concierge team days, evenings, and weekends. Real people ready to answer questions and help you schedule mediation. No voicemail."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="contact-header">
@@ -24,10 +24,10 @@ const phoneTel = "+15619410896";
           Have a <span class="display-italic">question</span>?
         </h1>
         <p class="lede reveal reveal-d3">
-          Feel free to reach out by email or phone with any questions
-          about mediation, document preparation, or whether what I offer
-          fits your situation. For booking a consultation, the
-          scheduling page is the fastest way.
+          At Pro Se Fair Play Mediation, we believe that family matters
+          don't just happen between 9:00 a.m. and 5:00 p.m. Life happens
+          after hours, on weekends, and during some of the most stressful
+          moments in a person's life.
         </p>
       </div>
 
@@ -42,6 +42,49 @@ const phoneTel = "+15619410896";
       </figure>
     </div>
   </header>
+
+  <!-- ========================== CONCIERGE ========================== -->
+  <section class="contact-concierge">
+    <div class="container-narrow concierge-prose">
+      <p>
+        That's why we've partnered with a live U.S.-based concierge
+        answering service through Posh, ensuring that every client is
+        greeted by a warm, professional person when they call our office.
+      </p>
+
+      <p class="concierge-lead-in">Our concierge team is trained to:</p>
+      <ul class="concierge-list">
+        <li>Welcome clients with compassion and professionalism.</li>
+        <li>Answer questions about our mediation services.</li>
+        <li>Guide clients through the booking process.</li>
+        <li>Explain our pricing and services.</li>
+        <li>Assist with scheduling consultations and mediations.</li>
+        <li>Provide information about our evening and weekend availability.</li>
+        <li>Ensure that no client ever feels like they're navigating the mediation process alone.</li>
+      </ul>
+
+      <p>No voicemail. No waiting days for a callback. Just real people providing real support.</p>
+
+      <p>
+        What truly sets Pro Se Fair Play Mediation apart is our commitment
+        to accessibility. Whether a client reaches out during the day,
+        after dinner, or on a Sunday afternoon, our concierge team is
+        available to help connect them with the resources they need.
+      </p>
+
+      <p>This concierge experience reflects our mission:</p>
+      <p class="concierge-mission">
+        To make mediation approachable, convenient, and supportive from the
+        very first phone call.
+      </p>
+
+      <p>
+        At Pro Se Fair Play Mediation, we don't just offer mediation
+        services. We provide a guided, white-glove client experience from
+        beginning to end.
+      </p>
+    </div>
+  </section>
 
   <!-- ========================== CONTACT CARDS ========================== -->
   <section class="contact-body">
@@ -70,11 +113,11 @@ const phoneTel = "+15619410896";
       </div>
 
       <div class="contact-secondary">
-        <p class="secondary-label">Ready to schedule instead?</p>
         <a class="btn btn-primary contact-cta" href="/book">
           Book a Free, Private Consultation
           <span class="arrow" aria-hidden="true">→</span>
         </a>
+        <p class="scheduling-note scheduling-note--start">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
       </div>
     </div>
   </section>
@@ -151,6 +194,41 @@ const phoneTel = "+15619410896";
   .contact-header .lede {
     margin-top: 1.5rem;
     max-width: 56ch;
+  }
+
+  /* ============================================================
+     CONCIERGE
+     ============================================================ */
+  .contact-concierge {
+    padding-block: var(--space-xl) var(--space-lg);
+    background: var(--color-cream);
+  }
+  .concierge-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .concierge-prose p { max-width: 64ch; }
+  .concierge-prose p + p { margin-top: 1.25rem; }
+  .concierge-lead-in { font-weight: 600; color: var(--color-navy); }
+  .concierge-list {
+    margin: 1rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 64ch;
+  }
+  .concierge-list li { line-height: 1.55; }
+  .concierge-mission {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step-2);
+    line-height: 1.3;
+    color: var(--color-navy);
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-gold);
   }
 
   /* ============================================================

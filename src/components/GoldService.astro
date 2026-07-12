@@ -8,7 +8,7 @@
 // `surface` controls the section band behind the dark box: "cream"
 // (default) or "warm" (cream-warm) — used on the homepage so this band
 // alternates against the cream Services/Reviews bands around it.
-const { surface = "cream" } = Astro.props;
+const { surface = "cream", specialists = false } = Astro.props;
 ---
 
 <section class:list={["black-box", surface === "warm" && "black-box--warm"]} aria-labelledby="gold-service-title">
@@ -39,6 +39,18 @@ const { surface = "cream" } = Astro.props;
         and weekend scheduling, customized session structures, and
         enhanced confidentiality measures throughout the process.
       </p>
+
+      {specialists && (
+        <p>
+          Available with <em>Gold Service Mediation</em>: a dedicated in-house real
+          estate professional to guide complex property matters, from
+          multiple or investment properties to the division of land. You
+          also gain an in-house financial specialist for the intricate side
+          of a settlement, including business valuations, high-income
+          situations, cryptocurrency and foreign-currency holdings,
+          investments, and detailed financial analysis.
+        </p>
+      )}
 
       <p class="black-box-note">
         Pricing for <em>Gold Service Mediation</em> varies based on the nature
