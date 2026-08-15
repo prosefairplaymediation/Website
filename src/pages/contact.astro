@@ -4,6 +4,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const email = "info@prosefairplaymediation.com";
 const phoneDisplay = "(561) 941-0896";
 const phoneTel = "+15619410896";
+const addressLine1 = "700 South Rosemary Avenue, Suite 204";
+const addressLine2 = "West Palm Beach, Florida 33401";
+const addressMapsUrl = "https://maps.google.com/?q=700+South+Rosemary+Avenue+Suite+204+West+Palm+Beach+Florida+33401";
 // eFax temporarily removed (number expired). Restore when renewed:
 // const faxDigits = "561-652-9345";
 ---
@@ -102,6 +105,18 @@ const phoneTel = "+15619410896";
             class="contact-value display"
             aria-label={`Call ${phoneDisplay}`}
           >{phoneDisplay}</a>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-label">Address</p>
+          <a
+            href={addressMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-value contact-value-address display"
+          >
+            {addressLine1}<br />{addressLine2}
+          </a>
         </div>
 
         {/* eFax temporarily removed (number expired). Design kept for easy restore:
@@ -291,6 +306,10 @@ const phoneTel = "+15619410896";
   .contact-value:hover {
     background-size: 100% 2px;
     color: var(--color-navy-deep);
+  }
+  .contact-value-address {
+    font-size: clamp(1.25rem, 0.85rem + 1.4vw, 1.9rem);
+    line-height: 1.3;
   }
   .contact-value-static {
     background-image: none;

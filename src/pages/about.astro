@@ -48,7 +48,7 @@ const credentials = [
         <figcaption class="profile-caption">
           <span class="profile-caption-line" aria-hidden="true"></span>
           <span class="smallcaps">Marie VanGinHoven</span>
-          <span class="profile-caption-sub">Founder &amp; Mediator</span>
+          <span class="profile-caption-sub">Private Conflict Resolution Mediator</span>
         </figcaption>
 
         <dl class="profile-credentials">
@@ -62,49 +62,63 @@ const credentials = [
       </figure>
 
       <article class="profile-article reveal reveal-d3">
+        <div class="profile-lead">
+          <p class="profile-lead-line">Private Conflict Resolution Mediator</p>
+          <p class="profile-lead-line">Specializing in High-Conflict Resolution</p>
+          <p class="profile-lead-line">Private. Discreet. Strategic. Resolution-Focused.</p>
+        </div>
+
         <p class="profile-p">
-          I am a Florida Supreme Court Certified Family Mediator and
-          the founder of Pro Se Fair Play Mediation LLC, a practice
-          focused exclusively on family law matters.
+          I am the Founder and Private Conflict Resolution Mediator of
+          Pro Se Fair Play Mediation, LLC, a boutique conflict-resolution
+          practice created for individuals who want a more private,
+          personalized, and productive way to resolve difficult disputes.
         </p>
 
         <p class="profile-p">
-          My practice is centered around two core services: professional
-          family mediation and court-ready family law document
-          preparation for self-represented individuals. I work with
-          clients seeking a more structured, efficient, and
-          cost-conscious approach to navigating the family court
-          process while maintaining professionalism, organization, and
-          attention to detail throughout the process.
+          I intentionally designed Pro Se Fair Play to be different from
+          a traditional high-volume mediation practice. My approach
+          combines professional preparation with something equally
+          important: the ability to listen. I understand that behind
+          every conflict are real people with real concerns,
+          relationships, businesses, property, finances, and futures
+          that matter.
         </p>
 
         <p class="profile-p">
-          What sets my practice apart is a focused approach dedicated
-          exclusively to family law matters and the unique needs of
-          individuals navigating the court system without full
-          knowledge of the court system. Family court can often feel
-          overwhelming, emotionally exhausting, and procedurally
-          complex: especially for parents trying to protect their
-          children while also understanding the legal process.
+          My style is compassionate yet structured, approachable yet
+          professional, and always focused on moving the conversation
+          toward productive resolution. With professional training in
+          mediation and high-conflict resolution, I specialize in
+          helping people navigate challenging circumstances where
+          communication has broken down, emotions are elevated,
+          positions have become entrenched, or the parties simply need
+          a skilled neutral party to help move the conversation forward.
         </p>
 
         <p class="profile-p">
-          My passion for this work is deeply personal. Having
-          experienced a child custody matter firsthand, I understand
-          the emotional weight these cases carry and the importance of
-          creating stability, structure, and clarity for families
-          during difficult transitions. That experience helped shape
-          the foundation of my practice and continues to drive my
-          commitment to helping parents navigate the process with
-          professionalism, organization, and care.
+          I believe conflict resolution should be personal, accessible,
+          discreet, and thoughtfully managed from beginning to end. My
+          clients receive individualized attention, thoughtful
+          preparation, flexible scheduling, and a professional
+          environment designed around the circumstances of their
+          particular dispute.
         </p>
 
         <p class="profile-p">
-          At the center of every matter is the well-being of the
-          children involved. My goal is to help families move forward
-          with clear communication, properly prepared documents, and
-          structured solutions designed to support healthier
-          co-parenting relationships and long-term family stability.
+          Virtual appointments, evening availability, and weekend
+          scheduling provide additional privacy and flexibility for
+          busy professionals and individuals who need a resolution
+          process that works around their lives, not the other way
+          around.
+        </p>
+
+        <p class="profile-p">
+          Not every disagreement needs to become a courtroom battle. At
+          Pro Se Fair Play, my focus is not on winning an argument. I do
+          not choose sides or decide who should prevail. My role is to
+          provide the structure, neutrality, and conflict-resolution
+          process necessary to help you work toward your own resolution.
         </p>
 
         <div class="profile-ctas">
@@ -266,8 +280,8 @@ const credentials = [
     font-style: italic;
     letter-spacing: 0.02em;
     text-transform: none;
-    font-size: 1.84rem;
-    line-height: 1.2;
+    font-size: 1.5rem;
+    line-height: 1.25;
     color: var(--color-gold-deep);
   }
 
@@ -275,6 +289,17 @@ const credentials = [
   .profile-article {
     max-width: 60ch;
   }
+  .profile-lead {
+    margin-bottom: 1.5rem;
+  }
+  .profile-lead-line {
+    font-family: var(--font-body);
+    font-size: calc(var(--step-1) * 1.09);
+    line-height: 1.4;
+    color: var(--color-navy);
+    font-weight: 700;
+  }
+  .profile-lead-line + .profile-lead-line { margin-top: 0.15rem; }
   .profile-p {
     font-family: var(--font-body);
     font-size: var(--step-1);
@@ -349,7 +374,7 @@ const credentials = [
       letter-spacing: 0.08em;
     }
     .profile-caption-sub {
-      font-size: clamp(1.25rem, 1rem + 2.4vw, 1.84rem);
+      font-size: clamp(1.15rem, 0.95rem + 1.8vw, 1.5rem);
     }
     /* Safety net: any display heading wraps gracefully if needed */
     .display {
