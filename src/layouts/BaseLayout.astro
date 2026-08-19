@@ -3,16 +3,20 @@ import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import MusicPlayer from "../components/MusicPlayer.astro";
+import ChatWidget from "../components/ChatWidget.astro";
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  /** Suppress the chat widget. Set on checkout and post-payment pages. */
+  noChat?: boolean;
 }
 const {
   title = "Pro Se Fair Play Mediation, LLC",
   description = "Mediation and document preparation for self-represented individuals. I help you walk into court informed, prepared, and never alone.",
   noindex = false,
+  noChat = false,
 } = Astro.props;
 ---
 
@@ -188,6 +192,7 @@ const {
     </main>
     <Footer />
     <MusicPlayer />
+    {!noChat && <ChatWidget />}
 
     {/*
       Floating bottom-left slogan — disabled in favor of an in-nav slogan.

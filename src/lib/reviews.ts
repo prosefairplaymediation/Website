@@ -49,8 +49,9 @@ function normalize(r: any): Review {
 // A Google Place ID starts with "ChI" in practice and is ~27 chars. Checking
 // the shape stops us building a review URL out of some unrelated identifier
 // that happens to sit on a field called "id".
+// Most Place IDs begin ChI, but Ei and Gh prefixes are also issued.
 function looksLikePlaceId(v: unknown): v is string {
-  return typeof v === "string" && /^Ch[A-Za-z0-9_-]{20,}$/.test(v);
+  return typeof v === "string" && /^(Ch|Ei|Gh)[A-Za-z0-9_-]{18,}$/.test(v);
 }
 
 function findPlaceId(json: any): string | null {
@@ -63,25 +64,29 @@ function findPlaceId(json: any): string | null {
   ];
   for (const c of candidates) if (looksLikePlaceId(c)) return c;
 
-  // Last resort: the ID may sit on a field we did not guess. Scan the whole
-  // payload for a value in Place ID form rather than give up.
+  // Last resort: the ID may sit on a field we did not guess, so scan the whole
+  // payload for a value in Place ID form.
+  //
+  // Collect every match rather than returning on the first, then prefer one
+  // whose key mentions place or ends in id. An earlier version returned only
+  // on a key match and added other matches to a "seen" set, which meant a
+  // valid id found first under an unrelated key was blacklisted and then
+  // skipped if the same value reappeared under a key that did match.
   try {
-    const seen = new Set<string>();
-    const walk = (node: any, depth: number): string | null => {
-      if (depth > 6 || node == null || typeof node !== "object") return null;
+    const keyed: string[] = [];
+    const any: string[] = [];
+    const walk = (node: any, depth: number): void => {
+      if (depth > 6 || node == null || typeof node !== "object") return;
       for (const [key, value] of Object.entries(node)) {
-        if (looksLikePlaceId(value) && !seen.has(value)) {
-          if (/place/i.test(key) || /id$/i.test(key)) return value;
-          seen.add(value);
-        }
-        if (typeof value === "object") {
-          const hit = walk(value, depth + 1);
-          if (hit) return hit;
+        if (looksLikePlaceId(value)) {
+          (/place/i.test(key) || /id$/i.test(key) ? keyed : any).push(value);
+        } else if (typeof value === "object") {
+          walk(value, depth + 1);
         }
       }
-      return null;
     };
-    return walk(json, 0);
+    walk(json, 0);
+    return keyed[0] ?? any[0] ?? null;
   } catch {
     return null;
   }
