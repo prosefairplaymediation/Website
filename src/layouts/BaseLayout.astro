@@ -75,7 +75,15 @@ const {
 
     <!-- Schema.org structured data for the business. Using
          ProfessionalService rather than LegalService to stay
-         consistent with the site's "not a law firm" disclaimer. -->
+         consistent with the site's "not a law firm" disclaimer.
+
+         PENDING: the Florida Supreme Court family mediator certification is
+         in progress and NOT yet approved, so it is deliberately absent here.
+         Once it is granted, the places to restore it are:
+           1. "description" below, and "founder.jobTitle" if it should lead
+           2. the About page credentials array (src/pages/about.astro)
+           3. the About page meta description (src/pages/about.astro)
+         Do not re-add it anywhere before approval. -->
     <script is:inline type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -86,6 +94,14 @@ const {
       "description": "High-Conflict Resolution Mediator providing professional mediation and court-ready family law document preparation for self-represented (pro se) individuals.",
       "email": "info@prosefairplaymediation.com",
       "telephone": "+1-561-941-0896",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "700 South Rosemary Avenue, Suite 204",
+        "addressLocality": "West Palm Beach",
+        "addressRegion": "FL",
+        "postalCode": "33401",
+        "addressCountry": "US"
+      },
       "image": "https://prosefairplaymediation.com/logo_BG_color_Cropped.png",
       "logo": "https://prosefairplaymediation.com/logo_BG_color_Cropped.png",
       "founder": {
