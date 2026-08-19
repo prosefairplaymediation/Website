@@ -1,0 +1,54 @@
+# robots.txt — prosefairplaymediation.com
+#
+# Everything on this site is meant to be crawled, indexed, and cited.
+# Two pages carry a noindex meta tag instead of being blocked here
+# (/thank-you and /pay/agreement) — a crawler has to fetch a page to see
+# that tag, so disallowing them would keep them indexed, not remove them.
+
+User-agent: *
+Allow: /
+
+# ---------------------------------------------------------------------
+# Answer engines and AI assistants.
+#
+# An absent robots.txt already means "allowed", so these blocks do not
+# unlock anything. They are here to be explicit and auditable: retrieval
+# bots and training bots are separate user-agents, and a future edit that
+# blocks one should have to make that choice deliberately rather than
+# catching the others by accident.
+#
+# OAI-SearchBot is the one that matters most for appearing in ChatGPT —
+# it handles search retrieval, which is a different crawler from GPTBot.
+# ---------------------------------------------------------------------
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://prosefairplaymediation.com/sitemap-index.xml
