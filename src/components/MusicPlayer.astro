@@ -13,6 +13,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
 ---
 
 <aside class="music-player" data-tracks={JSON.stringify(TRACKS)}>
+  <span class="music-dot" aria-hidden="true"></span>
   <span class="music-title" data-music-title>{TRACKS[0].title}</span>
   <button type="button" class="music-btn" data-music-toggle aria-label="Play music" aria-pressed="false">
     <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -40,26 +41,46 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
 <style>
   .music-player {
     position: fixed;
-    bottom: 1rem;
-    left: 1rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
     z-index: 60;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.5rem;
-    border: 1px solid color-mix(in srgb, var(--color-gold) 40%, transparent);
+    gap: 0.15rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--color-divider);
     border-radius: 999px;
-    background: color-mix(in srgb, var(--color-navy-deep) 92%, transparent);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
-    box-shadow: 0 6px 20px rgba(18, 33, 74, 0.22);
+    background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+    backdrop-filter: saturate(120%) blur(10px);
+    -webkit-backdrop-filter: saturate(120%) blur(10px);
+    box-shadow: 0 6px 28px rgba(27, 45, 90, 0.1);
+    opacity: 0;
+    animation: rise-in 0.9s var(--ease-out) 0.8s forwards;
+  }
+  /* Slow pulse while the music plays; still while it doesn't. */
+  .music-dot {
+    width: 6px;
+    height: 6px;
+    margin-inline: 0.3rem 0.15rem;
+    border-radius: 50%;
+    background: var(--color-gold-deep);
+    opacity: 0.5;
+  }
+  .music-player.is-playing .music-dot {
+    animation: music-breathe 4s var(--ease-in-out) infinite;
+  }
+  @keyframes music-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50%      { transform: scale(1.4); opacity: 0.9; }
   }
   .music-title {
-    padding-inline: 0.4rem 0.15rem;
-    color: color-mix(in srgb, var(--color-cream) 82%, transparent);
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+    padding-inline: 0.3rem 0.2rem;
+    color: var(--color-slate);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
     white-space: nowrap;
   }
   .music-btn {
@@ -72,16 +93,20 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     border: 0;
     border-radius: 50%;
     background: transparent;
-    color: var(--color-gold);
+    color: var(--color-navy);
     cursor: pointer;
-    transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out);
+    transition:
+      background 0.35s var(--ease-out),
+      color 0.35s var(--ease-out),
+      transform 0.15s var(--ease-out);
   }
   .music-btn:hover {
-    background: color-mix(in srgb, var(--color-gold) 18%, transparent);
-    color: var(--color-cream);
+    background: color-mix(in srgb, var(--color-gold) 16%, transparent);
+    color: var(--color-gold-deep);
   }
+  .music-btn:active { transform: scale(0.93); }
   .music-btn:focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-gold-deep);
     outline-offset: 2px;
   }
   /* Each button shows one of its two icons; the player element carries
@@ -93,16 +118,18 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
   .music-player.is-muted .icon-sound { display: none; }
   .music-player.is-muted .icon-muted { display: block; }
 
-  /* On phones the label crowds the corner — icons only. */
+  /* On phones the label crowds the corner — dot and icons only. */
   @media (max-width: 34rem) {
     .music-title { display: none; }
   }
 
   /* The open mobile menu runs the full height of the viewport, so the
      player would sit on top of its last few links. Get out of the way
-     while it's open; the nav toggle is the state we can key off. */
+     while it's open; the nav toggle is the state we can key off.
+     Hidden via visibility rather than opacity, which the entrance
+     animation above holds at 1 once it has finished. */
   body:has(#nav-toggle[aria-expanded="true"]) .music-player {
-    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
 </style>
