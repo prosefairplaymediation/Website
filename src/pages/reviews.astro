@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Reviews from "../components/Reviews.astro";
+import { GOOGLE_REVIEW_URL } from "../consts";
+---
+
+<BaseLayout
+  title="Client Reviews · Pro Se Fair Play Mediation"
+  description="What clients say about working with Pro Se Fair Play Mediation, in their own words, from verified Google reviews."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="article-header">
+    <div class="container article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        In Their Own Words
+      </p>
+      <h1 class="display article-title reveal reveal-d2">
+        Client <span class="display-italic">Reviews</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Every review below is a verified Google review, published exactly as
+        it was written. Mediation is a difficult thing to go through, and the
+        people who have been through it say it better than I could.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== FULL REVIEW SET ========================== -->
+  <Reviews />
+
+  <!-- ========================== LEAVE A REVIEW ========================== -->
+  {GOOGLE_REVIEW_URL && (
+    <section class="leave-review">
+      <div class="container-narrow leave-review-inner">
+        <h2 class="display leave-review-title">Worked with me?</h2>
+        <p class="leave-review-lede">
+          A short, honest review helps the next person decide whether
+          mediation is right for them. It takes about a minute.
+        </p>
+        <a
+          class="btn btn-primary leave-review-btn"
+          href={GOOGLE_REVIEW_URL}
+          target="_blank"
+          rel="noopener"
+        >
+          Leave a Google Review
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <p class="leave-review-note">
+          Opens Google in a new tab. You will need to be signed in to a
+          Google account.
+        </p>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER — matches the /process article pages
+     ============================================================ */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .article-header-inner { position: relative; max-width: 64rem; }
+  .article-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.04;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 20ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .article-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  .article-header .lede {
+    margin-top: 1.5rem;
+    max-width: 62ch;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     LEAVE A REVIEW — cream-warm band, mirrors the article CTA
+     ============================================================ */
+  .leave-review {
+    position: relative;
+    padding-block: var(--space-xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .leave-review::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .leave-review-inner { text-align: center; }
+  .leave-review-title {
+    font-size: var(--step-3);
+    color: var(--color-navy);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  .leave-review-lede {
+    margin: 0.85rem auto 0;
+    max-width: 46ch;
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .leave-review-btn {
+    margin-top: var(--space-md);
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .leave-review-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+  .leave-review-note {
+    margin-top: 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--color-slate);
+  }
+
+  @media (max-width: 600px) {
+    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+  }
+</style>
