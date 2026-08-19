@@ -157,7 +157,16 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     let wantsPlay = saved.paused !== true;
 
     const audio = new Audio();
-    audio.preload = "auto";
+    // "none", not "auto": the track is ~4.2 MB, and with "auto" the browser
+    // fetched all of it on every page load — measured at 88% of total page
+    // weight. Browsers also block autoplay with sound until the visitor has
+    // interacted with the page, so for most first-time visitors that download
+    // completed and then never played a note.
+    //
+    // This does not change playback. play() still loads and starts the track
+    // on demand, and audio streams, so it begins before the file finishes
+    // downloading. The cost simply moves to the people who actually listen.
+    audio.preload = "none";
     // Background level — audible under the content, never over it.
     audio.volume = 0.2;
     audio.muted = saved.muted === true;
