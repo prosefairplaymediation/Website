@@ -105,12 +105,19 @@ Check every change against these, and say so plainly when one is engaged:
 - **No fabricated social proof.** Never invent a review, testimonial, or
   credential, including as placeholder or layout-test content that could ship.
 
-**Open item to resolve with the client / their attorney:** two pages disagree
-about who files. `/process/how-mediation-works` says the executed settlement
-agreement "is submitted to the court on the parties' behalf," while
-`/legal/disclaimer` says "Clients are responsible for filing their own
-documents. I do not file documents on behalf of clients." Both cannot be right.
-Do not deepen either claim in new copy until it is settled.
+- **The client files. We never do.** Settled by the client 2026-08: "clients are
+  responsible to file with the court." The disclaimer is authoritative, and
+  `/process/how-mediation-works` was corrected to match (it had claimed the
+  settlement agreement "is submitted to the court on the parties' behalf as part
+  of our concierge mediation service"). Documents are prepared **court-ready**;
+  filing is the client's. Never write copy implying we submit, e-file, or
+  transmit anything to a court, and never use "court-submitted" as a
+  description. Approved phrasings already on the site: "Clients are responsible
+  for filing their own documents with the appropriate court"
+  (`/legal/disclaimer`) and "Clients are responsible for filing the completed
+  Parenting Plan with the court independently" (`/services/parenting-plan`).
+  Note "concierge" elsewhere refers only to the phone answering team on
+  `/contact`, not to any filing service.
 
 ## Development Guidelines
 
