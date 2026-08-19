@@ -1,0 +1,282 @@
+---
+// Floating background-music player, bottom-left on every page.
+//
+// Playback state (track, position, paused, muted) lives in
+// sessionStorage so the music carries across page navigations
+// instead of restarting on every load. Browsers block unprompted
+// autoplay with sound, so the first play is attempted on load and
+// falls back to the visitor's first interaction with the page.
+//
+// To add another song: drop the file in public/audio/ and add an
+// entry to TRACKS below. Tracks advance automatically and loop.
+const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
+---
+
+<aside class="music-player" data-tracks={JSON.stringify(TRACKS)}>
+  <span class="music-dot" aria-hidden="true"></span>
+  <span class="music-title" data-music-title>{TRACKS[0].title}</span>
+  <button type="button" class="music-btn" data-music-toggle aria-label="Play music" aria-pressed="false">
+    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="6 4 20 12 6 20 6 4" fill="currentColor" stroke="none"></polygon>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="7" y="5" width="3.5" height="14" rx="0.5" fill="currentColor" stroke="none"></rect>
+      <rect x="13.5" y="5" width="3.5" height="14" rx="0.5" fill="currentColor" stroke="none"></rect>
+    </svg>
+  </button>
+  <button type="button" class="music-btn" data-music-mute aria-label="Mute music" aria-pressed="false">
+    <svg class="icon-sound" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5z"></path>
+      <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+      <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+    </svg>
+    <svg class="icon-muted" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5z"></path>
+      <path d="m16 9 5 6"></path>
+      <path d="m21 9-5 6"></path>
+    </svg>
+  </button>
+</aside>
+
+<style>
+  .music-player {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--color-divider);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+    backdrop-filter: saturate(120%) blur(10px);
+    -webkit-backdrop-filter: saturate(120%) blur(10px);
+    box-shadow: 0 6px 28px rgba(27, 45, 90, 0.1);
+    opacity: 0;
+    animation: rise-in 0.9s var(--ease-out) 0.8s forwards;
+  }
+  /* Slow pulse while the music plays; still while it doesn't. */
+  .music-dot {
+    width: 6px;
+    height: 6px;
+    margin-inline: 0.3rem 0.15rem;
+    border-radius: 50%;
+    background: var(--color-gold-deep);
+    opacity: 0.5;
+  }
+  .music-player.is-playing .music-dot {
+    animation: music-breathe 4s var(--ease-in-out) infinite;
+  }
+  @keyframes music-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50%      { transform: scale(1.4); opacity: 0.9; }
+  }
+  .music-title {
+    padding-inline: 0.3rem 0.2rem;
+    color: var(--color-slate);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .music-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-navy);
+    cursor: pointer;
+    transition:
+      background 0.35s var(--ease-out),
+      color 0.35s var(--ease-out),
+      transform 0.15s var(--ease-out);
+  }
+  .music-btn:hover {
+    background: color-mix(in srgb, var(--color-gold) 16%, transparent);
+    color: var(--color-gold-deep);
+  }
+  .music-btn:active { transform: scale(0.93); }
+  .music-btn:focus-visible {
+    outline: 2px solid var(--color-gold-deep);
+    outline-offset: 2px;
+  }
+  /* Each button shows one of its two icons; the player element carries
+     the state classes so both buttons read from the same source. */
+  .icon-pause,
+  .icon-muted { display: none; }
+  .music-player.is-playing .icon-play { display: none; }
+  .music-player.is-playing .icon-pause { display: block; }
+  .music-player.is-muted .icon-sound { display: none; }
+  .music-player.is-muted .icon-muted { display: block; }
+
+  /* On phones the label crowds the corner — dot and icons only. */
+  @media (max-width: 34rem) {
+    .music-title { display: none; }
+  }
+
+  /* The open mobile menu runs the full height of the viewport, so the
+     player would sit on top of its last few links. Get out of the way
+     while it's open; the nav toggle is the state we can key off.
+     Hidden via visibility rather than opacity, which the entrance
+     animation above holds at 1 once it has finished. */
+  body:has(#nav-toggle[aria-expanded="true"]) .music-player {
+    visibility: hidden;
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const player = document.querySelector(".music-player");
+    if (!player) return;
+
+    const tracks = JSON.parse(player.dataset.tracks || "[]");
+    if (!tracks.length) return;
+
+    const label = player.querySelector("[data-music-title]");
+    const toggleBtn = player.querySelector("[data-music-toggle]");
+    const muteBtn = player.querySelector("[data-music-mute]");
+    const STORE = "psfp-music";
+
+    let saved = {};
+    try {
+      saved = JSON.parse(sessionStorage.getItem(STORE) || "{}");
+    } catch (e) {}
+
+    let index = Number.isInteger(saved.track) && tracks[saved.track] ? saved.track : 0;
+    // First visit: play. After that, honor whatever the visitor chose.
+    let wantsPlay = saved.paused !== true;
+
+    const audio = new Audio();
+    audio.preload = "auto";
+    // Background level — audible under the content, never over it.
+    audio.volume = 0.2;
+    audio.muted = saved.muted === true;
+
+    function save() {
+      try {
+        sessionStorage.setItem(
+          STORE,
+          JSON.stringify({
+            track: index,
+            time: audio.currentTime,
+            paused: !wantsPlay,
+            muted: audio.muted,
+          })
+        );
+      } catch (e) {}
+    }
+
+    function load(i, resumeAt) {
+      index = i;
+      audio.src = tracks[i].src;
+      if (label) label.textContent = tracks[i].title;
+      if (resumeAt) {
+        audio.addEventListener("loadedmetadata", function () {
+          if (resumeAt < audio.duration) audio.currentTime = resumeAt;
+        }, { once: true });
+      }
+    }
+
+    function syncMute() {
+      player.classList.toggle("is-muted", audio.muted);
+      muteBtn.setAttribute("aria-pressed", String(audio.muted));
+      muteBtn.setAttribute("aria-label", audio.muted ? "Unmute music" : "Mute music");
+    }
+
+    function play() {
+      wantsPlay = true;
+      return audio.play();
+    }
+
+    audio.addEventListener("play", function () {
+      player.classList.add("is-playing");
+      toggleBtn.setAttribute("aria-pressed", "true");
+      toggleBtn.setAttribute("aria-label", "Pause music");
+      save();
+    });
+
+    audio.addEventListener("pause", function () {
+      player.classList.remove("is-playing");
+      toggleBtn.setAttribute("aria-pressed", "false");
+      toggleBtn.setAttribute("aria-label", "Play music");
+      save();
+    });
+
+    audio.addEventListener("ended", function () {
+      load((index + 1) % tracks.length);
+      play().catch(function () {});
+    });
+
+    // Cheap position checkpoint so a navigation mid-track resumes
+    // roughly where it left off. timeupdate fires ~4x/second.
+    let lastSave = 0;
+    audio.addEventListener("timeupdate", function () {
+      if (audio.currentTime - lastSave > 1 || audio.currentTime < lastSave) {
+        lastSave = audio.currentTime;
+        save();
+      }
+    });
+
+    window.addEventListener("pagehide", save);
+
+    toggleBtn.addEventListener("click", function () {
+      if (audio.paused) {
+        play().catch(function () {});
+      } else {
+        wantsPlay = false;
+        audio.pause();
+      }
+    });
+
+    muteBtn.addEventListener("click", function () {
+      audio.muted = !audio.muted;
+      syncMute();
+      save();
+    });
+
+    load(index, saved.time);
+    syncMute();
+
+    // Browsers refuse to start audio before the visitor has interacted
+    // with the page, so the load-time attempt is expected to fail on a
+    // cold visit. These are the events that actually grant playback
+    // permission — a scroll notably does not — and they stay armed
+    // until a play() call really succeeds. Bailing out after the first
+    // attempt would strand the music in silence for the rest of the
+    // page whenever the visitor scrolled before clicking anything.
+    const GESTURES = ["pointerdown", "touchend", "keydown", "click"];
+
+    function release() {
+      GESTURES.forEach(function (evt) {
+        window.removeEventListener(evt, onGesture, true);
+      });
+    }
+
+    function onGesture() {
+      if (!wantsPlay) {
+        release();
+        return;
+      }
+      play().then(release, function () {});
+    }
+
+    if (wantsPlay) {
+      GESTURES.forEach(function (evt) {
+        window.addEventListener(evt, onGesture, { capture: true, passive: true });
+      });
+      play().then(release, function () {});
+    } else {
+      save();
+    }
+  })();
+</script>
