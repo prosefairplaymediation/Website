@@ -25,14 +25,19 @@
 // original client-side widget, so a build can never break or ship an
 // empty section.
 
+import { GOOGLE_REVIEW_URL } from "../consts";
+
 // `limit` trims the list for placements where reviews are supporting
 // evidence rather than the point of the page (home, book). `showAllLink`
-// adds a link through to /reviews, which carries the full set.
+// adds a link through to /reviews, which carries the full set. `carousel`
+// swaps the grid for a horizontal scroller — the cards stay real HTML
+// either way, so nothing is hidden from crawlers.
 interface Props {
   limit?: number;
   showAllLink?: boolean;
+  carousel?: boolean;
 }
-const { limit, showAllLink = false } = Astro.props;
+const { limit, showAllLink = false, carousel = false } = Astro.props;
 
 const WIDGET_ID = "837481b2-3b16-48ff-8ed0-a6dad2fe99f4";
 
@@ -111,7 +116,7 @@ const hasMore = showAllLink && total > shown.length;
           </p>
         </div>
 
-        <ul class="reviews-grid" role="list">
+        <ul class={carousel ? "reviews-grid is-carousel" : "reviews-grid"} role="list">
           {shown.map((r) => (
             <li class="review-card">
               {typeof r.stars === "number" && (
@@ -126,14 +131,24 @@ const hasMore = showAllLink && total > shown.length;
           ))}
         </ul>
 
-        {hasMore && (
-          <p class="reviews-more">
+        {carousel && (
+          <p class="reviews-hint" aria-hidden="true">Scroll for more &rarr;</p>
+        )}
+
+        <p class="reviews-actions">
+          {hasMore && (
             <a class="link-underline" href="/reviews">
               Read all {total} reviews
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-          </p>
-        )}
+          )}
+          {GOOGLE_REVIEW_URL && (
+            <a class="link-underline" href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener">
+              Leave a review
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          )}
+        </p>
       </>
     )}
   </div>
@@ -207,10 +222,62 @@ const hasMore = showAllLink && total > shown.length;
     line-height: 1.6;
     color: var(--color-ink-soft);
   }
-  .reviews-more {
-    margin-top: var(--space-md);
-    text-align: center;
+  /* ---------- Carousel variant ----------
+     Same markup and same real HTML as the grid; only the axis changes.
+     Cards get a fixed width so they read as a track rather than stretching,
+     and scroll-snap makes a swipe land cleanly on a card. */
+  .reviews-grid.is-carousel {
+    grid-template-columns: none;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0.85rem;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-gold) 55%, transparent) transparent;
   }
+  .reviews-grid.is-carousel > .review-card {
+    flex: 0 0 clamp(16rem, 78vw, 21rem);
+    scroll-snap-align: start;
+  }
+  /* Reviews vary wildly in length. Cap the visible height in the carousel so
+     one very long review can't set the track height for everything else. The
+     full text stays in the DOM — this is a visual clamp, not a truncation —
+     and /reviews shows all of it unclamped. */
+  .reviews-grid.is-carousel .review-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .reviews-grid.is-carousel::-webkit-scrollbar { height: 6px; }
+  .reviews-grid.is-carousel::-webkit-scrollbar-track { background: transparent; }
+  .reviews-grid.is-carousel::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-gold) 55%, transparent);
+    border-radius: 999px;
+  }
+
+  .reviews-hint {
+    margin-top: 0.35rem;
+    text-align: right;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--color-slate);
+  }
+
+  .reviews-actions {
+    margin-top: var(--space-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .reviews-actions:empty { display: none; }
 
   .review-name {
     /* auto top margin pins attribution to the bottom of the card, so names
