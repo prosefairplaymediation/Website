@@ -1,5 +1,6 @@
 ---
 import pkg from "../../package.json";
+import { GOOGLE_REVIEW_URL } from "../consts";
 const year = new Date().getFullYear();
 const version = pkg.version;
 ---
@@ -22,6 +23,12 @@ const version = pkg.version;
             <li><a href="/process/alimony-rules">Updated Alimony Rules</a></li>
             <li><a href="/process/real-estate-mediation">Real Estate Mediation</a></li>
             <li><a href="/process/pre-litigation-disputes">Pre-Litigation Disputes</a></li>
+            <li><a href="/reviews">Client Reviews</a></li>
+            {GOOGLE_REVIEW_URL && (
+              <li>
+                <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener">Leave a Review</a>
+              </li>
+            )}
             <li><a href="/faq">FAQ</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>

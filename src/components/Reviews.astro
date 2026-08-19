@@ -25,6 +25,15 @@
 // original client-side widget, so a build can never break or ship an
 // empty section.
 
+// `limit` trims the list for placements where reviews are supporting
+// evidence rather than the point of the page (home, book). `showAllLink`
+// adds a link through to /reviews, which carries the full set.
+interface Props {
+  limit?: number;
+  showAllLink?: boolean;
+}
+const { limit, showAllLink = false } = Astro.props;
+
 const WIDGET_ID = "837481b2-3b16-48ff-8ed0-a6dad2fe99f4";
 
 // Featurable mirrors the Google Business Profile review shape, which spells
@@ -64,11 +73,17 @@ try {
 
 if (reviews.length === 0) usedFallback = true;
 
+// Average is taken across every review fetched, not just the shown subset,
+// so a trimmed placement still reports the real rating.
 const rated = reviews.filter((r) => typeof r.stars === "number");
 const average =
   rated.length > 0
     ? (rated.reduce((sum, r) => sum + r.stars, 0) / rated.length).toFixed(1)
     : null;
+
+const total = reviews.length;
+const shown = typeof limit === "number" ? reviews.slice(0, limit) : reviews;
+const hasMore = showAllLink && total > shown.length;
 ---
 
 <section class="reviews">
@@ -91,13 +106,13 @@ const average =
             {average && <span class="reviews-avg">{average}</span>}
             <span class="reviews-stars" aria-hidden="true">★★★★★</span>
             <span class="reviews-count">
-              {reviews.length} Google review{reviews.length === 1 ? "" : "s"}
+              {total} Google review{total === 1 ? "" : "s"}
             </span>
           </p>
         </div>
 
         <ul class="reviews-grid" role="list">
-          {reviews.map((r) => (
+          {shown.map((r) => (
             <li class="review-card">
               {typeof r.stars === "number" && (
                 <p class="review-stars">
@@ -110,6 +125,15 @@ const average =
             </li>
           ))}
         </ul>
+
+        {hasMore && (
+          <p class="reviews-more">
+            <a class="link-underline" href="/reviews">
+              Read all {total} reviews
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </p>
+        )}
       </>
     )}
   </div>
@@ -183,6 +207,11 @@ const average =
     line-height: 1.6;
     color: var(--color-ink-soft);
   }
+  .reviews-more {
+    margin-top: var(--space-md);
+    text-align: center;
+  }
+
   .review-name {
     /* auto top margin pins attribution to the bottom of the card, so names
        line up across a row even though reviews differ in length. */
