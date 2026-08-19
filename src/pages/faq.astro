@@ -53,6 +53,24 @@ const faqs = [
   title="Frequently Asked Questions · Pro Se Fair Play Mediation"
   description="Answers to the most common questions about mediation, fairness, confidentiality, and what to expect from working with Pro Se Fair Play Mediation."
 >
+  {/*
+    FAQPage structured data, generated from the same `faqs` array the page
+    renders below, so the markup can never drift from the visible copy —
+    which is a hard requirement: search engines reject FAQ markup whose
+    text is not present on the page. This is what lets answer engines and
+    AI assistants lift a clean question-and-answer pair instead of trying
+    to parse it out of the accordion markup.
+  */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  })} />
+
   <!-- ========================== HEADER ========================== -->
   <header class="legal-header">
     <div class="container legal-header-inner">

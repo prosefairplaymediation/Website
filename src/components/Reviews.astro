@@ -1,34 +1,119 @@
 ---
-// Reviews.astro — Google reviews via Featurable.
+// Reviews.astro — Google reviews, fetched at BUILD time and rendered as
+// real HTML.
 //
-// The Featurable widget renders into the LIGHT DOM (no iframe, no shadow
-// DOM — verified against their bundle.js), so we style its internal
-// classes directly from this component's scoped <style>. We do NOT use
-// Featurable's in-dashboard "Custom CSS editor" (it does not persist on
-// the free tier). Their warning that "site CSS won't affect the widget"
-// does not apply to a light-DOM widget.
+// Why this changed: the previous version rendered only an empty <div> and
+// let Featurable's bundle.js inject the reviews in the browser. That works
+// for people, but crawlers and AI answer engines largely do not execute
+// third-party JS, so the served HTML contained no review text at all and
+// the reviews contributed nothing to search or AI visibility.
 //
-// Selectors are scoped under .reviews via :global() so the generic
-// Featurable class names (.parent / .slider / .widget) can't leak onto
-// anything else on the site. The widget id is the one Featurable issued
-// for this account's widget.
+// Now the reviews are fetched during `astro build` and baked into the
+// output. Cloudflare rebuilds on every push, so the reviews refresh on
+// each deploy rather than on each page view. That is the right trade for
+// content that changes slowly, and it removes a render-blocking
+// third-party script from the page.
+//
+// Deliberately NO Review/AggregateRating structured data. These are
+// Google reviews, i.e. third-party reviews, and marking those up as our
+// own review snippets is against Google's structured-data guidelines and
+// risks a manual action. Showing the text is fine; claiming the rich
+// result is not. The reviews still live on the Google Business Profile,
+// which is where Google reads them from.
+//
+// If the fetch fails for any reason the component falls back to the
+// original client-side widget, so a build can never break or ship an
+// empty section.
+
+const WIDGET_ID = "837481b2-3b16-48ff-8ed0-a6dad2fe99f4";
+
+// Featurable mirrors the Google Business Profile review shape, which spells
+// the rating as a word. Accept both that and a plain number, because the
+// exact field naming could not be verified from the build sandbox.
+const STAR_WORDS = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
+
+function toStars(value) {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") return STAR_WORDS[value.toUpperCase()] ?? null;
+  return null;
+}
+
+function normalize(r) {
+  return {
+    name: r?.reviewer?.displayName ?? r?.author_name ?? r?.name ?? "Google reviewer",
+    text: (r?.comment ?? r?.text ?? r?.review ?? "").trim(),
+    stars: toStars(r?.starRating ?? r?.rating ?? r?.stars),
+  };
+}
+
+let reviews = [];
+let usedFallback = false;
+
+try {
+  const res = await fetch(`https://featurable.com/api/v1/widgets/${WIDGET_ID}`);
+  if (res.ok) {
+    const json = await res.json();
+    const raw = json?.data?.reviews ?? json?.reviews ?? json?.data ?? [];
+    if (Array.isArray(raw)) {
+      reviews = raw.map(normalize).filter((r) => r.text.length > 0);
+    }
+  }
+} catch {
+  // Network unavailable or shape unexpected — fall through to the widget.
+}
+
+if (reviews.length === 0) usedFallback = true;
+
+const rated = reviews.filter((r) => typeof r.stars === "number");
+const average =
+  rated.length > 0
+    ? (rated.reduce((sum, r) => sum + r.stars, 0) / rated.length).toFixed(1)
+    : null;
 ---
 
 <section class="reviews">
   <div class="container reviews-inner">
-    <div class="reviews-widget">
-      <div id="featurable-837481b2-3b16-48ff-8ed0-a6dad2fe99f4" data-featurable-async></div>
-    </div>
+    {usedFallback ? (
+      <!-- Fetch unavailable at build time: keep the original widget so the
+           section still renders for visitors. -->
+      <div class="reviews-widget">
+        <div id={`featurable-${WIDGET_ID}`} data-featurable-async></div>
+      </div>
+      <script is:inline src="https://featurable.com/assets/bundle.js" defer charset="UTF-8"></script>
+    ) : (
+      <>
+        <div class="reviews-head">
+          <p class="kicker">
+            <span class="kicker-dot" aria-hidden="true"></span>
+            What Clients Say
+          </p>
+          <p class="reviews-meta">
+            {average && <span class="reviews-avg">{average}</span>}
+            <span class="reviews-stars" aria-hidden="true">★★★★★</span>
+            <span class="reviews-count">
+              {reviews.length} Google review{reviews.length === 1 ? "" : "s"}
+            </span>
+          </p>
+        </div>
+
+        <ul class="reviews-grid" role="list">
+          {reviews.map((r) => (
+            <li class="review-card">
+              {typeof r.stars === "number" && (
+                <p class="review-stars">
+                  <span aria-hidden="true">{"★".repeat(r.stars)}</span>
+                  <span class="sr-only">{r.stars} out of 5 stars</span>
+                </p>
+              )}
+              <blockquote class="review-text">{r.text}</blockquote>
+              <p class="review-name smallcaps">{r.name}</p>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
   </div>
 </section>
-
-<!-- Featurable widget loader — keep external, do not bundle -->
-<script
-  is:inline
-  src="https://featurable.com/assets/bundle.js"
-  defer
-  charset="UTF-8"
-></script>
 
 <style>
   .reviews {
@@ -36,11 +121,81 @@
     background: var(--color-cream);
     position: relative;
   }
-  /* Blend the Featurable widget onto our cream section — strip its default
-     white container backgrounds so it doesn't sit in a hard white box.
-     The review cards themselves keep their own background (a different
-     class), which reads as our paper-card-on-cream pattern. Scoped under
-     .reviews; :global() because Featurable injects this DOM at runtime. */
+
+  .reviews-head {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+  .reviews-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+    flex-wrap: wrap;
+  }
+  .reviews-avg {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    color: var(--color-navy);
+    line-height: 1;
+  }
+  .reviews-stars {
+    color: var(--color-gold);
+    letter-spacing: 0.1em;
+    font-size: 1.05rem;
+  }
+  .reviews-count {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+  }
+
+  .reviews-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: var(--space-md);
+  }
+
+  .review-card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-radius: 3px;
+    padding: 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    box-shadow: 0 1px 3px rgba(26, 28, 34, 0.04);
+  }
+  .review-stars {
+    color: var(--color-gold);
+    letter-spacing: 0.12em;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  .review-text {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .review-name {
+    /* auto top margin pins attribution to the bottom of the card, so names
+       line up across a row even though reviews differ in length. */
+    margin: auto 0 0;
+    padding-top: 0.35rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    color: var(--color-gold-deep);
+  }
+
+  /* Fallback widget: strip Featurable's white container backgrounds so it
+     blends onto our cream section. Scoped under .reviews; :global() because
+     that DOM is injected at runtime. */
   .reviews :global(.parent),
   .reviews :global(.widget),
   .reviews :global(.widget__container),
