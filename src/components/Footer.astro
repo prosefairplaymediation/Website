@@ -1,6 +1,7 @@
 ---
 import pkg from "../../package.json";
-import { GOOGLE_REVIEW_URL } from "../consts";
+import { getReviewUrl } from "../lib/reviews";
+const GOOGLE_REVIEW_URL = await getReviewUrl();
 const year = new Date().getFullYear();
 const version = pkg.version;
 ---
