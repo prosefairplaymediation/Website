@@ -25,7 +25,7 @@
 // original client-side widget, so a build can never break or ship an
 // empty section.
 
-import { GOOGLE_REVIEW_URL } from "../consts";
+import { getReviewData, getReviewUrl } from "../lib/reviews";
 
 // `limit` trims the list for placements where reviews are supporting
 // evidence rather than the point of the page (home, book). `showAllLink`
@@ -39,53 +39,13 @@ interface Props {
 }
 const { limit, showAllLink = false, carousel = false } = Astro.props;
 
+// Widget id is still needed here for the fallback markup below.
 const WIDGET_ID = "837481b2-3b16-48ff-8ed0-a6dad2fe99f4";
 
-// Featurable mirrors the Google Business Profile review shape, which spells
-// the rating as a word. Accept both that and a plain number, because the
-// exact field naming could not be verified from the build sandbox.
-const STAR_WORDS = { ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5 };
+const { reviews, average, ok } = await getReviewData();
+const GOOGLE_REVIEW_URL = await getReviewUrl();
 
-function toStars(value) {
-  if (typeof value === "number") return value;
-  if (typeof value === "string") return STAR_WORDS[value.toUpperCase()] ?? null;
-  return null;
-}
-
-function normalize(r) {
-  return {
-    name: r?.reviewer?.displayName ?? r?.author_name ?? r?.name ?? "Google reviewer",
-    text: (r?.comment ?? r?.text ?? r?.review ?? "").trim(),
-    stars: toStars(r?.starRating ?? r?.rating ?? r?.stars),
-  };
-}
-
-let reviews = [];
-let usedFallback = false;
-
-try {
-  const res = await fetch(`https://featurable.com/api/v1/widgets/${WIDGET_ID}`);
-  if (res.ok) {
-    const json = await res.json();
-    const raw = json?.data?.reviews ?? json?.reviews ?? json?.data ?? [];
-    if (Array.isArray(raw)) {
-      reviews = raw.map(normalize).filter((r) => r.text.length > 0);
-    }
-  }
-} catch {
-  // Network unavailable or shape unexpected — fall through to the widget.
-}
-
-if (reviews.length === 0) usedFallback = true;
-
-// Average is taken across every review fetched, not just the shown subset,
-// so a trimmed placement still reports the real rating.
-const rated = reviews.filter((r) => typeof r.stars === "number");
-const average =
-  rated.length > 0
-    ? (rated.reduce((sum, r) => sum + r.stars, 0) / rated.length).toFixed(1)
-    : null;
-
+const usedFallback = !ok;
 const total = reviews.length;
 const shown = typeof limit === "number" ? reviews.slice(0, limit) : reviews;
 const hasMore = showAllLink && total > shown.length;
