@@ -247,21 +247,34 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     load(index, saved.time);
     syncMute();
 
-    if (wantsPlay) {
-      play().catch(function () {
-        // Autoplay was blocked. Start on the visitor's first gesture,
-        // unless they hit pause before then.
-        const events = ["pointerdown", "keydown", "scroll", "touchstart"];
-        function start() {
-          events.forEach(function (evt) {
-            window.removeEventListener(evt, start);
-          });
-          if (wantsPlay) play().catch(function () {});
-        }
-        events.forEach(function (evt) {
-          window.addEventListener(evt, start, { once: true, passive: true });
-        });
+    // Browsers refuse to start audio before the visitor has interacted
+    // with the page, so the load-time attempt is expected to fail on a
+    // cold visit. These are the events that actually grant playback
+    // permission — a scroll notably does not — and they stay armed
+    // until a play() call really succeeds. Bailing out after the first
+    // attempt would strand the music in silence for the rest of the
+    // page whenever the visitor scrolled before clicking anything.
+    const GESTURES = ["pointerdown", "touchend", "keydown", "click"];
+
+    function release() {
+      GESTURES.forEach(function (evt) {
+        window.removeEventListener(evt, onGesture, true);
       });
+    }
+
+    function onGesture() {
+      if (!wantsPlay) {
+        release();
+        return;
+      }
+      play().then(release, function () {});
+    }
+
+    if (wantsPlay) {
+      GESTURES.forEach(function (evt) {
+        window.addEventListener(evt, onGesture, { capture: true, passive: true });
+      });
+      play().then(release, function () {});
     } else {
       save();
     }
