@@ -85,11 +85,6 @@ const services = [
     </div>
   </section>
 
-  <!-- ========================== REVIEWS ========================== -->
-  <div class="home-reviews">
-    <Reviews limit={6} showAllLink />
-  </div>
-
   <!-- ========================== SERVICE CARDS ========================== -->
   <section class="section services-cards">
     <div class="container">
@@ -155,6 +150,9 @@ const services = [
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  <!-- ========================== REVIEWS — last section before the footer ========================== -->
+  <Reviews limit={12} showAllLink carousel />
 </BaseLayout>
 
 <style>
@@ -299,10 +297,6 @@ const services = [
   .services-cards { padding-block: 0 var(--space-xl); }
   /* The shared Reviews band carries generous padding for /book; tighten it
      here so it doesn't leave a chasm between the pay strip and the cards. */
-  .home-reviews :global(.reviews) {
-    padding-block: 0 var(--space-lg);
-  }
-
   /* ------------------------------------------------------------
      HOME INTRO VIDEO — front and center, above the services head
      ------------------------------------------------------------ */
