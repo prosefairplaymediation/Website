@@ -1,0 +1,236 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Real Estate Mediation · Pro Se Fair Play Mediation"
+  description="The marital home is often the largest asset in a Florida divorce. How real property is divided, what happens to the mortgage, and how mediation handles real estate disputes."
+>
+  <!-- ========================== HEADER ========================== -->
+  <header class="article-header">
+    <div class="container article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Property &amp; Real Estate
+      </p>
+      <h1 class="display article-title reveal reveal-d2">
+        Real Estate <span class="display-italic">Mediation</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        The marital home is often the largest asset in a Florida divorce, and
+        the hardest one to divide. Here is how real property is handled, what
+        happens to the mortgage, and how mediation fits in.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="article-body">
+    <div class="container-narrow article-prose">
+      <h2>The Marital Home in a Florida Divorce</h2>
+      <p>
+        For most families the house is the largest thing they own and the
+        hardest thing to divide. A bank account can be split down the middle.
+        A home cannot.
+      </p>
+
+      <h3>Is the Home Marital Property?</h3>
+      <p>
+        Equity built during the marriage is generally marital property, even if
+        only one spouse is named on the deed. Florida courts start from the
+        presumption that marital assets are divided equally. These rules come
+        from Florida Statute §&nbsp;61.075.
+      </p>
+
+      <h3>The Three Common Outcomes</h3>
+      <p>Most agreements land on one of three arrangements:</p>
+      <ul>
+        <li>The home is sold and the proceeds are divided.</li>
+        <li>One spouse buys out the other's share and keeps the home.</li>
+        <li>One spouse stays in the home for a set period, and the home is sold later.</li>
+      </ul>
+
+      <h3>The Mortgage Is a Separate Problem</h3>
+      <p>
+        A divorce judgment divides property between the two of you. It does not
+        remove anyone from the loan. Until the home is sold or the mortgage is
+        refinanced, both spouses remain responsible to the lender, no matter who
+        is living there.
+      </p>
+
+      <h2>What You Will Need to Decide</h2>
+      <p>A workable agreement closes each of these questions:</p>
+      <ul>
+        <li>How the home is valued, and who performs the appraisal.</li>
+        <li>Who pays the mortgage, taxes, insurance, and HOA dues until it sells.</li>
+        <li>How repairs, upkeep, and closing costs are split.</li>
+        <li>The buyout amount, and the deadline to complete it.</li>
+        <li>What happens if a refinance is denied.</li>
+        <li>Who keeps the furnishings.</li>
+      </ul>
+      <p>
+        More complex situations, such as multiple properties, investment
+        property, or the division of land, are handled through
+        <a class="link-underline" href="/services/gold-service">Gold Service Mediation</a>,
+        which brings a dedicated real estate professional into the process.
+      </p>
+
+      <h2>Real Estate Disputes Outside of Divorce</h2>
+      <p>
+        Not every property dispute comes out of a family case. These matters are
+        handled as private mediation, chosen by both parties rather than ordered
+        by a court. If a judge has already sent your case to mediation, ask the
+        court which type of mediator it requires.
+      </p>
+      <ul>
+        <li>Co-owners or heirs who cannot agree on whether to sell.</li>
+        <li>Buyers and sellers in disagreement after a closing.</li>
+        <li>Landlords and tenants.</li>
+        <li>Homeowners and contractors.</li>
+        <li>Business partners who hold property together.</li>
+      </ul>
+
+      <h2>How Mediation Helps</h2>
+      <p>
+        A judge applies the statute and divides what is placed in front of them.
+        In mediation you can build something a court order would not produce on
+        its own: a sale timeline that works around the school year, a buyout paid
+        in stages, or a refinance deadline with a fallback if the loan does not
+        come through.
+        <a class="link-underline" href="/process/how-mediation-works">How mediation works</a>
+        walks through what a session looks like.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== CLOSING CTA ========================== -->
+  <section class="article-cta">
+    <div class="container-narrow article-cta-inner">
+      <a class="btn btn-primary article-cta-btn" href="/book">
+        Book a Free, Private Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ============================================================
+     HEADER — cream, mirrors the legal pages
+     ============================================================ */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .article-header-inner { position: relative; max-width: 64rem; }
+  .article-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.04;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    max-width: 20ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .article-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  .article-header .lede {
+    margin-top: 1.5rem;
+    max-width: 62ch;
+    color: var(--color-ink-soft);
+  }
+
+  /* ============================================================
+     BODY PROSE
+     ============================================================ */
+  .article-body {
+    padding-block: var(--space-lg) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .article-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .article-prose p { max-width: 64ch; }
+  .article-prose p + p,
+  .article-prose ul + p { margin-top: 1.25rem; }
+  .article-prose h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--color-navy);
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .article-prose h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .article-prose h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+  .article-prose ul {
+    margin: 1rem 0 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    max-width: 64ch;
+  }
+  .article-prose li { line-height: 1.55; }
+  .article-prose strong { color: var(--color-navy); font-weight: 600; }
+
+  /* ============================================================
+     CLOSING CTA — button only
+     ============================================================ */
+  .article-cta {
+    position: relative;
+    padding-block: var(--space-lg);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .article-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .article-cta-inner { display: flex; justify-content: center; flex-wrap: wrap; }
+  .article-cta-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .article-cta-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+
+  @media (max-width: 600px) {
+    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+  }
+</style>
