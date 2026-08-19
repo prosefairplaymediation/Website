@@ -68,6 +68,50 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 - **Content expansion:** client-supplied text is often AI-generated and too long. Trim to essentials; don't expand.
 - **Scope:** Stripe (live products + Payment Links for self-pay on `/pay`), Calendly Standard tier, static pages. No custom backend, CMS, or dashboard. Stripe and Calendly are decoupled — Marie manually qualifies clients; no Stripe-Calendly automation beyond the built-in payment-on-booking flow. Self-pay (Parenting Plan + Court Packet) added late in scope per client request, short-circuiting the consult-first model; Hourly Mediation remains consult-first (no self-pay link).
 
+## Compliance review (STANDING CLIENT INSTRUCTION)
+
+The client has asked, explicitly and as a standing rule, to be kept in compliance
+on **every** request. Treat this as part of the definition of done, not an
+optional extra. Raise concerns concisely and then keep building — flag, don't
+block, unless proceeding would actually be unsafe.
+
+Check every change against these, and say so plainly when one is engaged:
+
+- **Not a law firm.** No page, email, chat reply, or metadata may give legal
+  advice, predict an outcome, or state what a visitor should do in their own
+  case. Describe the *process*; send the *legal question* to an attorney. This
+  is why the FAQ answers about binding agreements and required forms end by
+  pointing at counsel.
+- **Certification is PENDING and must not be advertised.** The Florida Supreme
+  Court family mediator certification was not approved as of 2026-08. It was
+  removed from the schema, the About credentials, and the About meta
+  description. Do not restore it anywhere until the client confirms approval.
+  Restore points are listed in a comment in `BaseLayout.astro`.
+- **Non-family work is private mediation.** Business, civil, real estate, and
+  pre-litigation matters are framed as private mediation chosen by both parties,
+  never as court-ordered work, and carry no certification claim. Florida
+  certification is per-type; court-ordered civil matters generally require
+  County or Circuit Civil certification.
+- **Disclaimer text is verbatim or quoted, never paraphrased.** See the rule
+  above. Quoting the opening of `/legal/disclaimer` and linking to it is fine.
+- **Third-party reviews get no `Review`/`AggregateRating` markup.** The Google
+  reviews are third-party; marking them up as our own review snippets violates
+  Google's structured-data guidelines and risks a manual action. Displaying the
+  text is fine.
+- **Outbound email needs CAN-SPAM basics.** Physical postal address (present),
+  a working unsubscribe (the sending platform must populate it), accurate
+  from/subject. Email-only scope: telephone, SMS, and fax outreach raise TCPA
+  and Fla. Stat. § 501.059 exposure and separate do-not-call scrubbing duties.
+- **No fabricated social proof.** Never invent a review, testimonial, or
+  credential, including as placeholder or layout-test content that could ship.
+
+**Open item to resolve with the client / their attorney:** two pages disagree
+about who files. `/process/how-mediation-works` says the executed settlement
+agreement "is submitted to the court on the parties' behalf," while
+`/legal/disclaimer` says "Clients are responsible for filing their own
+documents. I do not file documents on behalf of clients." Both cannot be right.
+Do not deepen either claim in new copy until it is settled.
+
 ## Development Guidelines
 
 ### 1. Think Before Coding
