@@ -167,8 +167,9 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     // on demand, and audio streams, so it begins before the file finishes
     // downloading. The cost simply moves to the people who actually listen.
     audio.preload = "none";
-    // Background level — audible under the content, never over it.
-    audio.volume = 0.1;
+    // Background level — 3 on a 0-100 scale. Deliberately very quiet:
+    // present under the content rather than accompanying it.
+    audio.volume = 0.03;
     audio.muted = saved.muted === true;
 
     function save() {
