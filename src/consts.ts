@@ -20,7 +20,7 @@
 // listing instead of the review box, and most people give up before
 // finding the review button.
 // ============================================================
-export const GOOGLE_REVIEW_URL = "";
+export const GOOGLE_REVIEW_URL = "https://g.page/r/CQBgcXw1OG36EAE/review";
 
 // ============================================================
 // BING WEBMASTER TOOLS VERIFICATION
