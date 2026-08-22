@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import MusicPlayer from "../components/MusicPlayer.astro";
 import ChatWidget from "../components/ChatWidget.astro";
+import { BING_SITE_VERIFICATION } from "../consts.ts";
 
 interface Props {
   title?: string;
@@ -53,6 +54,9 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
+    {BING_SITE_VERIFICATION && (
+      <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />
+    )}
     <meta name="theme-color" content="#1B2D5A" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
