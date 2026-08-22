@@ -74,13 +74,19 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
-    <meta property="og:image" content={new URL("/logo_BG_color_Cropped.png", Astro.site).href} />
+    <!-- 1200x630, the size Facebook, LinkedIn, Slack and iMessage all size
+         their preview cards to. The old 648x395 logo was below every one of
+         those and rendered soft or letterboxed. -->
+    <meta property="og:image" content={new URL("/og-image.jpg", Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pro Se Fair Play Mediation, LLC" />
 
     <!-- Twitter card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL("/logo_BG_color_Cropped.png", Astro.site).href} />
+    <meta name="twitter:image" content={new URL("/og-image.jpg", Astro.site).href} />
 
     <!-- Schema.org structured data for the business. Using
          ProfessionalService rather than LegalService to stay
