@@ -1,0 +1,282 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const facts = [
+  { label: "Fee", value: "$600 / hour" },
+  { label: "Format", value: "Zoom, confidential" },
+  { label: "Blocks", value: "2, 4, or 8 hours" },
+  { label: "My role", value: "Neutral third party" },
+];
+---
+
+<BaseLayout
+  title="Divorce Mediation in Florida · Pro Se Fair Play Mediation"
+  description="Divorce mediation for self-represented (pro se) parties in Florida. A neutral, confidential Zoom process for settling time-sharing, child support, alimony, and property division without a judge deciding for you."
+>
+  {/*
+    Service entity for this page. The site-wide ProfessionalService block in
+    BaseLayout lists divorce mediation among its serviceType values; this
+    gives the term its own addressable page so an answer engine has
+    something specific to cite rather than a homepage.
+
+    PENDING: no Florida Supreme Court certification claim. See the
+    restore-point comment in BaseLayout.astro before adding one.
+  */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Divorce Mediation",
+    serviceType: "Divorce Mediation",
+    url: "https://prosefairplaymediation.com/services/divorce-mediation",
+    description:
+      "Neutral, confidential divorce mediation conducted via Zoom for self-represented parties in Florida, covering time-sharing, child support, alimony, and division of property.",
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Pro Se Fair Play Mediation, LLC",
+      url: "https://prosefairplaymediation.com",
+    },
+    areaServed: { "@type": "State", name: "Florida" },
+    offers: {
+      "@type": "Offer",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "600.00",
+        priceCurrency: "USD",
+        unitText: "HUR",
+      },
+    },
+  })} />
+
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <h1 class="display svc-title reveal reveal-d2">
+        Divorce <span class="display-italic">Mediation</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        A neutral, structured process for settling the terms of your divorce
+        yourselves, in private, instead of leaving them to a judge who has
+        never met your family.
+      </p>
+      <div class="svc-header-ctas reveal reveal-d4">
+        <a class="btn btn-primary svc-header-cta" href="/book">
+          Book a Free, Private Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================== AT-A-GLANCE ========================== -->
+  <section class="svc-facts">
+    <div class="container">
+      <dl class="facts-grid">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt class="fact-label smallcaps">{f.label}</dt>
+            <dd class="fact-value display">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="facts-note">
+        Divorce mediation is conducted through my{" "}
+        <a class="link-underline" href="/services/hourly-mediation">Hourly Mediation</a>{" "}
+        service, which is where session structure, scheduling, and the
+        refund policy are set out in full. Consultations are free, and
+        mediation begins only after both parties agree to proceed.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== PROSE ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <div class="svc-prose">
+        <p>
+          In divorce mediation, both parties meet with one neutral mediator
+          and work through the terms of their separation together. Sessions
+          are held over Zoom, they are confidential, and nothing is decided
+          for you. My job is to keep the conversation structured and
+          productive so that two people who may disagree about a great deal
+          can still reach terms they both signed rather than terms handed
+          down to them.
+        </p>
+        <p>
+          Most people arrive expecting a fight. What usually happens instead
+          is a long conversation about logistics, because that is what most
+          of a divorce actually is.
+        </p>
+
+        <h2>What a Florida divorce asks you to settle</h2>
+        <p>
+          Mediation is where these get worked out. Each one has a page on
+          this site that explains it in more depth:
+        </p>
+        <ul class="svc-list">
+          <li>
+            <strong>Time-sharing and parental responsibility.</strong> The
+            schedule, holidays, transportation, and how decisions get made.
+            This becomes your{" "}
+            <a class="link-underline" href="/services/parenting-plan">Parenting Plan</a>.
+          </li>
+          <li>
+            <strong>Child support.</strong> Florida uses statutory
+            guidelines, and the 2023 changes altered how overnights factor
+            in. See{" "}
+            <a class="link-underline" href="/process/child-support-rules">Updated Child Support Rules</a>.
+          </li>
+          <li>
+            <strong>Alimony.</strong> The 2023 reform ended permanent
+            alimony and reshaped what remains. See{" "}
+            <a class="link-underline" href="/process/alimony-rules">Updated Alimony Rules</a>.
+          </li>
+          <li>
+            <strong>Property, debts, and the marital home.</strong> Usually
+            the hardest one, because the house is rarely just an asset. See{" "}
+            <a class="link-underline" href="/process/real-estate-mediation">Real Estate Mediation</a>.
+          </li>
+        </ul>
+
+        <h2>What mediation is not</h2>
+        <p>
+          I am a neutral. I am not an attorney, I do not represent either
+          party, and this is not a law firm. That means I will not tell you
+          what a court would likely do in your situation, whether an offer
+          on the table is a good one, or what you should accept. Those are
+          legal questions, and they belong with an attorney who represents
+          you. Either party may consult one at any point, and many people do
+          exactly that between sessions.
+        </p>
+        <p>
+          What I can do is explain the process, keep both parties heard, and
+          make sure that whatever you agree to is written down clearly.
+        </p>
+
+        <h2>If you reach agreement</h2>
+        <p>
+          The terms are written up while everyone is still at the table, so
+          that what you agreed to is captured accurately rather than
+          reconstructed a week later. From there I can prepare the
+          supporting documents in court-ready form, either as the Parenting
+          Plan alone or as a complete{" "}
+          <a class="link-underline" href="/services/court-packet">Turn-Key Court Packet</a>.
+        </p>
+        <p>
+          <strong>Clients are responsible for filing their own documents
+          with the appropriate court.</strong> I prepare them; the filing is
+          yours.
+        </p>
+        <p>
+          If you do not reach agreement on everything, that is a normal
+          outcome and not a wasted session. Partial agreements narrow what
+          is left in dispute, which is worth real money if the remainder
+          does go before a judge. For a step-by-step walk through a session,
+          see{" "}
+          <a class="link-underline" href="/process/how-mediation-works">How Mediation Works</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free, Private Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Identical pattern to parenting-plan.astro for visual consistency ---- */
+  .svc-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.78) 0%,
+        rgba(27, 42, 74, 0.62) 50%,
+        rgba(27, 42, 74, 0.78) 100%),
+      url('/handshake2.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .svc-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
+  .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
+  .svc-header-cta { margin-top: 0; }
+  .svc-header-ctas {
+    margin-top: 1.75rem;
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
+  .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
+  .fact { display: flex; flex-direction: column; gap: 0.35rem; }
+  .fact-label { font-size: 1.00rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-value { margin: 0; font-size: 1.15rem; color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
+  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .facts-note a { font-style: normal; }
+
+  .svc-section { padding-block: var(--space-2xl); }
+  .svc-section-alt { background: var(--color-cream-warm); }
+  .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
+  .svc-prose p + p { margin-top: 1.25rem; }
+  .svc-prose strong { color: var(--color-navy); font-weight: 500; }
+
+  /* Subheads and the settle-list. This page is a hub rather than a single
+     block of prose, so it needs the structure the sibling service pages
+     do not. Type scale matches .refund-title one step down. */
+  .svc-prose h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-navy);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .svc-list {
+    margin: 1.25rem 0 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .svc-list li { padding-left: 0.25rem; }
+  .svc-list li::marker { color: var(--color-gold-deep); }
+
+  .cta { position: relative; padding-block: var(--space-lg); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
+  .cta-actions { margin-top: 0; display: flex; justify-content: center; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
+  .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+
+  @media (max-width: 720px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .facts-grid { grid-template-columns: 1fr; }
+  }
+</style>
