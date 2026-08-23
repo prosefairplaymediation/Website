@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 ---
 
@@ -11,6 +12,7 @@ import ServiceSchema from "../../components/ServiceSchema.astro";
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
     <div class="container svc-header-inner">
+      <Breadcrumbs trail={[{ href: "/services", label: "Services" }]} current="Online Notary" tone="dark" />
       <h1 class="display svc-title reveal reveal-d2">
         Online <span class="display-italic">Notary Services</span><span class="display-italic">.</span>
       </h1>

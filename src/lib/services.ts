@@ -16,11 +16,30 @@ export interface ServiceDef {
   price?: string;
   /** "HUR" marks an hourly rate; omit for a flat fee. */
   unit?: string;
+  /** Short label for the /services index and breadcrumbs. */
+  short: string;
+  /** Human-readable price for display. */
+  priceLabel: string;
 }
 
 export const services: ServiceDef[] = [
   {
+    // NOTE: /services/divorce-mediation keeps its own inline Service block —
+    // it is a hub page and its schema is shaped differently. This entry
+    // exists so the page appears in the /services index and in breadcrumbs.
+    // Do NOT add <ServiceSchema slug="divorce-mediation" /> to that page or
+    // it will emit two Service blocks.
+    slug: "divorce-mediation",
+    short: "Divorce Mediation",
+    priceLabel: "$600 / hour",
+    name: "Divorce Mediation",
+    description:
+      "Neutral, confidential divorce mediation via Zoom, covering time-sharing, child support, alimony and division of property.",
+  },
+  {
     slug: "hourly-mediation",
+    short: "Hourly Mediation",
+    priceLabel: "$600 / hour",
     name: "Hourly Family Mediation",
     description:
       "Neutral, structured family mediation conducted via Zoom, sold by the hour or in two, four and eight hour blocks.",
@@ -29,6 +48,8 @@ export const services: ServiceDef[] = [
   },
   {
     slug: "gold-service",
+    short: "Gold Service",
+    priceLabel: "$650 flat",
     name: "Gold Service Mediation",
     description:
       "The premium mediation tier, emphasising discretion, privacy and close professional oversight throughout.",
@@ -36,6 +57,8 @@ export const services: ServiceDef[] = [
   },
   {
     slug: "parenting-plan",
+    short: "Parenting Plan",
+    priceLabel: "$400 flat",
     name: "Parenting Plan Preparation",
     description:
       "A Parenting Plan customised to one family's schedule and structure, delivered in a clear, court-ready format.",
@@ -43,6 +66,8 @@ export const services: ServiceDef[] = [
   },
   {
     slug: "court-packet",
+    short: "Turn-Key Court Packet",
+    priceLabel: "$600 flat",
     name: "Turn-Key Court Packet",
     description:
       "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable.",
@@ -50,6 +75,8 @@ export const services: ServiceDef[] = [
   },
   {
     slug: "notary",
+    short: "Online Notary",
+    priceLabel: "$10 add-on",
     name: "Online Notary Services",
     description:
       "Remote online notarisation for family law forms, parenting plans, affidavits and business documents. Included with the Turn-Key Court Packet.",

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 const facts = [
   { label: "Fee", value: "$600 / hour" },
@@ -50,6 +51,7 @@ const facts = [
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
     <div class="container svc-header-inner">
+      <Breadcrumbs trail={[{ href: "/services", label: "Services" }]} current="Divorce Mediation" tone="dark" />
       <h1 class="display svc-title reveal reveal-d2">
         Divorce <span class="display-italic">Mediation</span><span class="display-italic">.</span>
       </h1>

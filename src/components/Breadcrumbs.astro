@@ -1,0 +1,106 @@
+---
+/**
+ * Visible breadcrumb trail plus matching BreadcrumbList schema.
+ *
+ * Both halves together, deliberately. Google's guidance is that breadcrumb
+ * markup should describe a path the visitor can actually see, so shipping the
+ * schema without the trail would be marking up a hierarchy that exists only
+ * in the nav dropdown.
+ *
+ * `tone` because this sits on two different grounds: the service pages have a
+ * dark photo hero with cream text, the process pages have a cream header with
+ * navy text. One component, two palettes, rather than two components.
+ */
+interface Crumb {
+  href: string;
+  label: string;
+}
+interface Props {
+  /** Ancestors only. The current page is appended from `current`. */
+  trail: Crumb[];
+  current: string;
+  tone?: "light" | "dark";
+}
+const { trail, current, tone = "light" } = Astro.props;
+
+const SITE = "https://prosefairplaymediation.com";
+const all = [{ href: "/", label: "Home" }, ...trail];
+---
+
+<nav class:list={["crumbs", `crumbs-${tone}`]} aria-label="Breadcrumb">
+  <ol class="crumbs-list">
+    {all.map((c) => (
+      <li class="crumb">
+        <a href={c.href}>{c.label}</a>
+        <span class="crumb-sep" aria-hidden="true">/</span>
+      </li>
+    ))}
+    <li class="crumb crumb-current" aria-current="page">{current}</li>
+  </ol>
+</nav>
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      ...all.map((c, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: c.label,
+        item: `${SITE}${c.href === "/" ? "" : c.href}`,
+      })),
+      {
+        "@type": "ListItem",
+        position: all.length + 1,
+        name: current,
+      },
+    ],
+  })}
+/>
+
+<style>
+  .crumbs { margin-bottom: 0.35rem; }
+  .crumbs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+  }
+  .crumb { display: inline-flex; align-items: baseline; gap: 0.4rem; }
+  .crumb-sep { opacity: 0.45; }
+
+  .crumbs a {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .crumbs a:hover { border-bottom-color: currentColor; }
+
+  /* Cream header, navy text. */
+  .crumbs-light a { color: var(--color-slate); }
+  .crumbs-light a:hover { color: var(--color-navy); }
+  .crumbs-light .crumb-current { color: var(--color-gold-deep); }
+  .crumbs-light .crumb-sep { color: var(--color-slate); }
+
+  /* Photo hero, cream text over navy. Shadow matches the hero type so the
+     trail stays legible over the lighter parts of the photograph. */
+  .crumbs-dark a,
+  .crumbs-dark .crumb-sep {
+    color: color-mix(in srgb, var(--color-cream) 72%, transparent);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+  }
+  .crumbs-dark a:hover { color: var(--color-cream); }
+  .crumbs-dark .crumb-current {
+    color: var(--color-gold);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+  }
+</style>

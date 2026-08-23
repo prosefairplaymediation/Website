@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ArticleSchema from "../../components/ArticleSchema.astro";
 ---
 
@@ -11,6 +12,7 @@ import ArticleSchema from "../../components/ArticleSchema.astro";
   <!-- ========================== HEADER ========================== -->
   <header class="article-header">
     <div class="container article-header-inner">
+      <Breadcrumbs trail={[{ href: "/process", label: "The Mediation Process" }]} current="Updated Child Support Rules" tone="light" />
       <p class="kicker reveal reveal-d1">
         <span class="kicker-dot" aria-hidden="true"></span>
         Florida Family Law
