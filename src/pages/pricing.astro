@@ -1,5 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import fs from "node:fs";
+
+// The Zelle QR must be exported from the bank: the code encodes a
+// bank-issued token, so unlike the Stripe codes on /pay it cannot be
+// generated here. Gate the section on the file actually being present so
+// the page never ships a broken image, and so dropping the export into
+// public/ is the only step needed to turn it on.
+const hasZelleQr = fs.existsSync("public/zelle-qr.png");
 
 // Service-level pricing, pulled from the individual service pages.
 const services = [
@@ -83,6 +91,53 @@ const services = [
       </ul>
     </div>
   </section>
+
+  {/*
+    Scan to pay by Zelle.
+
+    Renders only when public/zelle-qr.png actually exists, so the page can
+    never ship a broken image placeholder. Drop the file in and the section
+    appears on the next build with no code change; remove it and the section
+    disappears cleanly.
+
+    The QR has to be the bank's own export. A Zelle code encodes a
+    bank-issued token, not just a phone number, so it cannot be generated
+    here the way the Stripe codes on /pay are.
+  */}
+  {hasZelleQr && (
+    <section class="pricing-body zelle-scan-section">
+      <div class="container-narrow">
+        <h2 class="section-label">Scan to Pay by Zelle</h2>
+        <div class="zelle-scan">
+          <div class="zelle-scan-code">
+            <img
+              src="/zelle-qr.png"
+              alt="Zelle QR code for Pro Se Fair Play Mediation LLC at (561) 941-0896"
+              width="240" height="240"
+              loading="lazy"
+            />
+          </div>
+          <div class="zelle-scan-text">
+            <p class="zelle-scan-lede">
+              Open your banking app, scan this code, and the payment is
+              addressed to <strong>Pro Se Fair Play Mediation LLC</strong>
+              automatically. No processing fee.
+            </p>
+            <p class="zelle-scan-note">
+              Enter the amount for the service you agreed on and put your
+              name in the memo. Please read the{" "}
+              <a class="link-underline" href="/pay/agreement" target="_blank" rel="noopener">
+                Engagement Agreement
+              </a>{" "}
+              before paying. A Zelle payment does not send you to a
+              scheduling page the way the card options do, so book your
+              session separately once it clears.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ========================== REFUND POLICIES ========================== -->
   <section class="pricing-body pricing-body-alt">
@@ -210,6 +265,54 @@ const services = [
   .pricing-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
   .pricing-header .lede { margin-top: 1.5rem; max-width: 60ch; color: var(--color-ink-soft); }
   .zelle-mark { display: inline-block; height: 0.95em; width: auto; vertical-align: -0.1em; margin: 0 0.15em; }
+
+  /* ============================================================
+     SCAN TO PAY BY ZELLE
+     ============================================================ */
+  .zelle-scan-section { border-top: 1px solid var(--color-divider); }
+  .zelle-scan {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-top: 2px solid var(--color-gold);
+    padding: 1.75rem;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.15);
+  }
+  .zelle-scan-code img {
+    display: block;
+    width: 11rem;
+    height: auto;
+    border: 1px solid var(--color-divider);
+    padding: 0.4rem;
+    background: #fff;
+  }
+  .zelle-scan-text { display: flex; flex-direction: column; gap: 0.9rem; }
+  .zelle-scan-lede {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+  .zelle-scan-lede strong { color: var(--color-navy); font-weight: 600; }
+  .zelle-scan-note {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-slate);
+    max-width: 62ch;
+  }
+
+  @media (max-width: 40rem) {
+    .zelle-scan { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .zelle-scan-note { text-align: left; }
+  }
 
   /* ============================================================
      BODY BANDS
