@@ -494,7 +494,9 @@ const phoneTel = "+15619410896";
     border-top: 1px solid var(--color-divider);
   }
   .landing-pay-btn {
-    padding: 0.6rem 1.2rem;
+    /* Was 30px tall. It clears the 24px minimum, but this is the button that
+       takes money, so it gets a comfortable target rather than a legal one. */
+    padding: 0.85rem 1.2rem;
     font-size: 0.9rem;
     border-color: var(--color-gold);
   }
