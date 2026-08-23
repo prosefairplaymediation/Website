@@ -197,6 +197,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/contact` | Two-column header: text on left ("Get in Touch / Have a question?"), portrait (`New_Contact.jpg`) on right. Email + phone + eFax cards below, secondary booking CTA. |
 | `/documents` | Three-section portal: Intake Forms (`Parental_Decisions_Intake_PSFP.docx`, `Financial_Info_Intake_PSFP.docx`), Engagement Agreement (PDF + Word downloads inlined), and the official Florida Family Law Forms (external `flcourts.gov` link). Same two-column header pattern as `/contact` with portrait on right; alternating cream / cream-warm bands per section. Download cards use container queries (`container-type: inline-size` on the stack) so labels scale with the card column and collapse cleanly to single-column at narrow widths. |
 | `/landing` | QR-code destination — photo hero, three service cards with prices + Lucide icons. Below, a two-column "Book a free consultation" row with text/CTA/pay-strip on the left and a portrait (`new_Landing.jpg`) on the right, then the Calendly embed full-width. |
+| `/process` | Index for the five guides, most-recently-revised first. Carries `CollectionPage` schema. Reachable from the nav as "All Guides" — the dropdown trigger is a `<button>`, so without that entry the page is unreachable from the nav. |
+| `/services` | Index for the six service pages, driven by `src/lib/services.ts`. |
+| `/areas-served` | Local SEO, built as one substantive page rather than per-city doorway pages. Per-county sections for Palm Beach (15th), Broward (17th), Miami-Dade (11th) and Martin/St. Lucie (19th), each carrying facts that genuinely differ — chiefly that the circuits cap their staff mediation programmes near $100k combined income, which is the factual reason a private mediator exists. **Deliberately frames every circuit programme as the court's and this practice as the private alternative, because court-referred family work needs the pending certification.** Linked from the footer, not the nav (nav is already at seven top-level items). |
+| `/404` | Branded not-found page listing the five routes people actually want, plus phone and email. `noindex`, excluded from the sitemap. |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text. Includes a WCAG 2.1 AA accessibility statement section. |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |
 | `/legal/privacy` | Confidentiality of mediation, website security, data collection |
@@ -236,6 +240,68 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/GoldService.astro` | Dark-box "Gold Service" premium-tier callout (markup + CSS + paragraph-fade JS). Used by `/` and `/services/hourly-mediation` and `/services/gold-service`. Gold `<em>` wordmarks stay visible; cream prose fades in around them. |
 | `src/pages/landing.astro` | QR-code landing page — service cards + Calendly embed |
 | `astro.config.mjs` | Sitemap integration; site URL configured for canonical generation. Excludes only `/thank-you/` and `/pay/agreement/` (the `/` exclusion was removed at launch). |
+| `src/lib/articles.ts` | Single source for the `/process` guides: slug, title, kicker, blurb, and real published/updated dates read from git history. Consumed by the `/process` index and by `ArticleSchema`. Add a guide here or it will not appear anywhere. |
+| `src/lib/services.ts` | Same shape for the six service pages, including the prices that must match the pages and the Stripe products. Note `divorce-mediation` is listed for display only — it keeps its own inline `Service` block, so adding `<ServiceSchema>` to that page would emit two. |
+| `src/components/ArticleSchema.astro` | One-line `Article` JSON-LD for a `/process` page. **Throws at build time** on a slug with no entry in `articles.ts`, so a guide cannot ship without its metadata. |
+| `src/components/ServiceSchema.astro` | Same for `Service` on a `/services` page. |
+| `src/components/ArticleLayout.astro` | Header + prose styling + CTA for generated articles, so a generated file is content only. The five hand-written guides keep their own inline styles; computed values were checked to match. |
+| `src/components/Breadcrumbs.astro` | Visible trail plus `BreadcrumbList` schema, on 12 pages. `tone="dark"` over the photo heroes, `tone="light"` on cream headers. Both halves together deliberately — schema without a visible trail marks up a hierarchy the visitor cannot see. |
+| `public/_headers` | Cloudflare response headers: nosniff, referrer policy, SAMEORIGIN, permissions policy, plus cache lifetimes. **No CSP** — the site loads Google Fonts, Analytics, Calendly, Stripe, YouTube and Featurable, so one written without a report-only pass would silently break booking or payment. |
+
+## Automation (READ THIS BEFORE TOUCHING `/process`)
+
+**This repository publishes to the live site by itself.** Two GitHub Actions
+workflows run without a human in the loop. Neither is dormant.
+
+### `.github/workflows/weekly-article.yml`
+
+Writes and publishes one article a week, straight to `main`. The client chose
+full automation with no review step after the risks were laid out, so the
+entire safety story is machine-checkable gates. **Every gate is blocking, and
+none of them should be softened to get a draft through.**
+
+The generator is `scripts/generate-article.mjs`. Flow: take the first `queued`
+topic from `content/topic-queue.json` → research it with the `web_search`
+server tool → draft it under the compliance rules via structured output → run
+the compliance gate → write the page → register it in `articles.ts` → build.
+Commits only if every step passes.
+
+- An **empty queue exits 78**, which the workflow treats as a clean no-op. That
+  is correct behaviour, not a failure. A blog with nothing to say should say
+  nothing.
+- The workflow **proves the compliance gate still catches a known violation**
+  before trusting it to clear a draft. A gate that silently stopped matching
+  would pass everything.
+- Requires the repository secret `ANTHROPIC_API_KEY`. Without it the run fails
+  at the generate step and publishes nothing, which is the safe failure.
+
+### `scripts/compliance-check.mjs`
+
+The gate. Seven rules, each tracing to a standing rule in the Compliance
+section above: legal advice, outcome prediction, certification claims,
+we-file language, permanent alimony as current, fabricated proof, law-firm
+framing. Run on the draft and again on the rendered HTML.
+
+Calibration matters more than the rules. A first pass flagged five phrases on
+the live site, all false positives — it caught the Documents page's "everything
+you need to get started" and the disclaimers themselves. Two fixes: a directive
+only counts as advice when it points at a legal verb, and negations are tested
+across a surrounding window because disclaimers put the "not" before the phrase
+as often as after. **Current state: 9/9 known violations caught, 0 findings
+across the whole live site.** Re-run it against `dist/` after any content change
+that might trip it.
+
+### `.github/workflows/indexnow.yml`
+
+Runs `scripts/indexnow.mjs` on pushes to `main` touching `src/`, `public/` or
+the Astro config. One POST reaches Bing, Yandex, Naver and Seznam; Google does not
+participate. Matters here because Bing's index is what ChatGPT's web search
+leans on. Waits three minutes first so Cloudflare has finished deploying.
+
+Ownership is proved by `public/680bede00d26f37ea47d4561099c5093.txt`, which
+must contain exactly that key and nothing else. **If that file is renamed or
+gains a trailing newline, submissions start failing** — the script fetches it
+first and refuses to submit rather than failing silently.
 
 ## Documentation
 
