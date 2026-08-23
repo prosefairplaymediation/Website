@@ -1,0 +1,36 @@
+# Response headers for the Cloudflare deployment.
+#
+# The site had none, so every response went out with browser defaults. These
+# are the four that cost nothing and close real classes of problem.
+#
+# Deliberately NOT here: Content-Security-Policy. This site legitimately loads
+# Google Fonts, Google Analytics, Calendly, Stripe, YouTube and Featurable, so
+# a CSP written without testing each of those would silently break booking or
+# payment. Worth adding, but it needs a report-only pass on production first.
+
+/*
+  # Stop browsers guessing a MIME type and executing something as script.
+  X-Content-Type-Options: nosniff
+
+  # Send the full URL to our own pages, only the origin to third parties.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # No other site may frame these pages, so a clickjacking overlay cannot sit
+  # invisibly over the Pay or Book buttons.
+  X-Frame-Options: SAMEORIGIN
+
+  # Nothing here needs a camera, microphone, or location.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+# Hashed build assets are immutable: their filename changes when contents do.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Photos and documents change rarely, and always under the same name, so give
+# them a day rather than a year.
+/*.jpg
+  Cache-Control: public, max-age=86400
+/*.png
+  Cache-Control: public, max-age=86400
+/*.pdf
+  Cache-Control: public, max-age=86400

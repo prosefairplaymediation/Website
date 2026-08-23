@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceSchema from "../../components/ServiceSchema.astro";
 
 const facts = [
   { label: "Fee", value: "$400 flat" },
@@ -14,6 +15,7 @@ const facts = [
   title="Parenting Plan Preparation · Pro Se Fair Play Mediation"
   description="Custom Parenting Plan preparation for self-represented parties in Florida. $400 flat fee, court-ready format, document preparation only."
 >
+  <ServiceSchema slug="parenting-plan" />
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
     <div class="container svc-header-inner">

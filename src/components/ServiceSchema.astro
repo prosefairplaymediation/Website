@@ -1,0 +1,70 @@
+---
+/**
+ * Service JSON-LD for a page under /services.
+ *
+ * Mirrors ArticleSchema: one line per page, data from src/lib/services.ts so
+ * the price in the markup and the price on the page cannot drift apart.
+ *
+ * /services/divorce-mediation keeps its own inline block — it is a hub page
+ * with a different shape, written before this component existed.
+ *
+ * PENDING: no certification claim in the provider block. See the restore-point
+ * comment in BaseLayout.astro.
+ */
+import { findService } from "../lib/services.ts";
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+const svc = findService(slug);
+if (!svc) {
+  throw new Error(
+    `ServiceSchema: no entry for slug "${slug}" in src/lib/services.ts.`
+  );
+}
+
+const url = `https://prosefairplaymediation.com/services/${svc.slug}`;
+
+const offer = svc.price
+  ? {
+      offers: {
+        "@type": "Offer",
+        url,
+        priceCurrency: "USD",
+        ...(svc.unit
+          ? {
+              priceSpecification: {
+                "@type": "UnitPriceSpecification",
+                price: svc.price,
+                priceCurrency: "USD",
+                unitText: svc.unit,
+              },
+            }
+          : { price: svc.price }),
+      },
+    }
+  : {};
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: svc.name,
+  serviceType: svc.name,
+  description: svc.description,
+  url,
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Pro Se Fair Play Mediation, LLC",
+    url: "https://prosefairplaymediation.com",
+    telephone: "+1-561-941-0896",
+  },
+  areaServed: { "@type": "State", name: "Florida" },
+  availableChannel: {
+    "@type": "ServiceChannel",
+    name: "Online via Zoom",
+    serviceUrl: "https://prosefairplaymediation.com/book",
+  },
+  ...offer,
+})} />
