@@ -152,6 +152,25 @@ const phoneTel = "+15619410896";
         </li>
 
       </ul>
+
+      {/*
+        Every action in this section was a "Learn more" that leaves the page.
+        The detail pages are worth reaching, so they stay, but the section
+        now ends pointing at the scheduler instead of only offering exits.
+        It is also the honest answer to the question people actually have
+        while comparing three services: which one do I need?
+      */}
+      <p class="landing-services-cta">
+        <span class="landing-services-cta-q">Not sure which one you need?</span>
+        <a
+          class="btn btn-primary landing-services-cta-btn"
+          href="#book"
+          onclick="if(window.gtag)gtag('event','book_intent_click',{source:'/landing#services'})"
+        >
+          Book a free 15-minute consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </p>
     </div>
   </section>
 
@@ -504,6 +523,33 @@ const phoneTel = "+15619410896";
       0 18px 40px -20px rgba(18, 33, 74, 0.2);
   }
 
+  /* Closes the services section on the booking action rather than on three
+     links off the page. Cream-warm section, so the navy .btn-primary reads
+     correctly here and needs no override, unlike the one on the navy hero. */
+  .landing-services-cta {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-divider);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem 1.1rem;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .landing-services-cta-q {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    font-style: italic;
+    color: var(--color-slate);
+  }
+  .landing-services-cta-btn { margin-top: 0; }
+
+  @media (max-width: 30rem) {
+    .landing-services-cta { flex-direction: column; align-items: stretch; }
+    .landing-services-cta-btn { justify-content: center; width: 100%; }
+  }
+
   @media (max-width: 900px) {
     .landing-book-row {
       grid-template-columns: 1fr;
@@ -513,6 +559,27 @@ const phoneTel = "+15619410896";
       margin-inline: auto;
       order: -1;
     }
+  }
+
+  /* Phone-only trims. This page is scanned off a card and skimmed with a
+     thumb, so the section rhythm that suits a desktop read costs more than
+     it earns here. Desktop spacing is untouched. */
+  @media (max-width: 30rem) {
+    .landing-header {
+      padding-block: clamp(3.5rem, 7vw + 1rem, 5rem) clamp(2rem, 4vw, 3rem);
+    }
+    .landing-services { padding-block: var(--space-xl); }
+    .landing-book { padding-block: var(--space-lg) var(--space-xl); }
+  }
+
+  /* On a phone the 2/3 portrait ran 525px, over half a screen, sitting
+     between the services and the scheduler. A 4/5 crop at a smaller width
+     brings that to ~340px and still shows head through mid-torso, which is
+     all this needs to do: establish that there is a real person here.
+     object-position stays center top, so the crop takes the face. */
+  @media (max-width: 30rem) {
+    .landing-book-figure { max-width: 17rem; }
+    .landing-book-img { aspect-ratio: 4/5; }
   }
 
   .calendly-inline-widget {
