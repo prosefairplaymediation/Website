@@ -1,0 +1,180 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articles, formatDate } from "../../lib/articles.ts";
+
+// /process was a 404: the five articles were reachable only through the nav
+// dropdown and the footer. This gives them a hub — a page that can rank on
+// its own, that collects the internal links, and that has somewhere obvious
+// to put the next article.
+const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
+---
+
+<BaseLayout
+  title="The Mediation Process · Pro Se Fair Play Mediation"
+  description="Plain-language guides to Florida mediation: how a session works, the 2023 child support and alimony changes, dividing the marital home, and mediating before you file."
+>
+  {/*
+    CollectionPage listing the five articles in order. Gives answer engines a
+    single URL that enumerates the library instead of making them infer it
+    from nav links.
+  */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "The Mediation Process",
+    url: "https://prosefairplaymediation.com/process",
+    description:
+      "Plain-language guides to mediation and Florida family law for self-represented parties.",
+    hasPart: sorted.map((a) => ({
+      "@type": "Article",
+      headline: a.title,
+      url: `https://prosefairplaymediation.com/process/${a.slug}`,
+      datePublished: a.published,
+      dateModified: a.updated,
+    })),
+  })} />
+
+  <!-- ========================== HEADER ========================== -->
+  <header class="article-header">
+    <div class="container article-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Guides &amp; Explainers
+      </p>
+      <h1 class="display article-title reveal reveal-d2">
+        The Mediation <span class="display-italic">Process</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Plain-language guides to how mediation actually works and to the
+        Florida rules that shape what gets decided. Written for people
+        representing themselves, without the jargon.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========================== INDEX ========================== -->
+  <section class="index-body">
+    <div class="container-narrow">
+      <ol class="index-list" role="list">
+        {sorted.map((a) => (
+          <li class="index-item">
+            <p class="index-kicker smallcaps">{a.kicker}</p>
+            <h2 class="index-title display">
+              <a href={`/process/${a.slug}`}>{a.title}</a>
+            </h2>
+            <p class="index-blurb">{a.blurb}</p>
+            <p class="index-meta">
+              <time datetime={a.updated}>Updated {formatDate(a.updated)}</time>
+            </p>
+          </li>
+        ))}
+      </ol>
+
+      <p class="index-foot">
+        Have a question these do not cover? The{" "}
+        <a class="link-underline" href="/faq">FAQ</a> answers thirty of the
+        most common ones, or{" "}
+        <a class="link-underline" href="/book">book a free consultation</a>{" "}
+        and ask directly.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Header matches the article pages so the hub reads as part of the set. */
+  .article-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 2rem, 7rem) clamp(2rem, 3vw, 3.5rem);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    overflow: hidden;
+  }
+  .article-header-inner { position: relative; max-width: 64rem; }
+  .article-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    max-width: 20ch;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .article-title .display-italic { color: var(--color-gold-deep); font-weight: 400; }
+  .article-header .lede { margin-top: 1.5rem; max-width: 58ch; color: var(--color-ink-soft); }
+
+  .index-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+
+  /* An ordered list because the order carries meaning: most recently revised
+     first, so the freshest guidance leads. */
+  .index-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .index-item {
+    padding-block: var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .index-item:first-child { padding-top: 0; }
+
+  .index-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+  }
+  .index-title {
+    margin: 0.6rem 0 0;
+    font-size: var(--step-3);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .index-title a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 0.3s var(--ease-out), color 0.2s;
+  }
+  .index-title a:hover {
+    color: var(--color-gold-deep);
+    background-size: 100% 1px;
+  }
+  .index-blurb {
+    margin-top: 0.7rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  .index-meta {
+    margin-top: 0.7rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .index-foot {
+    margin-top: var(--space-xl);
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+</style>
