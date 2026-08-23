@@ -25,6 +25,39 @@ const phoneTel = "+15619410896";
       <p class="lede reveal reveal-d3">
         Florida family law support: mediation and court-ready documents. Free consultations
       </p>
+
+      {/*
+        This page is the QR-code destination, so almost everyone arriving is
+        on a phone. Both actions live in the hero rather than three screens
+        down at the calendar. "Book" jumps to the embedded Calendly instead
+        of routing to /book, which would send people off a page that already
+        carries the scheduler.
+
+        BaseLayout's delegated GA listener only matches a[href="/book"], so
+        the anchor fires book_intent_click itself, matching the pay-strip
+        pattern further down this page.
+      */}
+      <div class="landing-header-ctas reveal reveal-d4">
+        <a
+          class="btn btn-primary landing-header-cta"
+          href="#book"
+          onclick="if(window.gtag)gtag('event','book_intent_click',{source:'/landing#hero'})"
+        >
+          Book a Free Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a
+          class="btn landing-header-cta landing-header-cta-call"
+          href={`tel:${phoneTel}`}
+          aria-label={`Call ${phoneDisplay}`}
+          onclick="if(window.gtag)gtag('event','call_intent_click',{source:'/landing#hero'})"
+        >
+          <svg class="landing-call-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          Call {phoneDisplay}
+        </a>
+      </div>
     </div>
   </header>
 
@@ -123,7 +156,7 @@ const phoneTel = "+15619410896";
   </section>
 
   <!-- ========================== BOOK ========================== -->
-  <section class="landing-book">
+  <section class="landing-book" id="book">
     <div class="container landing-book-inner">
       <div class="landing-book-row">
         <div class="landing-book-text">
@@ -238,6 +271,69 @@ const phoneTel = "+15619410896";
     color: color-mix(in srgb, var(--color-cream) 85%, transparent);
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
   }
+
+  /* Hero actions. Same shape as .svc-header-ctas on the service pages, with
+     the call button carrying the outlined treatment the pay button uses so
+     the two read as primary and secondary rather than as a pair. */
+  .landing-header-ctas {
+    margin-top: 1.75rem;
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .landing-header-cta { margin-top: 0; }
+
+  /* .btn-primary is navy, which all but disappears against this navy hero.
+     Gold fill on navy-deep text is the site's existing primary-on-dark
+     treatment (see .nav-cta), and it is what makes the booking action read
+     as the primary one rather than losing that job to the outlined call
+     button beside it. */
+  .landing-header-ctas .btn-primary {
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    border-color: var(--color-gold);
+  }
+  .landing-header-ctas .btn-primary:hover {
+    background: var(--color-cream);
+    color: var(--color-navy-deep);
+    border-color: var(--color-cream);
+  }
+
+  .landing-header-cta-call {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border: 1px solid var(--color-gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .landing-header-cta-call:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+  }
+  .landing-call-icon { flex-shrink: 0; }
+
+  /* On a phone the two actions stack and go full width: this page is reached
+     by scanning a code, so the tap targets should be the width of the thumb,
+     not the width of their labels. */
+  @media (max-width: 30rem) {
+    .landing-header-ctas { flex-direction: column; align-items: stretch; }
+    .landing-header-cta { justify-content: center; width: 100%; }
+  }
+
+  /* The hero "Book" action jumps to #book. Smooth it out, and keep the
+     heading clear of the sticky nav on arrival. :global() because Astro
+     would otherwise scope this to html[data-astro-cid-…], which never
+     matches the document element. Only this page loads this sheet, so the
+     smooth scroll stays local to /landing. */
+  :global(html) { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) { scroll-behavior: auto; }
+  }
+  .landing-book { scroll-margin-top: 5rem; }
 
   /* ============================================================
      SERVICES (three-column cards)
