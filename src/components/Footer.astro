@@ -24,6 +24,7 @@ const version = pkg.version;
             <li><a href="/process/alimony-rules">Updated Alimony Rules</a></li>
             <li><a href="/process/real-estate-mediation">Real Estate Mediation</a></li>
             <li><a href="/process/pre-litigation-disputes">Pre-Litigation Disputes</a></li>
+            <li><a href="/areas-served">Areas Served</a></li>
             <li><a href="/reviews">Client Reviews</a></li>
             {GOOGLE_REVIEW_URL && (
               <li>
@@ -110,12 +111,21 @@ const version = pkg.version;
     color: var(--color-gold);
     margin-bottom: 1rem;
   }
-  .footer-nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+  /* Gap converted into padding on the link itself. These were 17px tall
+     touch targets, under the 24px WCAG 2.5.8 minimum, and fiddly on a phone.
+     Moving the same vertical space inside the anchor grows the tappable box
+     to ~30px without changing the footer's height or its visual rhythm:
+     adjacent targets now meet exactly, so there is no dead strip between
+     them either. inline-block rather than block so the target tracks the
+     text width instead of the whole column. */
+  .footer-nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0; }
   .footer-nav a {
     color: color-mix(in srgb, var(--color-cream) 80%, var(--color-navy));
     font-size: 0.95rem;
     position: relative;
     transition: color 0.2s;
+    display: inline-block;
+    padding-block: 0.45rem;
   }
   .footer-nav a:hover { color: var(--color-gold); }
 
