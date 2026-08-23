@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceSchema from "../../components/ServiceSchema.astro";
 import GoldService from "../../components/GoldService.astro";
 
 const facts = [
@@ -14,6 +15,7 @@ const facts = [
   title="Hourly Mediation · Pro Se Fair Play Mediation"
   description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate. Conducted via Zoom in a structured, confidential environment."
 >
+  <ServiceSchema slug="hourly-mediation" />
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
     <div class="container svc-header-inner">

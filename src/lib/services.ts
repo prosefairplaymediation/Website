@@ -1,0 +1,62 @@
+// Service definitions for the per-page Service schema.
+//
+// Only /services/divorce-mediation carried its own structured data; the other
+// five had nothing beyond the site-wide ProfessionalService block, so a search
+// or answer engine could see that the practice offers a Parenting Plan but not
+// that /services/parenting-plan is the page about it, nor what it costs.
+//
+// Prices here must match the pages and the Stripe products. They are the same
+// figures as the hasOfferCatalog block in BaseLayout.astro.
+
+export interface ServiceDef {
+  slug: string;
+  name: string;
+  description: string;
+  /** Omit for services with no single published price. */
+  price?: string;
+  /** "HUR" marks an hourly rate; omit for a flat fee. */
+  unit?: string;
+}
+
+export const services: ServiceDef[] = [
+  {
+    slug: "hourly-mediation",
+    name: "Hourly Family Mediation",
+    description:
+      "Neutral, structured family mediation conducted via Zoom, sold by the hour or in two, four and eight hour blocks.",
+    price: "600.00",
+    unit: "HUR",
+  },
+  {
+    slug: "gold-service",
+    name: "Gold Service Mediation",
+    description:
+      "The premium mediation tier, emphasising discretion, privacy and close professional oversight throughout.",
+    price: "650.00",
+  },
+  {
+    slug: "parenting-plan",
+    name: "Parenting Plan Preparation",
+    description:
+      "A Parenting Plan customised to one family's schedule and structure, delivered in a clear, court-ready format.",
+    price: "400.00",
+  },
+  {
+    slug: "court-packet",
+    name: "Turn-Key Court Packet",
+    description:
+      "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable.",
+    price: "600.00",
+  },
+  {
+    slug: "notary",
+    name: "Online Notary Services",
+    description:
+      "Remote online notarisation for family law forms, parenting plans, affidavits and business documents. Included with the Turn-Key Court Packet.",
+    price: "10.00",
+  },
+];
+
+export function findService(slug: string): ServiceDef | undefined {
+  return services.find((s) => s.slug === slug);
+}

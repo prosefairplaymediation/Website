@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// There was no 404 page, so a mistyped or retired URL fell through to
+// Cloudflare's default: an unbranded page with no way back into the site.
+// Someone who scanned a QR wrong or followed an old link is exactly the
+// visitor least able to recover on their own.
+const routes = [
+  { href: "/services/divorce-mediation", label: "Divorce Mediation", note: "The most common place to start." },
+  { href: "/pricing", label: "Pricing", note: "Every service and what it costs." },
+  { href: "/process", label: "Guides", note: "How mediation works, and the Florida rules behind it." },
+  { href: "/faq", label: "FAQ", note: "Thirty of the questions people ask most." },
+  { href: "/book", label: "Book a Consultation", note: "Free, fifteen minutes, no obligation." },
+];
+---
+
+<BaseLayout
+  title="Page Not Found · Pro Se Fair Play Mediation"
+  description="That page could not be found. Links to mediation services, pricing, guides, and booking."
+  noindex
+>
+  <section class="nf">
+    <div class="container-narrow nf-inner">
+      <p class="kicker">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        404
+      </p>
+      <h1 class="display nf-title">
+        That page isn't here<span class="display-italic">.</span>
+      </h1>
+      <p class="lede nf-lede">
+        The link may be out of date, or the address may have a typo in it.
+        Nothing is broken on your end. Here is where most people are headed.
+      </p>
+
+      <ul class="nf-list" role="list">
+        {routes.map((r) => (
+          <li class="nf-item">
+            <a class="nf-link" href={r.href}>{r.label}</a>
+            <span class="nf-note">{r.note}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p class="nf-foot">
+        Still stuck? Call <a class="link-underline" href="tel:+15619410896">(561) 941-0896</a>
+        or email <a class="link-underline" href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    padding-block: clamp(4rem, 8vw + 2rem, 8rem) var(--space-3xl);
+    background:
+      radial-gradient(ellipse at 25% 20%, rgba(196, 154, 75, 0.09), transparent 55%),
+      var(--color-cream);
+  }
+  .nf-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    font-weight: 400;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .nf-title .display-italic { color: var(--color-gold-deep); }
+  .nf-lede { margin-top: 1.5rem; max-width: 56ch; color: var(--color-ink-soft); }
+
+  .nf-list {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+  }
+  .nf-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem 1.25rem;
+    flex-wrap: wrap;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .nf-item:first-child { border-top: 1px solid var(--color-divider); }
+  .nf-link {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-navy);
+    flex: 0 0 auto;
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 0.3s var(--ease-out), color 0.2s;
+  }
+  .nf-link:hover { color: var(--color-gold-deep); background-size: 100% 1px; }
+  .nf-note {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-slate);
+  }
+
+  .nf-foot {
+    margin-top: var(--space-xl);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+  }
+</style>
