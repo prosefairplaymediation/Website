@@ -169,8 +169,7 @@ const documentProducts = [
         For clients who have already discussed their case and agreed on
         the scope of work. Select your service below to pay securely
         through Stripe. Payment is processed on Stripe's hosted
-        checkout; no card details are stored on this site. You can also
-        always pay by <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" /> to Pro Se Fair Play Mediation at (561) 941-0896.
+        checkout; no card details are stored on this site.
       </p>
     </div>
   </header>
@@ -255,6 +254,44 @@ const documentProducts = [
             />
           ))}
         </ul>
+      </div>
+
+      {/*
+        Zelle. This used to sit in the hero, above the agreement checkbox,
+        which made it the one route to paying that skipped the
+        acknowledgement. Nothing on our side can gate what happens inside
+        someone's banking app, but the site can at least present every
+        payment option after the agreement rather than before it. Uses the
+        same [data-pay-qr] lock as the Stripe cards.
+      */}
+      <div class="pay-section" id="zelle">
+        <h2 class="pay-section-title display">Pay by Zelle</h2>
+        <div class="pay-zelle" data-pay-qr data-locked="true">
+          <div class="pay-zelle-body">
+            <p class="pay-zelle-lede">
+              Send directly from your bank with
+              <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" />.
+              No processing fee.
+            </p>
+            <dl class="pay-zelle-details">
+              <div>
+                <dt class="smallcaps">Recipient</dt>
+                <dd>Pro Se Fair Play Mediation LLC</dd>
+              </div>
+              <div>
+                <dt class="smallcaps">Zelle at</dt>
+                <dd><a class="link-underline" href="tel:+15619410896">(561) 941-0896</a></dd>
+              </div>
+            </dl>
+            <p class="pay-zelle-note">
+              Enter the amount for the service you agreed on, and put your
+              name in the memo so the payment can be matched to your file.
+              Unlike the card options above, a Zelle payment does not send
+              you to a scheduling page afterward, so book your session
+              separately once it clears.
+            </p>
+          </div>
+        </div>
       </div>
 
       <p class="pay-foot">
@@ -357,6 +394,69 @@ const documentProducts = [
     color: var(--color-ink-soft);
   }
   .zelle-mark { display: inline-block; height: 0.95em; width: auto; vertical-align: -0.1em; margin: 0 0.15em; }
+
+  /* ============================================================
+     ZELLE
+     Card treatment matches .pay-card so it reads as one more way to
+     pay rather than an afterthought bolted to the bottom.
+     ============================================================ */
+  .pay-zelle {
+    background: var(--color-paper);
+    border: 1px solid var(--color-divider);
+    border-top: 2px solid var(--color-gold);
+    padding: 1.75rem;
+    box-shadow:
+      0 1px 2px rgba(18, 33, 74, 0.04),
+      0 12px 32px -16px rgba(18, 33, 74, 0.15);
+    transition: opacity 0.2s;
+  }
+  /* Same lock the Stripe cards use, so the agreement governs every
+     payment route on the page. */
+  .pay-zelle[data-locked="true"] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .pay-zelle-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .pay-zelle-lede {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+  .pay-zelle-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2.5rem;
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-divider);
+  }
+  .pay-zelle-details > div { display: flex; flex-direction: column; gap: 0.3rem; }
+  .pay-zelle-details dt {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+  }
+  .pay-zelle-details dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-navy);
+  }
+  .pay-zelle-note {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-slate);
+    max-width: 62ch;
+  }
 
   /* ============================================================
      BODY
