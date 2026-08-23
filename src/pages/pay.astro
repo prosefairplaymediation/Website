@@ -267,6 +267,10 @@ const documentProducts = [
     (function () {
       const checkbox = document.getElementById("pay-agree");
       const buttons = document.querySelectorAll("[data-pay-btn]");
+      // Scan-to-pay codes reach the same Stripe checkout, so the agreement
+      // has to gate them too. Without this the QR would be the one route to
+      // payment that skips the acknowledgement.
+      const codes = document.querySelectorAll("[data-pay-qr]");
       if (!checkbox || buttons.length === 0) return;
 
       function sync() {
@@ -279,6 +283,9 @@ const documentProducts = [
             btn.setAttribute("aria-disabled", "true");
             btn.setAttribute("tabindex", "-1");
           }
+        });
+        codes.forEach(function (qr) {
+          qr.setAttribute("data-locked", enabled ? "false" : "true");
         });
       }
 
