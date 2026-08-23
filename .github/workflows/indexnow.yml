@@ -1,0 +1,54 @@
+name: IndexNow
+
+# Tells Bing (and Yandex, Naver, Seznam — they share the endpoint) what
+# changed, instead of waiting for a re-crawl. Google does not participate.
+#
+# Bing's index is what ChatGPT's web search leans on, so this shortens the gap
+# between publishing and being answerable in ChatGPT.
+#
+# Runs after a push to main, with a delay: Cloudflare needs to finish
+# deploying before the submitted URLs reflect the new content, and the key
+# file has to be live for the submission to be accepted at all.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Only content changes are worth submitting. A README or workflow edit
+      # does not change what a crawler would see.
+      - "src/**"
+      - "public/**"
+      - "astro.config.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      # The sitemap is a build artifact, so it has to be built to be read.
+      - run: npm run build
+
+      - name: Wait for Cloudflare to deploy
+        # Submitting before the deploy lands would point crawlers at the old
+        # content. Three minutes is comfortably past the usual 1-3 minute build.
+        run: sleep 180
+
+      - name: Submit to IndexNow
+        run: node scripts/indexnow.mjs
