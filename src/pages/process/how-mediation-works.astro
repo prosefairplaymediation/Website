@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ArticleSchema from "../../components/ArticleSchema.astro";
 
 const phases = [
@@ -62,6 +63,7 @@ const outcomes = [
   <!-- ========================== HEADER ========================== -->
   <header class="legal-header">
     <div class="container legal-header-inner">
+      <Breadcrumbs trail={[{ href: "/process", label: "The Mediation Process" }]} current="How Mediation Works" tone="light" />
       <p class="kicker reveal reveal-d1">
         <span class="kicker-dot" aria-hidden="true"></span>
         The Mediation Process

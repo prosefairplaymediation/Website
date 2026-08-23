@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { services } from "../../lib/services.ts";
+
+// /services was a 404, the same gap /process had: the six service pages were
+// reachable only through the nav dropdown and the footer, with no hub that
+// could rank on its own or collect the internal links. Found while adding
+// breadcrumbs, which need a real page to point at.
+---
+
+<BaseLayout
+  title="Services · Pro Se Fair Play Mediation"
+  description="Mediation and court-ready document preparation for self-represented parties in Florida. Divorce mediation, parenting plans, court packets, and online notary, with prices."
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Services",
+    url: "https://prosefairplaymediation.com/services",
+    description:
+      "Mediation and court-ready document preparation for self-represented parties in Florida.",
+    hasPart: services.map((s) => ({
+      "@type": "Service",
+      name: s.name,
+      url: `https://prosefairplaymediation.com/services/${s.slug}`,
+    })),
+  })} />
+
+  <header class="svcx-header">
+    <div class="container svcx-header-inner">
+      <Breadcrumbs trail={[]} current="Services" tone="light" />
+      <p class="kicker">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        What I Offer
+      </p>
+      <h1 class="display svcx-title">
+        Services<span class="display-italic">.</span>
+      </h1>
+      <p class="lede svcx-lede">
+        Mediation and court-ready document preparation for people representing
+        themselves. Every price is published, and every consultation is free.
+      </p>
+    </div>
+  </header>
+
+  <section class="svcx-body">
+    <div class="container-narrow">
+      <ul class="svcx-list" role="list">
+        {services.map((s) => (
+          <li class="svcx-item">
+            <div class="svcx-item-head">
+              <h2 class="svcx-item-title display">
+                <a href={`/services/${s.slug}`}>{s.short}</a>
+              </h2>
+              <p class="svcx-price smallcaps">{s.priceLabel}</p>
+            </div>
+            <p class="svcx-desc">{s.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="svcx-foot">
+        Not sure which fits? <a class="link-underline" href="/book">Book a free 15-minute consultation</a>,
+        or see <a class="link-underline" href="/pricing">full pricing and refund policies</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .svcx-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 2rem, 7rem) clamp(2rem, 3vw, 3.5rem);
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    overflow: hidden;
+  }
+  .svcx-header-inner { position: relative; max-width: 64rem; }
+  .svcx-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .svcx-title .display-italic { color: var(--color-gold-deep); }
+  .svcx-lede { margin-top: 1.5rem; max-width: 58ch; color: var(--color-ink-soft); }
+
+  .svcx-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .svcx-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+  .svcx-item {
+    padding-block: var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .svcx-item:first-child { padding-top: 0; }
+  .svcx-item-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    flex-wrap: wrap;
+  }
+  .svcx-item-title {
+    margin: 0;
+    font-size: var(--step-3);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .svcx-item-title a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 0.3s var(--ease-out), color 0.2s;
+  }
+  .svcx-item-title a:hover { color: var(--color-gold-deep); background-size: 100% 1px; }
+  .svcx-price {
+    font-size: 1.05rem;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+  .svcx-desc {
+    margin-top: 0.7rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  .svcx-foot {
+    margin-top: var(--space-xl);
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+</style>
