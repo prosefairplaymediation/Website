@@ -9,6 +9,10 @@ const services = [
 ];
 
 const processPages = [
+  // The dropdown trigger is a <button>, so without this entry the /process
+  // index would be unreachable from the nav. Both the desktop dropdown and
+  // the mobile menu map this array, so one line covers both.
+  { href: "/process",                         label: "All Guides" },
   { href: "/process/how-mediation-works",     label: "How Mediation Works" },
   { href: "/process/child-support-rules",     label: "Updated Child Support Rules" },
   { href: "/process/alimony-rules",           label: "Updated Alimony Rules" },
