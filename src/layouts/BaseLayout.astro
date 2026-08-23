@@ -94,11 +94,38 @@ const {
 
          PENDING: the Florida Supreme Court family mediator certification is
          in progress and NOT yet approved, so it is deliberately absent here.
-         Once it is granted, the places to restore it are:
+
+         THIS LIST IS THE CANONICAL ONE. Six files now suppress the claim; an
+         earlier version of this comment named only three, which would have
+         meant restoring half of them and silently leaving the rest wrong.
+         If you add a seventh, add it here too.
+
+         When the certification is granted:
            1. "description" below, and "founder.jobTitle" if it should lead
            2. the About page credentials array (src/pages/about.astro)
            3. the About page meta description (src/pages/about.astro)
-         Do not re-add it anywhere before approval. -->
+           4. src/components/ArticleSchema.astro — the author block may then
+              carry the credential
+           5. src/components/ServiceSchema.astro — likewise the provider block
+           6. src/pages/services/divorce-mediation.astro — its own inline
+              Service block
+
+         And the substantive one, which is a content change rather than a
+         one-line edit:
+           7. src/pages/areas-served.astro — every county section currently
+              describes the circuit's programme as the COURT'S and this
+              practice as the private alternative, because court-referred
+              family work requires this certification. Once approved, each
+              section can gain a court-referred paragraph. That page is the
+              one that reaches people who already have a case filed, so it is
+              the biggest single unlock.
+
+         Also worth revisiting at that point: scripts/compliance-check.mjs has
+         a "certification-claim" rule that will fail the automated article
+         pipeline on any mention of a certified mediator. It is correct today.
+         Relax it only after the certificate is actually in hand.
+
+         Do not re-add the claim anywhere before approval. -->
     <script is:inline type="application/ld+json">
     {
       "@context": "https://schema.org",
