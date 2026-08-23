@@ -1,0 +1,338 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+// Local SEO without doorway pages.
+//
+// The obvious build here is one page per city, differing only by name. That
+// is the scaled-content pattern Google penalises, and it would be dishonest
+// besides: this is a Zoom practice with no office in Naples.
+//
+// Instead: one substantive page, with per-county sections carrying facts that
+// genuinely differ. The circuits really do run different programs, with
+// different income thresholds and different local requirements, and that
+// difference is the honest reason a private mediator exists.
+//
+// COMPLIANCE, and the reason this page is framed the way it is: the Florida
+// Supreme Court family mediator certification is PENDING. Court-referred
+// family mediation requires it. So nothing here may suggest this practice
+// takes court-ordered work. Every section describes the court's own program
+// as the court's, and this practice as the private, voluntary alternative
+// that parties choose together. When the certification is approved, these
+// sections can gain a court-referred paragraph. Not before.
+
+const counties = [
+  {
+    name: "Palm Beach County",
+    circuit: "Fifteenth Judicial Circuit",
+    seat: "West Palm Beach",
+    court:
+      "The circuit runs its own family mediation program using staff mediators, for dissolution, paternity and custody cases where the parties' combined income is up to $100,000. Its published fees are $60 per person per session below $50,000 combined, and $120 per person between $50,000 and $100,000.",
+    note:
+      "This is the home county. The office address on the Contact page is here, though sessions are still held over Zoom.",
+  },
+  {
+    name: "Broward County",
+    circuit: "Seventeenth Judicial Circuit",
+    seat: "Fort Lauderdale",
+    court:
+      "The circuit's family mediation program requires that the case already be filed in Broward and that a Broward judge has signed a family mediation order. It is subject to a legislative income limit, described by the circuit as combined net income under $100,000.",
+    note:
+      "Because the program needs a filed case and a signed order, it is not available to a couple who have not filed yet.",
+  },
+  {
+    name: "Miami-Dade County",
+    circuit: "Eleventh Judicial Circuit",
+    seat: "Miami",
+    court:
+      "Miami-Dade treats mediation as a step to be completed before a dissolution case can be set for trial. The circuit operates its own Mediation and Arbitration Division for court-referred matters.",
+    note:
+      "Couples here often reach agreement privately first, then file, rather than waiting for the court to refer them.",
+  },
+  {
+    name: "Martin and St. Lucie Counties",
+    circuit: "Nineteenth Judicial Circuit",
+    seat: "Stuart and Fort Pierce",
+    court:
+      "The Treasure Coast circuit covers Martin, St. Lucie, Indian River and Okeechobee counties, and operates its own alternative dispute resolution programs for filed cases.",
+    note:
+      "A largely rural circuit where travel to the courthouse is a real cost, which is part of why remote sessions suit it.",
+  },
+];
+---
+
+<BaseLayout
+  title="Areas Served in Florida · Pro Se Fair Play Mediation"
+  description="Private mediation for Palm Beach, Broward, Miami-Dade, Martin and St. Lucie counties and the rest of Florida. How each circuit's court program differs, and where private mediation fits."
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Private Mediation in Florida",
+    serviceType: "Private Mediation",
+    description:
+      "Voluntary private mediation, held over Zoom, for parties anywhere in Florida who choose to resolve matters without a court referral.",
+    url: "https://prosefairplaymediation.com/areas-served",
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Pro Se Fair Play Mediation, LLC",
+      url: "https://prosefairplaymediation.com",
+      telephone: "+1-561-941-0896",
+    },
+    areaServed: [
+      { "@type": "State", name: "Florida" },
+      ...counties.map((c) => ({ "@type": "AdministrativeArea", name: `${c.name}, Florida` })),
+    ],
+    availableChannel: {
+      "@type": "ServiceChannel",
+      name: "Online via Zoom",
+      serviceUrl: "https://prosefairplaymediation.com/book",
+    },
+  })} />
+
+  <header class="areas-header">
+    <div class="container areas-header-inner">
+      <Breadcrumbs trail={[]} current="Areas Served" tone="light" />
+      <p class="kicker">
+        <span class="kicker-dot" aria-hidden="true"></span>
+        Where I Work
+      </p>
+      <h1 class="display areas-title">
+        Serving Florida<span class="display-italic">, by Zoom</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede areas-lede">
+        Sessions are held online, so where you live in Florida does not limit
+        whether we can work together. What does differ by county is how the
+        local court handles mediation, and that is worth understanding before
+        you decide how to proceed.
+      </p>
+    </div>
+  </header>
+
+  <section class="areas-intro">
+    <div class="container-narrow areas-prose">
+      <h2>Private mediation, not court-referred</h2>
+      <p>
+        There are two routes to a mediated agreement in Florida, and they are
+        not the same thing.
+      </p>
+      <p>
+        The first is <strong>court-referred mediation</strong>. A case has
+        already been filed, a judge orders the parties to mediate, and the
+        circuit's own program handles it. Each circuit below runs one, and each
+        sets its own rules and income limits.
+      </p>
+      <p>
+        The second is <strong>private mediation</strong>, chosen voluntarily by
+        both parties. It does not require a filed case, a judge's order, or the
+        court's involvement at all. Parties often use it before filing, so that
+        what they eventually file is uncontested. <strong>That is the service
+        offered here.</strong>
+      </p>
+
+      <div class="areas-callout">
+        <p>
+          One practical consequence worth knowing: several circuits limit their
+          staff mediation programs to households under roughly $100,000 in
+          combined income. Couples above that threshold are generally not
+          eligible for the court's own mediators and arrange private mediation
+          instead.
+        </p>
+      </div>
+
+      <p>
+        Whether mediation is required in your particular case, and which
+        programs you qualify for, are questions for the court where your case
+        would be filed or for an attorney who represents you. The summaries
+        below describe each circuit's published program, not your situation.
+      </p>
+    </div>
+  </section>
+
+  <section class="areas-list-section">
+    <div class="container-narrow">
+      <h2 class="areas-h2">County by county</h2>
+      <ul class="areas-list" role="list">
+        {counties.map((c) => (
+          <li class="area">
+            <div class="area-head">
+              <h3 class="area-name display">{c.name}</h3>
+              <p class="area-circuit smallcaps">{c.circuit}</p>
+            </div>
+            <p class="area-seat">Courthouse seat: {c.seat}</p>
+            <p class="area-court">{c.court}</p>
+            <p class="area-note">{c.note}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="areas-prose areas-rest">
+        <h2>Everywhere else in Florida</h2>
+        <p>
+          Florida has twenty judicial circuits, and the four above are simply
+          the ones that come up most often here. Private mediation is not tied
+          to a circuit: if both parties agree to mediate, they can do so from
+          anywhere in the state, and the session runs over Zoom regardless.
+        </p>
+        <p>
+          If you are outside these counties and want to know how your local
+          court handles mediation,{" "}
+          <a class="link-underline" href="/contact">get in touch</a> and I will
+          point you at that circuit's published information, or{" "}
+          <a class="link-underline" href="/book">book a free consultation</a>{" "}
+          and we can talk it through.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="areas-cta">
+    <div class="container-narrow areas-cta-inner">
+      <a class="btn btn-primary areas-cta-btn" href="/book">
+        Book a Free, Private Consultation
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .areas-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 2rem, 7rem) clamp(2rem, 3vw, 3.5rem);
+    background:
+      radial-gradient(ellipse at 22% 28%, rgba(196, 154, 75, 0.09), transparent 55%),
+      var(--color-cream);
+    overflow: hidden;
+  }
+  .areas-header-inner { position: relative; max-width: 64rem; }
+  .areas-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--color-navy);
+    font-weight: 400;
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+  .areas-title .display-italic { color: var(--color-gold-deep); }
+  .areas-lede { margin-top: 1.5rem; max-width: 60ch; color: var(--color-ink-soft); }
+
+  .areas-intro {
+    padding-block: var(--space-2xl);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .areas-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .areas-prose p { max-width: 64ch; }
+  .areas-prose p + p { margin-top: 1.2rem; }
+  .areas-prose strong { color: var(--color-navy); font-weight: 600; }
+  .areas-prose h2,
+  .areas-h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-navy);
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .areas-prose h2 + p { margin-top: 0; }
+
+  .areas-callout {
+    margin-block: 1.5rem;
+    padding: 1.1rem 1.35rem;
+    background: var(--color-paper);
+    border-left: 2px solid var(--color-gold);
+    border-radius: 0 3px 3px 0;
+  }
+  .areas-callout p { margin: 0; font-size: 1rem; }
+
+  .areas-list-section {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+    border-top: 1px solid var(--color-divider);
+  }
+  .areas-list { list-style: none; padding: 0; margin: 0 0 var(--space-2xl); display: flex; flex-direction: column; }
+  .area {
+    padding-block: var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .area:first-child { border-top: 1px solid var(--color-divider); }
+  .area-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1.5rem;
+    flex-wrap: wrap;
+  }
+  .area-name {
+    margin: 0;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    color: var(--color-navy);
+    font-weight: 400;
+  }
+  .area-circuit {
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    color: var(--color-gold-deep);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .area-seat,
+  .area-court,
+  .area-note {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+  .area-seat {
+    margin-top: 0.55rem;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: var(--color-slate);
+  }
+  .area-court { margin-top: 0.7rem; font-size: 1.02rem; color: var(--color-ink-soft); }
+  .area-note {
+    margin-top: 0.7rem;
+    font-size: 0.96rem;
+    font-style: italic;
+    color: var(--color-slate);
+  }
+
+  .areas-rest { margin-top: var(--space-xl); }
+
+  .areas-cta {
+    position: relative;
+    padding-block: var(--space-lg);
+    background: var(--color-cream-warm);
+    border-top: 1px solid var(--color-divider);
+  }
+  .areas-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
+    opacity: 0.7;
+  }
+  .areas-cta-inner { display: flex; justify-content: center; flex-wrap: wrap; }
+  .areas-cta-btn {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    border-color: var(--color-navy);
+  }
+  .areas-cta-btn:hover {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    border-color: var(--color-gold);
+  }
+</style>
