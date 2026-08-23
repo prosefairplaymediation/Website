@@ -1,0 +1,111 @@
+name: Weekly article
+
+# Writes and publishes one article a week from content/topic-queue.json.
+#
+# There is no human review step: the site owner chose full automation with
+# machine-checkable gates instead. Those gates are the whole safety story, so
+# every one of them must stay blocking. If a step fails, nothing is committed
+# and no post goes out that week — which is the correct outcome. A missed week
+# costs nothing; a bad post about Florida family law costs a lot.
+#
+# Requires the repository secret ANTHROPIC_API_KEY.
+
+on:
+  schedule:
+    # 09:00 UTC Tuesdays — early morning US Eastern, so a bad post is noticed
+    # during the working day rather than sitting live all weekend.
+    - cron: "0 9 * * 2"
+  # Manual runs for testing. Safe: the same gates apply.
+  workflow_dispatch:
+
+# Deliberately narrow: this job needs to push a commit and nothing else.
+permissions:
+  contents: write
+
+# Never let two runs write the queue at once.
+concurrency:
+  group: weekly-article
+  cancel-in-progress: false
+
+jobs:
+  write:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install site dependencies
+        run: npm ci
+
+      - name: Install the Anthropic SDK
+        # Installed here rather than added to package.json: the site build on
+        # Cloudflare has no use for it, and keeping it out of the manifest
+        # keeps the deployed dependency tree honest.
+        run: npm install --no-save @anthropic-ai/sdk
+
+      - name: Verify the compliance gate still works
+        # The gate is the only thing protecting the live site, so prove it
+        # catches violations before trusting it to clear a draft. A gate that
+        # silently stopped matching would pass everything.
+        run: |
+          set -euo pipefail
+          printf 'You should file a motion to compel.\n' > /tmp/should-fail.txt
+          if node scripts/compliance-check.mjs /tmp/should-fail.txt; then
+            echo "::error::Compliance gate did not flag a known violation. Refusing to run."
+            exit 1
+          fi
+          echo "Gate is live."
+
+      - name: Generate the article
+        id: generate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set +e
+          node scripts/generate-article.mjs
+          code=$?
+          set -e
+          # 78 means the queue is empty. Not a failure, just nothing to say.
+          if [ "$code" -eq 78 ]; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          exit "$code"
+
+      - name: Build the site
+        if: steps.generate.outputs.empty != 'true'
+        # The last gate. A page that breaks the build must never reach main,
+        # because Cloudflare would then fail to deploy the whole site.
+        run: npm run build
+
+      - name: Re-check the built page
+        if: steps.generate.outputs.empty != 'true'
+        # Belt and braces: the generator checked the draft, this checks what
+        # actually rendered, after Astro has processed it.
+        run: |
+          set -euo pipefail
+          slug=$(node -p "require('./.article-meta.json').slug")
+          node scripts/compliance-check.mjs "dist/process/$slug/index.html"
+
+      - name: Commit and push
+        if: steps.generate.outputs.empty != 'true'
+        run: |
+          set -euo pipefail
+          title=$(node -p "require('./.article-meta.json').title")
+          words=$(node -p "require('./.article-meta.json').words")
+          rm -f .article-meta.json
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/pages/process content/topic-queue.json src/lib/articles.ts
+          # Two -m flags rather than one multi-line string: an indented
+          # heredoc or inline body carries its leading spaces into the commit.
+          git commit \
+            -m "content: publish \"$title\"" \
+            -m "Written automatically by .github/workflows/weekly-article.yml from the topic queue. $words words. Passed the compliance gate on the draft and again on the rendered page, plus the site build."
+          git push
