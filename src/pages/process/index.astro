@@ -26,7 +26,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
     description:
       "Plain-language guides to mediation and Florida family law for self-represented parties.",
     hasPart: sorted.map((a) => ({
-      "@type": "Article",
+      "@type": "BlogPosting",
       headline: a.title,
       url: `https://prosefairplaymediation.com/process/${a.slug}`,
       datePublished: a.published,
