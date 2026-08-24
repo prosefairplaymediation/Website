@@ -26,6 +26,15 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "is-mediation-required-before-divorce-in-florida",
+    title: "Is Mediation Required Before Divorce in Florida?",
+    kicker: "Florida Law",
+    blurb:
+      "Rule 12.740 says a contested family matter may be referred to mediation. Section 44.102 says parental responsibility disputes shall be. The difference is the whole answer.",
+    published: "2026-08-24",
+    updated: "2026-08-24",
+  },
+  {
     slug: "how-mediation-works",
     title: "How Mediation Works",
     kicker: "The Process",

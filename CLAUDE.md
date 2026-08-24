@@ -256,12 +256,36 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 **This repository publishes to the live site by itself.** Two GitHub Actions
 workflows run without a human in the loop. Neither is dormant.
 
+### Publishing cadence: one article every three weeks, ON REQUEST (2026-08-24)
+
+**The automated schedule is OFF and this is the live arrangement.** The client
+decided against creating the API key needed for automatic publishing, and asked
+instead for **one new `/process` article every three weeks, written on request.**
+Treat that cadence as a standing instruction: if she asks for "the next one",
+take the first `queued` topic from `content/topic-queue.json`, write it by hand
+to the same standards the generator enforces, and mark the entry
+`"status": "published"` with `publishedOn` and `"publishedBy": "hand"`.
+
+Writing one by hand means meeting the generator's own bar, not a lower one:
+research from primary sources (flcourts.gov, flsenate.gov, leg.state.fl.us)
+before writing a word, the compliance rules in `generate-article.mjs`'s `RULES`
+string, no em dashes, 300–1200 words, `ArticleLayout` so the page is content
+only, registered in `articles.ts`, and `scripts/compliance-check.mjs` run
+against the built HTML before committing.
+
+The cron stays commented out until `ANTHROPIC_API_KEY` exists. It is already
+retargeted to the three-week cadence, and `generate-article.mjs` carries a
+cadence guard that drops any *scheduled* run inside 18 days of the last
+published article. Manual runs are never dropped.
+
 ### `.github/workflows/weekly-article.yml`
 
-Writes and publishes one article a week, straight to `main`. The client chose
-full automation with no review step after the risks were laid out, so the
-entire safety story is machine-checkable gates. **Every gate is blocking, and
-none of them should be softened to get a draft through.**
+Written to publish one article a week, straight to `main`, with no review step:
+the client chose full automation after the risks were laid out, so the entire
+safety story is machine-checkable gates. **Every gate is blocking, and none of
+them should be softened to get a draft through.** The schedule is currently
+disabled per the section above, but the gates still apply to manual runs and to
+hand-written articles.
 
 The generator is `scripts/generate-article.mjs`. Flow: take the first `queued`
 topic from `content/topic-queue.json` → research it with the `web_search`

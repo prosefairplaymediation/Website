@@ -27,6 +27,31 @@ const today = new Date().toISOString().slice(0, 10);
 // ---------------------------------------------------------------- queue
 
 const queue = JSON.parse(fs.readFileSync(QUEUE, "utf8"));
+
+// Cadence guard. The agreed cadence is one article every three weeks. Cron
+// cannot express "every third week", so the schedule necessarily fires more
+// often than that and this drops the extra runs.
+//
+// Scheduled runs only. A manual workflow_dispatch is a deliberate act by
+// someone who wants an article now, and is never blocked.
+const MIN_DAYS = 18;
+if (process.env.GITHUB_EVENT_NAME === "schedule") {
+  const last = queue.topics
+    .map((t) => t.publishedOn)
+    .filter(Boolean)
+    .sort()
+    .pop();
+  const days = last
+    ? Math.floor((Date.parse(today) - Date.parse(last)) / 86_400_000)
+    : Infinity;
+  if (days < MIN_DAYS) {
+    console.log(
+      `Last article was ${days} days ago, inside the ${MIN_DAYS}-day cadence. Nothing to publish.`
+    );
+    process.exit(78); // neutral: same clean no-op as an empty queue
+  }
+}
+
 const topic = queue.topics.find((t) => t.status === "queued");
 
 if (!topic) {
