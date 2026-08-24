@@ -1,14 +1,16 @@
 ---
 /**
- * Article JSON-LD for a page under /process.
+ * BlogPosting JSON-LD for a page under /process.
  *
  * One line per article page instead of a duplicated schema block in each,
  * and the dates come from src/lib/articles.ts so the index page and the
  * structured data can never disagree.
  *
- * Why Article and not BlogPosting: these are standing explainers that get
- * revised when the law changes, not dated posts in a feed. Article is the
- * honest type, and answer engines treat both the same for citation.
+ * Type is BlogPosting per client instruction. BlogPosting is a subtype of
+ * Article, so every property below is still valid and nothing is lost;
+ * search and answer engines treat the two the same for citation. Keep this
+ * and the /process index in step: if one says BlogPosting and the other
+ * says Article, the library describes itself two different ways.
  *
  * PENDING: author carries no certification claim. See the restore-point
  * comment in BaseLayout.astro before adding one.
@@ -32,7 +34,7 @@ const url = `https://prosefairplaymediation.com/process/${article.slug}`;
 
 <script type="application/ld+json" is:inline set:html={JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   headline: article.title,
   description: article.blurb,
   url,
