@@ -10,12 +10,26 @@ name: Weekly article
 #
 # Requires the repository secret ANTHROPIC_API_KEY.
 
+# SCHEDULE IS OFF, deliberately, per client decision 2026-08-24. Automatic
+# publishing needs the repository secret ANTHROPIC_API_KEY, which does not
+# exist. Rather than leave a cron that fails every week and mails a red X to
+# the owner every time, the schedule is commented out and articles are written
+# on request instead, at a cadence of one every three weeks.
+#
+# To turn it back on: add the ANTHROPIC_API_KEY secret, then uncomment the
+# block below. Nothing else needs changing.
+#
+# The cron is set for the agreed three-week cadence rather than the original
+# weekly one. Cron has no "every third week", so it fires on the 1st, 8th,
+# 15th and 22nd of each month and generate-article.mjs drops any SCHEDULED run
+# landing within 18 days of the last published article (see the cadence guard
+# there). A manual run below is never dropped.
 on:
-  schedule:
-    # 09:00 UTC Tuesdays — early morning US Eastern, so a bad post is noticed
-    # during the working day rather than sitting live all weekend.
-    - cron: "0 9 * * 2"
-  # Manual runs for testing. Safe: the same gates apply.
+  # schedule:
+  #   # 09:00 UTC — early morning US Eastern, so a bad post is noticed during
+  #   # the working day rather than sitting live all weekend.
+  #   - cron: "0 9 1,8,15,22 * *"
+  # Manual runs. Safe: the same gates apply.
   workflow_dispatch:
 
 # Deliberately narrow: this job needs to push a commit and nothing else.

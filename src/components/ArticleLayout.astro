@@ -14,6 +14,7 @@
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ArticleSchema from "./ArticleSchema.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
 
 interface Props {
   slug: string;
@@ -39,6 +40,16 @@ const { slug, title, kicker, lede, description } = Astro.props;
 
   <header class="article-header">
     <div class="container article-header-inner">
+      {/*
+        The five hand-written guides each carry this, so an article without it
+        would be the odd one out in its own section. Here rather than in the
+        page so every future generated article gets it too.
+      */}
+      <Breadcrumbs
+        trail={[{ href: "/process", label: "The Mediation Process" }]}
+        current={title}
+        tone="light"
+      />
       <p class="kicker reveal reveal-d1">
         <span class="kicker-dot" aria-hidden="true"></span>
         {kicker}
