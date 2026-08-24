@@ -12,13 +12,27 @@ interface Props {
   noindex?: boolean;
   /** Suppress the chat widget. Set on checkout and post-payment pages. */
   noChat?: boolean;
+  /**
+   * Per-page link-preview card, root-relative (e.g. "/og/faq.jpg"). Cards live
+   * in public/og/ and are built by scripts/generate-og-images.mjs; that script
+   * is the only place to add or change one. Pages without their own card fall
+   * back to the site card below, which is the right answer for the legal pages
+   * and for anything transactional.
+   */
+  ogImage?: string;
+  /** Alt text for the card. Defaults to the page title. */
+  ogImageAlt?: string;
 }
 const {
   title = "Pro Se Fair Play Mediation, LLC",
   description = "Mediation and document preparation for self-represented individuals. I help you walk into court informed, prepared, and never alone.",
   noindex = false,
   noChat = false,
+  ogImage = "/og-image.jpg",
+  ogImageAlt,
 } = Astro.props;
+
+const ogImageUrl = new URL(ogImage, Astro.site).href;
 ---
 
 <!DOCTYPE html>
@@ -76,17 +90,21 @@ const {
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
     <!-- 1200x630, the size Facebook, LinkedIn, Slack and iMessage all size
          their preview cards to. The old 648x395 logo was below every one of
-         those and rendered soft or letterboxed. -->
-    <meta property="og:image" content={new URL("/og-image.jpg", Astro.site).href} />
+         those and rendered soft or letterboxed.
+
+         Every card is generated at exactly 1200x630, so the width and height
+         below hold for the per-page cards as well as the default. If a card
+         is ever produced at another size these two have to move with it. -->
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Pro Se Fair Play Mediation, LLC" />
+    <meta property="og:image:alt" content={ogImageAlt ?? title} />
 
     <!-- Twitter card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL("/og-image.jpg", Astro.site).href} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Schema.org structured data for the business. Using
          ProfessionalService rather than LegalService to stay
