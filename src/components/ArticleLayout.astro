@@ -25,7 +25,16 @@ interface Props {
 const { slug, title, kicker, lede, description } = Astro.props;
 ---
 
-<BaseLayout title={`${title} · Pro Se Fair Play Mediation`} description={description}>
+{/*
+  The shared guides card, not a per-article one. The weekly workflow publishes
+  without a human in the loop, so an article-specific card would mean every
+  generated page shipped pointing at an image nobody had made.
+*/}
+<BaseLayout
+  title={`${title} · Pro Se Fair Play Mediation`}
+  description={description}
+  ogImage="/og/guides.jpg"
+>
   <ArticleSchema slug={slug} />
 
   <header class="article-header">
