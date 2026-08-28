@@ -1,0 +1,142 @@
+---
+/**
+ * Mobile-only sticky booking bar.
+ *
+ * Most search and AI traffic arrives on a phone, reads part of a page, and
+ * leaves without ever reaching the calendar at the bottom. This keeps one
+ * action permanently reachable without covering the content.
+ *
+ * Deliberately restrained: a small bottom bar is fine, but a full-screen
+ * mobile interstitial is the pattern Google penalises, so this is a bar and
+ * it never covers the page.
+ *
+ * Suppressed where it would be noise: /book and /pay are already the action,
+ * and the thank-you pages are post-purchase.
+ *
+ * Appears only after the reader has scrolled past the hero, so it does not
+ * greet a first-time visitor with a sales bar before they have read anything.
+ */
+const CALL = "+15619410896";
+---
+
+<div class="scta" data-scta hidden aria-hidden="true">
+  <a
+    class="scta-call"
+    href={`tel:${CALL}`}
+    aria-label="Call 561-941-0896"
+    data-scta-call
+  >
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z"/>
+    </svg>
+    <span class="scta-call-text">Call</span>
+  </a>
+
+  <a class="scta-book" href="/book" data-scta-book>
+    Book a free consultation
+  </a>
+</div>
+
+<script is:inline>
+  (function () {
+    var bar = document.querySelector("[data-scta]");
+    if (!bar) return;
+
+    // Only show once the reader is past the hero — roughly one screen.
+    var TRIGGER = Math.max(500, Math.round(window.innerHeight * 0.8));
+    var shown = false;
+
+    function update() {
+      var past = window.scrollY > TRIGGER;
+      if (past === shown) return;
+      shown = past;
+      if (past) {
+        bar.hidden = false;
+        bar.setAttribute("aria-hidden", "false");
+        // next frame, so the transition actually runs
+        requestAnimationFrame(function () { bar.classList.add("is-up"); });
+        document.documentElement.classList.add("has-scta");
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "sticky_cta_shown", { page: location.pathname });
+        }
+      } else {
+        bar.classList.remove("is-up");
+        bar.setAttribute("aria-hidden", "true");
+        document.documentElement.classList.remove("has-scta");
+      }
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("pageshow", update);
+    update();
+
+    var book = bar.querySelector("[data-scta-book]");
+    var call = bar.querySelector("[data-scta-call]");
+    if (book) book.addEventListener("click", function () {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "sticky_cta_click", { action: "book", page: location.pathname });
+      }
+    });
+    if (call) call.addEventListener("click", function () {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "sticky_cta_click", { action: "call", page: location.pathname });
+      }
+    });
+  })();
+</script>
+
+<style>
+  .scta {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 55;                 /* under the chat widget's 60 */
+    display: none;               /* desktop: never */
+    gap: 0.5rem;
+    align-items: stretch;
+    padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+    background: var(--color-navy-deep);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.22);
+    transform: translateY(100%);
+    transition: transform 0.25s var(--ease-out, ease);
+  }
+  .scta.is-up { transform: translateY(0); }
+
+  .scta-call,
+  .scta-book {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 3px;
+    min-height: 48px;            /* WCAG 2.5.8 target size */
+    padding: 0 0.9rem;
+  }
+  .scta-call {
+    flex: 0 0 auto;
+    color: var(--color-cream);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  .scta-call-text { font-size: 0.95rem; }
+  .scta-book {
+    flex: 1 1 auto;
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    font-size: 1rem;
+  }
+  .scta-call:focus-visible,
+  .scta-book:focus-visible {
+    outline: 3px solid var(--color-cream);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 860px) {
+    .scta { display: flex; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scta { transition: none; }
+  }
+</style>

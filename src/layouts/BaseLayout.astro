@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import MusicPlayer from "../components/MusicPlayer.astro";
 import ChatWidget from "../components/ChatWidget.astro";
+import StickyCta from "../components/StickyCta.astro";
 import { BING_SITE_VERIFICATION } from "../consts.ts";
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
   noindex?: boolean;
   /** Suppress the chat widget. Set on checkout and post-payment pages. */
   noChat?: boolean;
+  /** Suppress the mobile sticky booking bar (already the action, or post-purchase). */
+  noStickyCta?: boolean;
   /**
    * Per-page link-preview card, root-relative (e.g. "/og/faq.jpg"). Cards live
    * in public/og/ and are built by scripts/generate-og-images.mjs; that script
@@ -28,6 +31,7 @@ const {
   description = "Mediation and document preparation for self-represented individuals. I help you walk into court informed, prepared, and never alone.",
   noindex = false,
   noChat = false,
+  noStickyCta = false,
   ogImage = "/og-image.jpg",
   ogImageAlt,
 } = Astro.props;
@@ -281,6 +285,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <Footer />
     <MusicPlayer />
     {!noChat && <ChatWidget />}
+    {!noStickyCta && <StickyCta />}
 
     {/*
       Floating bottom-left slogan — disabled in favor of an in-nav slogan.

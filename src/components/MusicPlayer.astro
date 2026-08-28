@@ -44,6 +44,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     bottom: 1.25rem;
     left: 1.25rem;
     z-index: 60;
+    transition: bottom 0.25s var(--ease-out, ease);
     display: flex;
     align-items: center;
     gap: 0.15rem;
@@ -132,6 +133,12 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     visibility: hidden;
     pointer-events: none;
   }
+
+  /* Lifted clear of the mobile sticky booking bar while it is showing. */
+  @media (max-width: 860px) {
+    :global(html.has-scta) .music-player { bottom: calc(1.25rem + 68px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .music-player { transition: none; } }
 </style>
 
 <script is:inline>
