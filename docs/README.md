@@ -13,6 +13,11 @@ from `src/pages`, so nothing here is published.
 | `compliance/observation-bottleneck.md` | Routes to the three observations outstanding for Florida Supreme Court family certification. |
 | `tracking/` | Monthly AI-answer checks and logs. |
 
+**Standing decision:** the Google Business Profile name ("ProSe Fair Play
+Mediation LLC") is deliberately left as it is, even though the site says "Pro Se
+Fair Play Mediation LLC". Renaming risks re-verification on a listing with 28
+five-star reviews. Do not re-open it.
+
 Two rules govern everything here:
 
 - **Never use a real case detail.** § 44.405 makes mediation communications

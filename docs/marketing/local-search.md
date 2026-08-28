@@ -49,6 +49,18 @@ Ordered by impact. Do 1 and 2 this week.
 
 ---
 
+## ⛔ Decided: leave the Business Profile name alone
+
+The listing reads **"ProSe Fair Play Mediation LLC"** — one word, capital S —
+while the site and all schema say **"Pro Se Fair Play Mediation LLC"**.
+
+**Decision, 2026-08-28: do not rename it.** The profile carries 28 reviews at
+5.0, a name change can trigger re-verification, and Google matches minor entity
+variants well enough that the spelling gap costs less than the risk of
+disrupting a listing that is already the practice's strongest local asset.
+
+Do not raise this again. Everything else in the audit below still applies.
+
 ## 1. Google Business Profile — you already have one, so this is an audit
 
 **Updated: you have 28 Google reviews.** That means an established, active profile —
