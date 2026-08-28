@@ -8,6 +8,7 @@ const facts = [
   { label: "Blocks", value: "2, 4, or 8 hours" },
   { label: "My role", value: "Neutral third party" },
 ];
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -200,6 +201,10 @@ const facts = [
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="svc-divorce-mediation" />
 </BaseLayout>
 
 <style>

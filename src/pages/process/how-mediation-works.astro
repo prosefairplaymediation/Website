@@ -53,6 +53,7 @@ const outcomes = [
     body: `Mediation concludes in impasse, and the case proceeds through the court process for resolution of the remaining disputes. An impasse does not affect either party’s legal rights or standing before the court.`,
   },
 ];
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 {/*
@@ -154,6 +155,10 @@ const outcomes = [
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="guide-how-it-works" />
 </BaseLayout>
 
 <style>

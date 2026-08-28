@@ -59,6 +59,7 @@ const counties = [
       "A largely rural circuit where travel to the courthouse is a real cost, which is part of why remote sessions suit it.",
   },
 ];
+import InlineScheduler from "../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -195,6 +196,10 @@ const counties = [
       </a>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="areas-served" />
 </BaseLayout>
 
 <style>

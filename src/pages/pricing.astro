@@ -40,6 +40,7 @@ const services = [
     payHref: "/pay#document-services",
   },
 ];
+import InlineScheduler from "../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -239,6 +240,10 @@ const services = [
       </article>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="pricing" />
 </BaseLayout>
 
 <style>

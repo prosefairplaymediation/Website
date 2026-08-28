@@ -10,6 +10,7 @@ const facts = [
   { label: "Includes", value: "Customized to your family" },
 ];
 
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -156,6 +157,10 @@ const facts = [
       </div>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="svc-parenting-plan" heading="Book a free, private consultation" blurb="Fifteen minutes by Zoom, at no cost. We confirm what you have already agreed and whether a Plan alone covers it." />
 </BaseLayout>
 
 <style>

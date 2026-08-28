@@ -1,0 +1,142 @@
+---
+/**
+ * A booking calendar placed inline at the end of a content page.
+ *
+ * Why this exists: the guides and service pages are where search and AI
+ * traffic lands, and they previously offered only a *link* to /book. A reader
+ * who had just spent four minutes on an article and was ready to act had to
+ * click, wait for a page load, and re-commit. That gap is where conversion
+ * was being lost.
+ *
+ * Why it is lazy: Calendly's widget is a heavy third-party script. Loading it
+ * eagerly on every content page would cost Core Web Vitals on pages people
+ * frequently bounce from, and Core Web Vitals feed back into search ranking.
+ * The script is injected only once the section scrolls into view, so a reader
+ * who never reaches the bottom never pays for it.
+ *
+ * Degrades cleanly: with JavaScript off, the button below is a normal link to
+ * /book, which has its own embed.
+ */
+interface Props {
+  /** Overrides the default heading. */
+  heading?: string;
+  /** Overrides the default supporting line. */
+  blurb?: string;
+  /** Where the GA4 event says the booking started. */
+  source?: string;
+}
+const {
+  heading = "Book a free, private consultation",
+  blurb = "Fifteen minutes by Zoom, at no cost. We establish whether mediation fits your situation — and if it does not, you will be told that too.",
+  source = "inline",
+} = Astro.props;
+
+const calendlyUrl =
+  "https://calendly.com/prosefairplaymediation-info/free-consultation";
+---
+
+<section class="isched" data-isched data-source={source}>
+  <div class="container-narrow">
+    <h2 class="display isched-title">{heading}</h2>
+    <p class="isched-blurb">{blurb}</p>
+
+    <div class="isched-frame">
+      <div
+        class="calendly-inline-widget isched-widget"
+        data-url={calendlyUrl}
+        data-isched-widget
+      >
+        <noscript>
+          <p class="isched-fallback">
+            <a class="btn btn-primary" href="/book">Open the booking calendar</a>
+          </p>
+        </noscript>
+      </div>
+    </div>
+
+    <p class="isched-foot">
+      Prefer to talk first? Call <a class="link-underline" href="tel:+15619410896">561-941-0896</a>
+      or <a class="link-underline" href="/contact">send a message</a>.
+    </p>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var section = document.querySelector("[data-isched]");
+    if (!section) return;
+
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement("script");
+      s.src = "https://assets.calendly.com/assets/external/widget.js";
+      s.async = true;
+      document.body.appendChild(s);
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "scheduler_view", {
+          source: section.getAttribute("data-source") || "inline",
+        });
+      }
+    }
+
+    // Older browsers without IntersectionObserver just load it immediately —
+    // a working calendar matters more than the saved bytes.
+    if (!("IntersectionObserver" in window)) { load(); return; }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { load(); io.disconnect(); }
+        });
+      },
+      // Start loading before it is on screen so the calendar is painted by
+      // the time the reader arrives, rather than popping in underneath them.
+      { rootMargin: "600px 0px" }
+    );
+    io.observe(section);
+  })();
+</script>
+
+<style>
+  .isched {
+    padding-block: var(--space-2xl);
+    background: var(--color-cream-deep, var(--color-cream));
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+  }
+  .isched-title {
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    margin: 0 0 0.5rem;
+  }
+  .isched-blurb {
+    max-width: 58ch;
+    margin: 0 0 var(--space-lg);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .isched-frame {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  /* Reserve the height up front so the page does not jump when the widget
+     paints. Calendly's inline embed needs roughly this much room. */
+  .isched-widget {
+    min-width: 280px;
+    height: 700px;
+  }
+  .isched-fallback {
+    padding: var(--space-lg);
+    text-align: center;
+  }
+  .isched-foot {
+    margin-top: var(--space-md);
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+  @media (max-width: 640px) {
+    .isched-widget { height: 900px; }
+  }
+</style>

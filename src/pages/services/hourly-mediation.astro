@@ -10,6 +10,7 @@ const facts = [
   { label: "Sessions", value: "Half-day, full-day, same-day" },
 ];
 
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -188,6 +189,10 @@ const facts = [
       </div>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="svc-hourly" />
 </BaseLayout>
 
 <style>

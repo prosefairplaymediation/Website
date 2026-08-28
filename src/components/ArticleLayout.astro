@@ -15,6 +15,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ArticleSchema from "./ArticleSchema.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
+import InlineScheduler from "./InlineScheduler.astro";
 
 interface Props {
   slug: string;
@@ -65,14 +66,13 @@ const { slug, title, kicker, lede, description } = Astro.props;
     </div>
   </section>
 
-  <section class="article-cta">
-    <div class="container-narrow article-cta-inner">
-      <a class="btn btn-primary article-cta-btn" href="/book">
-        Book a Free, Private Consultation
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
+  {/*
+    The calendar itself, not a link to it. A reader who has just finished the
+    article is at peak intent; sending them to another page to re-commit is
+    where the conversion was being lost. Lazy-loaded, so a reader who bounces
+    never pays for the script.
+  */}
+  <InlineScheduler source="article" />
 </BaseLayout>
 
 <style>

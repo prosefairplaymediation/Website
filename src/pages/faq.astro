@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { faqs } from "../lib/faq.ts";
 
+import InlineScheduler from "../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -94,6 +95,10 @@ import { faqs } from "../lib/faq.ts";
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="faq" />
 </BaseLayout>
 
 <style>

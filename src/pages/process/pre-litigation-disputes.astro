@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ArticleSchema from "../../components/ArticleSchema.astro";
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -117,6 +118,10 @@ import ArticleSchema from "../../components/ArticleSchema.astro";
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="guide-pre-litigation" />
 </BaseLayout>
 
 <style>

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 import GoldService from "../../components/GoldService.astro";
+import InlineScheduler from "../../components/InlineScheduler.astro";
 ---
 
 <BaseLayout
@@ -56,6 +57,10 @@ import GoldService from "../../components/GoldService.astro";
       <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
     </div>
   </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <InlineScheduler source="svc-gold" heading="Discuss Gold Service" blurb="Gold arrangements are quoted per matter. Fifteen minutes by Zoom to work out the format, the venue and the figure — at no cost." />
 </BaseLayout>
 
 <style>
