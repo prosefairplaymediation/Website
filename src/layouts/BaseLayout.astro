@@ -24,7 +24,7 @@ interface Props {
   ogImageAlt?: string;
 }
 const {
-  title = "Pro Se Fair Play Mediation, LLC",
+  title = "Pro Se Fair Play Mediation LLC",
   description = "Mediation and document preparation for self-represented individuals. I help you walk into court informed, prepared, and never alone.",
   noindex = false,
   noChat = false,
@@ -84,7 +84,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
 
     <!-- Open Graph / link-preview tags (iMessage, Slack, Facebook, etc.) -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Pro Se Fair Play Mediation, LLC" />
+    <meta property="og:site_name" content="Pro Se Fair Play Mediation LLC" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
@@ -148,7 +148,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      "name": "Pro Se Fair Play Mediation, LLC",
+      "name": "Pro Se Fair Play Mediation LLC",
       "alternateName": "Pro Se Fair Play Mediation",
       "url": "https://prosefairplaymediation.com",
       "description": "High-Conflict Resolution Mediator providing professional mediation and court-ready family law document preparation for self-represented (pro se) individuals.",
