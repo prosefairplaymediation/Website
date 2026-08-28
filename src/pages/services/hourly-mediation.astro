@@ -10,6 +10,7 @@ const facts = [
   { label: "Sessions", value: "Half-day, full-day, same-day" },
 ];
 
+import FaqBlock from "../../components/FaqBlock.astro";
 import InlineScheduler from "../../components/InlineScheduler.astro";
 import LeadCapture from "../../components/LeadCapture.astro";
 ---
@@ -193,6 +194,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="hourly-mediation" />
   <InlineScheduler source="svc-hourly" />
   <LeadCapture source="svc-hourly" />
 </BaseLayout>

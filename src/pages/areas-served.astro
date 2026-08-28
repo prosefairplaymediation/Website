@@ -59,6 +59,7 @@ const counties = [
       "A largely rural circuit where travel to the courthouse is a real cost, which is part of why remote sessions suit it.",
   },
 ];
+import FaqBlock from "../components/FaqBlock.astro";
 import InlineScheduler from "../components/InlineScheduler.astro";
 import LeadCapture from "../components/LeadCapture.astro";
 ---
@@ -200,6 +201,7 @@ import LeadCapture from "../components/LeadCapture.astro";
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="areas-served" heading="Questions about where I work" />
   <InlineScheduler source="areas-served" />
   <LeadCapture source="areas-served" />
 </BaseLayout>

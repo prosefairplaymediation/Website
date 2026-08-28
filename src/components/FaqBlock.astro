@@ -1,0 +1,138 @@
+---
+/**
+ * A visible question-and-answer section that also emits the matching
+ * FAQPage structured data, both generated from one array.
+ *
+ * The single source is the point. Search engines and answer engines reject
+ * — or worse, quietly distrust — FAQ markup whose text is not present on the
+ * page, and the usual way that happens is a hand-written JSON-LD block that
+ * drifts from the copy above it over a few edits. Here it cannot drift,
+ * because there is only one copy of the text.
+ *
+ * On the value of this markup in 2026: Google retired FAQ rich results for
+ * ordinary business sites in 2023, so this will not produce an expanded blue
+ * link. It is still read by Bing and by the AI answer engines, which is where
+ * the traffic worth having now comes from, and the visible accordion earns its
+ * place regardless of what any crawler does with it.
+ */
+import { pageFaqs, type Faq } from "../lib/pageFaqs";
+
+interface Props {
+  /** Key into `pageFaqs`. */
+  set: string;
+  heading?: string;
+}
+
+const { set, heading = "Questions about this service" } = Astro.props;
+const items: Faq[] = pageFaqs[set] ?? [];
+if (!items.length) {
+  throw new Error(`FaqBlock: no questions defined for set "${set}" in src/lib/pageFaqs.ts`);
+}
+---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  })}
+/>
+
+<section class="pfaq" aria-labelledby={`pfaq-${set}`}>
+  <div class="container-narrow">
+    <h2 class="pfaq-title" id={`pfaq-${set}`}>{heading}</h2>
+    <ul class="pfaq-list">
+      {items.map((f) => (
+        <li class="pfaq-item">
+          <details class="pfaq-details">
+            <summary class="pfaq-summary">
+              <span>{f.q}</span>
+              <span class="pfaq-toggle" aria-hidden="true"></span>
+            </summary>
+            <p class="pfaq-answer">{f.a}</p>
+          </details>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .pfaq {
+    padding-block: var(--space-2xl);
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-divider);
+  }
+  .pfaq-title {
+    font-family: var(--font-display, inherit);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin: 0 0 var(--space-lg);
+    color: var(--color-navy);
+  }
+  .pfaq-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pfaq-item { border-bottom: 1px solid var(--color-divider); }
+  .pfaq-item:last-child { border-bottom: 0; }
+
+  .pfaq-details summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+    /* Comfortably past the 44px tap-target minimum on a phone. */
+    padding: 1rem 0;
+    color: var(--color-navy);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .pfaq-details summary::-webkit-details-marker { display: none; }
+  .pfaq-details summary:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+  .pfaq-details:hover .pfaq-summary { color: var(--color-gold-deep); }
+
+  /* Plus sign drawn in CSS: no icon font, no extra request. */
+  .pfaq-toggle {
+    position: relative;
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+    margin-top: 0.3rem;
+  }
+  .pfaq-toggle::before,
+  .pfaq-toggle::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 1.5px;
+    background: var(--color-gold);
+    transition: transform 0.18s ease;
+  }
+  .pfaq-toggle::after { transform: rotate(90deg); }
+  .pfaq-details[open] .pfaq-toggle::after { transform: rotate(0deg); }
+
+  .pfaq-answer {
+    margin: 0 0 1.1rem;
+    padding-right: 2rem;
+    max-width: 68ch;
+    color: var(--color-ink-soft);
+    line-height: 1.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pfaq-toggle::before,
+    .pfaq-toggle::after { transition: none; }
+  }
+</style>

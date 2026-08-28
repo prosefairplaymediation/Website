@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 import GoldService from "../../components/GoldService.astro";
+import FaqBlock from "../../components/FaqBlock.astro";
 import InlineScheduler from "../../components/InlineScheduler.astro";
 import LeadCapture from "../../components/LeadCapture.astro";
 ---
@@ -61,6 +62,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="gold-service" />
   <InlineScheduler source="svc-gold" heading="Discuss Gold Service" blurb="Gold arrangements are quoted per matter. Fifteen minutes by Zoom to work out the format, the venue and the figure — at no cost." />
   <LeadCapture source="svc-gold" />
 </BaseLayout>

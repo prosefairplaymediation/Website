@@ -40,6 +40,7 @@ const services = [
     payHref: "/pay#document-services",
   },
 ];
+import FaqBlock from "../components/FaqBlock.astro";
 import InlineScheduler from "../components/InlineScheduler.astro";
 import LeadCapture from "../components/LeadCapture.astro";
 ---
@@ -244,6 +245,7 @@ import LeadCapture from "../components/LeadCapture.astro";
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="pricing" heading="Questions about fees and payment" />
   <InlineScheduler source="pricing" />
   <LeadCapture source="pricing" />
 </BaseLayout>

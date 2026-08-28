@@ -10,6 +10,7 @@ const facts = [
   { label: "Includes", value: "Customized to your family" },
 ];
 
+import FaqBlock from "../../components/FaqBlock.astro";
 import InlineScheduler from "../../components/InlineScheduler.astro";
 import LeadCapture from "../../components/LeadCapture.astro";
 ---
@@ -161,6 +162,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="parenting-plan" />
   <InlineScheduler source="svc-parenting-plan" heading="Book a free, private consultation" blurb="Fifteen minutes by Zoom, at no cost. We confirm what you have already agreed and whether a Plan alone covers it." />
   <LeadCapture source="svc-parenting-plan" />
 </BaseLayout>
