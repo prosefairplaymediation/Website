@@ -1,0 +1,100 @@
+---
+/**
+ * Shared shell for the standalone policy pages (/refund, /cancellation).
+ *
+ * These pages carry the terms a client is held to, so two things matter beyond
+ * the copy: they state the version and date they took effect, and they are
+ * indexable. A policy nobody can cite is a policy that gets argued about.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  titleItalic: string;
+  pageTitle: string;
+  description: string;
+  lede: string;
+  effective: string;
+  version: string;
+}
+
+const { title, titleItalic, pageTitle, description, lede, effective, version } =
+  Astro.props;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/" class="back-link">
+          <span class="arrow-left" aria-hidden="true">&larr;</span>
+          Home
+        </a>
+        <span class="kicker-sep" aria-hidden="true">&middot;</span>
+        Policies
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">
+        {title} <span class="display-italic">{titleItalic}</span>
+      </h1>
+      <p class="lede reveal reveal-d3">{lede}</p>
+    </div>
+  </header>
+
+  <section class="policy-page">
+    <div class="container-narrow">
+      <slot />
+
+      <footer class="policy-meta">
+        <p>
+          <strong>Effective {effective}. Version {version}.</strong>
+          This policy may be updated from time to time. The version in effect at
+          the time of your payment is the version that applies to that payment.
+        </p>
+        <p>
+          Questions about a charge or a cancellation:
+          <a class="link-underline" href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>
+          or <a class="link-underline" href="tel:+15619410896">561-941-0896</a>.
+        </p>
+      </footer>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .policy-page { padding-block: var(--space-2xl); }
+  .policy-page h2 {
+    font-family: var(--font-display, inherit);
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    color: var(--color-navy);
+    margin: var(--space-2xl) 0 var(--space-sm);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-divider);
+  }
+  .policy-page > .container-narrow > :global(*:first-child) h2 { border-top: 0; }
+  .policy-page h3 {
+    font-size: 1.02rem;
+    letter-spacing: 0.02em;
+    color: var(--color-gold-deep);
+    margin: var(--space-lg) 0 0.4rem;
+  }
+  .policy-page p,
+  .policy-page li {
+    line-height: 1.72;
+    color: var(--color-ink-soft);
+    max-width: 70ch;
+  }
+  .policy-page p { margin: 0 0 1rem; }
+  .policy-page ul { margin: 0 0 1rem; padding-left: 1.15rem; }
+  .policy-page li { margin-bottom: 0.4rem; }
+  .policy-page .policy-lead {
+    font-size: 1.05rem;
+    color: var(--color-ink);
+  }
+  .policy-meta {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 2px solid var(--color-divider);
+    font-size: 0.9rem;
+  }
+  .policy-meta p { margin-bottom: 0.6rem; }
+</style>

@@ -146,100 +146,37 @@ import LeadCapture from "../components/LeadCapture.astro";
   <!-- ========================== REFUND POLICIES ========================== -->
   <section class="pricing-body pricing-body-alt">
     <div class="container-narrow">
-      <h2 class="section-label">Refund &amp; Cancellation Policies</h2>
-
-      <article class="policy">
-        <h3 class="policy-title display">Mediation</h3>
-        <div class="policy-body">
-          <p>
-            At Pro Se Fair Play Mediation LLC, mediation sessions involve
-            reserved professional time, scheduling coordination between
-            parties, and advance preparation to ensure a productive and
-            structured process. I understand that life happens and strive
-            to maintain a policy that is both fair to clients and
-            respectful of the time reserved for each matter.
-          </p>
-
-          <h4 class="policy-subhead">Cancellations &amp; Rescheduling</h4>
-          <p>
-            Cancellations or rescheduling requests made more than
-            twenty-four (24) hours prior to a scheduled session are
-            eligible for either:
-          </p>
-          <ul class="policy-list">
-            <li>a full refund to the original payment method, or</li>
-            <li>a full session credit to be applied toward a future mediation session.</li>
-          </ul>
-          <p>
-            For cancellations made less than twenty-four (24) hours
-            before the scheduled session, fifty percent (50%) of the
-            mediation retainer will be retained as a reserved session
-            and preparation fee. The remaining balance may be applied
-            as a one-time credit toward a rescheduled session scheduled
-            within thirty (30) days, subject to availability.
-          </p>
-          <p>
-            Clients who fail to appear for a scheduled mediation session
-            without notice will forfeit the full mediation retainer.
-          </p>
-
-          <h4 class="policy-subhead">Courtesy Rescheduling</h4>
-          <p>
-            One courtesy reschedule may be accommodated for unforeseen
-            circumstances, provided reasonable notice is given and
-            scheduling availability permits.
-          </p>
-
-          <h4 class="policy-subhead">Emergency Circumstances</h4>
-          <p>
-            Emergency situations and unforeseen events may be considered
-            on a case-by-case basis at the sole discretion of Pro Se
-            Fair Play Mediation LLC.
-          </p>
-
-          <h4 class="policy-subhead">Refund Processing</h4>
-          <p>
-            Approved refunds will be processed to the original payment
-            method. Processing times may vary depending on the financial
-            institution or payment provider.
-          </p>
-
-          <h4 class="policy-subhead">Reserved Professional Time</h4>
-          <p>
-            By scheduling a mediation session, clients acknowledge that
-            mediation appointments involve reserved professional time
-            and preparation that cannot typically be reassigned on short
-            notice. This policy is intended to maintain fairness,
-            scheduling integrity, and availability for all parties.
-          </p>
-        </div>
-      </article>
-
-      <article class="policy">
-        <h3 class="policy-title display">Document Preparation</h3>
-        <div class="policy-body">
-          <p>
-            Document preparation services are customized for each client
-            and matter. Because of the time, attention, and preparation
-            involved, refunds are available prior to the start of
-            drafting or document preparation work.
-          </p>
-          <p>
-            Once work has begun, payments may be applied as a credit
-            toward ongoing or future services based on the status of the
-            matter and the work completed.
-          </p>
-          <p>
-            Once completed drafts or finalized documents have been
-            delivered, services are considered earned and non-refundable.
-          </p>
-          <p>
-            I understand that unexpected situations can arise, and
-            reasonable requests related to unforeseen circumstances will
-            always be considered with care on a case-by-case basis.
-          </p>
-        </div>
-      </article>
+      <h2 class="section-label">Refund &amp; Cancellation</h2>
+      <p class="policy-summary-lead">
+        Both policies now have pages of their own, so they can be read, linked
+        to and cited without scrolling through a price list. The short version:
+      </p>
+      <ul class="policy-summary-list">
+        <li>
+          More than <strong>24 hours'</strong> notice on a mediation session — full
+          refund or a full session credit, your choice.
+        </li>
+        <li>
+          Less than 24 hours — <strong>50%</strong> of the retainer is retained,
+          and the balance becomes a one-time credit toward a session within 30 days.
+        </li>
+        <li>
+          <strong>If the other party declines to mediate at all, the paying party is
+          refunded in full</strong>, whatever the notice.
+        </li>
+        <li>
+          Document preparation is fully refundable <strong>before</strong> drafting
+          starts, and earned once it has.
+        </li>
+        <li>
+          Hurricanes, evacuation orders and outages are rescheduled at no charge.
+        </li>
+      </ul>
+      <p class="policy-summary-links">
+        <a class="link-underline" href="/cancellation">Cancellation &amp; Rescheduling Policy</a>
+        <span aria-hidden="true"> &middot; </span>
+        <a class="link-underline" href="/refund">Refund Policy</a>
+      </p>
     </div>
   </section>
 
@@ -428,6 +365,15 @@ import LeadCapture from "../components/LeadCapture.astro";
     padding-top: var(--space-2xl);
     border-top: 1px solid var(--color-divider);
   }
+  .policy-summary-lead { max-width: 62ch; line-height: 1.7; }
+  .policy-summary-list {
+    max-width: 66ch;
+    margin: var(--space-md) 0;
+    padding-left: 1.15rem;
+    line-height: 1.7;
+  }
+  .policy-summary-list li { margin-bottom: 0.55rem; }
+  .policy-summary-links { margin-top: var(--space-lg); font-size: 1.02rem; }
   .policy-title {
     font-size: var(--step-3);
     line-height: 1.1;

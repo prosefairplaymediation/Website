@@ -141,7 +141,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "What happens if I need to cancel a mediation session?",
-      a: "Cancellations or rescheduling requests made more than twenty-four hours before a session are eligible for either a full refund to the original payment method or a full session credit toward a future session. Inside twenty-four hours, fifty percent of the mediation retainer is retained as a reserved session and preparation fee, and the remaining balance may be applied as a one-time credit toward a session rescheduled within thirty days, subject to availability. The full Refund and Cancellation Policy on this page sets out the remaining terms, including failure to appear.",
+      a: "Cancellations or rescheduling requests made more than twenty-four hours before a session are eligible for either a full refund to the original payment method or a full session credit toward a future session. Inside twenty-four hours, fifty percent of the mediation retainer is retained as a reserved session and preparation fee, and the remaining balance may be applied as a one-time credit toward a session rescheduled within thirty days, subject to availability. The Cancellation and Rescheduling Policy and the Refund Policy each have their own page and set out the remaining terms, including failure to appear.",
     },
     {
       q: "Can one party pay the whole mediation fee?",
