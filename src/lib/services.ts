@@ -47,13 +47,16 @@ export const services: ServiceDef[] = [
     unit: "HUR",
   },
   {
+    // No published price. Gold arrangements are bespoke -- they can include a
+    // private off-site venue and multi-day formats, some carrying third-party
+    // costs -- so a figure is quoted per matter. Leaving `price` unset makes
+    // ServiceSchema omit the Offer price rather than assert one.
     slug: "gold-service",
     short: "Gold Service",
-    priceLabel: "$650 flat",
+    priceLabel: "Inquire within",
     name: "Gold Service Mediation",
     description:
-      "The premium mediation tier, emphasising discretion, privacy and close professional oversight throughout.",
-    price: "650.00",
+      "The premium mediation tier, emphasizing discretion, privacy and close professional oversight throughout. Priced per matter.",
   },
   {
     slug: "parenting-plan",
