@@ -3,13 +3,9 @@
 Log every answer at publication. This prevents duplicate posting (a spam signal
 on both platforms) and is the only record of what's compounding.
 
-## Reddit
-
 | Date | Sub | Thread URL | Answer # | Google rank of thread | Upvotes @30d | Notes |
 |---|---|---|---|---|---|---|
 | | | | | | | |
-
-## Quora
 
 | Date | Question URL | Answer # | Views at publish | Views @30d | Notes |
 |---|---|---|---|---|---|
@@ -19,7 +15,6 @@ on both platforms) and is the only record of what's compounding.
 
 Run the prompt set in `prompt-set.md`. One row per prompt per engine.
 
-| Month | Prompt # | Engine | Reddit/Quora cited? | Your answer cited? | Named? | Notes |
 |---|---|---|---|---|---|---|
 | | | | | | | |
 

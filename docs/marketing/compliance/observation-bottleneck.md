@@ -4,7 +4,6 @@ You've said the blocker on Supreme Court family certification is finding
 mediators willing to let you observe. That's a real and common bottleneck — sitting
 an observer costs the host mediator party consent, room logistics, and time, with
 nothing in return. Worth solving, because the credential materially expands both
-your market (court-ordered referrals) and your Reddit credibility.
 
 Approaches, roughly in order of hit rate:
 
@@ -44,7 +43,6 @@ you sit once usually let you sit again — and refer you to colleagues.
 
 ## Meanwhile
 
-Don't wait on this to start the Reddit and Quora program. Private and pro se work
 doesn't require the certification, the credential language in `../IDENTITY.md`
 is accurate today, and the answers you publish now keep accruing citation value
 while you chase observation slots. When the certification lands, you update six

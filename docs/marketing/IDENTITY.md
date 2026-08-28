@@ -13,7 +13,6 @@ going to put words in your mouth about your own credentials.
 
 | Token | Value | Notes |
 |---|---|---|
-| `{{NAME}}` | | First name is enough and reads better on Reddit |
 | `{{PRACTICE}}` | Pro Se Fair Play Mediation | Confirm exact styling — "Prose" vs "Pro Se" |
 | `{{COUNTY}}` | | Primary county; drives circuit-specific detail |
 | `{{CIRCUIT}}` | | Judicial circuit number for that county |
@@ -41,22 +40,18 @@ certification in high-conflict resolution**. That's how the libraries now read.
 
 > **certified mediator with advanced certification in high-conflict resolution**
 
-Long form, for your Quora credential and first comment in a new subreddit:
-
 > *"I'm a certified mediator with advanced certification in high-conflict
 > resolution. I work with couples in Florida privately — mostly self-represented
 > people who want to stay out of court."*
 
 ## One thing to fill in: `{{CERT_BODY}}`
 
-Name the organization that certified you, at least on your website and Quora
 profile. "Certified mediator" is stronger with an issuer attached and weaker
 without one:
 
 > "certified mediator (**{{CERT_BODY}}**), with advanced certification in
 > high-conflict resolution"
 
-Two reasons. First, on Reddit somebody eventually asks "certified by whom?" —
 having the issuer ready ends that exchange in one line instead of letting it
 become the thread. Second, naming an issuer is the cleanest way to show you're
 describing a training credential rather than implying a state one.
@@ -91,7 +86,6 @@ being calm and neutral, which is undifferentiated. "I'm specifically trained for
 the hard ones" is differentiated.
 
 Consequence for the program: **lead with high-conflict, not with general
-divorce mediation.** Reddit answer #7 and Quora answer #3 are the flagship
 pieces. Prioritize them.
 
 ## Facts I verified and used throughout

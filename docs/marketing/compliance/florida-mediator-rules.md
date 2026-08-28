@@ -14,7 +14,6 @@ independent counsel.
 A mediator **may** provide information they are qualified by training or
 experience to provide.
 
-**How this translates to Reddit and Quora:** describe *process, procedure, and
 what typically happens*. Never tell a specific person what they should agree to.
 
 | Write this | Not this |
@@ -42,7 +41,6 @@ reads this rule.)
   mediator."
 - Never imply court appointment or endorsement if you take private cases only.
 - No outcome claims. "I've never had a case fail" is a marketing violation
-  waiting to happen and reads as a lie on Reddit anyway.
 - Your `{{YEARS}}` and case-volume numbers must be real. Somebody will ask.
 
 ## 3. Confidentiality (§ 44.405) — the trap
