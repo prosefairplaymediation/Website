@@ -1,29 +1,13 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import LegalLayout from "../../layouts/LegalLayout.astro";
 ---
 
-<BaseLayout
-  title="Disclaimer · Pro Se Fair Play Mediation"
+<LegalLayout
+  pageTitle="Disclaimer · Pro Se Fair Play Mediation"
   description="Legal disclaimer for Pro Se Fair Play Mediation & Document Preparation Services, LLC."
+  title="Disclaimer"
+  lede="Pro Se Fair Play Mediation LLC is not a law firm. What that means in practice, and what these services are and are not."
 >
-  <!-- ========================== HEADER ========================== -->
-  <header class="legal-header">
-    <div class="container legal-header-inner">
-      <p class="kicker reveal reveal-d1">
-        <a href="/" class="back-link">
-          <span class="arrow-left" aria-hidden="true">←</span>
-          Home
-        </a>
-        <span class="kicker-sep" aria-hidden="true">·</span>
-        Legal
-      </p>
-      <h1 class="display legal-title reveal reveal-d2">Disclaimer</h1>
-    </div>
-  </header>
-
-  <!-- ========================== BODY ========================== -->
-  <section class="legal-body">
-    <div class="container-narrow legal-prose">
       <p>
         Pro Se Fair Play Mediation LLC is not a law firm, and I am not
         acting as your attorney or legal representative. I do not provide
@@ -83,87 +67,4 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>
         so the issue can be reviewed and addressed.
       </p>
-    </div>
-  </section>
-</BaseLayout>
-
-<style>
-  .legal-header {
-    position: relative;
-    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
-    background:
-      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
-      var(--color-cream);
-    border-bottom: 1px solid var(--color-divider);
-    overflow: hidden;
-  }
-  .legal-header-inner { position: relative; max-width: 64rem; }
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--color-gold-deep);
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-  .back-link:hover { color: var(--color-navy); }
-  .arrow-left { transition: transform 0.3s var(--ease-out); }
-  .back-link:hover .arrow-left { transform: translateX(-3px); }
-  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
-  .legal-title {
-    margin-top: 1rem;
-    font-size: var(--step-5);
-    line-height: 1.02;
-    color: var(--color-navy);
-    letter-spacing: -0.025em;
-    font-weight: 400;
-  }
-
-  .legal-body {
-    padding-block: var(--space-2xl) var(--space-3xl);
-    background: var(--color-cream);
-  }
-  .legal-prose {
-    font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.7;
-    color: var(--color-ink-soft);
-  }
-  .legal-prose p + p { margin-top: 1.25rem; }
-  .legal-prose ul {
-    margin-block: 1.25rem;
-    padding-left: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-  .legal-prose li {
-    line-height: 1.55;
-  }
-  .legal-prose a {
-    color: var(--color-navy);
-    background-image: linear-gradient(var(--color-gold), var(--color-gold));
-    background-repeat: no-repeat;
-    background-size: 100% 1px;
-    background-position: 0 92%;
-  }
-  .legal-prose a:hover { color: var(--color-gold-deep); }
-
-  .section-h2 {
-    margin-top: var(--space-xl);
-    margin-bottom: 1rem;
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    color: var(--color-navy);
-    line-height: 1.05;
-    letter-spacing: -0.015em;
-    font-weight: 400;
-    padding-top: 1.25rem;
-    border-top: 2px solid var(--color-gold);
-  }
-
-  @media (max-width: 600px) {
-    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
-    .section-h2 { font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem); }
-  }
-</style>
+</LegalLayout>

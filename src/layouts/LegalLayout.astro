@@ -1,0 +1,202 @@
+---
+/**
+ * The single shell for every policy and legal page: /legal/privacy,
+ * /legal/disclaimer, /legal/terms, /refund, /cancellation.
+ *
+ * These five pages each carried their own near-identical copy of the same
+ * header and prose styling, which is how /refund and /cancellation ended up
+ * looking subtly unlike the rest of the site -- different heading sizes, a
+ * grey rule instead of the gold one, links without the gold underline. One
+ * layout means a new policy page inherits the type and color of the site
+ * rather than approximating it.
+ *
+ * Body content goes in the default slot and is styled by `.legal-prose`:
+ * write plain <h2 class="display section-h2">, <h3 class="section-h3">, <p>,
+ * <ul> and links, and they will match everything else.
+ */
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  /** <title> and the meta description. */
+  pageTitle: string;
+  description: string;
+  /** Small label above the heading, e.g. "Legal" or "Policies". */
+  kicker?: string;
+  /** Heading, split so the second half renders in italic gold. */
+  title: string;
+  titleItalic?: string;
+  lede?: string;
+  /** Rendered as a dated footer. Both or neither. */
+  effective?: string;
+  version?: string;
+}
+
+const {
+  pageTitle,
+  description,
+  kicker = "Legal",
+  title,
+  titleItalic,
+  lede,
+  effective,
+  version,
+} = Astro.props;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <!-- ========================== HEADER ========================== -->
+  <header class="legal-header">
+    <div class="container legal-header-inner">
+      <p class="kicker reveal reveal-d1">
+        <a href="/" class="back-link">
+          <span class="arrow-left" aria-hidden="true">&larr;</span>
+          Home
+        </a>
+        <span class="kicker-sep" aria-hidden="true">&middot;</span>
+        {kicker}
+      </p>
+      <h1 class="display legal-title reveal reveal-d2">
+        {title}{titleItalic && <> <span class="display-italic">{titleItalic}</span></>}
+      </h1>
+      {lede && <p class="lede reveal reveal-d3">{lede}</p>}
+    </div>
+  </header>
+
+  <!-- ========================== BODY ========================== -->
+  <section class="legal-body">
+    <div class="container-narrow legal-prose">
+      <slot />
+
+      {effective && version && (
+        <div class="legal-meta">
+          <p>
+            <strong>Effective {effective}. Version {version}.</strong> This
+            policy may be updated from time to time. The version in effect at
+            the time of your payment is the version that applies to that
+            payment.
+          </p>
+          <p>
+            Questions about a charge or a cancellation:
+            <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>
+            or <a href="tel:+15619410896">561-941-0896</a>.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <slot name="after-body" />
+</BaseLayout>
+
+<style is:global>
+  .legal-header {
+    position: relative;
+    padding-block: clamp(4rem, 6vw + 1rem, 6rem) clamp(2rem, 3vw, 3rem);
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(196, 154, 75, 0.08), transparent 55%),
+      var(--color-cream);
+    border-bottom: 1px solid var(--color-divider);
+    overflow: hidden;
+  }
+  .legal-header-inner { position: relative; max-width: 64rem; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-navy); }
+  .arrow-left { transition: transform 0.3s var(--ease-out); }
+  .back-link:hover .arrow-left { transform: translateX(-3px); }
+  .kicker-sep { color: var(--color-divider); margin-inline: 0.4rem; }
+  .legal-title {
+    margin-top: 1rem;
+    font-size: var(--step-5);
+    line-height: 1.02;
+    color: var(--color-navy);
+    letter-spacing: -0.025em;
+    font-weight: 400;
+  }
+  .legal-title .display-italic {
+    color: var(--color-gold-deep);
+    font-weight: 400;
+  }
+  .legal-header .lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+  }
+
+  .legal-body {
+    padding-block: var(--space-2xl) var(--space-3xl);
+    background: var(--color-cream);
+  }
+  .legal-prose {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .legal-prose p + p { margin-top: 1.25rem; }
+  .legal-prose strong { color: var(--color-navy); font-weight: 600; }
+  .legal-prose ul {
+    margin-block: 1.25rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .legal-prose li { line-height: 1.55; }
+  .legal-prose a {
+    color: var(--color-navy);
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: 0 92%;
+  }
+  .legal-prose a:hover { color: var(--color-gold-deep); }
+
+  .section-h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: 1rem;
+    font-size: var(--step-3);
+    color: var(--color-navy);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+  }
+  .section-h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Subhead within a section. Matches .policy-subhead on /pricing so the
+     two treatments of the same idea do not diverge again. */
+  .section-h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-navy);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+  }
+
+  .legal-meta {
+    margin-top: var(--space-2xl);
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 600px) {
+    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .section-h2 { font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem); }
+  }
+</style>

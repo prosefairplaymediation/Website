@@ -236,6 +236,8 @@ import LeadCapture from "../components/LeadCapture.astro";
     height: auto;
     border: 1px solid var(--color-divider);
     padding: 0.4rem;
+    /* Pure white on purpose, not --color-paper: a QR code needs a true-white
+       quiet zone to scan reliably in poor light. */
     background: #fff;
   }
   .zelle-scan-text { display: flex; flex-direction: column; gap: 0.9rem; }

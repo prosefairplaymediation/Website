@@ -33,7 +33,7 @@ const {
 
 <section class="lcap" data-lcap data-source={source} data-endpoint={LEAD_ENDPOINT} data-mode={LEAD_MODE} data-fallback={LEAD_FALLBACK_EMAIL}>
   <div class="container-narrow lcap-inner">
-    <h2 class="lcap-title">{heading}</h2>
+    <h2 class="display lcap-title">{heading}</h2>
     <p class="lcap-blurb">{blurb}</p>
 
     <form class="lcap-form" data-lcap-form novalidate>
@@ -221,15 +221,20 @@ const {
     color: var(--color-cream);
   }
   .lcap-title {
-    font-family: var(--font-display, inherit);
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    /* Same scale as .isched-title and .pfaq-title -- this block sits directly
+       below the scheduler, so a different size reads as a different site. */
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
     margin: 0 0 0.5rem;
     color: var(--color-cream);
+    letter-spacing: -0.015em;
+    font-weight: 400;
   }
   .lcap-blurb {
     max-width: 60ch;
     margin: 0 0 var(--space-lg);
-    line-height: 1.65;
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
     opacity: 0.88;
   }
   .lcap-row {
@@ -258,8 +263,8 @@ const {
     font-family: inherit;
     padding: 0.7rem 0.8rem;
     border-radius: 3px;
-    border: 1px solid rgba(250, 247, 240, 0.35);
-    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid color-mix(in srgb, var(--color-cream) 35%, transparent);
+    background: color-mix(in srgb, var(--color-cream) 6%, transparent);
     color: var(--color-cream);
   }
   .lcap-form input:focus-visible,

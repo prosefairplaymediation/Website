@@ -52,6 +52,33 @@ Version auto-increments on every commit. Displayed as `v{x.y.z}` in footer for d
 - Cream `#FAF7F0`, cream-warm `#F3ECDC`, paper `#FFFDF7`
 - Ink `#1A1C22`, slate `#5C6070`, divider `#E8DFCA`
 
+**Consistency rules — follow these before adding any page or component.** The
+policy pages drifted once (different heading sizes, a grey rule where the site
+uses a gold one, links missing the gold underline) because they were styled from
+scratch instead of reusing what existed. Do not repeat that:
+
+- **Never hard-code a color.** Use the tokens above. The only sanctioned
+  exceptions are annotated in place: `#fff` behind the Calendly iframe
+  (`InlineScheduler`) and behind the Zelle QR code (`/pricing`), both of which
+  need true white. `ChatWidget`'s `#B9C0D6` predates the token set and should be
+  tokenized if that widget is ever reworked.
+- **Never set a raw font stack.** `var(--font-display)` (Lora) for headings,
+  `var(--font-body)` (Newsreader) for prose.
+- **Use the type scale.** Body prose is `var(--step-1)` / line-height 1.7. Page
+  h2s are `var(--step-3)`. Section headings inside a stacked block
+  (`InlineScheduler`, `FaqBlock`, `LeadCapture`) are
+  `clamp(1.6rem, 3.4vw, 2.3rem)` — these three render one after another on most
+  pages, so they must match exactly.
+- **Any policy or legal page uses `src/layouts/LegalLayout.astro`.** It owns the
+  header chrome, `.legal-prose`, `.section-h2` (gold 2px rule) and
+  `.section-h3`. `/legal/privacy`, `/legal/disclaimer`, `/legal/terms`,
+  `/refund` and `/cancellation` all run through it. Write plain `<h2 class=
+  "display section-h2">`, `<h3 class="section-h3">`, `<p>`, `<ul>` and links,
+  and the page will match the others automatically. Do not re-declare the
+  chrome CSS in a page.
+- **Links inside prose** get the gold-underline treatment automatically inside
+  `.legal-prose`; elsewhere use `class="link-underline"`.
+
 **Aesthetic:** editorial-legal. Gold hairlines, drop caps, pull quotes, generous white space. Centered hero (home only), left-aligned elsewhere.
 
 **Navigation:** inverted — navy-deep sticky bar with gold/cream text and gold CTA button. Mobile menu inherits dark palette.

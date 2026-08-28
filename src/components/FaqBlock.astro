@@ -46,13 +46,13 @@ if (!items.length) {
 
 <section class="pfaq" aria-labelledby={`pfaq-${set}`}>
   <div class="container-narrow">
-    <h2 class="pfaq-title" id={`pfaq-${set}`}>{heading}</h2>
+    <h2 class="display pfaq-title" id={`pfaq-${set}`}>{heading}</h2>
     <ul class="pfaq-list">
       {items.map((f) => (
         <li class="pfaq-item">
           <details class="pfaq-details">
             <summary class="pfaq-summary">
-              <span>{f.q}</span>
+              <span class="pfaq-question">{f.q}</span>
               <span class="pfaq-toggle" aria-hidden="true"></span>
             </summary>
             <p class="pfaq-answer">{f.a}</p>
@@ -64,75 +64,99 @@ if (!items.length) {
 </section>
 
 <style>
+  /* Deliberately mirrors the accordion on /faq and the section heading in
+     InlineScheduler, which sits directly beneath this block on every page
+     that uses it. Same borders, same hover wash, same circular toggle, same
+     type scale -- a reader scrolling from one to the other should not be able
+     to tell they were built at different times. */
   .pfaq {
     padding-block: var(--space-2xl);
     background: var(--color-paper);
     border-top: 1px solid var(--color-divider);
   }
   .pfaq-title {
-    font-family: var(--font-display, inherit);
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    margin: 0 0 var(--space-lg);
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
     color: var(--color-navy);
+    margin: 0 0 var(--space-lg);
+    letter-spacing: -0.015em;
+    font-weight: 400;
   }
-  .pfaq-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .pfaq-item { border-bottom: 1px solid var(--color-divider); }
-  .pfaq-item:last-child { border-bottom: 0; }
+  .pfaq-list { list-style: none; margin: 0; padding: 0; }
+  .pfaq-item { border-top: 1px solid var(--color-divider); }
+  .pfaq-item:last-child { border-bottom: 1px solid var(--color-divider); }
 
   .pfaq-details summary {
-    cursor: pointer;
     list-style: none;
+    cursor: pointer;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: var(--space-md);
-    /* Comfortably past the 44px tap-target minimum on a phone. */
-    padding: 1rem 0;
-    color: var(--color-navy);
-    font-weight: 500;
-    line-height: 1.45;
+    gap: 1.25rem;
+    padding: 1.5rem 0.5rem 1.5rem 0;
+    transition: color 0.25s, background 0.3s var(--ease-out);
   }
   .pfaq-details summary::-webkit-details-marker { display: none; }
+  .pfaq-details:hover .pfaq-summary {
+    background: color-mix(in srgb, var(--color-cream-warm) 30%, transparent);
+  }
   .pfaq-details summary:focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 2px;
   }
-  .pfaq-details:hover .pfaq-summary { color: var(--color-gold-deep); }
+  .pfaq-question {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 24;
+    font-size: clamp(1.15rem, 0.95rem + 0.7vw, 1.45rem);
+    color: var(--color-navy);
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
 
-  /* Plus sign drawn in CSS: no icon font, no extra request. */
   .pfaq-toggle {
     position: relative;
-    flex: 0 0 auto;
-    width: 14px;
-    height: 14px;
-    margin-top: 0.3rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    color: var(--color-gold-deep);
+    border: 1px solid var(--color-divider);
+    border-radius: 50%;
+    background: var(--color-paper);
+    transition: transform 0.4s var(--ease-out), background 0.25s, border-color 0.25s;
   }
+  /* Plus sign drawn in CSS: no icon font, no extra request. */
   .pfaq-toggle::before,
   .pfaq-toggle::after {
     content: "";
     position: absolute;
-    inset: 50% 0 auto 0;
-    height: 1.5px;
-    background: var(--color-gold);
-    transition: transform 0.18s ease;
+    width: 0.7rem;
+    height: 1px;
+    background: currentColor;
   }
   .pfaq-toggle::after { transform: rotate(90deg); }
-  .pfaq-details[open] .pfaq-toggle::after { transform: rotate(0deg); }
-
-  .pfaq-answer {
-    margin: 0 0 1.1rem;
-    padding-right: 2rem;
-    max-width: 68ch;
-    color: var(--color-ink-soft);
-    line-height: 1.7;
+  .pfaq-details[open] .pfaq-toggle {
+    transform: rotate(45deg);
+    background: var(--color-navy);
+    border-color: var(--color-navy);
+    color: var(--color-cream);
   }
 
+  .pfaq-answer {
+    margin: 0;
+    padding: 0 0.5rem 1.75rem 0;
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+
+  @media (max-width: 600px) {
+    .pfaq-toggle { width: 1.85rem; height: 1.85rem; }
+    .pfaq-answer { font-size: 1rem; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .pfaq-toggle::before,
-    .pfaq-toggle::after { transition: none; }
+    .pfaq-toggle { transition: none; }
   }
 </style>
