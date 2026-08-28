@@ -1,0 +1,262 @@
+---
+/**
+ * Email capture, placed *below* the booking calendar rather than above it.
+ *
+ * The ordering is deliberate. Booking is worth far more than an email address,
+ * so the calendar gets first claim on a reader who is ready. This block is for
+ * everyone else — and on a family-law site that is most of the traffic. People
+ * read about divorce for weeks or months before they contact anyone. Without
+ * something here, a reader who is not ready today leaves no trace at all, and
+ * the practice has to go find them again from scratch.
+ *
+ * Deliberately not asked for: anything about the matter. A web form is not
+ * confidential, and mediation communications are privileged under
+ * Fla. Stat. section 44.405. The timing question is about the pipeline, not
+ * the dispute, and the note under the field says so plainly.
+ */
+import { LEAD_ENDPOINT, LEAD_FALLBACK_EMAIL } from "../lib/leadCapture";
+
+interface Props {
+  /** Where the GA4 event says the capture happened. */
+  source?: string;
+  heading?: string;
+  blurb?: string;
+}
+
+const {
+  source = "inline",
+  heading = "Not ready to book yet?",
+  blurb =
+    "Most people read about this for weeks before they talk to anyone. Leave your first name and email and you will get one short note on what to have ready before you file, and one check-in later. No newsletter, no automated sequence — it comes from Marie.",
+} = Astro.props;
+---
+
+<section class="lcap" data-lcap data-source={source} data-endpoint={LEAD_ENDPOINT} data-fallback={LEAD_FALLBACK_EMAIL}>
+  <div class="container-narrow lcap-inner">
+    <h2 class="lcap-title">{heading}</h2>
+    <p class="lcap-blurb">{blurb}</p>
+
+    <form class="lcap-form" data-lcap-form novalidate>
+      <div class="lcap-row">
+        <label class="lcap-field">
+          <span class="lcap-label">First name</span>
+          <input type="text" name="firstname" autocomplete="given-name" required />
+        </label>
+        <label class="lcap-field">
+          <span class="lcap-label">Email</span>
+          <input type="email" name="email" autocomplete="email" inputmode="email" required />
+        </label>
+      </div>
+
+      <label class="lcap-field lcap-field-wide">
+        <span class="lcap-label">Roughly when are you looking to start?</span>
+        <select name="timeframe">
+          <option value="Not sure yet">Not sure yet — still reading</option>
+          <option value="Within a month">Within a month</option>
+          <option value="One to three months">One to three months</option>
+          <option value="Already filed">Already filed</option>
+        </select>
+      </label>
+
+      <button type="submit" class="btn btn-primary lcap-submit">Keep me posted</button>
+
+      <p class="lcap-fine">
+        Please do not describe your situation here — this form is not
+        confidential and is not the place for case details. You can reply
+        "stop" to any email and you will not be contacted again.
+      </p>
+      <p class="lcap-error" data-lcap-error hidden role="alert"></p>
+    </form>
+
+    <div class="lcap-done" data-lcap-done hidden>
+      <p class="lcap-done-title">Thank you — you are on the list.</p>
+      <p>
+        If something changes and you want to talk sooner, the calendar is
+        just above, or call
+        <a class="link-underline" href="tel:+15619410896">561-941-0896</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var sections = document.querySelectorAll("[data-lcap]");
+    if (!sections.length) return;
+
+    Array.prototype.forEach.call(sections, function (section) {
+      var form = section.querySelector("[data-lcap-form]");
+      var done = section.querySelector("[data-lcap-done]");
+      var errEl = section.querySelector("[data-lcap-error]");
+      if (!form) return;
+
+      var source = section.getAttribute("data-source") || "inline";
+      var endpoint = section.getAttribute("data-endpoint") || "";
+      var fallback = section.getAttribute("data-fallback") || "";
+
+      function track(name) {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", name, { source: source });
+        }
+      }
+
+      function fail(msg) {
+        if (!errEl) return;
+        errEl.textContent = msg;
+        errEl.hidden = false;
+      }
+
+      function succeed() {
+        track("lead_capture_submit");
+        form.hidden = true;
+        if (done) done.hidden = false;
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (errEl) errEl.hidden = true;
+
+        var first = (form.elements.firstname.value || "").trim();
+        var email = (form.elements.email.value || "").trim();
+        var when = form.elements.timeframe.value || "";
+
+        // Intentionally loose. A stricter pattern rejects real addresses, and
+        // a bounced email costs less than a lost lead.
+        if (!first || email.indexOf("@") < 1 || email.indexOf(".") < 0) {
+          fail("Please enter your first name and a valid email address.");
+          return;
+        }
+
+        var btn = form.querySelector(".lcap-submit");
+        if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+
+        // No CRM wired up yet: hand the lead to the visitor's mail client so
+        // it still reaches the practice instead of disappearing.
+        if (!endpoint) {
+          var subject = encodeURIComponent("Please keep me posted");
+          var body = encodeURIComponent(
+            first + "\n" + email + "\nTimeframe: " + when +
+            "\n(Sent from " + window.location.pathname + ")"
+          );
+          window.location.href =
+            "mailto:" + fallback + "?subject=" + subject + "&body=" + body;
+          succeed();
+          return;
+        }
+
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields: [
+              { objectTypeId: "0-1", name: "firstname", value: first },
+              { objectTypeId: "0-1", name: "email", value: email },
+              { objectTypeId: "0-1", name: "message", value: "Timeframe: " + when },
+            ],
+            context: {
+              pageUri: window.location.href,
+              pageName: document.title,
+            },
+          }),
+        })
+          .then(function (r) {
+            if (!r.ok) throw new Error(String(r.status));
+            succeed();
+          })
+          .catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = "Keep me posted"; }
+            fail(
+              "That did not go through. Please email " + fallback +
+              " and you will be added by hand."
+            );
+          });
+      });
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { track("lead_capture_view"); io.disconnect(); }
+          });
+        }, { threshold: 0.4 });
+        io.observe(section);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .lcap {
+    padding-block: var(--space-2xl);
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+  }
+  .lcap-title {
+    font-family: var(--font-display, inherit);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin: 0 0 0.5rem;
+    color: var(--color-cream);
+  }
+  .lcap-blurb {
+    max-width: 60ch;
+    margin: 0 0 var(--space-lg);
+    line-height: 1.65;
+    opacity: 0.88;
+  }
+  .lcap-row {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: 1fr 1fr;
+  }
+  .lcap-field {
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+  .lcap-field-wide { max-width: 34rem; }
+  .lcap-label {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    opacity: 0.8;
+  }
+  .lcap-form input,
+  .lcap-form select {
+    width: 100%;
+    /* 16px minimum, or iOS Safari zooms the page on focus. */
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 0.7rem 0.8rem;
+    border-radius: 3px;
+    border: 1px solid rgba(250, 247, 240, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-cream);
+  }
+  .lcap-form input:focus-visible,
+  .lcap-form select:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 1px;
+  }
+  .lcap-form option { color: var(--color-ink); }
+  .lcap-submit { margin-top: 0.25rem; }
+  .lcap-fine {
+    margin: var(--space-md) 0 0;
+    max-width: 60ch;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    opacity: 0.68;
+  }
+  .lcap-error {
+    margin: var(--space-sm) 0 0;
+    font-size: 0.9rem;
+    color: var(--color-gold);
+  }
+  .lcap-done-title {
+    font-size: 1.15rem;
+    margin: 0 0 0.4rem;
+  }
+  .lcap-done a { color: var(--color-cream); }
+  @media (max-width: 640px) {
+    .lcap-row { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>

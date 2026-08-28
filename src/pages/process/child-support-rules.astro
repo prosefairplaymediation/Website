@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ArticleSchema from "../../components/ArticleSchema.astro";
 import InlineScheduler from "../../components/InlineScheduler.astro";
+import LeadCapture from "../../components/LeadCapture.astro";
 ---
 
 <BaseLayout
@@ -125,6 +126,7 @@ import InlineScheduler from "../../components/InlineScheduler.astro";
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
   <InlineScheduler source="guide-child-support" />
+  <LeadCapture source="guide-child-support" />
 </BaseLayout>
 
 <style>

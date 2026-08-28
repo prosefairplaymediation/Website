@@ -60,6 +60,7 @@ const counties = [
   },
 ];
 import InlineScheduler from "../components/InlineScheduler.astro";
+import LeadCapture from "../components/LeadCapture.astro";
 ---
 
 <BaseLayout
@@ -200,6 +201,7 @@ import InlineScheduler from "../components/InlineScheduler.astro";
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
   <InlineScheduler source="areas-served" />
+  <LeadCapture source="areas-served" />
 </BaseLayout>
 
 <style>
