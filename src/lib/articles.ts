@@ -26,6 +26,15 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "pro-se-divorce-florida",
+    title: "Filing for Divorce in Florida Without a Lawyer",
+    kicker: "Self-Represented",
+    blurb:
+      "Florida has two pro se routes and which applies turns on whether there are minor children. Eligibility, real costs, and where a mediator is worth paying for.",
+    published: "2026-08-28",
+    updated: "2026-08-28",
+  },
+  {
     slug: "is-mediation-required-before-divorce-in-florida",
     title: "Is Mediation Required Before Divorce in Florida?",
     kicker: "Florida Law",

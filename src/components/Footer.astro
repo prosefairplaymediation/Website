@@ -12,6 +12,14 @@ const version = pkg.version;
       <div class="footer-brand">
         <h2 class="footer-motto display display-italic">Where we level the playing field.</h2>
         <p class="footer-name smallcaps">Pro Se Fair Play Mediation, LLC</p>
+
+        <address class="footer-contact">
+          <a href="tel:+15619410896" class="footer-phone">561-941-0896</a>
+          <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>
+          <span class="footer-where">West Palm Beach, Florida &middot; serving all Florida by Zoom</span>
+        </address>
+
+        <a href="/book" class="footer-cta">Book a free consultation</a>
       </div>
 
       <nav class="footer-nav" aria-label="Footer">
@@ -24,6 +32,8 @@ const version = pkg.version;
             <li><a href="/process/alimony-rules">Updated Alimony Rules</a></li>
             <li><a href="/process/real-estate-mediation">Real Estate Mediation</a></li>
             <li><a href="/process/pre-litigation-disputes">Pre-Litigation Disputes</a></li>
+            <li><a href="/process/is-mediation-required-before-divorce-in-florida">Is Mediation Required in Florida?</a></li>
+            <li><a href="/process/pro-se-divorce-florida">Filing Without a Lawyer</a></li>
             <li><a href="/areas-served">Areas Served</a></li>
             <li><a href="/reviews">Client Reviews</a></li>
             {GOOGLE_REVIEW_URL && (
@@ -74,6 +84,55 @@ const version = pkg.version;
   }
   .footer-inner {
     padding-block: var(--space-2xl) var(--space-lg);
+  }
+  /* The telephone number was present in the schema but nowhere a visitor could
+     see it: 31 of 35 pages offered no way to call. This puts it, the email and
+     a booking link on every page. */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: var(--space-sm);
+    font-style: normal;
+    line-height: 1.5;
+  }
+  .footer-contact a {
+    color: var(--color-cream);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    align-self: flex-start;
+  }
+  .footer-contact a:hover {
+    border-bottom-color: var(--color-gold);
+  }
+  .footer-phone {
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+  .footer-where {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin-top: 0.15rem;
+  }
+  .footer-cta {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: var(--space-md);
+    padding: 0.7rem 1.35rem;
+    background: var(--color-gold);
+    color: var(--color-navy-deep);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border-radius: 2px;
+    transition: filter 0.15s ease;
+  }
+  .footer-cta:hover {
+    filter: brightness(1.08);
+  }
+  .footer-cta:focus-visible {
+    outline: 2px solid var(--color-cream);
+    outline-offset: 3px;
   }
   .footer-top {
     display: grid;
