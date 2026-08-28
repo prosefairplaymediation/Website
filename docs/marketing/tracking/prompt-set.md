@@ -14,7 +14,6 @@ Use a **logged-out or incognito session** every time. Personalization and memory
 will otherwise show you results tuned to you, which is the single most common way
 people fool themselves into thinking this is working.
 
-For each prompt, record: (1) is Reddit or Quora cited at all, (2) is one of *your*
 answers cited, (3) are you named, (4) what the engine actually says about
 mediation.
 
@@ -50,8 +49,6 @@ mediation.
 Prompts **17 and 18 will not improve from this program**, and that's expected —
 they're entity/local retrieval, not question-answering. If they're your priority,
 the work is Google Business Profile, directory consistency, and schema (see
-"What's not in this repo" in `../00-strategy.md`). Don't judge the Reddit and
-Quora program by them.
 
 Prompts **1–16 are the ones this program moves.** Success looks like: month 1
 nothing, month 3 your answers appearing among cited sources, month 6 your framing

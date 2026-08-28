@@ -21,7 +21,6 @@ not the label**:
 | Facebook / Instagram page | Action button → *Book Now* | Choose the *Book Now* action |
 | Instagram bio | Link | You control this — use **BOOK — free 15-min consult** |
 | Email signature | Link | You control this — use **BOOK a free 15-minute consultation** |
-| Reddit / Quora profiles | Website field | Point at the site, not Calendly — a scheduler link in a forum profile reads as advertising |
 | Mediate.com and directories | Website / booking field | Wherever a booking field exists, use it |
 
 So: on your own site and anywhere you control the text, the word is **BOOK**. On
@@ -85,8 +84,6 @@ are the usual reason a profile with good reviews still doesn't rank.
 hidden but *verified*, and that service areas are populated. A profile with no
 service areas and no displayed address ranks for almost nothing.
 
-**Post weekly.** Low effort, and the profile reads as active. Reuse your Reddit and
-Quora answers — this is the one place duplicating that content is fine, because
 it isn't competing for the same ranking.
 
 **Two things to add now that the site exists:**
@@ -244,5 +241,4 @@ Log all of it alongside the AI prompt set in `tracking/`.
 Local results move faster than the AI citation program: **a well-built GBP with
 5–10 genuine reviews typically starts appearing in the map pack within 4–8
 weeks.** That is the fastest source of booked consultations available to you, and
-it is why this list should run *in parallel* with the Reddit and Quora work, not
 after it.
