@@ -197,6 +197,34 @@ const documentProducts = [
             </a>.
           </span>
         </label>
+
+        {/*
+          Disclosure from Nonlawyer, Florida Family Law Rules of Procedure Form
+          12.900(a). Required wherever a nonlawyer helps complete a Florida
+          family law form, which covers the Parenting Plan and Court Packet and
+          any mediation that ends with an agreement placed onto a court form.
+          Both boxes gate every Pay Now button and every scan-to-pay code.
+
+          This acknowledgement is a checkpoint, not a substitute: the rule
+          requires the disclosure to be given BEFORE assistance begins, and the
+          signed form itself is still delivered separately.
+        */}
+        <label class="pay-checkbox">
+          <input type="checkbox" id="pay-disclosure" />
+          <span class="pay-checkbox-mark" aria-hidden="true"></span>
+          <span class="pay-checkbox-text">
+            I have read and understand the{" "}
+            <a
+              class="link-underline"
+              href="/Pro_Se_Fair_Play_Disclosure_From_Nonlawyer.pdf"
+              target="_blank"
+              rel="noopener"
+            >
+              Disclosure from Nonlawyer
+            </a>{" "}
+            (Florida Family Law Rules of Procedure Form 12.900(a)).
+          </span>
+        </label>
       </form>
 
       <!-- ========================== MEDIATION ========================== -->
@@ -301,16 +329,19 @@ const documentProducts = [
 
   <script is:inline>
     (function () {
+      // Both acknowledgements are required before any payment route opens.
       const checkbox = document.getElementById("pay-agree");
+      const disclosure = document.getElementById("pay-disclosure");
+      const boxes = [checkbox, disclosure].filter(Boolean);
       const buttons = document.querySelectorAll("[data-pay-btn]");
       // Scan-to-pay codes reach the same Stripe checkout, so the agreement
       // has to gate them too. Without this the QR would be the one route to
       // payment that skips the acknowledgement.
       const codes = document.querySelectorAll("[data-pay-qr]");
-      if (!checkbox || buttons.length === 0) return;
+      if (boxes.length === 0 || buttons.length === 0) return;
 
       function sync() {
-        const enabled = checkbox.checked;
+        const enabled = boxes.every(function (b) { return b.checked; });
         buttons.forEach(function (btn) {
           if (enabled) {
             btn.setAttribute("aria-disabled", "false");
@@ -325,7 +356,7 @@ const documentProducts = [
         });
       }
 
-      checkbox.addEventListener("change", sync);
+      boxes.forEach(function (b) { b.addEventListener("change", sync); });
 
       // The browser restores the checkbox state on back/forward navigation
       // (e.g. returning from Stripe), but no "change" event fires for that
@@ -342,7 +373,10 @@ const documentProducts = [
         btn.addEventListener("click", function (e) {
           if (btn.getAttribute("aria-disabled") === "true") {
             e.preventDefault();
-            checkbox.focus();
+            // Focus whichever acknowledgement is still outstanding, so a
+            // second unchecked box is not silently skipped past.
+            const pending = boxes.find(function (b) { return !b.checked; });
+            (pending || boxes[0]).focus();
             return;
           }
           if (typeof window.gtag === "function") {
