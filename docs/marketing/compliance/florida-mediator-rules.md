@@ -61,9 +61,9 @@ The safe constructions:
 
 Never: "I had a case last month where…"
 
-This is also why you should not answer with specifics when a Redditor describes
-their own live mediation and asks you to evaluate it. Answer the *process*
-question inside their post and decline the evaluation.
+This is also why you should not answer with specifics when someone describes
+their own live mediation in public and asks you to evaluate it. Answer the
+*process* question and decline the evaluation.
 
 ## Standing disclosure line
 
