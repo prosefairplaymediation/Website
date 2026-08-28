@@ -6,7 +6,8 @@ import PayCard from "../components/PayCard.astro";
 // link redirects (Stripe side) to the matching /thank-you-*-hour scheduling
 // page; the 1-hour Gold Service link redirects to /thank-you-one-hour;
 // document-service links redirect to /thank-you. Mediation is a linear
-// $600/hour combined rate (1h $600 to 8h $4,800); Gold Service is a flat $650.
+// $600/hour combined rate (1h $600 to 8h $4,800). Gold Service has no published
+// price -- it is quoted per matter, so there is no fixed Gold pay button.
 const med1hFullUrl = "https://buy.stripe.com/28EeVcfuk9GEbcVg7y3sI03";
 const med1hSplitUrl = "https://buy.stripe.com/cNi4gybe4bOMep7bRi3sI04";
 const med2hFullUrl = "https://buy.stripe.com/dRm14m1DubOMcgZ8F63sI05";
@@ -15,7 +16,10 @@ const med4hFullUrl = "https://buy.stripe.com/aFafZgbe48CAa8R1cE3sI07";
 const med4hSplitUrl = "https://buy.stripe.com/aFaeVceqgaKIgxf9Ja3sI08";
 const med8hFullUrl = "https://buy.stripe.com/bJe3cufukdWUftb3kM3sI09";
 const med8hSplitUrl = "https://buy.stripe.com/5kQ28qfukf0Ydl32gI3sI0a";
-const med1hGoldUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
+// Retained, unused: the old fixed-price $650 Gold link. Gold is now quoted per
+// matter, so there is no fixed Gold button. Kept here so the Stripe product is
+// still discoverable if a flat Gold tier is ever reinstated.
+// const med1hGoldUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
 
 const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
 const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
@@ -221,19 +225,14 @@ const documentProducts = [
 
         <div class="pay-group" id="gold-service">
           <h3 class="pay-group-title">Gold Service</h3>
-          <ul class="pay-products pay-products--single" role="list">
-            <PayCard
-              title="One-Hour"
-              context="One-Hour Gold Service Mediation"
-              price="$650"
-              description="A one-hour Gold Service mediation session, charged to a single payer."
-              detail={mediationDetail}
-              payUrl={med1hGoldUrl}
-              slug="mediation_1h_gold"
-              value={650}
-              headingLevel="h4"
-            />
-          </ul>
+          <p class="pay-group-note">
+            Gold Service has no published rate. Arrangements are built around the
+            matter &mdash; which can include a private off-site venue or a multi-day
+            format, some carrying third-party costs &mdash; so a figure is agreed with
+            you first and an invoice or payment link is issued for that amount.
+            <a href="/services/gold-service">See what Gold Service includes</a>, or
+            <a href="/book">book a free consultation</a> to discuss it.
+          </p>
         </div>
       </div>
 
@@ -564,6 +563,13 @@ const documentProducts = [
     text-transform: uppercase;
     color: var(--color-gold-deep);
     margin-bottom: 1rem;
+  }
+  .pay-group-note {
+    max-width: 62ch;
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.85;
   }
 
   /* ============================================================
