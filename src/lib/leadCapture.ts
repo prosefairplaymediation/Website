@@ -1,30 +1,38 @@
 /**
- * Where captured emails go.
+ * Where captured leads go.
  *
- * The practice has no backend — the site is static assets on Cloudflare — so
- * capture has to post to something hosted. This file is the single place that
- * decides what.
+ * The site is static assets on Cloudflare with no backend, so capture has to
+ * post to something hosted. This file is the single place that decides what.
+ * Exactly one mode is active, chosen by which constant below is filled in.
  *
- * MODE 1 (once configured): HubSpot Forms. Fill in the two IDs below and the
- * form posts straight into the CRM over a public, CORS-enabled endpoint. No
- * API key lives in the page, because that endpoint does not take one.
- * Find them in HubSpot: Marketing -> Forms -> the form -> Share -> Embed code.
- * The portal ID is the number after /submit/, the form ID is the GUID after it.
+ * MODE 1 -- Zapier Catch Hook (the intended target; see
+ * docs/marketing/lead-automation.md). Paste the hook URL into LEAD_WEBHOOK_URL.
+ * The Zap creates the Lawmatics contact, which in turn fires the
+ * classification Zap. A plain JSON POST, no key in the page, CORS-enabled.
  *
- * MODE 2 (the fallback, active while the IDs are empty): the form opens the
- * visitor's mail client with a prefilled message to the practice. Less
- * pleasant, but a lead still arrives rather than vanishing. Nothing is
- * silently dropped in either mode.
+ * MODE 2 -- HubSpot Forms, if the CRM decision goes that way instead.
  *
- * If a different CRM is chosen later, only LEAD_ENDPOINT and the payload
- * builder in LeadCapture.astro need to change.
+ * MODE 3 -- the fallback, active while both are empty: the form opens the
+ * visitor's mail client with a prefilled message. Not elegant, but no lead is
+ * silently dropped while the plumbing is being set up.
  */
+export const LEAD_WEBHOOK_URL = "";
+
 export const HUBSPOT_PORTAL_ID = "";
 export const HUBSPOT_FORM_ID = "";
 
+/** Which payload shape the submit handler builds. */
+export const LEAD_MODE: "webhook" | "hubspot" | "mailto" = LEAD_WEBHOOK_URL
+  ? "webhook"
+  : HUBSPOT_PORTAL_ID && HUBSPOT_FORM_ID
+    ? "hubspot"
+    : "mailto";
+
 export const LEAD_ENDPOINT =
-  HUBSPOT_PORTAL_ID && HUBSPOT_FORM_ID
-    ? `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`
-    : "";
+  LEAD_MODE === "webhook"
+    ? LEAD_WEBHOOK_URL
+    : LEAD_MODE === "hubspot"
+      ? `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`
+      : "";
 
 export const LEAD_FALLBACK_EMAIL = "info@prosefairplaymediation.com";
