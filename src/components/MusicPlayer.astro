@@ -177,7 +177,12 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     // Background level. The track is a hot master (-10.6 dBFS across its
     // loudest three seconds), so this lands it near -32 dBFS in practice:
     // audible as ambience, quiet enough to read over.
-    audio.volume = 0.08;
+    // Deliberately very quiet — this is atmosphere, not a soundtrack, and it
+    // plays for people who are often having a bad month. Halved from 0.08 in
+    // response to feedback that it sat too far forward. Tune here if needed:
+    // 0.02 is barely there, 0.08 is noticeable in a quiet room.
+    const TARGET_VOLUME = 0.04;
+    audio.volume = 0;
     audio.muted = saved.muted === true;
 
     function save() {
@@ -216,7 +221,21 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
       return audio.play();
     }
 
+    // Ramp up over ~1.5s so the track eases in rather than snapping on.
+    let fadeTimer = null;
+    function fadeIn() {
+      if (fadeTimer) clearInterval(fadeTimer);
+      const STEPS = 30, STEP_MS = 50;
+      let i = 0;
+      fadeTimer = setInterval(function () {
+        i += 1;
+        audio.volume = Math.min(TARGET_VOLUME, (TARGET_VOLUME * i) / STEPS);
+        if (i >= STEPS) { clearInterval(fadeTimer); fadeTimer = null; }
+      }, STEP_MS);
+    }
+
     audio.addEventListener("play", function () {
+      fadeIn();
       player.classList.add("is-playing");
       toggleBtn.setAttribute("aria-pressed", "true");
       toggleBtn.setAttribute("aria-label", "Pause music");
