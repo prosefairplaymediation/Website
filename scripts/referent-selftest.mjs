@@ -179,8 +179,8 @@ const goodLead = {
   email: "dana@example.com",
   timeframe: "Within a month",
   topic: "divorce with two kids, we agree on most things",
-  source_page: "/process/pro-se-divorce-florida",
-  source_url: "https://prosefairplaymediation.com/process/pro-se-divorce-florida",
+  source_page: "/process/how-mediation-works",
+  source_url: "https://prosefairplaymediation.com/process/how-mediation-works",
   captured_at: "2026-09-01T17:04:00.000Z",
 };
 

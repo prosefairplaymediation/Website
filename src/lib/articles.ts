@@ -24,16 +24,12 @@ export interface Article {
   updated: string;
 }
 
+// "pro-se-divorce-florida" ("Filing for Divorce in Florida Without a Lawyer")
+// was removed on 2026-09-01 at the owner's instruction: it stated Florida
+// filing requirements, eligibility rules and dollar costs that could not be
+// verified. Anything added here makes factual claims about Florida family law
+// under the practice's name — check every one with the owner before publishing.
 export const articles: Article[] = [
-  {
-    slug: "pro-se-divorce-florida",
-    title: "Filing for Divorce in Florida Without a Lawyer",
-    kicker: "Self-Represented",
-    blurb:
-      "Florida has two pro se routes and which applies turns on whether there are minor children. Eligibility, real costs, and where a mediator is worth paying for.",
-    published: "2026-08-28",
-    updated: "2026-08-28",
-  },
   {
     slug: "is-mediation-required-before-divorce-in-florida",
     title: "Is Mediation Required Before Divorce in Florida?",
