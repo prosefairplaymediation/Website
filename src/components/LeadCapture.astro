@@ -73,6 +73,19 @@ const {
         </span>
       </label>
 
+      {/*
+        Honeypot. Hidden from people and from assistive technology, so the
+        only thing that fills it in is a script that fills in every input it
+        finds. The server answers those with a cheerful success and creates
+        nothing.
+      */}
+      <div class="lcap-hp" aria-hidden="true">
+        <label>
+          Company
+          <input type="text" name="company" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+
       <button type="submit" class="btn btn-primary lcap-submit">Keep me posted</button>
 
       <p class="lcap-fine">
@@ -146,9 +159,11 @@ const {
         var btn = form.querySelector(".lcap-submit");
         if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
 
-        // No CRM wired up yet: hand the lead to the visitor's mail client so
-        // it still reaches the practice instead of disappearing.
-        if (!endpoint) {
+        // Hand the lead to the visitor's mail client. This is the no-CRM
+        // path, and it is also what happens when the CRM refuses the lead --
+        // someone who has been reading about divorce for a fortnight should
+        // not be told to come back later because a third party is down.
+        function mailFallback() {
           var subject = encodeURIComponent("Please keep me posted");
           var body = encodeURIComponent(
             first + "\n" + email + "\nTimeframe: " + when +
@@ -158,14 +173,18 @@ const {
           window.location.href =
             "mailto:" + fallback + "?subject=" + subject + "&body=" + body;
           succeed();
-          return;
         }
+
+        if (!endpoint) { mailFallback(); return; }
+
+        var mode = section.getAttribute("data-mode");
+        var hp = form.elements.company ? form.elements.company.value : "";
 
         fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(
-            section.getAttribute("data-mode") === "hubspot"
+            mode === "hubspot"
               ? {
                   fields: [
                     { objectTypeId: "0-1", name: "firstname", value: first },
@@ -183,6 +202,7 @@ const {
                   email: email,
                   timeframe: when,
                   topic: topic,
+                  company: hp,
                   source_page: window.location.pathname,
                   source_url: window.location.href,
                   captured_at: new Date().toISOString(),
@@ -194,6 +214,15 @@ const {
             succeed();
           })
           .catch(function () {
+            // /api/lead is same-origin and answers 2xx only when Referent
+            // actually took the contact, so a failure here means the CRM leg
+            // broke. GA4 gets a distinct event: a run of these is the signal
+            // that the token expired or the tool name moved.
+            if (mode === "referent") {
+              track("lead_capture_fallback");
+              mailFallback();
+              return;
+            }
             if (btn) { btn.disabled = false; btn.textContent = "Keep me posted"; }
             fail(
               "That did not go through. Please email " + fallback +
@@ -279,6 +308,14 @@ const {
     font-size: 0.8rem;
     line-height: 1.5;
     opacity: 0.62;
+  }
+  /* Honeypot: off-screen rather than display:none, which some bots detect. */
+  .lcap-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
   .lcap-submit { margin-top: 0.25rem; }
   .lcap-fine {

@@ -2,7 +2,22 @@
   "$schema": "https://unpkg.com/wrangler/config-schema.json",
   "name": "prosefairplaymediation",
   "compatibility_date": "2026-04-20",
+  // The site is still the static Astro build in ./dist. `main` adds one
+  // server-side route, /api/lead, which hands capture-form submissions to
+  // Referent (the CRM) with the API token kept as a Worker secret instead of
+  // published in the page. See worker/index.ts and docs/marketing/referent-crm.md.
+  "main": "./worker/index.ts",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    // Lets the Worker hand a request back to the static site.
+    "binding": "ASSETS",
+    // Only /api/* reaches the Worker before assets are consulted. Every other
+    // URL is served exactly as it was before this Worker existed.
+    "run_worker_first": ["/api/*"]
+  },
+  // Puts console.log/console.error from the lead route in the dashboard, so a
+  // failed submission can be diagnosed without a terminal open.
+  "observability": {
+    "enabled": true
   }
 }

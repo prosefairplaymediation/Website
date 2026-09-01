@@ -1,7 +1,7 @@
 {
   "name": "site",
   "type": "module",
-  "version": "1.3.72",
+  "version": "1.3.73",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test:referent": "node --experimental-strip-types scripts/referent-selftest.mjs",
     "prepare": "husky"
   },
   "dependencies": {

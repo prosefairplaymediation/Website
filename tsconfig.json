@@ -1,5 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+  "compilerOptions": {
+    // worker/ imports with an explicit .ts extension so the same files run
+    // unchanged under `node --experimental-strip-types` in
+    // scripts/referent-selftest.mjs and through Wrangler's bundler.
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
 }

@@ -12,6 +12,14 @@ Freelance brochure/services site for a Florida family-law **mediation + document
 
 - **Astro 6** (static SSG, strict TypeScript)
 - **Cloudflare Workers** for deployment (`wrangler.jsonc`)
+- **One server-side route** (added 2026-09-01). `worker/index.ts` handles
+  `/api/lead` and nothing else: it takes a capture-form submission and creates
+  the contact in **Referent** (the CRM) over MCP, so the API token stays a
+  Worker secret instead of being published in a page. Every other URL is still
+  a static asset, served without the Worker running at all
+  (`run_worker_first: ["/api/*"]`). Setup, and what is still unverified about
+  Referent's API, are in `docs/marketing/referent-crm.md`.
+  `npm run test:referent` exercises the route against a stand-in MCP server.
 - **Node 22+** (enforced via Volta)
 - **Git:** private GitHub repo on the **`prosefairplaymediation`** account (migrated here 2026-06-26); every push triggers Cloudflare rebuild. **Push routing is account-critical. See "Git remote routing" below.**
 - **Husky pre-commit hook** auto-bumps `package.json` patch version
