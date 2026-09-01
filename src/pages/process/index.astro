@@ -128,7 +128,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
   .index-item:first-child { padding-top: 0; }
 
   .index-kicker {
-    font-size: 0.72rem;
+    font-size: var(--step-2xs);
     letter-spacing: 0.2em;
     color: var(--color-gold-deep);
     font-weight: 700;
@@ -156,7 +156,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
   .index-blurb {
     margin-top: 0.7rem;
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     line-height: 1.6;
     color: var(--color-ink-soft);
     max-width: 62ch;
@@ -164,7 +164,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
   .index-meta {
     margin-top: 0.7rem;
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: var(--step-xs);
     letter-spacing: 0.06em;
     color: var(--color-slate);
     font-variant-numeric: tabular-nums;
@@ -173,7 +173,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
   .index-foot {
     margin-top: var(--space-xl);
     font-family: var(--font-body);
-    font-size: 1.02rem;
+    font-size: var(--step-0);
     line-height: 1.6;
     color: var(--color-ink-soft);
     max-width: 62ch;

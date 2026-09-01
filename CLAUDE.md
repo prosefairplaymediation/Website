@@ -83,11 +83,27 @@ scratch instead of reusing what existed. Do not repeat that:
   tokenized if that widget is ever reworked.
 - **Never set a raw font stack.** `var(--font-display)` (Lora) for headings,
   `var(--font-body)` (Newsreader) for prose.
-- **Use the type scale.** Body prose is `var(--step-1)` / line-height 1.7. Page
-  h2s are `var(--step-3)`. Section headings inside a stacked block
-  (`InlineScheduler`, `FaqBlock`, `LeadCapture`) are
-  `clamp(1.6rem, 3.4vw, 2.3rem)` — these three render one after another on most
-  pages, so they must match exactly.
+- **Never write a font-size literal.** Every size comes from the scale in
+  `global.css`: `--step-2xs` / `--step-xs` / `--step-sm` below body, then
+  `--step-0` through `--step-6`. Body prose is `var(--step-1)` / line-height
+  1.7. Page h2s are `var(--step-3)`. Section headings inside a stacked block
+  (`InlineScheduler`, `FaqBlock`, `LeadCapture`) are `var(--step-stack)` —
+  these three render one after another on most pages, so they must match
+  exactly, and the token exists so that constraint is enforced by the
+  stylesheet rather than by memory.
+
+  This rule is written this strongly because it was broken at scale: on
+  2026-09-01 an audit found 184 of 281 font sizes hand-picked, with seven
+  different values for body text between 0.95rem and 1.05rem. Individually
+  imperceptible, collectively the reason the site read as slightly different
+  from page to page. All of them are now on the scale. **The one sanctioned
+  exception is annotated in place** — the container-query label size on
+  `/documents`, which is a function of container width rather than of the
+  scale. If a size is needed that the scale does not have, add a step; a
+  one-off literal is how the drift started.
+
+  To check: `grep -rh "font-size:" src/ --include=*.astro | grep -vc "var(--step"`
+  should return 1.
 - **Any policy or legal page uses `src/layouts/LegalLayout.astro`.** It owns the
   header chrome, `.legal-prose`, `.section-h2` (gold 2px rule) and
   `.section-h3`. `/legal/privacy`, `/legal/disclaimer`, `/legal/terms`,

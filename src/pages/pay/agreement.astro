@@ -201,19 +201,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   .agreement-tagline {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: var(--step-1);
     color: var(--color-gold-deep);
     margin-bottom: 1.25rem;
   }
   .agreement-contact {
     font-style: normal;
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
     color: var(--color-ink-soft);
     line-height: 1.7;
     margin-bottom: 1.5rem;
   }
   .agreement-stamp {
-    font-size: 1rem;
+    font-size: var(--step-0);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -242,7 +242,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   }
 
   @media (max-width: 600px) {
-    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
-    .section-h2 { font-size: clamp(1.5rem, 1.2rem + 2vw, 2.25rem); }
+    .legal-title { font-size: var(--step-4); }
+    .section-h2 { font-size: var(--step-3); }
   }
 </style>

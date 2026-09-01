@@ -135,12 +135,12 @@ const GOOGLE_REVIEW_URL = await getReviewUrl();
   .leave-review-note {
     margin-top: 0.9rem;
     font-family: var(--font-body);
-    font-size: 0.88rem;
+    font-size: var(--step-sm);
     font-style: italic;
     color: var(--color-slate);
   }
 
   @media (max-width: 600px) {
-    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .article-title { font-size: var(--step-4); }
   }
 </style>

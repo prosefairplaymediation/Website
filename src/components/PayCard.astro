@@ -110,14 +110,14 @@ const qr = await qrSvg(payUrl);
     margin: 0;
   }
   .pay-card-price {
-    font-size: 1.35rem;
+    font-size: var(--step-2);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.14em;
   }
   .pay-card-body {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     flex: 1;
@@ -151,7 +151,7 @@ const qr = await qrSvg(payUrl);
     border-color: var(--color-navy);
   }
   .pay-detail-link {
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
   }
 
   /* ---- Scan to pay ---- */
@@ -178,7 +178,7 @@ const qr = await qrSvg(payUrl);
   }
   .pay-qr-label {
     font-family: var(--font-body);
-    font-size: 0.66rem;
+    font-size: var(--step-2xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-slate);

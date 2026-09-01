@@ -318,7 +318,7 @@ const {
   .lcap-title {
     /* Same scale as .isched-title and .pfaq-title -- this block sits directly
        below the scheduler, so a different size reads as a different site. */
-    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-size: var(--step-stack);
     margin: 0 0 0.5rem;
     color: var(--color-cream);
     letter-spacing: -0.015em;
@@ -344,7 +344,7 @@ const {
   .lcap-field-wide { max-width: 34rem; }
   .lcap-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-bottom: 0.35rem;
@@ -354,7 +354,7 @@ const {
   .lcap-form select {
     width: 100%;
     /* 16px minimum, or iOS Safari zooms the page on focus. */
-    font-size: 1rem;
+    font-size: var(--step-0);
     font-family: inherit;
     padding: 0.7rem 0.8rem;
     border-radius: 3px;
@@ -371,7 +371,7 @@ const {
   .lcap-hint {
     display: block;
     margin-top: 0.4rem;
-    font-size: 0.8rem;
+    font-size: var(--step-xs);
     line-height: 1.5;
     opacity: 0.62;
   }
@@ -383,7 +383,7 @@ const {
     margin-top: 0.6rem;
     max-width: 42ch;
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: var(--step-sm);
     line-height: 1.5;
     opacity: 0.88;
     cursor: pointer;
@@ -418,17 +418,17 @@ const {
   .lcap-fine {
     margin: var(--space-md) 0 0;
     max-width: 60ch;
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     line-height: 1.55;
     opacity: 0.68;
   }
   .lcap-error {
     margin: var(--space-sm) 0 0;
-    font-size: 0.9rem;
+    font-size: var(--step-sm);
     color: var(--color-gold);
   }
   .lcap-done-title {
-    font-size: 1.15rem;
+    font-size: var(--step-1);
     margin: 0 0 0.4rem;
   }
   .lcap-done a { color: var(--color-cream); }

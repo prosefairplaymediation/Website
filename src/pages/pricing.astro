@@ -63,7 +63,7 @@ import LeadCapture from "../components/LeadCapture.astro";
       <p class="lede reveal reveal-d3">
         Clear, up-front pricing for every service, plus the refund and
         cancellation policies that go with it. No surprises. You can also
-        always pay by <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" /> to Pro Se Fair Play Mediation at (561) 941-0896.
+        always pay by <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" width="245" height="100" /> to Pro Se Fair Play Mediation at (561) 941-0896.
       </p>
     </div>
   </header>
@@ -213,7 +213,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   .zelle-scan-text { display: flex; flex-direction: column; gap: 0.9rem; }
   .zelle-scan-lede {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     margin: 0;
@@ -222,7 +222,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   .zelle-scan-note {
     margin: 0;
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: var(--step-sm);
     line-height: 1.6;
     color: var(--color-slate);
     max-width: 62ch;
@@ -250,7 +250,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .section-label {
     margin: 0 0 var(--space-md);
-    font-size: 1.2rem;
+    font-size: var(--step-1);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -294,7 +294,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-note {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     max-width: 60ch;
@@ -308,7 +308,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-amount {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: var(--step-2);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -317,7 +317,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-btn {
     padding: 0.55rem 1.1rem;
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     white-space: nowrap;
     background: var(--color-navy);
     color: var(--color-cream);
@@ -359,7 +359,7 @@ import LeadCapture from "../components/LeadCapture.astro";
     margin-bottom: 0.5rem;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1.3rem;
+    font-size: var(--step-2);
     line-height: 1.25;
     color: var(--color-navy);
     letter-spacing: -0.005em;
@@ -378,7 +378,7 @@ import LeadCapture from "../components/LeadCapture.astro";
      RESPONSIVE
      ============================================================ */
   @media (max-width: 600px) {
-    .pricing-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .pricing-title { font-size: var(--step-4); }
     .price-row { flex-direction: column; gap: 0.75rem; }
     .price-row-amount { text-align: left; }
     .price-row-action { align-items: flex-start; }
