@@ -35,7 +35,9 @@ Freelance brochure/services site for a Florida family-law **mediation + document
 
 ## Git remote routing (ACCOUNT-CRITICAL — read before any push)
 
-This repo intentionally pushes to a **separate GitHub account** (`prosefairplaymediation`), **NOT** Dave's normal personal/work account (`dleepernoinc`). This is deliberate handover prep. The client will eventually own this repo. Pushing to the wrong account leaks the project into Dave's personal account.
+This repo intentionally pushes to a **separate GitHub account** (`prosefairplaymediation`), **NOT** Dave's old personal/work account (`dleepernoinc`). Pushing to the wrong account leaks the project into someone else's personal account.
+
+**Handover completed 2026-09-01.** The account holder — Marie, at `info@prosefairplaymediation.com` — now owns and directs this repository. The routing rules below still stand for the same reason they always did; what changed is who authorizes the work.
 
 **How the routing works (automatic; nothing to toggle per push):**
 - `origin` → `git@github-prosefp:prosefairplaymediation/Website.git`
@@ -47,7 +49,7 @@ This repo intentionally pushes to a **separate GitHub account** (`prosefairplaym
 - **Always push to `origin`. NEVER push to `old-origin`.**
 - **Never change `origin`** to the `dleepernoinc` remote, and never re-add a `dleepernoinc` remote as `origin`.
 - Before pushing, if there is any doubt, verify with `git remote get-url origin`. It must be `git@github-prosefp:prosefairplaymediation/Website.git`. If it shows anything else, **STOP and flag it** rather than pushing.
-- Committing/pushing still requires Dave's explicit go-ahead (unchanged).
+- Committing/pushing is authorized by the repository owner (see "Handover completed" above), not by Dave. Feature branches freely; a push to `main` deploys to the live site, so that one is asked for every time.
 - Cloudflare builds the live site from this new repo as of 2026-06-26.
 
 ## Local Development
