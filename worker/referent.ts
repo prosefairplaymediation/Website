@@ -35,6 +35,10 @@
 export interface Lead {
   first_name: string;
   email: string;
+  /** Optional, and in E.164 by the time it gets here. May be empty. */
+  phone: string;
+  /** Whether the texting box was ticked. No box, no text — see notify.ts. */
+  sms_consent: boolean;
   timeframe: string;
   topic: string;
   source_page: string;
@@ -371,7 +375,7 @@ export function pickLeadTool(tools: McpTool[]): McpTool | null {
 
 interface AliasGroup {
   keys: string[];
-  value: (lead: Lead) => string;
+  value: (lead: Lead, annotations: string[]) => string;
 }
 
 /** Normalized so `firstName`, `first_name` and `first name` all match. */
@@ -395,6 +399,10 @@ const ALIASES: AliasGroup[] = [
   {
     keys: ["name", "fullname", "displayname", "contactname", "clientname", "leadname"],
     value: (lead) => lead.first_name,
+  },
+  {
+    keys: ["phone", "phonenumber", "mobile", "mobilenumber", "cell", "cellphone", "telephone", "tel"],
+    value: (lead) => lead.phone,
   },
   {
     keys: [
@@ -426,7 +434,7 @@ const ALIASES: AliasGroup[] = [
 ];
 
 /** Everything the CRM is allowed to hold, in one readable block. */
-function buildNote(lead: Lead): string {
+function buildNote(lead: Lead, annotations: string[]): string {
   const lines = [
     `Submitted through prosefairplaymediation.com`,
     `Timeframe: ${lead.timeframe || "not given"}`,
@@ -434,8 +442,30 @@ function buildNote(lead: Lead): string {
   if (lead.topic) lines.push(`In their words: ${lead.topic}`);
   lines.push(`Page: ${lead.source_page}`);
   lines.push(`Captured: ${lead.captured_at}`);
+
+  // Texting consent is recorded here, with its timestamp, because the record
+  // of it is the defence if it is ever questioned. "No consent" is recorded
+  // just as explicitly: it is an instruction not to text this person.
+  if (lead.phone) {
+    lines.push(
+      lead.sms_consent
+        ? `Texting consent: GIVEN ${lead.captured_at} — "${SMS_CONSENT_WORDING}"`
+        : `Texting consent: NOT GIVEN — call this number, do not text it.`,
+    );
+  }
+
+  for (const annotation of annotations) lines.push(annotation);
   return lines.join("\n");
 }
+
+/**
+ * The wording shown beside the consent box, repeated here so the CRM note
+ * records what was actually agreed to. Kept in step with notify.ts and with
+ * the form; change all three together or the record is worthless.
+ */
+const SMS_CONSENT_WORDING =
+  "Text me at this number about my inquiry. Message and data rates may apply. " +
+  "Reply STOP at any time to stop.";
 
 /** Free-form bags a schema may offer for anything it does not model. */
 const CATCH_ALL_KEYS = ["customfields", "custom", "fields", "metadata", "meta", "data", "attributes", "extra"];
@@ -447,22 +477,28 @@ const CATCH_ALL_KEYS = ["customfields", "custom", "fields", "metadata", "meta", 
  * unknown keys is common enough that shotgunning every alias would be a
  * reliable way to fail on the first real lead.
  */
-export function buildArguments(schema: JsonSchema | undefined, lead: Lead): Record<string, unknown> {
+export function buildArguments(
+  schema: JsonSchema | undefined,
+  lead: Lead,
+  /** Extra lines for the note — the personal-review flag, in practice. */
+  annotations: string[] = [],
+): Record<string, unknown> {
   const properties = schema?.properties;
 
   // No schema, or a schema that declares nothing: send the plain payload and
   // let the server take what it recognizes.
   if (!properties || !Object.keys(properties).length) {
-    return { ...lead };
+    return { ...lead, notes: buildNote(lead, annotations) };
   }
 
-  return fill(properties, schema?.required ?? [], lead, 0);
+  return fill(properties, schema?.required ?? [], lead, annotations, 0);
 }
 
 function fill(
   properties: Record<string, JsonSchema>,
   required: string[],
   lead: Lead,
+  annotations: string[],
   depth: number,
 ): Record<string, unknown> {
   const args: Record<string, unknown> = {};
@@ -476,7 +512,7 @@ function fill(
     // the same lead. One level of nesting covers every shape seen in the wild;
     // deeper than that is guesswork with a worse failure mode.
     if (type === "object" && property.properties && depth < 2) {
-      const nested = fill(property.properties, property.required ?? [], lead, depth + 1);
+      const nested = fill(property.properties, property.required ?? [], lead, annotations, depth + 1);
       if (Object.keys(nested).length) args[key] = nested;
       continue;
     }
@@ -489,13 +525,17 @@ function fill(
 
     const alias = ALIASES.find((group) => group.keys.includes(normalized));
     if (alias) {
-      const value = alias.value(lead);
-      if (value) args[key] = coerce(value, property);
-      continue;
+      const value = alias.value(lead, annotations);
+      if (value) {
+        args[key] = coerce(value, property);
+        continue;
+      }
+      // Known field, nothing to put in it — an optional mobile number, say.
+      if (!isRequired.has(normalized)) continue;
     }
 
-    // Nothing to say about this field. If the schema insists on it, send
-    // something valid rather than let the whole lead bounce.
+    // Either nothing to say about this field, or nothing to say and the schema
+    // insists. Send something valid rather than let the whole lead bounce.
     if (isRequired.has(normalized)) {
       args[key] = placeholder(property);
     }

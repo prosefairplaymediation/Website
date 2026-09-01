@@ -18,8 +18,12 @@ Freelance brochure/services site for a Florida family-law **mediation + document
   Worker secret instead of being published in a page. Every other URL is still
   a static asset, served without the Worker running at all
   (`run_worker_first: ["/api/*"]`). Setup, and what is still unverified about
-  Referent's API, are in `docs/marketing/referent-crm.md`.
-  `npm run test:referent` exercises the route against a stand-in MCP server.
+  Referent's API, are in `docs/marketing/referent-crm.md`. The same route then
+  sends the practice alert and the visitor's acknowledgement (`worker/notify.ts`)
+  — **behind a keyword safety screen: an inquiry mentioning abuse, an
+  injunction or a threat never receives an automated message.** Do not loosen
+  that screen; add cases to it. `npm run test:referent` exercises all of it
+  against a stand-in MCP server.
 - **Node 22+** (enforced via Volta)
 - **Git:** private GitHub repo on the **`prosefairplaymediation`** account (migrated here 2026-06-26); every push triggers Cloudflare rebuild. **Push routing is account-critical. See "Git remote routing" below.**
 - **Husky pre-commit hook** auto-bumps `package.json` patch version

@@ -41,12 +41,18 @@ import {
   type Lead,
   type McpTool,
 } from "./referent.ts";
+import { notify, screen, toE164, type NotifyEnv, type Screen } from "./notify.ts";
 
 interface Fetcher {
   fetch(request: Request): Promise<Response>;
 }
 
-export interface Env {
+/** Cloudflare hands this in; only `waitUntil` is used here. */
+interface ExecutionContext {
+  waitUntil(promise: Promise<unknown>): void;
+}
+
+export interface Env extends NotifyEnv {
   ASSETS: Fetcher;
   REFERENT_API_TOKEN?: string;
   REFERENT_MCP_URL?: string;
@@ -71,11 +77,11 @@ const MAX_BODY_BYTES = 4096;
 const MAX_TOPIC = 140;
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/lead") {
-      return handleLead(request, env);
+      return handleLead(request, env, ctx);
     }
     if (url.pathname === "/api/lead/tools") {
       return handleTools(request, env);
@@ -88,7 +94,7 @@ export default {
   },
 };
 
-async function handleLead(request: Request, env: Env): Promise<Response> {
+async function handleLead(request: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
   if (request.method !== "POST") {
     return json({ ok: false, error: "method_not_allowed" }, 405, { Allow: "POST" });
   }
@@ -124,9 +130,25 @@ async function handleLead(request: Request, env: Env): Promise<Response> {
     return json({ ok: false, error: "crm_not_configured" }, 503);
   }
 
+  // Run before anything is sent anywhere. An inquiry that mentions abuse, an
+  // injunction or a threat gets a person, never an automated reply — the rule
+  // is set out in docs/marketing/lead-automation.md and enforced in notify.ts.
+  const flagged: Screen = screen(lead);
+
   try {
-    const toolName = await deliver(env, token, lead);
-    console.log(`lead: created via ${toolName} from ${lead.source_page}`);
+    const toolName = await deliver(env, token, lead, flagged);
+    console.log(
+      `lead: created via ${toolName} from ${lead.source_page}` +
+        (flagged.personalReview ? ` — FLAGGED for personal review (${flagged.reason})` : ""),
+    );
+
+    // The visitor is answered as soon as the contact exists. Texts and emails
+    // go out after that, so a slow provider never holds up the form, and a
+    // dead one never turns a captured lead into an error.
+    const messages = notify(env, lead, flagged);
+    if (ctx) ctx.waitUntil(messages);
+    else await messages;
+
     return json({ ok: true });
   } catch (error) {
     const stage = error instanceof ReferentError ? error.stage : "unknown";
@@ -139,7 +161,7 @@ async function handleLead(request: Request, env: Env): Promise<Response> {
 }
 
 /** Open a session, find the tool, call it. Returns the tool used. */
-async function deliver(env: Env, token: string, lead: Lead): Promise<string> {
+async function deliver(env: Env, token: string, lead: Lead, flagged: Screen): Promise<string> {
   const client = new ReferentClient(env.REFERENT_MCP_URL || DEFAULT_MCP_URL, token);
 
   try {
@@ -171,7 +193,16 @@ async function deliver(env: Env, token: string, lead: Lead): Promise<string> {
       }
     }
 
-    await client.callTool(tool.name, buildArguments(tool.inputSchema, lead));
+    // The flag goes into the CRM note as well as into Marie's alert, so it is
+    // visible to whoever opens the record next rather than only in an email.
+    const annotations = flagged.personalReview
+      ? [
+          `*** PERSONAL REVIEW — this inquiry mentions ${flagged.reason}.`,
+          `*** No automated message has been sent. Do not enrol in an automation.`,
+        ]
+      : [];
+
+    await client.callTool(tool.name, buildArguments(tool.inputSchema, lead, annotations));
     return tool.name;
   } finally {
     await client.close();
@@ -271,9 +302,18 @@ function validate(body: Record<string, unknown>): Lead | null {
   const source_page = text(body["source_page"], 200) || "/";
   const captured = text(body["captured_at"], 40);
 
+  // A number that cannot be dialled is worse than no number: it looks like a
+  // way to reach someone and is not. Anything unparseable is dropped, and the
+  // lead is still perfectly good on the email alone.
+  const phone = toE164(text(body["phone"], 32)) || "";
+
   return {
     first_name,
     email,
+    phone,
+    // Consent is only consent when there is a number attached to it, and only
+    // ever when the box was actually ticked. Never inferred from anything.
+    sms_consent: phone !== "" && body["sms_consent"] === true,
     timeframe: text(body["timeframe"], 40),
     topic: text(body["topic"], MAX_TOPIC),
     source_page,

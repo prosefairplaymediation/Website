@@ -26,8 +26,12 @@ interface Props {
 const {
   source = "inline",
   heading = "Not ready to book yet?",
+  // Changed when the acknowledgement was automated: the old wording promised
+  // "no automated sequence", and an instant auto-reply would have made that
+  // untrue. The substance of the promise is unchanged — two messages from
+  // Marie and then nothing.
   blurb =
-    "Most people read about this for weeks before they talk to anyone. Leave your first name and email and you will get one short note on what to have ready before you file, and one check-in later. No newsletter, no automated sequence — it comes from Marie.",
+    "Most people read about this for weeks before they talk to anyone. Leave your first name and email and you will get a short acknowledgement straight away, then one note from Marie on what to have ready before you file, and one check-in later. No newsletter, no drip sequence.",
 } = Astro.props;
 ---
 
@@ -46,6 +50,36 @@ const {
           <span class="lcap-label">Email</span>
           <input type="email" name="email" autocomplete="email" inputmode="email" required />
         </label>
+      </div>
+
+      {/*
+        The mobile number is optional and the consent box beside it is
+        separate, unticked, and sits next to the wording it agrees to. That
+        arrangement is not a style choice: texting a Florida number without
+        prior express written consent is exposure under the TCPA and, more
+        sharply, under the Florida Telephone Solicitation Act. An unticked box
+        means the number is for calling and nothing else, and the server
+        records the refusal alongside the number so nobody texts it later by
+        mistake. If this wording changes, change it in worker/notify.ts and
+        worker/referent.ts in the same commit — the CRM stores a copy of it as
+        the evidence of what was agreed.
+      */}
+      <div class="lcap-field lcap-field-wide">
+        <label class="lcap-sms-num">
+          <span class="lcap-label">Mobile number (optional)</span>
+          <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="561-555-0134" />
+        </label>
+        <label class="lcap-check">
+          <input type="checkbox" name="sms_consent" value="yes" />
+          <span>
+            Text me at this number about my inquiry. Message and data rates may
+            apply. Reply STOP at any time to stop.
+          </span>
+        </label>
+        <span class="lcap-hint">
+          Leave both blank if you would rather only be emailed. A number without
+          the box ticked will never be texted.
+        </span>
       </div>
 
       <label class="lcap-field lcap-field-wide">
@@ -91,7 +125,8 @@ const {
       <p class="lcap-fine">
         Please do not describe your situation here — this form is not
         confidential and is not the place for case details. You can reply
-        "stop" to any email and you will not be contacted again.
+        "stop" to any email, or STOP to any text, and you will not be
+        contacted again.
       </p>
       <p class="lcap-error" data-lcap-error hidden role="alert"></p>
     </form>
@@ -148,6 +183,8 @@ const {
         var email = (form.elements.email.value || "").trim();
         var when = form.elements.timeframe.value || "";
         var topic = (form.elements.topic.value || "").trim().slice(0, 140);
+        var phone = (form.elements.phone.value || "").trim();
+        var smsOk = !!phone && form.elements.sms_consent.checked;
 
         // Intentionally loose. A stricter pattern rejects real addresses, and
         // a bounced email costs less than a lost lead.
@@ -166,7 +203,9 @@ const {
         function mailFallback() {
           var subject = encodeURIComponent("Please keep me posted");
           var body = encodeURIComponent(
-            first + "\n" + email + "\nTimeframe: " + when +
+            first + "\n" + email +
+            (phone ? "\n" + phone + (smsOk ? " (ok to text)" : " (call only)") : "") +
+            "\nTimeframe: " + when +
             (topic ? "\nAbout: " + topic : "") +
             "\n(Sent from " + window.location.pathname + ")"
           );
@@ -200,6 +239,8 @@ const {
               : {
                   first_name: first,
                   email: email,
+                  phone: phone,
+                  sms_consent: smsOk,
                   timeframe: when,
                   topic: topic,
                   company: hp,
@@ -309,6 +350,37 @@ const {
     line-height: 1.5;
     opacity: 0.62;
   }
+  .lcap-sms-num { display: block; }
+  .lcap-check {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin-top: 0.6rem;
+    max-width: 42ch;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.88;
+    cursor: pointer;
+  }
+  .lcap-check input {
+    /* Undoes the full-width text-input styling above; a checkbox wants the
+       browser's own control, tinted, not a bordered box. */
+    width: 1.05rem;
+    height: 1.05rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    accent-color: var(--color-gold);
+  }
+  .lcap-check input:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
   /* Honeypot: off-screen rather than display:none, which some bots detect. */
   .lcap-hp {
     position: absolute;

@@ -69,6 +69,18 @@ npx wrangler secret put REFERENT_API_TOKEN
 | `REFERENT_LEAD_TOOL` | after step 3 | The exact tool name to call. |
 | `REFERENT_MCP_URL` | no | Defaults to `https://mcp.referent.law/mcp`. |
 
+And for the messages described under "The first five minutes" below. Each leg
+is independently optional — with none of these set, leads still reach Referent
+and nothing is sent:
+
+| Name | What it turns on |
+|---|---|
+| `RESEND_API_KEY` + `NOTIFY_FROM` | Email. `NOTIFY_FROM` must be on a domain verified in Resend. |
+| `NOTIFY_TO` | Where the practice alert goes. Defaults to `info@prosefairplaymediation.com`. |
+| `TWILIO_ACCOUNT_SID` + `TWILIO_AUTH_TOKEN` + `TWILIO_FROM` | Text messages. All three or none. |
+| `PRACTICE_SMS` | Marie's mobile, for the out-of-hours alert. |
+| `BOOKING_URL` | Only if the Calendly link moves. |
+
 ### 3. Ask the live server what it offers
 
 With `REFERENT_DEBUG_KEY` set, open:
@@ -160,18 +172,80 @@ alarm.** Leads keep arriving by email while the CRM leg is down, which means
 nothing is lost, and also that a broken token could go unnoticed for a week if
 nobody watches that event.
 
+## The first five minutes
+
+Someone reads about divorce at 10:30 at night and leaves an email. Once the
+contact exists in Referent, `worker/notify.ts` sends at most three messages:
+
+1. **An alert to the practice** — email, and a text to `PRACTICE_SMS` if set.
+   Always.
+2. **A short acknowledgement to the visitor**, by email, with the consultation
+   link.
+3. **The same by text** — only if they gave a mobile number *and* ticked the
+   box.
+
+All three run after the visitor has been answered, so a slow provider never
+holds up the form and a dead one never turns a captured lead into an error.
+
+The acknowledgement is deliberately short. The substantive note the form
+promises — what Florida asks for before filing — is still Marie's to send, and
+the draft is in [`crm.md`](./crm.md). The automatic one confirms a person will
+read it, offers the calendar to anyone ready now, says plainly that a mediator
+is not an attorney and that none of it is legal advice, and carries a way out.
+
+### The screen that runs first
+
+`docs/marketing/lead-automation.md` sets the rule: an inquiry that mentions
+abuse, an injunction, threats or a fear for anyone's safety must never receive
+an automated message. `screen()` enforces it before anything is sent. When it
+matches:
+
+- **nothing** automated goes to the visitor, by email or text;
+- the alert to Marie says why, and leads with it;
+- the CRM note is stamped `*** PERSONAL REVIEW`, so whoever opens the record
+  sees it without reading an email;
+- the lead is still created — flagged, never dropped.
+
+It is a keyword screen, not a language model: inspectable, unable to be talked
+out of a match, and it fails the same way every time. It is tuned to
+over-match. A false positive costs one email that Marie sends by hand. The
+twenty cases it is held to are in `scripts/referent-selftest.mjs`; **add to
+them rather than loosening a pattern.**
+
+### Texting consent — read before changing the form
+
+Texting a Florida number without prior express written consent is exposure
+under the federal TCPA and, more sharply, under the Florida Telephone
+Solicitation Act. So:
+
+- the number is optional and the consent box is separate, unticked, and next to
+  the wording it agrees to;
+- no box means no text, ever — the number is recorded as *call only*, and the
+  CRM note says so in as many words;
+- the exact wording shown, and the moment it was agreed to, are written into
+  the CRM note, because that record is the defence if consent is questioned;
+- STOP is honoured by Twilio and by the carrier automatically. A "stop" that
+  arrives **by email** still needs a person to action it.
+
+That wording appears in three places — `LeadCapture.astro`, `notify.ts` and
+`referent.ts`. **Change all three in the same commit**, or the stored record no
+longer matches what the person was actually shown, which is worse than storing
+nothing.
+
 ## Where this sits in the larger plan
 
 The intended funnel is Google → site → AI intake → Referent → SMS/email/
 booking/payment → conversion feedback to Google. This ships the arrow into
 Referent, which is the piece everything downstream hangs off:
 
-- **Done.** Form → Referent, with the credential held server-side, plus a
-  server-side place for the rest to run.
-- **Next, smallest first.** SMS and email on new lead (Referent automation, or
-  a Twilio/Resend call added to `worker/index.ts`); booking and payment links
-  in that first message, which the site already has at `/book` and `/pay`.
-- **Then.** An AI intake conversation replacing the form, which is a larger
+- **Done.** Form → Referent, with the credential held server-side.
+- **Done.** The first five minutes: alert, acknowledgement, text, and the
+  safety screen in front of all of it. The acknowledgement carries the booking
+  link; `/pay` exists for anyone who already knows what they want, though the
+  "Start My Mediation" pay-now route is not wired into these messages yet —
+  every service except the Gold Service has a fixed price and a Stripe link, so
+  it is a copy decision rather than a build.
+- **Next.** An AI intake conversation replacing the form, which is a larger
   piece of work and carries a professional-conduct question that has already
   been decided once on this site — the chat widget at
   `src/components/ChatWidget.astro` deliberately has no language model behind
@@ -181,3 +255,5 @@ Referent, which is the piece everything downstream hangs off:
   not a technical one.
 - **Then.** Google Ads/GA4 conversion feedback, which needs the pipeline above
   it to exist first — there is nothing to report back until leads have stages.
+  The Worker is where it will go: a server-side conversion needs the same
+  credential handling as everything else here.

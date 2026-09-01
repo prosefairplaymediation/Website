@@ -22,6 +22,7 @@
 import { createServer } from "node:http";
 import { once } from "node:events";
 import worker from "../worker/index.ts";
+import { screen, toE164 } from "../worker/notify.ts";
 
 const ORIGIN = "https://prosefairplaymediation.com";
 
@@ -220,7 +221,11 @@ console.log("\nJSON transport, camelCase schema");
   check("emailAddress mapped", args.emailAddress === "dana@example.com");
   check("required lastName filled", typeof args.lastName === "string" && args.lastName.length > 0);
   check("enum leadSource kept legal", args.leadSource === "Website", args.leadSource);
-  check("required phoneNumber not invented", args.phoneNumber === undefined, JSON.stringify(args.phoneNumber));
+  // Optional and unanswered: omitted. (`lastName` above is the other case —
+  // required and unanswerable, so it gets a placeholder rather than bouncing
+  // the whole lead.) A fabricated phone number is never sent either way.
+  check("optional phoneNumber omitted, not invented",
+    args.phoneNumber === undefined, JSON.stringify(args.phoneNumber));
   check("notes carry timeframe and topic",
     args.notes?.includes("Within a month") && args.notes?.includes("two kids"));
   check("customFields bag filled", args.customFields?.source_page === goodLead.source_page);
@@ -334,6 +339,88 @@ console.log("\nCRM refusing the lead");
   const env = { ASSETS, REFERENT_API_TOKEN: "test-token", REFERENT_MCP_URL: "http://127.0.0.1:1/mcp" };
   const res = await worker.fetch(post(goodLead), env);
   check("unreachable CRM gives 502", res.status === 502, `got ${res.status}`);
+}
+
+console.log("\nThe safety screen");
+{
+  // The rule from docs/marketing/lead-automation.md: an inquiry mentioning
+  // abuse, an injunction, a threat or a fear for someone's safety must never
+  // receive an automated message. These are the cases that must never pass.
+  const mustFlag = [
+    "my ex is threatening me and I have an injunction",
+    "there has been domestic violence in the marriage",
+    "he hit me last year and I am scared of him",
+    "I have a restraining order against my husband",
+    "I do not feel safe meeting him in the same room",
+    "the police were called during an argument",
+    "he took the kids and will not say where",
+    "she has been harassing me constantly",
+    "I am afraid of what he will do when I file",
+    "he owns a gun and I am worried",
+  ];
+  for (const topic of mustFlag) {
+    const { personalReview, reason } = screen({ ...goodLead, topic });
+    check(`flagged: "${topic.slice(0, 44)}…"`, personalReview === true, `reason=${reason}`);
+  }
+
+  // And the ordinary ones, which should get the automated acknowledgement.
+  const mustNotFlag = [
+    "divorce with two kids, we agree on most things",
+    "never married, need a time-sharing schedule",
+    "dispute with my business partner over the LLC",
+    "we want to divide the house without lawyers",
+    "",
+  ];
+  for (const topic of mustNotFlag) {
+    const { personalReview } = screen({ ...goodLead, topic });
+    check(`not flagged: "${topic.slice(0, 44) || "(blank)"}"`, personalReview === false);
+  }
+}
+
+console.log("\nPhone numbers and texting consent");
+{
+  check("10 digits become E.164", toE164("561-555-0134") === "+15615550134", toE164("561-555-0134"));
+  check("1 + 10 digits accepted", toE164("1 (561) 555 0134") === "+15615550134");
+  check("already E.164 passes through", toE164("+15615550134") === "+15615550134");
+  check("too short refused", toE164("555-0134") === null);
+  check("letters refused", toE164("call me") === null);
+  check("area code starting 0 refused", toE164("061-555-0134") === null);
+
+  const mcp = await startMcpServer({ transport: "json", tools: [CAMEL_TOOL] });
+  const env = { ASSETS, REFERENT_API_TOKEN: "test-token", REFERENT_MCP_URL: mcp.url };
+
+  await worker.fetch(post({ ...goodLead, phone: "(561) 555-0134", sms_consent: true }), env);
+  let args = mcp.calls.at(-1).params.arguments;
+  check("phone reaches the CRM in E.164", args.phoneNumber === "+15615550134", args.phoneNumber);
+  check("consent recorded in the note", args.notes.includes("Texting consent: GIVEN"), args.notes);
+
+  await worker.fetch(post({ ...goodLead, phone: "(561) 555-0134", sms_consent: false }), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("refusal recorded just as explicitly",
+    args.notes.includes("NOT GIVEN") && args.notes.includes("do not text"), args.notes);
+
+  // A number is required for consent to mean anything. Claiming consent with
+  // no number must not produce a record that says consent was given.
+  await worker.fetch(post({ ...goodLead, phone: "", sms_consent: true }), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("consent without a number is not consent", !args.notes.includes("GIVEN"), args.notes);
+
+  await worker.fetch(post({ ...goodLead, phone: "not a phone", sms_consent: true }), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("an unusable number is dropped, lead still created",
+    args.phoneNumber === undefined && args.emailAddress === goodLead.email,
+    JSON.stringify(args.phoneNumber));
+
+  const flagged = await worker.fetch(
+    post({ ...goodLead, topic: "my ex threatened me, there is an injunction" }),
+    env,
+  );
+  check("a flagged lead is still created", flagged.status === 200);
+  check("and the CRM record says so",
+    mcp.calls.at(-1).params.arguments.notes.includes("PERSONAL REVIEW"),
+    mcp.calls.at(-1).params.arguments.notes);
+
+  await mcp.close();
 }
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
