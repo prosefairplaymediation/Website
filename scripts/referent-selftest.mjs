@@ -292,7 +292,9 @@ console.log("\nRefusals and fallbacks");
   );
   check("non-JSON body refused", notJson.status === 400, `got ${notJson.status}`);
 
-  const overlong = await worker.fetch(post({ ...goodLead, topic: "x".repeat(5000) }), env);
+  // Comfortably over MAX_BODY_BYTES, which has headroom for the attribution
+  // object. The 140-character cap on `topic` itself is applied after this.
+  const overlong = await worker.fetch(post({ ...goodLead, topic: "x".repeat(20000) }), env);
   check("oversized body refused", overlong.status === 400, `got ${overlong.status}`);
 
   const noToken = await worker.fetch(post(goodLead), { ASSETS, REFERENT_MCP_URL: mcp.url });
@@ -419,6 +421,85 @@ console.log("\nPhone numbers and texting consent");
   check("and the CRM record says so",
     mcp.calls.at(-1).params.arguments.notes.includes("PERSONAL REVIEW"),
     mcp.calls.at(-1).params.arguments.notes);
+
+  await mcp.close();
+}
+
+console.log("\nAdvertising attribution");
+{
+  const GCLID_TOOL = {
+    name: "create_lead",
+    description: "Create a lead",
+    inputSchema: {
+      type: "object",
+      required: ["email"],
+      properties: {
+        email: { type: "string" },
+        firstName: { type: "string" },
+        gclid: { type: "string" },
+        utm_campaign: { type: "string" },
+        leadSource: { type: "string" },
+        notes: { type: "string" },
+      },
+    },
+  };
+
+  const mcp = await startMcpServer({ transport: "json", tools: [GCLID_TOOL] });
+  const env = { ASSETS, REFERENT_API_TOKEN: "test-token", REFERENT_MCP_URL: mcp.url };
+
+  const paid = {
+    first: { gclid: "FIRST_CLICK", utm_source: "google", utm_medium: "cpc", utm_campaign: "divorce-broad" },
+    last: { gclid: "LAST_CLICK", utm_source: "google", utm_medium: "cpc", utm_campaign: "divorce-exact" },
+    first_seen: "2026-08-02T19:00:00.000Z",
+    last_seen: "2026-09-01T17:00:00.000Z",
+  };
+
+  await worker.fetch(post({ ...goodLead, attribution: paid }), env);
+  let args = mcp.calls.at(-1).params.arguments;
+  // Google matches a conversion against the click it came from, so the most
+  // recent click is the one that goes in the dedicated field.
+  check("last-touch click id goes to the gclid field", args.gclid === "LAST_CLICK", args.gclid);
+  check("campaign mapped", args.utm_campaign === "divorce-exact", args.utm_campaign);
+  check("lead source reads as the channel", args.leadSource === "google / cpc", args.leadSource);
+  check("both touches survive in the note",
+    args.notes.includes("FIRST_CLICK") && args.notes.includes("LAST_CLICK"), args.notes);
+  check("the note dates them", args.notes.includes("2026-08-02"), args.notes);
+
+  // A single visit: one touch, and the note should not repeat it.
+  await worker.fetch(post({
+    ...goodLead,
+    attribution: { first: { gclid: "ONE" }, last: { gclid: "ONE" },
+      first_seen: "2026-09-01T17:00:00.000Z", last_seen: "2026-09-01T17:00:00.000Z" },
+  }), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("a single touch is not printed twice",
+    (args.notes.match(/ONE/g) || []).length === 1, args.notes);
+
+  // Organic visitors are the common case and must stay clean.
+  await worker.fetch(post(goodLead), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("no attribution leaves no gclid", args.gclid === undefined);
+  check("and no attribution block in the note",
+    !args.notes.includes("Advertising attribution"), args.notes);
+  check("falling back to the site as the source",
+    args.leadSource === "Website — prosefairplaymediation.com", args.leadSource);
+
+  // The page can send anything; the Worker decides what it keeps.
+  await worker.fetch(post({
+    ...goodLead,
+    attribution: {
+      first: { gclid: "x".repeat(500), utm_source: "google", evil: { nested: true }, count: 7 },
+      first_seen: "not a date",
+    },
+  }), env);
+  args = mcp.calls.at(-1).params.arguments;
+  check("an overlong click id is clamped", args.gclid.length === 200, String(args.gclid.length));
+  check("unknown keys are dropped", !args.notes.includes("evil") && !args.notes.includes("count"));
+  check("a bad timestamp is dropped, not echoed", !args.notes.includes("not a date"));
+
+  await worker.fetch(post({ ...goodLead, attribution: "just a string" }), env);
+  check("a non-object attribution does not break the lead",
+    mcp.calls.at(-1).params.name === "create_lead");
 
   await mcp.close();
 }

@@ -37,6 +37,8 @@ import {
   ReferentError,
   buildArguments,
   pickLeadTool,
+  type Attribution,
+  type AttributionTouch,
   type JsonSchema,
   type Lead,
   type McpTool,
@@ -70,8 +72,11 @@ const ALLOWED_ORIGINS = [
   "http://127.0.0.1:4321",
 ];
 
-/** A real submission is a few hundred bytes. */
-const MAX_BODY_BYTES = 4096;
+/**
+ * A real submission is under a kilobyte. The headroom is for the attribution
+ * object, where a long campaign name and a long referrer can both turn up.
+ */
+const MAX_BODY_BYTES = 8192;
 
 /** Same cap the form's `maxlength` sets, enforced where it cannot be edited. */
 const MAX_TOPIC = 140;
@@ -322,6 +327,54 @@ function validate(body: Record<string, unknown>): Lead | null {
     // Trusting the browser's clock for this is fine, but not trusting it at
     // all is free.
     captured_at: /^\d{4}-\d{2}-\d{2}T/.test(captured) ? captured : new Date().toISOString(),
+    attribution: readAttribution(body["attribution"]),
+  };
+}
+
+/** Click IDs and campaign tags are long, but not this long. */
+const MAX_ATTRIBUTION_VALUE = 200;
+
+const TOUCH_FIELDS = [
+  "gclid", "gbraid", "wbraid",
+  "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+  "landing_page", "referrer",
+] as const;
+
+/**
+ * The attribution object comes from the page, so it is shaped here rather than
+ * trusted: only the known keys, only strings, each clamped. It ends up in a
+ * CRM note that a person reads, and a 4KB "campaign name" in that note would
+ * be somebody's idea of a joke.
+ */
+function readAttribution(value: unknown): Attribution | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const source = value as Record<string, unknown>;
+
+  const readTouch = (raw: unknown): AttributionTouch | undefined => {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
+    const from = raw as Record<string, unknown>;
+    const touch: AttributionTouch = {};
+    for (const field of TOUCH_FIELDS) {
+      const item = from[field];
+      if (typeof item === "string" && item.trim()) {
+        touch[field] = item.trim().slice(0, MAX_ATTRIBUTION_VALUE);
+      }
+    }
+    return Object.keys(touch).length ? touch : undefined;
+  };
+
+  const readDate = (raw: unknown): string | undefined =>
+    typeof raw === "string" && /^\d{4}-\d{2}-\d{2}T/.test(raw) ? raw.slice(0, 40) : undefined;
+
+  const first = readTouch(source["first"]);
+  const last = readTouch(source["last"]);
+  if (!first && !last) return null;
+
+  return {
+    ...(first && { first }),
+    ...(last && { last }),
+    ...(readDate(source["first_seen"]) && { first_seen: readDate(source["first_seen"]) }),
+    ...(readDate(source["last_seen"]) && { last_seen: readDate(source["last_seen"]) }),
   };
 }
 

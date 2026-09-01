@@ -6,6 +6,11 @@ import MusicPlayer from "../components/MusicPlayer.astro";
 import ChatWidget from "../components/ChatWidget.astro";
 import StickyCta from "../components/StickyCta.astro";
 import { BING_SITE_VERIFICATION } from "../consts.ts";
+import {
+  ATTRIBUTION_KEY,
+  ATTRIBUTION_TTL_DAYS,
+  AW_CONVERSION_ID,
+} from "../lib/attribution.ts";
 
 interface Props {
   title?: string;
@@ -46,13 +51,78 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    {/*
+      Ad-click capture. Runs before anything else on the page and before the
+      analytics script has loaded, because the one thing that cannot be
+      recovered later is a click ID that was never read off the URL. See
+      src/lib/attribution.ts and docs/marketing/google-attribution.md.
+    */}
+    <script is:inline define:vars={{ ATTR_KEY: ATTRIBUTION_KEY, ATTR_TTL: ATTRIBUTION_TTL_DAYS }}>
+      (function () {
+        var FIELDS = [
+          "gclid", "gbraid", "wbraid",
+          "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+        ];
+
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var touch = {};
+          var found = false;
+          for (var i = 0; i < FIELDS.length; i++) {
+            var value = (params.get(FIELDS[i]) || "").slice(0, 200);
+            if (value) { touch[FIELDS[i]] = value; found = true; }
+          }
+
+          var stored = {};
+          try { stored = JSON.parse(localStorage.getItem(ATTR_KEY) || "{}") || {}; } catch (e) {}
+
+          // Expire the whole record together. A ninety-day-old click ID is no
+          // longer accepted by Google anyway, and a half-expired record is
+          // harder to reason about than none.
+          var maxAge = ATTR_TTL * 86400000;
+          if (stored.first_seen && Date.now() - Date.parse(stored.first_seen) > maxAge) stored = {};
+
+          if (found) {
+            touch.landing_page = window.location.pathname;
+            // Only an off-site referrer says anything; an internal one is noise.
+            var ref = document.referrer || "";
+            if (ref && ref.indexOf(window.location.host) === -1) touch.referrer = ref.slice(0, 300);
+
+            // First touch is written once and never overwritten -- on a
+            // months-long decision it is usually the one that earned the lead.
+            if (!stored.first) { stored.first = touch; stored.first_seen = new Date().toISOString(); }
+            stored.last = touch;
+            stored.last_seen = new Date().toISOString();
+            try { localStorage.setItem(ATTR_KEY, JSON.stringify(stored)); } catch (e) {}
+          }
+
+          // Read back by the capture form. Absent rather than empty when
+          // nothing was ever captured, so a direct visit sends no noise.
+          window.__pfpAttribution = stored.first || stored.last ? stored : null;
+        } catch (e) {
+          // Private browsing, a blocked storage API, an exotic URL. None of it
+          // is worth breaking a page over.
+          window.__pfpAttribution = null;
+        }
+      })();
+    </script>
+
     <!-- Google Analytics (gtag.js) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-NH6HKR18MZ"></script>
-    <script is:inline>
+    <script is:inline define:vars={{ AW_ID: AW_CONVERSION_ID }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-NH6HKR18MZ');
+
+      // Google Ads. Configured only once AW_CONVERSION_ID is filled in, so
+      // the site carries no Ads tag until there is an account to send to.
+      // allow_enhanced_conversions lets the tag hash and send the email the
+      // visitor typed, which is what matches a later CRM conversion back to
+      // the click. Nothing is sent by merely configuring this.
+      if (AW_ID) {
+        gtag('config', AW_ID, { allow_enhanced_conversions: true });
+      }
 
       // Delegated listener: any click on a /book link anywhere on
       // the site fires a single book_intent_click event. Source is

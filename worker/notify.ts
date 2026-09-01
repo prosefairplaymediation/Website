@@ -160,6 +160,18 @@ async function alertPractice(env: NotifyEnv, lead: Lead, result: Screen): Promis
     `Time:      ${lead.captured_at}`,
   ];
 
+  const arrival = lead.attribution?.first || lead.attribution?.last;
+  if (arrival) {
+    const campaign = [arrival.utm_source, arrival.utm_medium, arrival.utm_campaign]
+      .filter(Boolean)
+      .join(" / ");
+    lines.push(
+      `Came from: ${campaign || "an ad click"}${
+        arrival.gclid || arrival.gbraid || arrival.wbraid ? " (paid click — recorded in the CRM)" : ""
+      }`,
+    );
+  }
+
   await Promise.allSettled([
     sendEmail(env, {
       to: env.NOTIFY_TO || PRACTICE_EMAIL,

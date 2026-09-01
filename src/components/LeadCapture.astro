@@ -15,6 +15,7 @@
  * the dispute, and the note under the field says so plainly.
  */
 import { LEAD_ENDPOINT, LEAD_MODE, LEAD_FALLBACK_EMAIL } from "../lib/leadCapture";
+import { AW_LEAD_CONVERSION_SEND_TO } from "../lib/attribution";
 
 interface Props {
   /** Where the GA4 event says the capture happened. */
@@ -35,7 +36,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="lcap" data-lcap data-source={source} data-endpoint={LEAD_ENDPOINT} data-mode={LEAD_MODE} data-fallback={LEAD_FALLBACK_EMAIL}>
+<section class="lcap" data-lcap data-source={source} data-endpoint={LEAD_ENDPOINT} data-mode={LEAD_MODE} data-fallback={LEAD_FALLBACK_EMAIL} data-aw-send-to={AW_LEAD_CONVERSION_SEND_TO}>
   <div class="container-narrow lcap-inner">
     <h2 class="display lcap-title">{heading}</h2>
     <p class="lcap-blurb">{blurb}</p>
@@ -169,8 +170,29 @@ const {
         errEl.hidden = false;
       }
 
-      function succeed() {
+      // Fired once the lead is captured, whichever way it got there --
+      // including the mail-client fallback, because from the advertising
+      // side that is still a lead the ad produced.
+      //
+      // Two events on purpose. `generate_lead` is GA4's own recommended name,
+      // so it is understood without configuration. The Ads conversion is sent
+      // separately and only once a conversion action exists, with the email
+      // the visitor typed so Google can match a later CRM conversion back to
+      // the click -- enhanced conversions for leads. That is the whole point:
+      // Google should learn who eventually pays, not who fills in forms.
+      function convert(email) {
+        track("generate_lead");
+
+        var sendTo = section.getAttribute("data-aw-send-to") || "";
+        if (sendTo && typeof window.gtag === "function") {
+          window.gtag("set", "user_data", { email: email });
+          window.gtag("event", "conversion", { send_to: sendTo });
+        }
+      }
+
+      function succeed(email) {
         track("lead_capture_submit");
+        convert(email);
         form.hidden = true;
         if (done) done.hidden = false;
       }
@@ -211,7 +233,7 @@ const {
           );
           window.location.href =
             "mailto:" + fallback + "?subject=" + subject + "&body=" + body;
-          succeed();
+          succeed(email);
         }
 
         if (!endpoint) { mailFallback(); return; }
@@ -244,6 +266,9 @@ const {
                   timeframe: when,
                   topic: topic,
                   company: hp,
+                  // Captured on arrival in BaseLayout, possibly weeks ago.
+                  // This is the only moment it can be attached to a person.
+                  attribution: window.__pfpAttribution || null,
                   source_page: window.location.pathname,
                   source_url: window.location.href,
                   captured_at: new Date().toISOString(),
@@ -252,7 +277,7 @@ const {
         })
           .then(function (r) {
             if (!r.ok) throw new Error(String(r.status));
-            succeed();
+            succeed(email);
           })
           .catch(function () {
             // /api/lead is same-origin and answers 2xx only when Referent

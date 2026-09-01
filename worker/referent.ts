@@ -44,6 +44,33 @@ export interface Lead {
   source_page: string;
   source_url: string;
   captured_at: string;
+  /** Google click ID and campaign tags, if this visitor arrived with any. */
+  attribution: Attribution | null;
+}
+
+/**
+ * What an ad click leaves in the URL, kept so that the eventual "this person
+ * paid for a mediation" can be reported back to Google against the click that
+ * produced them. See src/lib/attribution.ts.
+ */
+export interface Attribution {
+  first?: AttributionTouch;
+  last?: AttributionTouch;
+  first_seen?: string;
+  last_seen?: string;
+}
+
+export interface AttributionTouch {
+  gclid?: string;
+  gbraid?: string;
+  wbraid?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_term?: string;
+  utm_content?: string;
+  landing_page?: string;
+  referrer?: string;
 }
 
 export interface McpTool {
@@ -412,8 +439,34 @@ const ALIASES: AliasGroup[] = [
     value: buildNote,
   },
   {
-    keys: ["source", "leadsource", "origin", "channel", "referralsource", "utmsource", "via"],
-    value: () => "Website — prosefairplaymediation.com",
+    // A schema with its own gclid field is the best possible home for it: the
+    // Data Manager upload can then read it straight off the CRM record.
+    keys: ["gclid", "googleclickid", "clickid"],
+    value: (lead) => clickId(lead),
+  },
+  {
+    keys: ["utmsource"],
+    value: (lead) => touch(lead)?.utm_source || "",
+  },
+  {
+    keys: ["utmmedium"],
+    value: (lead) => touch(lead)?.utm_medium || "",
+  },
+  {
+    keys: ["utmcampaign", "campaign"],
+    value: (lead) => touch(lead)?.utm_campaign || "",
+  },
+  {
+    keys: ["source", "leadsource", "origin", "channel", "referralsource", "via"],
+    value: (lead) => {
+      const t = touch(lead);
+      // "Google / cpc" says more than "Website" and still fits a plain text
+      // field. Falls back to the site when the visit carried no campaign.
+      if (t?.utm_source) {
+        return t.utm_medium ? `${t.utm_source} / ${t.utm_medium}` : t.utm_source;
+      }
+      return "Website — prosefairplaymediation.com";
+    },
   },
   {
     keys: ["sourceurl", "url", "pageurl", "landingpage", "referrer", "referer", "website"],
@@ -432,6 +485,23 @@ const ALIASES: AliasGroup[] = [
     value: (lead) => lead.captured_at,
   },
 ];
+
+/**
+ * The click that produced this lead.
+ *
+ * Last touch, falling back to first. Google matches a conversion against the
+ * click it came from, and where a visitor arrived twice the later click is the
+ * one its own attribution expects; `first` is still carried in the note for
+ * anyone reading the record rather than uploading it.
+ */
+function clickId(lead: Lead): string {
+  const t = touch(lead);
+  return t?.gclid || t?.gbraid || t?.wbraid || "";
+}
+
+function touch(lead: Lead): AttributionTouch | undefined {
+  return lead.attribution?.last || lead.attribution?.first;
+}
 
 /** Everything the CRM is allowed to hold, in one readable block. */
 function buildNote(lead: Lead, annotations: string[]): string {
@@ -454,8 +524,39 @@ function buildNote(lead: Lead, annotations: string[]): string {
     );
   }
 
+  // Written into the note as well as into any dedicated field, because a note
+  // is the one place every CRM has. Without this, a lead who eventually pays
+  // can never be reported back to Google against the click that won them.
+  const attribution = lead.attribution;
+  if (attribution?.first || attribution?.last) {
+    lines.push(``, `Advertising attribution:`);
+    if (attribution.first) {
+      lines.push(`  First touch${dated(attribution.first_seen)}: ${describeTouch(attribution.first)}`);
+    }
+    if (attribution.last && attribution.last_seen !== attribution.first_seen) {
+      lines.push(`  Last touch${dated(attribution.last_seen)}:  ${describeTouch(attribution.last)}`);
+    }
+  }
+
   for (const annotation of annotations) lines.push(annotation);
   return lines.join("\n");
+}
+
+function describeTouch(t: AttributionTouch): string {
+  const parts: string[] = [];
+  const click = t.gclid || t.gbraid || t.wbraid;
+  if (click) parts.push(`${t.gclid ? "gclid" : t.gbraid ? "gbraid" : "wbraid"}=${click}`);
+  if (t.utm_source) parts.push(`source=${t.utm_source}`);
+  if (t.utm_medium) parts.push(`medium=${t.utm_medium}`);
+  if (t.utm_campaign) parts.push(`campaign=${t.utm_campaign}`);
+  if (t.utm_term) parts.push(`term=${t.utm_term}`);
+  if (t.utm_content) parts.push(`content=${t.utm_content}`);
+  if (t.landing_page) parts.push(`landed on ${t.landing_page}`);
+  return parts.join(", ") || "no identifiers";
+}
+
+function dated(iso: string | undefined): string {
+  return iso ? ` (${iso.slice(0, 10)})` : "";
 }
 
 /**

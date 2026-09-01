@@ -253,7 +253,7 @@ Referent, which is the piece everything downstream hangs off:
   their own case and will answer. Read the header of that file before
   reopening the decision; it is a Rule 10.370 / unauthorized-practice question,
   not a technical one.
-- **Then.** Google Ads/GA4 conversion feedback, which needs the pipeline above
-  it to exist first — there is nothing to report back until leads have stages.
-  The Worker is where it will go: a server-side conversion needs the same
-  credential handling as everything else here.
+- **Half done.** Google attribution — the click ID is now captured on arrival
+  and stored with every lead, which is the half that cannot be added later.
+  Reporting the downstream conversion back to Google needs the Ads account and
+  is written up in [`google-attribution.md`](./google-attribution.md).

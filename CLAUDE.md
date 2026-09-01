@@ -24,6 +24,11 @@ Freelance brochure/services site for a Florida family-law **mediation + document
   injunction or a threat never receives an automated message.** Do not loosen
   that screen; add cases to it. `npm run test:referent` exercises all of it
   against a stand-in MCP server.
+- **Ad-click attribution.** `BaseLayout.astro` captures `gclid`/`gbraid`/
+  `wbraid` and `utm_*` on arrival and the Worker stores them with the lead, so
+  a lead who later pays can be reported back to Google against the click that
+  won them. A click ID not captured on the visit cannot be recovered — do not
+  move or defer that script. `docs/marketing/google-attribution.md`.
 - **Node 22+** (enforced via Volta)
 - **Git:** private GitHub repo on the **`prosefairplaymediation`** account (migrated here 2026-06-26); every push triggers Cloudflare rebuild. **Push routing is account-critical. See "Git remote routing" below.**
 - **Husky pre-commit hook** auto-bumps `package.json` patch version
