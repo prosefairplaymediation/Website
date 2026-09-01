@@ -59,13 +59,17 @@ export const services: ServiceDef[] = [
       "The premium mediation tier, emphasizing discretion, privacy and close professional oversight throughout. Priced per matter.",
   },
   {
+    // The slug stays "parenting-plan" deliberately. The service was renamed and
+    // repriced on 2026-09-01; the URL was not, because /services/parenting-plan
+    // is indexed, linked from four other pages, and printed on the QR-code
+    // materials. Breaking those costs more than a tidier path is worth.
     slug: "parenting-plan",
-    short: "Parenting Plan",
-    priceLabel: "$400 flat",
-    name: "Parenting Plan Preparation",
+    short: "Paternity Parenting Plan",
+    priceLabel: "$600 flat",
+    name: "Paternity Cases – Parenting Plan",
     description:
-      "A Parenting Plan customised to one family's schedule and structure, delivered in a clear, court-ready format.",
-    price: "400.00",
+      "A Parenting Plan for a paternity case, customised to one family's schedule and structure, delivered in a clear, court-ready format.",
+    price: "600.00",
   },
   {
     slug: "court-packet",

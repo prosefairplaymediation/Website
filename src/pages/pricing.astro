@@ -26,8 +26,8 @@ const services = [
     payHref: "/services/gold-service",
   },
   {
-    name: "Parenting Plan Preparation",
-    price: "$400 flat",
+    name: "Paternity Cases – Parenting Plan",
+    price: "$600 flat",
     note: "A customized, court-ready Parenting Plan, drafted from the information you provide. Document preparation only.",
     href: "/services/parenting-plan",
     payHref: "/pay#document-services",
@@ -143,42 +143,12 @@ import LeadCapture from "../components/LeadCapture.astro";
     </section>
   )}
 
-  <!-- ========================== REFUND POLICIES ========================== -->
-  <section class="pricing-body pricing-body-alt">
-    <div class="container-narrow">
-      <h2 class="section-label">Refund &amp; Cancellation</h2>
-      <p class="policy-summary-lead">
-        Both policies now have pages of their own, so they can be read, linked
-        to and cited without scrolling through a price list. The short version:
-      </p>
-      <ul class="policy-summary-list">
-        <li>
-          More than <strong>24 hours'</strong> notice on a mediation session — full
-          refund or a full session credit, your choice.
-        </li>
-        <li>
-          Less than 24 hours — <strong>50%</strong> of the retainer is retained,
-          and the balance becomes a one-time credit toward a session within 30 days.
-        </li>
-        <li>
-          <strong>If the other party declines to mediate at all, the paying party is
-          refunded in full</strong>, whatever the notice.
-        </li>
-        <li>
-          Document preparation is fully refundable <strong>before</strong> drafting
-          starts, and earned once it has.
-        </li>
-        <li>
-          Hurricanes, evacuation orders and outages are rescheduled at no charge.
-        </li>
-      </ul>
-      <p class="policy-summary-links">
-        <a class="link-underline" href="/cancellation">Cancellation &amp; Rescheduling Policy</a>
-        <span aria-hidden="true"> &middot; </span>
-        <a class="link-underline" href="/refund">Refund Policy</a>
-      </p>
-    </div>
-  </section>
+  {/* The "Refund & Cancellation" summary block that stood here was removed on
+      2026-09-01: its terms were wrong, and a wrong summary of a money policy
+      on the pricing page is worse than no summary. The two policy pages it
+      linked to remain the canonical statement — see /refund and /cancellation,
+      which are reached from the footer. Do not restore a summary here without
+      checking it line by line against those pages. */}
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
@@ -367,15 +337,7 @@ import LeadCapture from "../components/LeadCapture.astro";
     padding-top: var(--space-2xl);
     border-top: 1px solid var(--color-divider);
   }
-  .policy-summary-lead { max-width: 62ch; line-height: 1.7; }
-  .policy-summary-list {
-    max-width: 66ch;
-    margin: var(--space-md) 0;
-    padding-left: 1.15rem;
-    line-height: 1.7;
-  }
-  .policy-summary-list li { margin-bottom: 0.55rem; }
-  .policy-summary-links { margin-top: var(--space-lg); font-size: 1.02rem; }
+  /* .policy-summary-* removed with the refund summary block it styled. */
   .policy-title {
     font-size: var(--step-3);
     line-height: 1.1;
