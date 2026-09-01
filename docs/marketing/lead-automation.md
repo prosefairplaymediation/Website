@@ -5,6 +5,19 @@ done and pushed; the Zapier half has to be built in Zapier's own UI, which
 cannot be done from here — every step is written out below so it can be
 followed click by click.
 
+> **Superseded 2026-09-01 as to its plumbing.** The CRM is Referent, not
+> Lawmatics, and the site posts to it directly through a Cloudflare Worker
+> rather than through a Zapier catch hook — see
+> [`referent-crm.md`](./referent-crm.md). Step 1 below no longer applies:
+> `LEAD_WEBHOOK_URL` is not the switch any more.
+>
+> **The rest of this page is still the plan.** The classification prompt in
+> Step 2, the parsing fallback in Step 3, the two-path routing in Step 4 and
+> the four-test checklist at the end are all independent of which CRM holds
+> the contact. The safety rule in particular — an inquiry mentioning abuse, an
+> injunction or a threat must never receive an automated marketing email — has
+> to be carried into Referent's automations verbatim.
+
 ## Verified before building
 
 - **Lawmatics has a Zapier app** with triggers including *Contact created*,

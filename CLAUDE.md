@@ -12,13 +12,32 @@ Freelance brochure/services site for a Florida family-law **mediation + document
 
 - **Astro 6** (static SSG, strict TypeScript)
 - **Cloudflare Workers** for deployment (`wrangler.jsonc`)
+- **One server-side route** (added 2026-09-01). `worker/index.ts` handles
+  `/api/lead` and nothing else: it takes a capture-form submission and creates
+  the contact in **Referent** (the CRM) over MCP, so the API token stays a
+  Worker secret instead of being published in a page. Every other URL is still
+  a static asset, served without the Worker running at all
+  (`run_worker_first: ["/api/*"]`). Setup, and what is still unverified about
+  Referent's API, are in `docs/marketing/referent-crm.md`. The same route then
+  sends the practice alert and the visitor's acknowledgement (`worker/notify.ts`)
+  — **behind a keyword safety screen: an inquiry mentioning abuse, an
+  injunction or a threat never receives an automated message.** Do not loosen
+  that screen; add cases to it. `npm run test:referent` exercises all of it
+  against a stand-in MCP server.
+- **Ad-click attribution.** `BaseLayout.astro` captures `gclid`/`gbraid`/
+  `wbraid` and `utm_*` on arrival and the Worker stores them with the lead, so
+  a lead who later pays can be reported back to Google against the click that
+  won them. A click ID not captured on the visit cannot be recovered — do not
+  move or defer that script. `docs/marketing/google-attribution.md`.
 - **Node 22+** (enforced via Volta)
 - **Git:** private GitHub repo on the **`prosefairplaymediation`** account (migrated here 2026-06-26); every push triggers Cloudflare rebuild. **Push routing is account-critical. See "Git remote routing" below.**
 - **Husky pre-commit hook** auto-bumps `package.json` patch version
 
 ## Git remote routing (ACCOUNT-CRITICAL — read before any push)
 
-This repo intentionally pushes to a **separate GitHub account** (`prosefairplaymediation`), **NOT** Dave's normal personal/work account (`dleepernoinc`). This is deliberate handover prep. The client will eventually own this repo. Pushing to the wrong account leaks the project into Dave's personal account.
+This repo intentionally pushes to a **separate GitHub account** (`prosefairplaymediation`), **NOT** Dave's old personal/work account (`dleepernoinc`). Pushing to the wrong account leaks the project into someone else's personal account.
+
+**Handover completed 2026-09-01.** The account holder — Marie, at `info@prosefairplaymediation.com` — now owns and directs this repository. The routing rules below still stand for the same reason they always did; what changed is who authorizes the work.
 
 **How the routing works (automatic; nothing to toggle per push):**
 - `origin` → `git@github-prosefp:prosefairplaymediation/Website.git`
@@ -30,7 +49,7 @@ This repo intentionally pushes to a **separate GitHub account** (`prosefairplaym
 - **Always push to `origin`. NEVER push to `old-origin`.**
 - **Never change `origin`** to the `dleepernoinc` remote, and never re-add a `dleepernoinc` remote as `origin`.
 - Before pushing, if there is any doubt, verify with `git remote get-url origin`. It must be `git@github-prosefp:prosefairplaymediation/Website.git`. If it shows anything else, **STOP and flag it** rather than pushing.
-- Committing/pushing still requires Dave's explicit go-ahead (unchanged).
+- Committing/pushing is authorized by the repository owner (see "Handover completed" above), not by Dave. Feature branches freely; a push to `main` deploys to the live site, so that one is asked for every time.
 - Cloudflare builds the live site from this new repo as of 2026-06-26.
 
 ## Local Development

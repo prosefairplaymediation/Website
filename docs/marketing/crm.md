@@ -3,6 +3,14 @@
 Written 2026-08-28. Decision is Marie's; this records the options, the
 reasoning, and what the site now does regardless of which is chosen.
 
+> **Decided 2026-09-01: Referent.** None of the options below were taken. The
+> site now posts captured leads to Referent through a Cloudflare Worker —
+> setup, and what is still unverified about it, are in
+> [`referent-crm.md`](./referent-crm.md). The rest of this page is kept for the
+> reasoning, which still applies: what a CRM is for, and the confidentiality
+> rule in the next section, which governs Referent exactly as it would have
+> governed any of these.
+
 ## The distinction that matters first
 
 A CRM does not capture anyone. It stores people who have **already** been
@@ -48,22 +56,14 @@ describe their situation there.
 and every guide). Below, not above, because a booking is worth far more than
 an email address and gets first claim on anyone who is ready.
 
-It runs in one of two modes, set in `src/lib/leadCapture.ts`:
+Where it posts is set in `src/lib/leadCapture.ts`. It now posts to Referent;
+the HubSpot mode described here was never switched on and is kept in that file
+only as a fallback path. **Setup is in [`referent-crm.md`](./referent-crm.md).**
 
-- **Mode 2 — active now.** No CRM configured, so the form opens the visitor's
-  mail client with a prefilled message to `info@prosefairplaymediation.com`.
-  Not elegant, but no lead is silently dropped.
-- **Mode 1 — after setup.** Fill in `HUBSPOT_PORTAL_ID` and `HUBSPOT_FORM_ID`
-  and the form posts straight into HubSpot in the background. Nothing else
-  changes.
-
-### Switching it on
-
-1. Create a free HubSpot account.
-2. Marketing → Forms → create a form with **First name**, **Email**, **Message**.
-3. Turn on the submit notification to `info@prosefairplaymediation.com`.
-4. Share → Embed code. The URL contains `/submit/<portalId>/<formGuid>`.
-5. Put those two values in `src/lib/leadCapture.ts` and push.
+The mail-client fallback described below did not go away — it became the
+runtime safety net. If Referent refuses a lead for any reason, the form opens
+the visitor's mail client rather than showing them an error, so no lead is
+silently dropped.
 
 GA4 already receives `lead_capture_view` and `lead_capture_submit`, each
 tagged with the page it came from, so it will be visible which pages actually
