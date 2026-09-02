@@ -262,14 +262,14 @@ import LeadCapture from "../../components/LeadCapture.astro";
   }
   .fact { display: flex; flex-direction: column; gap: 0.35rem; }
   .fact-label {
-    font-size: 1.00rem;
+    font-size: var(--step-0);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.24em;
   }
   .fact-value {
     margin: 0;
-    font-size: 1.15rem;
+    font-size: var(--step-1);
     color: var(--color-navy);
     font-variation-settings: "opsz" 24;
     line-height: 1.2;
@@ -279,7 +279,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     padding-top: 1.25rem;
     border-top: 1px solid var(--color-divider);
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: var(--step-sm);
     line-height: 1.6;
     color: var(--color-ink-soft);
     max-width: 70ch;
@@ -325,7 +325,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent);
     opacity: 0.7;
   }
-  .cta-kicker { color: var(--color-gold-deep); font-size: 0.97rem; }
+  .cta-kicker { color: var(--color-gold-deep); font-size: var(--step-sm); }
   .cta-title {
     margin-block: 1rem 1.5rem;
     font-size: var(--step-4);
@@ -384,7 +384,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     opacity: 0.55;
   }
   .refund-kicker {
-    font-size: 0.97rem;
+    font-size: var(--step-sm);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -413,7 +413,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     margin-bottom: 0.5rem;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1.3rem;
+    font-size: var(--step-2);
     line-height: 1.25;
     color: var(--color-navy);
     letter-spacing: -0.005em;

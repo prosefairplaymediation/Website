@@ -24,7 +24,7 @@ const version = pkg.version;
 
       <nav class="footer-nav" aria-label="Footer">
         <div>
-          <h4>Learn</h4>
+          <h3>Learn</h3>
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/process/how-mediation-works">How Mediation Works</a></li>
@@ -33,7 +33,6 @@ const version = pkg.version;
             <li><a href="/process/real-estate-mediation">Real Estate Mediation</a></li>
             <li><a href="/process/pre-litigation-disputes">Pre-Litigation Disputes</a></li>
             <li><a href="/process/is-mediation-required-before-divorce-in-florida">Is Mediation Required in Florida?</a></li>
-            <li><a href="/process/pro-se-divorce-florida">Filing Without a Lawyer</a></li>
             <li><a href="/areas-served">Areas Served</a></li>
             <li><a href="/reviews">Client Reviews</a></li>
             {GOOGLE_REVIEW_URL && (
@@ -46,7 +45,7 @@ const version = pkg.version;
           </ul>
         </div>
         <div>
-          <h4>Legal</h4>
+          <h3>Legal</h3>
           <ul>
             <li><a href="/cancellation">Cancellation</a></li>
             <li><a href="/refund">Refunds</a></li>
@@ -108,11 +107,11 @@ const version = pkg.version;
     border-bottom-color: var(--color-gold);
   }
   .footer-phone {
-    font-size: 1.15rem;
+    font-size: var(--step-1);
     letter-spacing: 0.02em;
   }
   .footer-where {
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     opacity: 0.75;
     margin-top: 0.15rem;
   }
@@ -154,7 +153,7 @@ const version = pkg.version;
   .footer-name {
     margin-top: 1.25rem;
     color: var(--color-gold);
-    font-size: 0.82rem;
+    font-size: var(--step-xs);
     letter-spacing: 0.24em;
   }
 
@@ -163,9 +162,9 @@ const version = pkg.version;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
   }
-  .footer-nav h4 {
+  .footer-nav h3 {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -182,7 +181,7 @@ const version = pkg.version;
   .footer-nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0; }
   .footer-nav a {
     color: color-mix(in srgb, var(--color-cream) 80%, var(--color-navy));
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
     position: relative;
     transition: color 0.2s;
     display: inline-block;
@@ -200,7 +199,7 @@ const version = pkg.version;
     justify-content: flex-end;
   }
   .copy {
-    font-size: 0.76rem;
+    font-size: var(--step-2xs);
     letter-spacing: 0.08em;
     color: color-mix(in srgb, var(--color-cream) 55%, var(--color-navy));
     text-align: right;
@@ -211,7 +210,7 @@ const version = pkg.version;
   }
   .build-version {
     font-family: var(--font-body);
-    font-size: 0.66rem;
+    font-size: var(--step-2xs);
     letter-spacing: 0.14em;
     color: color-mix(in srgb, var(--color-cream) 28%, var(--color-navy-deep));
     font-variant-numeric: tabular-nums;
@@ -227,7 +226,7 @@ const version = pkg.version;
     .footer-motto {
       max-width: none;
       white-space: nowrap;
-      font-size: clamp(1.2rem, 5.1vw, 1.7rem);
+      font-size: var(--step-2);
     }
     /* Right (Legal) column hugs the right edge. */
     .footer-nav > div:last-child { text-align: right; }

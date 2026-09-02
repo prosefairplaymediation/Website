@@ -26,8 +26,8 @@ const services = [
     payHref: "/services/gold-service",
   },
   {
-    name: "Parenting Plan Preparation",
-    price: "$400 flat",
+    name: "Paternity Cases – Parenting Plan",
+    price: "$600 flat",
     note: "A customized, court-ready Parenting Plan, drafted from the information you provide. Document preparation only.",
     href: "/services/parenting-plan",
     payHref: "/pay#document-services",
@@ -63,7 +63,7 @@ import LeadCapture from "../components/LeadCapture.astro";
       <p class="lede reveal reveal-d3">
         Clear, up-front pricing for every service, plus the refund and
         cancellation policies that go with it. No surprises. You can also
-        always pay by <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" /> to Pro Se Fair Play Mediation at (561) 941-0896.
+        always pay by <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" width="245" height="100" /> to Pro Se Fair Play Mediation at (561) 941-0896.
       </p>
     </div>
   </header>
@@ -143,42 +143,12 @@ import LeadCapture from "../components/LeadCapture.astro";
     </section>
   )}
 
-  <!-- ========================== REFUND POLICIES ========================== -->
-  <section class="pricing-body pricing-body-alt">
-    <div class="container-narrow">
-      <h2 class="section-label">Refund &amp; Cancellation</h2>
-      <p class="policy-summary-lead">
-        Both policies now have pages of their own, so they can be read, linked
-        to and cited without scrolling through a price list. The short version:
-      </p>
-      <ul class="policy-summary-list">
-        <li>
-          More than <strong>24 hours'</strong> notice on a mediation session — full
-          refund or a full session credit, your choice.
-        </li>
-        <li>
-          Less than 24 hours — <strong>50%</strong> of the retainer is retained,
-          and the balance becomes a one-time credit toward a session within 30 days.
-        </li>
-        <li>
-          <strong>If the other party declines to mediate at all, the paying party is
-          refunded in full</strong>, whatever the notice.
-        </li>
-        <li>
-          Document preparation is fully refundable <strong>before</strong> drafting
-          starts, and earned once it has.
-        </li>
-        <li>
-          Hurricanes, evacuation orders and outages are rescheduled at no charge.
-        </li>
-      </ul>
-      <p class="policy-summary-links">
-        <a class="link-underline" href="/cancellation">Cancellation &amp; Rescheduling Policy</a>
-        <span aria-hidden="true"> &middot; </span>
-        <a class="link-underline" href="/refund">Refund Policy</a>
-      </p>
-    </div>
-  </section>
+  {/* The "Refund & Cancellation" summary block that stood here was removed on
+      2026-09-01: its terms were wrong, and a wrong summary of a money policy
+      on the pricing page is worse than no summary. The two policy pages it
+      linked to remain the canonical statement — see /refund and /cancellation,
+      which are reached from the footer. Do not restore a summary here without
+      checking it line by line against those pages. */}
 
   {/* Calendar inline, not a link to one — this is where the reader is
       already at peak intent. Lazy-loaded on scroll. */}
@@ -243,7 +213,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   .zelle-scan-text { display: flex; flex-direction: column; gap: 0.9rem; }
   .zelle-scan-lede {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     margin: 0;
@@ -252,7 +222,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   .zelle-scan-note {
     margin: 0;
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: var(--step-sm);
     line-height: 1.6;
     color: var(--color-slate);
     max-width: 62ch;
@@ -280,7 +250,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .section-label {
     margin: 0 0 var(--space-md);
-    font-size: 1.2rem;
+    font-size: var(--step-1);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -324,7 +294,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-note {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     max-width: 60ch;
@@ -338,7 +308,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-amount {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: var(--step-2);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -347,7 +317,7 @@ import LeadCapture from "../components/LeadCapture.astro";
   }
   .price-row-btn {
     padding: 0.55rem 1.1rem;
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     white-space: nowrap;
     background: var(--color-navy);
     color: var(--color-cream);
@@ -367,15 +337,7 @@ import LeadCapture from "../components/LeadCapture.astro";
     padding-top: var(--space-2xl);
     border-top: 1px solid var(--color-divider);
   }
-  .policy-summary-lead { max-width: 62ch; line-height: 1.7; }
-  .policy-summary-list {
-    max-width: 66ch;
-    margin: var(--space-md) 0;
-    padding-left: 1.15rem;
-    line-height: 1.7;
-  }
-  .policy-summary-list li { margin-bottom: 0.55rem; }
-  .policy-summary-links { margin-top: var(--space-lg); font-size: 1.02rem; }
+  /* .policy-summary-* removed with the refund summary block it styled. */
   .policy-title {
     font-size: var(--step-3);
     line-height: 1.1;
@@ -397,7 +359,7 @@ import LeadCapture from "../components/LeadCapture.astro";
     margin-bottom: 0.5rem;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1.3rem;
+    font-size: var(--step-2);
     line-height: 1.25;
     color: var(--color-navy);
     letter-spacing: -0.005em;
@@ -416,7 +378,7 @@ import LeadCapture from "../components/LeadCapture.astro";
      RESPONSIVE
      ============================================================ */
   @media (max-width: 600px) {
-    .pricing-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .pricing-title { font-size: var(--step-4); }
     .price-row { flex-direction: column; gap: 0.75rem; }
     .price-row-amount { text-align: left; }
     .price-row-action { align-items: flex-start; }

@@ -4,7 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 
 const facts = [
-  { label: "Fee", value: "$400 flat" },
+  { label: "Fee", value: "$600 flat" },
   { label: "Format", value: "Document only" },
   { label: "Output", value: "Court-ready" },
   { label: "Includes", value: "Customized to your family" },
@@ -16,23 +16,25 @@ import LeadCapture from "../../components/LeadCapture.astro";
 ---
 
 <BaseLayout
-  title="Parenting Plan Preparation · Pro Se Fair Play Mediation"
-  description="Custom Parenting Plan preparation for self-represented parties in Florida. $400 flat fee, court-ready format, document preparation only."
+  title="Paternity Cases – Parenting Plan · Pro Se Fair Play Mediation"
+  description="Parenting Plan preparation for paternity cases in Florida, for self-represented parties. $600 flat fee, court-ready format, document preparation only."
   ogImage="/og/parenting-plan.jpg"
 >
   <ServiceSchema slug="parenting-plan" />
   <!-- ========================== HEADER ========================== -->
   <header class="svc-header">
     <div class="container svc-header-inner">
-      <Breadcrumbs trail={[{ href: "/services", label: "Services" }]} current="Parenting Plan" tone="dark" />
+      <Breadcrumbs trail={[{ href: "/services", label: "Services" }]} current="Paternity Parenting Plan" tone="dark" />
+      {/* Same construction as the other service pages: the first half roman,
+          the distinguishing half italic, then the italic full stop. */}
       <h1 class="display svc-title reveal reveal-d2">
-        Parenting Plan <span class="display-italic">Preparation</span><span class="display-italic">.</span>
+        Paternity Cases <span class="display-italic">Parenting Plan</span><span class="display-italic">.</span>
       </h1>
       <p class="lede reveal reveal-d3">
-        A customized Parenting Plan tailored to your family's specific
-        schedule, structure, and needs — drafted from the information you
-        and the other party provide, delivered in a clear, court-ready
-        format.
+        A customized Parenting Plan for a paternity case, tailored to your
+        family's specific schedule, structure, and needs — drafted from the
+        information you and the other party provide, delivered in a clear,
+        court-ready format.
       </p>
       <div class="svc-header-ctas reveal reveal-d4">
         <a class="btn btn-primary svc-header-cta" href="/book">
@@ -221,9 +223,9 @@ import LeadCapture from "../../components/LeadCapture.astro";
   .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
   .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
   .fact { display: flex; flex-direction: column; gap: 0.35rem; }
-  .fact-label { font-size: 1.00rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
-  .fact-value { margin: 0; font-size: 1.15rem; color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
-  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .fact-label { font-size: var(--step-0); color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-value { margin: 0; font-size: var(--step-1); color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
+  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: var(--step-sm); line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
   .facts-note strong { color: var(--color-navy); font-weight: 600; font-style: normal; }
   .facts-note a { font-style: normal; }
 
@@ -235,7 +237,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
 
   .cta { position: relative; padding-block: var(--space-lg); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
   .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
-  .cta-kicker { color: var(--color-gold-deep); font-size: 0.97rem; }
+  .cta-kicker { color: var(--color-gold-deep); font-size: var(--step-sm); }
   .cta-title { margin-block: 1rem 1.5rem; font-size: var(--step-4); line-height: 1.05; letter-spacing: -0.02em; color: var(--color-navy); max-width: 22ch; }
   .cta-title .display-italic { color: var(--color-gold-deep); }
   .cta-lede { color: var(--color-ink-soft); max-width: 56ch; }
@@ -263,7 +265,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     opacity: 0.55;
   }
   .refund-kicker {
-    font-size: 0.97rem;
+    font-size: var(--step-sm);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;

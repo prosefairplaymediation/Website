@@ -196,7 +196,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
     margin-bottom: 0.5rem;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1.3rem;
+    font-size: var(--step-2);
     line-height: 1.25;
     color: var(--color-navy);
     letter-spacing: -0.005em;
@@ -243,6 +243,6 @@ import LeadCapture from "../../components/LeadCapture.astro";
   }
 
   @media (max-width: 600px) {
-    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .article-title { font-size: var(--step-4); }
   }
 </style>

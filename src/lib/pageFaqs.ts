@@ -72,8 +72,8 @@ export const pageFaqs: Record<string, Faq[]> = {
       a: "No. Marie VanGinHoven is a Notary Public, so any forms in the packet that require notarization are handled as part of the process at no additional cost.",
     },
     {
-      q: "How is the Court Packet different from Parenting Plan Preparation?",
-      a: "Parenting Plan Preparation, at $400 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet, at $600 flat, is the full-service option and assembles the whole filing-ready set. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the cheaper route.",
+      q: "How is the Court Packet different from Paternity Cases – Parenting Plan?",
+      a: "Paternity Cases – Parenting Plan, at $600 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet, at $600 flat, is the full-service option and assembles the whole filing-ready set. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the cheaper route.",
     },
     {
       q: "Can I get a refund on document preparation?",
@@ -83,7 +83,7 @@ export const pageFaqs: Record<string, Faq[]> = {
 
   "parenting-plan": [
     {
-      q: "What does the $400 Parenting Plan Preparation service include?",
+      q: "What does the $600 Paternity Cases – Parenting Plan service include?",
       a: "A Parenting Plan customized to your family's schedule and structure, which may address time-sharing schedules, holidays, transportation, parental responsibility, communication guidelines and child support provisions. It is delivered in a clear, court-ready format.",
     },
     {

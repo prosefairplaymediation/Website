@@ -47,3 +47,41 @@ export const GOOGLE_REVIEW_URL = "https://g.page/r/CQBgcXw1OG36EAE/review";
 // straight from the Google Business Profile.
 // ============================================================
 export const BING_SITE_VERIFICATION = "";
+
+// ============================================================
+// OPENING HOURS
+//
+// Fills openingHoursSpecification in the business schema, which is what drives
+// Google's "Open now" filter in local results — a filter people actually use,
+// and one this practice cannot appear in today, because the site publishes an
+// address, a phone number, coordinates and a price range but no hours.
+//
+// EMPTY ON PURPOSE. These have to come from Marie rather than from a guess.
+// Wrong hours send someone to a business they believe is open, and the site
+// already advertises evening and weekend mediations, so the real answer is
+// not the nine-to-five anyone would assume.
+//
+// Fill it in like this — one entry per distinct pattern, 24-hour times:
+//
+//     export const OPENING_HOURS: OpeningHours[] = [
+//       { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+//         opens: "09:00", closes: "17:00" },
+//       { days: ["Saturday"], opens: "10:00", closes: "14:00" },
+//     ];
+//
+// Consultations are by appointment, so these describe when someone can reach
+// the practice, not when a door is unlocked. Days left out are reported to
+// Google as closed.
+//
+// While the array is empty, no openingHoursSpecification is emitted at all.
+// That is the correct state: no hours beats wrong hours.
+// ============================================================
+export interface OpeningHours {
+  /** Schema.org day names, e.g. "Monday". */
+  days: string[];
+  /** 24-hour "HH:MM". */
+  opens: string;
+  closes: string;
+}
+
+export const OPENING_HOURS: OpeningHours[] = [];

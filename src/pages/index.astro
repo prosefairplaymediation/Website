@@ -16,7 +16,9 @@ const services = [
     image: "/three_people_table_argue.jpg",
   },
   {
-    title: "Parenting Plan",
+    // Short form of "Paternity Cases – Parenting Plan"; the full name does not
+    // fit the card. Matches `short` in src/lib/services.ts.
+    title: "Paternity Parenting Plan",
     bullets: [
       "Customized to your family's schedule and structure",
       "Court-ready format, drafted from your inputs",
@@ -39,8 +41,11 @@ const services = [
 
 ---
 
+{/* Title kept under ~60 characters so Google shows it whole rather than
+    cutting it mid-phrase. "Mediation" is already in the practice name, so the
+    suffix carries the other service instead of repeating it. */}
 <BaseLayout
-  title="Pro Se Fair Play Mediation · Mediation & Document Preparation"
+  title="Pro Se Fair Play Mediation · Document Preparation"
   description="Florida mediation and court-ready document preparation for self-represented (pro se) parties. Where we level the playing field."
 >
   <!-- ========================== INTRO VIDEO ========================== -->
@@ -93,7 +98,7 @@ const services = [
         {services.map((s) => (
           <li class="service-card" style={`--card-image: url('${s.image}');`}>
             <div class="service-card-inner">
-              <h3 class="service-title display">{s.title}</h3>
+              <h2 class="service-title display">{s.title}</h2>
               <div class="service-reveal">
                 <ul class="service-bullets">
                   {s.bullets.map((b) => <li>{b}</li>)}
@@ -209,7 +214,7 @@ const services = [
 
   .hero-title {
     margin-top: 1.5rem;
-    font-size: clamp(1.85rem, 1rem + 3.2vw, 4rem);
+    font-size: var(--step-4);
     line-height: 1.08;
     color: var(--color-navy);
     letter-spacing: -0.02em;
@@ -265,7 +270,7 @@ const services = [
     gap: 0.85rem;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: var(--step-xs);
     color: var(--color-ink-soft);
     flex-wrap: wrap;
   }
@@ -359,7 +364,7 @@ const services = [
   .pay-strip-text {
     display: inline;
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: var(--step-xs);
     color: var(--color-slate);
     margin: 0;
   }
@@ -370,7 +375,7 @@ const services = [
     vertical-align: middle;
     margin-left: 0.5rem;
     padding: 0.3rem 0.75rem;
-    font-size: 0.72rem;
+    font-size: var(--step-2xs);
     border-color: var(--color-gold);
   }
 
@@ -431,7 +436,7 @@ const services = [
     top: 50%;
     transform: translateY(-50%);
     padding: 0 clamp(1.5rem, 4vw, 3rem);
-    font-size: clamp(1.85rem, 1rem + 2.4vw, 3rem);
+    font-size: var(--step-3);
     color: var(--color-cream);
     letter-spacing: -0.015em;
     line-height: 1.05;
@@ -466,7 +471,7 @@ const services = [
   }
   .service-bullets li {
     font-family: var(--font-body);
-    font-size: clamp(1.2rem, 0.95rem + 0.85vw, 1.5rem);
+    font-size: var(--step-1);
     font-weight: 600;
     line-height: 1.45;
     color: var(--color-cream);
@@ -486,7 +491,7 @@ const services = [
     color: var(--color-navy-deep);
     border: 1px solid var(--color-gold);
     font-family: var(--font-body);
-    font-size: 0.98rem;
+    font-size: var(--step-sm);
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -607,11 +612,11 @@ const services = [
     /* Smaller button on narrow viewports. */
     .service-button {
       padding: 0.55rem 1rem;
-      font-size: 0.7rem;
+      font-size: var(--step-2xs);
       letter-spacing: 0.14em;
     }
     .service-bullets li {
-      font-size: 0.95rem;
+      font-size: var(--step-sm);
     }
 
     /* When revealed on a phone, the 16:9 card is too short to hold title +

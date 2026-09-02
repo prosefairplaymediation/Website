@@ -154,7 +154,7 @@ const { surface = "cream", specialists = false } = Astro.props;
     margin-inline: auto;
     background:
       radial-gradient(ellipse 110% 90% at 50% 45%, transparent 30%, rgba(0, 0, 0, 0.55) 100%),
-      #0b0c12;
+      var(--color-obsidian);
     color: var(--color-cream);
     padding: clamp(2rem, 3vw + 1rem, 3rem) clamp(1.75rem, 3vw + 0.75rem, 2.5rem);
     border: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
@@ -192,7 +192,7 @@ const { surface = "cream", specialists = false } = Astro.props;
   }
   .black-box-body {
     font-family: var(--font-body);
-    font-size: 0.98rem;
+    font-size: var(--step-sm);
     line-height: 1.65;
     color: color-mix(in srgb, var(--color-cream) 78%, transparent);
   }
@@ -214,7 +214,7 @@ const { surface = "cream", specialists = false } = Astro.props;
     margin-top: 1.5rem;
     font-style: italic;
     color: color-mix(in srgb, var(--color-cream) 60%, transparent);
-    font-size: 0.9rem;
+    font-size: var(--step-sm);
   }
   .black-box-link {
     color: var(--color-gold);

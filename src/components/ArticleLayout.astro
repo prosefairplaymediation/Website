@@ -24,8 +24,14 @@ interface Props {
   kicker: string;
   lede: string;
   description: string;
+  /**
+   * Overrides the browser/search title when `title` plus the practice name
+   * would run past what Google shows (roughly 60 characters). Set it on a
+   * long-headline article and the heading on the page is left alone.
+   */
+  metaTitle?: string;
 }
-const { slug, title, kicker, lede, description } = Astro.props;
+const { slug, title, kicker, lede, description, metaTitle } = Astro.props;
 ---
 
 {/*
@@ -34,7 +40,7 @@ const { slug, title, kicker, lede, description } = Astro.props;
   generated page shipped pointing at an image nobody had made.
 */}
 <BaseLayout
-  title={`${title} · Pro Se Fair Play Mediation`}
+  title={metaTitle ?? `${title} · Pro Se Fair Play Mediation`}
   description={description}
   ogImage="/og/guides.jpg"
 >
@@ -141,7 +147,7 @@ const { slug, title, kicker, lede, description } = Astro.props;
     margin-bottom: 0.5rem;
     font-family: var(--font-display);
     font-variation-settings: "opsz" 24;
-    font-size: 1.3rem;
+    font-size: var(--step-2);
     line-height: 1.25;
     color: var(--color-navy);
     letter-spacing: -0.005em;
@@ -185,6 +191,6 @@ const { slug, title, kicker, lede, description } = Astro.props;
   }
 
   @media (max-width: 600px) {
-    .article-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .article-title { font-size: var(--step-4); }
   }
 </style>

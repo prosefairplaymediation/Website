@@ -236,7 +236,7 @@ const externalForms = {
 
   .formats-label {
     margin: 0 0 1.5rem;
-    font-size: 1.2rem;
+    font-size: var(--step-1);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -287,10 +287,12 @@ const externalForms = {
   .download-info { min-width: 0; }
   .download-label {
     font-family: var(--font-display);
-    /* cqi = % of the .download-stack inline-size. Label grows as the
-       stack gets wider; floor + ceiling chosen so the nowrap name
-       (e.g. "Parental Decision-making") always fits the label column
-       in 3-col mode and the card in 1-col mode. */
+    /* The one sanctioned font-size on the site that is not a --step-* token.
+       cqi = % of the .download-stack inline-size. Label grows as the stack
+       gets wider; floor + ceiling chosen so the nowrap name (e.g. "Parental
+       Decision-making") always fits the label column in 3-col mode and the
+       card in 1-col mode. This is a function of container width rather than
+       of the type scale, and a fixed step cannot express it. */
     font-size: clamp(0.95rem, 3.6cqi, 1.8rem);
     color: var(--color-navy);
     letter-spacing: -0.015em;
@@ -310,7 +312,7 @@ const externalForms = {
   }
   .download-sub {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     color: var(--color-slate);
     font-style: italic;
     line-height: 1.45;
@@ -318,7 +320,7 @@ const externalForms = {
   .download-btn {
     white-space: nowrap;
     padding: 1.1rem 2rem;
-    font-size: 1rem;
+    font-size: var(--step-0);
   }
 
   /* When the stack itself gets narrow (regardless of viewport), collapse
@@ -335,6 +337,6 @@ const externalForms = {
     .download-btn { justify-self: center; }
   }
   @media (max-width: 600px) {
-    .svc-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .svc-title { font-size: var(--step-4); }
   }
 </style>

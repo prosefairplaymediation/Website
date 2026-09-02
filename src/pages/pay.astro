@@ -133,11 +133,11 @@ const mediationGroups = [
 const documentProducts = [
   {
     slug: "parenting_plan",
-    title: "Parenting Plan Preparation",
-    price: "$400 flat",
-    value: 400,
+    title: "Paternity Cases – Parenting Plan",
+    price: "$600 flat",
+    value: 600,
     description:
-      "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
+      "A customized Parenting Plan for a paternity case, tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
     detail: "/services/parenting-plan",
     payUrl: parentingPlanUrl,
   },
@@ -158,7 +158,7 @@ const documentProducts = [
   noChat
   noStickyCta
   title="Pay for a Service · Pro Se Fair Play Mediation"
-  description="Pay online for mediation (hourly, half-day, or full-day), Parenting Plan Preparation, or the Turn-Key Court Packet. Secure payment processed by Stripe."
+  description="Pay online for mediation (hourly, half-day, or full-day), Paternity Cases – Parenting Plan, or the Turn-Key Court Packet. Secure payment processed by Stripe."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="pay-header">
@@ -298,7 +298,7 @@ const documentProducts = [
           <div class="pay-zelle-body">
             <p class="pay-zelle-lede">
               Send directly from your bank with
-              <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" />.
+              <img src="/zelleword.svg" alt="Zelle" class="zelle-mark" width="245" height="100" />.
               No processing fee.
             </p>
             <dl class="pay-zelle-details">
@@ -457,7 +457,7 @@ const documentProducts = [
   }
   .pay-zelle-lede {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
     margin: 0;
@@ -472,7 +472,7 @@ const documentProducts = [
   }
   .pay-zelle-details > div { display: flex; flex-direction: column; gap: 0.3rem; }
   .pay-zelle-details dt {
-    font-size: 0.72rem;
+    font-size: var(--step-2xs);
     letter-spacing: 0.18em;
     color: var(--color-gold-deep);
     font-weight: 700;
@@ -480,13 +480,13 @@ const documentProducts = [
   .pay-zelle-details dd {
     margin: 0;
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: var(--step-1);
     color: var(--color-navy);
   }
   .pay-zelle-note {
     margin: 0;
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: var(--step-sm);
     line-height: 1.6;
     color: var(--color-slate);
     max-width: 62ch;
@@ -516,7 +516,7 @@ const documentProducts = [
     gap: 0.85rem;
     cursor: pointer;
     font-family: var(--font-body);
-    font-size: 1.02rem;
+    font-size: var(--step-0);
     line-height: 1.55;
     color: var(--color-ink-soft);
   }
@@ -592,7 +592,7 @@ const documentProducts = [
   }
   .pay-group-title {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -602,7 +602,7 @@ const documentProducts = [
   .pay-group-note {
     max-width: 62ch;
     margin: 0.5rem 0 0;
-    font-size: 0.95rem;
+    font-size: var(--step-sm);
     line-height: 1.6;
     opacity: 0.85;
   }
@@ -635,7 +635,7 @@ const documentProducts = [
   .pay-foot {
     margin-top: var(--space-xl);
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--step-0);
     color: var(--color-ink-soft);
     text-align: center;
   }

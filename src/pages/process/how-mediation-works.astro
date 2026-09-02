@@ -232,7 +232,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
        One's body left of the others. */
     width: 2.5ch;
     text-align: center;
-    font-size: clamp(2.5rem, 1.8rem + 3vw, 3.75rem);
+    font-size: var(--step-4);
     line-height: 1;
     color: var(--color-gold-deep);
     font-weight: 500;
@@ -250,7 +250,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
 
   .process-step-eyebrow {
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: var(--step-xs);
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -401,7 +401,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
      RESPONSIVE
      ============================================================ */
   @media (max-width: 600px) {
-    .legal-title { font-size: clamp(2.25rem, 1.8rem + 3vw, 3.5rem); }
+    .legal-title { font-size: var(--step-4); }
     .process-step {
       grid-template-columns: 1fr;
       gap: 0.75rem;
@@ -410,6 +410,6 @@ import LeadCapture from "../../components/LeadCapture.astro";
        with the desktop two-column rail, and mobile is what the client
        actually reviews. */
     .process-step-rail { display: none; }
-    .process-outcomes-title { font-size: clamp(1.75rem, 1.4rem + 2.5vw, 2.5rem); }
+    .process-outcomes-title { font-size: var(--step-3); }
   }
 </style>

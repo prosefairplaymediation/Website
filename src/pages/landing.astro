@@ -107,9 +107,9 @@ const phoneTel = "+15619410896";
                 <path d="M16 17H8" />
               </svg>
             </span>
-            <h2 class="landing-card-title display">Parenting Plan Preparation</h2>
+            <h2 class="landing-card-title display">Paternity Cases – Parenting Plan</h2>
           </div>
-          <p class="landing-card-price smallcaps">$400 flat</p>
+          <p class="landing-card-price smallcaps">$600 flat</p>
           <p class="landing-card-body">
             A customized Parenting Plan tailored to your family's
             schedule, structure, and needs. Delivered in a clear,
@@ -118,7 +118,7 @@ const phoneTel = "+15619410896";
           <a
             href="/services/parenting-plan"
             class="landing-card-link"
-            aria-label="Learn more about Parenting Plan Preparation"
+            aria-label="Learn more about Paternity Cases – Parenting Plan"
           >
             Learn more
             <span class="arrow" aria-hidden="true">→</span>
@@ -408,7 +408,7 @@ const phoneTel = "+15619410896";
     font-weight: 400;
   }
   .landing-card-price {
-    font-size: 1.55rem;
+    font-size: var(--step-2);
     color: var(--color-gold-deep);
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -416,7 +416,7 @@ const phoneTel = "+15619410896";
   }
   .landing-card-body {
     font-family: var(--font-body);
-    font-size: 1.2rem;
+    font-size: var(--step-1);
     line-height: 1.55;
     color: var(--color-ink-soft);
   }
@@ -427,7 +427,7 @@ const phoneTel = "+15619410896";
     align-items: center;
     gap: 0.45rem;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--step-0);
     font-weight: 600;
     color: var(--color-gold-deep);
     transition: color 0.2s, gap 0.25s var(--ease-out);
@@ -456,7 +456,7 @@ const phoneTel = "+15619410896";
      and break across four lines. */
   @media (max-width: 600px) {
     .landing-title {
-      font-size: clamp(1.55rem, 1.2rem + 2.8vw, 2.5rem);
+      font-size: var(--step-3);
       max-width: 100%;
     }
   }
@@ -489,7 +489,7 @@ const phoneTel = "+15619410896";
     gap: 1rem;
     flex-wrap: wrap;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: var(--step-0);
     color: var(--color-ink-soft);
     padding-top: 1.5rem;
     border-top: 1px solid var(--color-divider);
@@ -498,7 +498,7 @@ const phoneTel = "+15619410896";
     /* Was 30px tall. It clears the 24px minimum, but this is the button that
        takes money, so it gets a comfortable target rather than a legal one. */
     padding: 0.85rem 1.2rem;
-    font-size: 0.9rem;
+    font-size: var(--step-sm);
     border-color: var(--color-gold);
   }
 
@@ -542,7 +542,7 @@ const phoneTel = "+15619410896";
   }
   .landing-services-cta-q {
     font-family: var(--font-body);
-    font-size: 1.02rem;
+    font-size: var(--step-0);
     font-style: italic;
     color: var(--color-slate);
   }

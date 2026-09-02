@@ -252,9 +252,9 @@ import LeadCapture from "../../components/LeadCapture.astro";
   .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
   .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
   .fact { display: flex; flex-direction: column; gap: 0.35rem; }
-  .fact-label { font-size: 1.00rem; color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
-  .fact-value { margin: 0; font-size: 1.15rem; color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
-  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .fact-label { font-size: var(--step-0); color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-value { margin: 0; font-size: var(--step-1); color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
+  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: var(--step-sm); line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
   .facts-note a { font-style: normal; }
 
   .svc-section { padding-block: var(--space-2xl); }
