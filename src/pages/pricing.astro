@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { QUOTED_AMOUNT_URL } from "../consts.ts";
 import fs from "node:fs";
 
 // The Zelle QR must be exported from the bank: the code encodes a
@@ -104,13 +105,18 @@ const services: PriceRow[] = [
   {
     name: "Gold Service Mediation",
     price: "Inquire within",
-    note: "Premium, private mediation for high-profile individuals and for sensitive or high-conflict matters, built for clients who place a premium on privacy, discretion, confidentiality, scheduling flexibility and personalized service. Arrangements may include private off-site venues, extended sessions and multi-day mediation.",
+    note: "Premium, private mediation for high-profile individuals and for sensitive or high-conflict matters, built for clients who place a premium on privacy, discretion, confidentiality, scheduling flexibility and personalized service. Arrangements may include private off-site venues, extended sessions and multi-day mediation. Once a figure is quoted, it can be paid online.",
     href: "/services/gold-service",
+    // Pay Now only once the quoted-amount link exists. Until then the row
+    // reads "Inquire within" with no button, which is honest; a button
+    // leading nowhere is not.
+    payHref: QUOTED_AMOUNT_URL ? "/pay#quoted-amount" : undefined,
   },
   {
     name: "Additional Document Preparation",
     price: "Inquire within",
-    note: "Something that does not fit neatly above? Additional agreements, family-law documents, amendments, supplemental documents and customized preparation may be available, priced on the scope and complexity of the work.",
+    note: "Something that does not fit neatly above? Additional agreements, family-law documents, amendments, supplemental documents and customized preparation may be available, priced on the scope and complexity of the work. Once a figure is quoted, it can be paid online.",
+    payHref: QUOTED_AMOUNT_URL ? "/pay#quoted-amount" : undefined,
   },
 ];
 import FaqBlock from "../components/FaqBlock.astro";
