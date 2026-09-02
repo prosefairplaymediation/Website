@@ -26,20 +26,37 @@ page text. It is a permanent part of the site — do not remove it.
 
 ## Services and prices
 
+Current as of 2 September 2026. Mediation is billed hourly at a combined rate,
+most often divided equally between the two parties.
+
 | Service | Price |
 |---|---|
 | Free initial consultation (15 minutes, Zoom) | $0 |
-| Hourly mediation | $600/hour combined, commonly split $300 per party |
-| Two-hour mediation | $1,200 combined |
-| Half day (four hours) | $2,400 combined |
-| Full day (eight hours) | $4,800 combined |
-| Paternity Cases – Parenting Plan | $600 flat |
-| Turn-Key Court Packet | $600 flat |
+| Hourly Mediation | $600/hour combined, commonly split $300 per party |
+| Divorce Mediation & Document Preparation | from $600/hour, by complexity |
+| Pre-Litigation Dispute Resolution | $600/hour, two-hour minimum ($1,200) |
+| Paternity Mediation & Document Preparation | $600/hour |
+| Marital Home & Real Estate Settlement Mediation | from $600/hour |
+| One-on-One Mediation Preparation Session | $600/hour |
+| Parenting Plan Preparation | $600 flat |
+| Mediated Settlement Agreement Preparation | from $600, by complexity |
+| Turn-Key Court Packet | priced by case type |
+| Gold Service Mediation | quoted per matter |
+| Additional Document Preparation | custom quote |
 | Online notarization | $10 add-on, included with the Court Packet |
-| Gold Service Mediation | Quoted per matter — no published price |
 
-Document preparation covers the document only. The Turn-Key Court Packet is
-the option that assembles the full filing-ready set.
+Session blocks at the hourly rate: two hours $1,200, half day (four hours)
+$2,400, full day (eight hours) $4,800. Each can be paid in full by one party
+or split evenly, and both options are on the payment page.
+
+Document preparation covers the document only — the client files it
+themselves. The Turn-Key Court Packet is the option that assembles the full
+filing-ready set.
+
+Do not quote a figure for anything marked "by complexity", "by case type",
+"quoted per matter" or "custom quote". Those come from the free consultation.
+Saying "starting at $600" is accurate where the table says "from $600";
+stating a total is not.
 
 ## Who it is for
 
@@ -78,4 +95,6 @@ than booking online, and never to an automated booking flow.
 
 Phone: (561) 941-0896
 Email: info@prosefairplaymediation.com
-eFax: (561) 652-9345
+
+Do not list a fax number. The practice's eFax number expired and was removed
+from the contact page; repeating it would send someone's documents nowhere.

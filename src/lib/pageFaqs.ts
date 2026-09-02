@@ -60,7 +60,7 @@ export const pageFaqs: Record<string, Faq[]> = {
 
   "court-packet": [
     {
-      q: "What is included in the $600 Turn-Key Court Packet?",
+      q: "What is included in the Turn-Key Court Packet?",
       a: "The preparation and completion of the mandatory family court forms and supporting documents required for filing, including financial affidavits, parenting plans, child support documentation, settlement agreements, supplemental petitions and other court-required filings as applicable to the matter. Documents are organized in filing-ready form and notarized where required. Up to two revisions are included.",
     },
     {
@@ -73,7 +73,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "How is the Court Packet different from Parenting Plan Preparation?",
-      a: "Parenting Plan Preparation, at $600 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet, at $600 flat, is the full-service option and assembles the whole filing-ready set. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the cheaper route.",
+      a: "Parenting Plan Preparation, at $600 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet is the full-service option and assembles the whole filing-ready set; it is priced by the type and complexity of the case, so the figure comes from the consultation. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the simpler route.",
     },
     {
       q: "Can I get a refund on document preparation?",
@@ -88,7 +88,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Does this include the other Florida court forms I need to file?",
-      a: "No. This service is limited strictly to preparing the Parenting Plan document itself. The remaining Florida Supreme Court family law forms are available free from the Florida Courts website, or the Turn-Key Court Packet assembles the complete filing-ready set for $600 flat.",
+      a: "No. This service is limited strictly to preparing the Parenting Plan document itself. The remaining Florida Supreme Court family law forms are available free from the Florida Courts website, or the Turn-Key Court Packet assembles the complete filing-ready set, priced by case type.",
     },
     {
       q: "Can the Parenting Plan be notarized?",
@@ -107,7 +107,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "How much does online notarization cost?",
-      a: "It depends on the service it accompanies. Online notary services are included at no additional cost as part of the Turn-Key Court Packet, and documents arising from the mediation process are notarized at no additional cost as well. Clients using the Parenting Plan Only service may add online notarization for a $10 fee if needed.",
+      a: "It depends on the service it accompanies. Online notary services are included at no additional cost as part of the Turn-Key Court Packet, and documents arising from the mediation process are notarized at no additional cost as well. Clients using Parenting Plan Preparation may add online notarization for a $10 fee if needed.",
     },
     {
       q: "Do I have to come to an office to have a document notarized?",

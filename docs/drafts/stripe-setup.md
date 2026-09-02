@@ -15,6 +15,28 @@ button on the payment portal goes live at once.
 Stripe Payment Links support **adjustable quantity**. Use that and one link covers
 every session length, instead of building a separate product per duration.
 
+> ## Outstanding in Stripe as of 2026-09-02
+>
+> The site has been updated; Stripe has not, and cannot be from the codebase —
+> the amounts live in Stripe, and this repository only holds the URLs. Two
+> things need doing in the dashboard, and until they are, the site and the
+> checkout disagree:
+>
+> 1. **Parenting Plan Preparation → $600.** The site now says $600 and the link
+>    still charges $400, so the practice collects a third less than it
+>    advertises, silently. If the price cannot be edited on an existing Payment
+>    Link, create a new one and send the URL — swapping it in the code is a
+>    one-line change.
+> 2. **Turn-Key Court Packet → archive the link.** The packet is now quoted by
+>    case type, so there is no fixed amount to charge. Its card has been removed
+>    from `/pay` and nobody can reach it from the site, but the link itself is
+>    still live for anyone holding an old one. Marie issues a payment link per
+>    matter instead, or uses product 5 below, which is exactly what that
+>    "customer enters the amount" link exists for.
+>
+> Everything else on the new pricing list is hourly and already maps to
+> products 1 and 2.
+
 In Stripe: **Product catalog → Add product**, then **Payment links → New**, and
 under the price tick **"Let customers adjust quantity"** (set max 8).
 
@@ -22,8 +44,8 @@ under the price tick **"Let customers adjust quantity"** (set max 8).
 |---|---|---|---|---|
 | 1 | Mediation — hourly, combined rate | **$600** | adjustable 1–8 | 1 hr, 2 hr, half-day, full-day where one party pays |
 | 2 | Mediation — hourly, split rate (per party) | **$300** | adjustable 1–8 | same, where each party pays their own half |
-| 3 | Parenting Plan Preparation | **$400** | fixed 1 | flat fee |
-| 4 | Turn-Key Court Packet | **$600** | fixed 1 | flat fee |
+| 3 | Parenting Plan Preparation | **$600** | fixed 1 | flat fee — **was $400, see below** |
+| 4 | Turn-Key Court Packet | ~~$600~~ | — | **no longer sold from the site, see below** |
 | 5 | Quoted amount | **customer enters** | n/a | Gold Service, session overruns, extra revisions |
 
 ### Product 5 — the "customer enters the amount" link

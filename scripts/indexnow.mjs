@@ -35,8 +35,14 @@ function urlsFromSitemap() {
   return [...new Set(urls)];
 }
 
-const urlList = urlsFromSitemap();
-console.log(`${urlList.length} URLs from the sitemap`);
+// Not pages, so not in the sitemap, but engines should still be told when they
+// change. llms.txt is the one that matters: it is what an assistant reads to
+// describe this practice and quote its prices, so a stale copy is worse than
+// no copy — it is confidently wrong, in Marie's name.
+const EXTRA_URLS = [`${ORIGIN}/llms.txt`];
+
+const urlList = [...urlsFromSitemap(), ...EXTRA_URLS];
+console.log(`${urlList.length} URLs (sitemap, plus ${EXTRA_URLS.length} non-page file)`);
 
 // Fail loudly if the key file is not actually being served. A 404 here is the
 // difference between "submitted" and "silently rejected".
