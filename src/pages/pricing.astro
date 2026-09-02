@@ -82,7 +82,11 @@ const services: PriceRow[] = [
     price: "$600 flat",
     note: "A customized Parenting Plan prepared from the information the parties provide. May address parental responsibility, timesharing, holidays, school schedules, transportation, travel, communication and decision-making. Document preparation only.",
     href: "/services/parenting-plan",
-    payHref: "/pay#document-services",
+    // No pay button until the Stripe link charges $600. It was confirmed on
+    // 2026-09-02 to still be charging $400, and a button that quietly takes
+    // two thirds of the advertised price is worse than no button. Restore
+    // payHref: "/pay#document-services" once Stripe matches.
+    cta: "Inquire",
   },
   {
     name: "Mediated Settlement Agreement Preparation",
