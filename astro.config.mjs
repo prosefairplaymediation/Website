@@ -25,6 +25,10 @@ import { existsSync } from 'node:fs';
  */
 const dateCache = new Map();
 
+/**
+ * @param {string} pathname
+ * @returns {string | undefined}
+ */
 function lastModified(pathname) {
   const clean = pathname.replace(/^\/+|\/+$/g, '');
   const candidates = clean

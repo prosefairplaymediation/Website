@@ -132,27 +132,22 @@ const mediationGroups = [
   },
 ];
 
-const documentProducts = [
-  {
-    slug: "parenting_plan",
-    title: "Parenting Plan Preparation",
-    price: "$600 flat",
-    value: 600,
-    description:
-      "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
-    detail: "/services/parenting-plan",
-    payUrl: parentingPlanUrl,
-  },
-  // The Turn-Key Court Packet was removed from this page on 2026-09-02, when
-  // it moved from a $600 flat fee to pricing by case type. A fixed pay button
-  // beside a variable price is the one failure mode worth avoiding here: the
-  // client pays $600 for something quoted at more, and there is no graceful
-  // way to ask for the balance afterwards. /pricing now sends them to the
-  // consultation, which is where the quote comes from, and Marie can issue a
-  // payment link once the amount is known.
+const documentProducts: never[] = [
+  // EMPTY, TEMPORARILY. Both document services are off this page:
   //
-  // The Stripe link itself is kept in `courtPacketUrl` above rather than
-  // deleted, so the product is still reachable if a flat rate ever returns.
+  //   Turn-Key Court Packet — moved to pricing by case type on 2026-09-02, so
+  //   there is no fixed amount to charge at all.
+  //
+  //   Parenting Plan Preparation — the site raised it to $600 on 2026-09-02
+  //   and the Stripe link still charges $400, confirmed by opening it. Leaving
+  //   the button up means quietly collecting two thirds of the advertised
+  //   price on every sale, with the shortfall only visible when payments are
+  //   reconciled. A missed instant payment is recoverable; an undercharge that
+  //   nobody notices is not.
+  //
+  // TO RESTORE, once the Stripe price actually reads $600: put the Parenting
+  // Plan entry back with payUrl: parentingPlanUrl, price "$600 flat",
+  // value: 600, and change the /pricing row back to payHref "/pay#document-services".
 ];
 ---
 
@@ -270,20 +265,36 @@ const documentProducts = [
       <!-- ========================== DOCUMENT SERVICES ========================== -->
       <div class="pay-section" id="document-services">
         <h2 class="pay-section-title display">Document Services</h2>
-        <ul class="pay-products" role="list">
-          {documentProducts.map((p) => (
-            <PayCard
-              title={p.title}
-              price={p.price}
-              description={p.description}
-              detail={p.detail}
-              payUrl={p.payUrl}
-              slug={p.slug}
-              value={p.value}
-              headingLevel="h3"
-            />
-          ))}
-        </ul>
+        {documentProducts.length > 0 ? (
+          <ul class="pay-products" role="list">
+            {documentProducts.map((p) => (
+              <PayCard
+                title={p.title}
+                price={p.price}
+                description={p.description}
+                detail={p.detail}
+                payUrl={p.payUrl}
+                slug={p.slug}
+                value={p.value}
+                headingLevel="h3"
+              />
+            ))}
+          </ul>
+        ) : (
+          <div class="pay-group">
+            <p class="pay-group-note">
+              Document preparation is arranged directly rather than paid for
+              here. The <a href="/services/parenting-plan">Parenting Plan</a> is
+              a flat $600, and the{" "}
+              <a href="/services/court-packet">Turn-Key Court Packet</a> is
+              priced by the type and complexity of the case. Either way a figure
+              is confirmed with you first and a payment link is issued for that
+              amount, so nothing is charged before it is agreed.{" "}
+              <a href="/book">Book a free consultation</a> or email{" "}
+              <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>.
+            </p>
+          </div>
+        )}
       </div>
 
       {/*
