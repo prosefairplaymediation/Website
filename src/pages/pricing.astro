@@ -15,10 +15,10 @@ const hasZelleQr = fs.existsSync("public/zelle-qr.png");
  * This page is the one place every price is stated together, so it is the one
  * that has to be right. Three rules it follows:
  *
- *  - A row gets a "Book Now" button only where there is a fixed amount to
- *    charge. Anything quoted by complexity gets "Inquire" instead: a pay
- *    button beside a variable price invites someone to pay the wrong amount,
- *    and there is no graceful way to ask for the rest afterwards.
+ *  - A row gets a Pay Now button only where there is a fixed amount to charge.
+ *    Anything quoted individually shows "Inquire within" as its price and no
+ *    button: a pay button beside a variable price invites someone to pay the
+ *    wrong amount, and there is no graceful way to ask for the rest later.
  *  - `href` is omitted where no page exists yet rather than pointed at
  *    something approximate. The name then renders unlinked.
  *  - The wording follows the copy supplied, condensed for a list. Full
@@ -30,10 +30,10 @@ interface PriceRow {
   note: string;
   /** Omit when the service has no page of its own yet. */
   href?: string;
-  /** Omit for anything without a fixed amount payable up front. */
+  /** Omit for anything without a fixed amount payable up front. Rows without
+   *  one show no button at all — the price reads "Inquire within", which is
+   *  the instruction, and a button beside it would only compete with it. */
   payHref?: string;
-  /** Defaults to "Book Now". */
-  cta?: string;
 }
 
 const services: PriceRow[] = [
@@ -46,7 +46,7 @@ const services: PriceRow[] = [
   },
   {
     name: "Divorce Mediation & Document Preparation",
-    price: "From $600 / hour",
+    price: "$600 / hour",
     note: "For couples who want to move through divorce privately and respectfully, without unnecessary litigation. May include mediation of marital issues, a Mediated Settlement Agreement, parenting matters, division of assets and liabilities, marital residence provisions, and preparation of the applicable Florida Supreme Court approved family-law forms for pro se filing. Priced on the complexity of the matter and the services required.",
     href: "/services/divorce-mediation",
     payHref: "/pay#mediation",
@@ -66,7 +66,7 @@ const services: PriceRow[] = [
   },
   {
     name: "Marital Home & Real Estate Settlement Mediation",
-    price: "From $600 / hour",
+    price: "$600 / hour",
     note: "Private mediation for couples, former partners or co-owners resolving jointly owned real estate. May cover sale of the property, refinancing, buyouts, responsibility for the mortgage and carrying costs, repairs, selection of a realtor, distribution of proceeds and timelines.",
     href: "/process/real-estate-mediation",
     payHref: "/pay#mediation",
@@ -90,29 +90,27 @@ const services: PriceRow[] = [
   },
   {
     name: "Mediated Settlement Agreement Preparation",
-    price: "From $600",
-    note: "A customized written settlement agreement recording the terms the parties have reached. May address marital property, real estate, debts, financial responsibilities, parenting matters, support, and the sale or refinancing of property. Priced on the complexity and length of the agreement.",
-    cta: "Inquire",
+    price: "$600 / hour",
+    note: "A customized written settlement agreement recording the terms the parties have reached. May address marital property, real estate, debts, financial responsibilities, parenting matters, support, and the sale or refinancing of property.",
+    payHref: "/pay#mediation",
   },
   {
     name: "Turn-Key Court Packet",
-    price: "Priced by case type",
-    note: "Complete document preparation for eligible pro se family-law matters. Depending on the case, the packet may include the applicable Florida Supreme Court approved family-law forms, financial documents, a Parenting Plan, settlement documents, and any other forms the filing requires. Priced by the type and complexity of the case.",
+    price: "$600 flat",
+    note: "Complete document preparation for eligible pro se family-law matters. Depending on the case, the packet may include the applicable Florida Supreme Court approved family-law forms, financial documents, a Parenting Plan, settlement documents, and any other forms the filing requires.",
     href: "/services/court-packet",
-    cta: "Inquire",
+    payHref: "/pay#document-services",
   },
   {
     name: "Gold Service Mediation",
-    price: "Quoted per matter",
+    price: "Inquire within",
     note: "Premium, private mediation for high-profile individuals and for sensitive or high-conflict matters, built for clients who place a premium on privacy, discretion, confidentiality, scheduling flexibility and personalized service. Arrangements may include private off-site venues, extended sessions and multi-day mediation.",
     href: "/services/gold-service",
-    cta: "Inquire",
   },
   {
     name: "Additional Document Preparation",
-    price: "Custom quote",
+    price: "Inquire within",
     note: "Something that does not fit neatly above? Additional agreements, family-law documents, amendments, supplemental documents and customized preparation may be available, priced on the scope and complexity of the work.",
-    cta: "Inquire",
   },
 ];
 import FaqBlock from "../components/FaqBlock.astro";
@@ -160,17 +158,9 @@ import LeadCapture from "../components/LeadCapture.astro";
             </div>
             <div class="price-row-action">
               <p class="price-row-amount smallcaps">{s.price}</p>
-              {s.payHref ? (
-                <a class="btn btn-primary price-row-btn" href={s.payHref} aria-label={`Book now: ${s.name}`}>
-                  {s.cta ?? "Book Now"}
-                  <span class="arrow" aria-hidden="true">→</span>
-                </a>
-              ) : (
-                /* Quoted by complexity, so there is no amount to charge yet.
-                   The free consultation is the next step and is where the
-                   quote comes from. */
-                <a class="btn btn-primary price-row-btn" href="/book" aria-label={`Inquire about ${s.name}`}>
-                  {s.cta ?? "Inquire"}
+              {s.payHref && (
+                <a class="btn btn-primary price-row-btn" href={s.payHref} aria-label={`Pay now: ${s.name}`}>
+                  Pay Now
                   <span class="arrow" aria-hidden="true">→</span>
                 </a>
               )}

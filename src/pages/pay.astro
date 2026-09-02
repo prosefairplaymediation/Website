@@ -132,22 +132,38 @@ const mediationGroups = [
   },
 ];
 
-const documentProducts: never[] = [
-  // EMPTY, TEMPORARILY. Both document services are off this page:
+const documentProducts = [
+  {
+    slug: "court_packet",
+    title: "Turn-Key Court Packet",
+    price: "$600 flat",
+    value: 600,
+    description:
+      "A complete, organized set of family-law documents — Parenting Plan, required Florida Supreme Court forms, and notarization where applicable — assembled into a filing-ready packet.",
+    detail: "/services/court-packet",
+    payUrl: courtPacketUrl,
+  },
+
+  // Parenting Plan Preparation is deliberately absent, and this is the only
+  // thing on the site still out of step with its price list.
   //
-  //   Turn-Key Court Packet — moved to pricing by case type on 2026-09-02, so
-  //   there is no fixed amount to charge at all.
+  // The site says $600. The Stripe link says $400 — opened and checked on
+  // 2026-09-02, twice. Putting the button back now would collect two thirds of
+  // the advertised price on every sale, with nothing to notice: no error, no
+  // complaint, and a shortfall that only surfaces when payments are
+  // reconciled. A missed instant payment is recoverable; going back to a
+  // client who has already paid to ask for another $200 is not.
   //
-  //   Parenting Plan Preparation — the site raised it to $600 on 2026-09-02
-  //   and the Stripe link still charges $400, confirmed by opening it. Leaving
-  //   the button up means quietly collecting two thirds of the advertised
-  //   price on every sale, with the shortfall only visible when payments are
-  //   reconciled. A missed instant payment is recoverable; an undercharge that
-  //   nobody notices is not.
-  //
-  // TO RESTORE, once the Stripe price actually reads $600: put the Parenting
-  // Plan entry back with payUrl: parentingPlanUrl, price "$600 flat",
-  // value: 600, and change the /pricing row back to payHref "/pay#document-services".
+  // TO RESTORE, the moment a link opens showing $600.00:
+  //   1. Put parentingPlanUrl back below (or the new URL, if a new link was
+  //      made — a new one ends in something other than 3sI01).
+  //   2. Add: { slug: "parenting_plan", title: "Parenting Plan Preparation",
+  //      price: "$600 flat", value: 600, detail: "/services/parenting-plan",
+  //      payUrl: parentingPlanUrl, description: "A customized Parenting Plan
+  //      tailored to your family's schedule, structure, and needs. Court-ready
+  //      format, drafted from the information you provide." }
+  //   3. In src/pages/pricing.astro, swap that row's `cta: "Inquire"` for
+  //      `payHref: "/pay#document-services"`.
 ];
 ---
 
