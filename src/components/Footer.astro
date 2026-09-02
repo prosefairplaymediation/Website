@@ -12,14 +12,6 @@ const version = pkg.version;
       <div class="footer-brand">
         <h2 class="footer-motto display display-italic">Where we level the playing field.</h2>
         <p class="footer-name smallcaps">Pro Se Fair Play Mediation LLC</p>
-
-        <address class="footer-contact">
-          <a href="tel:+15619410896" class="footer-phone">561-941-0896</a>
-          <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>
-          <span class="footer-where">West Palm Beach, Florida &middot; serving all Florida by Zoom</span>
-        </address>
-
-        <a href="/book" class="footer-cta">Book a free consultation</a>
       </div>
 
       <nav class="footer-nav" aria-label="Footer">
@@ -59,6 +51,26 @@ const version = pkg.version;
 
     <hr class="rule" />
 
+    {/*
+      The contact line. It sat stacked under the slogan in the brand column
+      until 2026-09-02, which put a phone number, an email and a gold button in
+      the middle of the page competing with the slogan above them. Here it is
+      one line across the foot of the site: details on the left, the booking
+      button opposite, the copyright beneath. Nothing is centred, and the eye
+      lands on the phone number rather than on a stack of four things.
+    */}
+    <div class="footer-contactbar">
+      <address class="footer-contact">
+        <a href="tel:+15619410896" class="footer-phone">561-941-0896</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <a href="mailto:info@prosefairplaymediation.com" class="footer-email">info@prosefairplaymediation.com</a>
+        <span class="footer-sep" aria-hidden="true">&middot;</span>
+        <span class="footer-where">West Palm Beach, Florida &mdash; serving all Florida by Zoom</span>
+      </address>
+
+      <a href="/book" class="footer-cta">Book a free consultation</a>
+    </div>
+
     <div class="footer-bottom">
       <p class="copy">
         © {year} Pro Se Fair Play Mediation LLC. All rights reserved.
@@ -84,52 +96,90 @@ const version = pkg.version;
     opacity: 0.55;
   }
   .footer-inner {
-    padding-block: var(--space-2xl) var(--space-lg);
+    /* The extra bottom padding clears the two floating widgets. The music
+       player is pinned to the bottom-left of the viewport and the chat launcher
+       to the bottom-right, so when someone reaches the end of the page both
+       corners are occupied and the last line of text sits underneath one of
+       them whichever way it is aligned. Height, not alignment, is the fix. */
+    padding-block: var(--space-2xl) calc(var(--space-lg) + 4rem);
   }
   /* The telephone number was present in the schema but nowhere a visitor could
      see it: 31 of 35 pages offered no way to call. This puts it, the email and
-     a booking link on every page. */
+     a booking link on every page — now as one line at the foot rather than a
+     stack in the middle of the brand column. */
+  .footer-contactbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md) var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
   .footer-contact {
     display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: var(--space-sm);
+    flex-wrap: wrap;
+    align-items: baseline;
+    /* Row gap larger than column gap: when this wraps on a narrow screen the
+       lines need to separate more than the items within a line do. */
+    gap: 0.5rem 0.9rem;
+    margin: 0;
     font-style: normal;
-    line-height: 1.5;
+    line-height: 1.4;
   }
   .footer-contact a {
     color: var(--color-cream);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    align-self: flex-start;
+    /* Underline drawn as a border so it can be tinted independently of the
+       text and animated to gold on hover. */
+    border-bottom: 1px solid color-mix(in srgb, var(--color-cream) 25%, transparent);
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
   .footer-contact a:hover {
+    color: var(--color-gold);
     border-bottom-color: var(--color-gold);
   }
+  .footer-contact a:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  /* The number is the one thing here worth reading first, so it gets the
+     display face and a step above everything beside it. */
   .footer-phone {
+    font-family: var(--font-display);
     font-size: var(--step-1);
     letter-spacing: 0.02em;
   }
+  .footer-email {
+    font-size: var(--step-sm);
+  }
+  .footer-sep {
+    color: var(--color-gold);
+    opacity: 0.5;
+    font-size: var(--step-sm);
+  }
   .footer-where {
     font-size: var(--step-xs);
-    opacity: 0.75;
-    margin-top: 0.15rem;
+    letter-spacing: 0.04em;
+    color: color-mix(in srgb, var(--color-cream) 62%, var(--color-navy));
   }
   .footer-cta {
     display: inline-block;
-    align-self: flex-start;
-    margin-top: var(--space-md);
-    padding: 0.7rem 1.35rem;
+    flex-shrink: 0;
+    padding: 0.72rem 1.5rem;
     background: var(--color-gold);
     color: var(--color-navy-deep);
     text-decoration: none;
+    font-family: var(--font-body);
+    font-size: var(--step-sm);
     font-weight: 600;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     border-radius: 2px;
-    transition: filter 0.15s ease;
+    transition: filter 0.15s ease, transform 0.15s ease;
   }
   .footer-cta:hover {
     filter: brightness(1.08);
+    transform: translateY(-1px);
   }
   .footer-cta:focus-visible {
     outline: 2px solid var(--color-cream);
@@ -161,6 +211,20 @@ const version = pkg.version;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
+  }
+  /* Learn carries twelve links and Legal five, so a single column left the
+     footer twice as tall as it needed to be — and once the contact block moved
+     out of the brand column, that height showed as a large empty panel beside
+     the slogan. Two columns halve it and the void closes. */
+  .footer-nav > div:first-child ul {
+    /* display:block is load-bearing: the base rule sets the list to flex, and
+       a flex container ignores `columns` entirely. */
+    display: block;
+    columns: 2;
+    column-gap: var(--space-md);
+  }
+  .footer-nav > div:first-child li {
+    break-inside: avoid;
   }
   .footer-nav h3 {
     font-family: var(--font-body);
@@ -196,17 +260,27 @@ const version = pkg.version;
 
   .footer-bottom {
     display: flex;
-    justify-content: flex-end;
+    /* Left, not right. The chat widget is fixed to the bottom-right corner, so
+       anything right-aligned on the last line of the page sits underneath it —
+       the build version was disappearing behind Marie's face. */
+    justify-content: flex-start;
+    /* A hairline rather than a second gold rule: the contact line above is the
+       one that should carry weight down here, and two rules of equal strength
+       would read as a table. */
+    border-top: 1px solid color-mix(in srgb, var(--color-cream) 10%, transparent);
+    padding-top: var(--space-md);
   }
   .copy {
     font-size: var(--step-2xs);
     letter-spacing: 0.08em;
     color: color-mix(in srgb, var(--color-cream) 55%, var(--color-navy));
-    text-align: right;
+    text-align: left;
+    /* One line rather than a stack: the year and the build tag are the same
+       kind of small print and read better beside each other. */
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    align-items: flex-end;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.9rem;
   }
   .build-version {
     font-family: var(--font-body);
@@ -216,10 +290,21 @@ const version = pkg.version;
     font-variant-numeric: tabular-nums;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .footer-cta { transition: none; }
+    .footer-cta:hover { transform: none; }
+  }
+
   @media (max-width: 780px) {
     .footer-top { grid-template-columns: 1fr; gap: var(--space-xl); }
-    .footer-bottom { justify-content: flex-start; }
-    .copy { text-align: left; align-items: flex-start; }
+    /* space-between stops earning its keep once this wraps — it strands the
+       button against the right edge under a ragged line of text. Stacked and
+       left-aligned reads as one block instead. */
+    .footer-contactbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
     .footer-nav { grid-template-columns: repeat(2, 1fr); }
     /* Keep the slogan on one line: drop the width cap and scale the font
        to fit the phone width. */
