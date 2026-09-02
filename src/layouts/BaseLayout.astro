@@ -429,6 +429,11 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
       Floating bottom-left slogan — disabled in favor of an in-nav slogan.
       Kept here (and styles in global.css) for potential future re-enable.
 
+      NOTE: the script below hooks .footer-motto, which no longer exists — the
+      footer's slogan and company name were removed on 2026-09-02 as redundant
+      with the nav. Re-enabling this needs that reference replaced with
+      something that is still on the page.
+
       <aside class="floating-slogan" aria-hidden="true">
         <span class="floating-slogan-text">Where we level the playing field.</span>
       </aside>

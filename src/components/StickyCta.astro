@@ -16,13 +16,13 @@
  * Appears only after the reader has scrolled past the hero, so it does not
  * greet a first-time visitor with a sales bar before they have read anything.
  */
-const CALL = "+15619410896";
+import { TEL_HREF, SMS_HREF } from "../consts.ts";
 ---
 
 <div class="scta" data-scta hidden aria-hidden="true">
   <a
     class="scta-call"
-    href={`tel:${CALL}`}
+    href={TEL_HREF}
     aria-label="Call 561-941-0896"
     data-scta-call
   >
@@ -30,6 +30,16 @@ const CALL = "+15619410896";
       <path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z"/>
     </svg>
     <span class="scta-call-text">Call</span>
+  </a>
+
+  {/* Text, beside Call rather than instead of it. Same reason as the footer:
+      the line takes both, and a message costs the sender far less than a call
+      when they are not yet sure what to say. */}
+  <a class="scta-call" href={SMS_HREF} aria-label="Send a text message to 561-941-0896">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4v4l5-4h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/>
+    </svg>
+    <span class="scta-call-text">Text</span>
   </a>
 
   <a class="scta-book" href="/book" data-scta-book>

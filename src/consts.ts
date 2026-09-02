@@ -120,3 +120,26 @@ export const OPENING_HOURS: OpeningHours[] = [];
 // an invoice when the number is big enough that a typo would hurt.
 // ============================================================
 export const QUOTED_AMOUNT_URL = "";
+
+// ============================================================
+// PHONE AND TEXT
+//
+// The practice line is a mobile, so it takes text messages as well as calls.
+// A prospective client half-decided at eleven at night will send a text and
+// will not make a call, which is the whole argument for offering both.
+//
+// SMS_HREF's odd "?&body=" is deliberate and not a typo. iOS historically
+// wants `sms:number&body=`, Android wants `sms:number?body=`, and `?&` is the
+// one form both accept. Written any other way it silently opens the messaging
+// app with an empty message on one platform or the other.
+//
+// The prefilled text says where the person came from and nothing else. It must
+// never invite case details: a text message is not a confidential channel, and
+// the rest of the site is careful to say so.
+// ============================================================
+export const PHONE_E164 = "+15619410896";
+export const PHONE_DISPLAY = "561-941-0896";
+export const TEL_HREF = `tel:${PHONE_E164}`;
+export const SMS_HREF = `sms:${PHONE_E164}?&body=${encodeURIComponent(
+  "Hi Marie, I found you on prosefairplaymediation.com and would like to ask about mediation.",
+)}`;
