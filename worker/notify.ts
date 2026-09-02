@@ -68,6 +68,7 @@ export interface NotifyEnv {
 
 const DEFAULT_BOOKING_URL =
   "https://calendly.com/prosefairplaymediation-info/free-consultation";
+const PAY_URL = "https://prosefairplaymediation.com/pay";
 const PRACTICE_EMAIL = "info@prosefairplaymediation.com";
 const PRACTICE_PHONE = "561-941-0896";
 const PRACTICE_NAME = "Pro Se Fair Play Mediation";
@@ -221,6 +222,17 @@ async function emailVisitor(env: NotifyEnv, lead: Lead): Promise<void> {
     ``,
     `It is a conversation about how mediation works and whether it fits your`,
     `situation — not a commitment to anything.`,
+    ``,
+    // Second, for the minority who arrive already decided. Offered plainly and
+    // after the consultation, never instead of it: someone who does not yet
+    // know what they need should not be steered to a payment page. Every
+    // service except the Gold Service has a fixed price, and /pay puts the
+    // Engagement Agreement in front of the buttons.
+    `If you already know what you need — a parenting plan, a court packet, or`,
+    `a mediation session you have both agreed on — you can arrange and pay for`,
+    `it directly, without waiting for me:`,
+    ``,
+    `  ${PAY_URL}`,
     ``,
     `One thing worth saying plainly: I am a mediator and a document preparer,`,
     `not an attorney, and nothing from me is legal advice. If you want an`,
