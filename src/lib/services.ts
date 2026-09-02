@@ -64,21 +64,23 @@ export const services: ServiceDef[] = [
     // is indexed, linked from four other pages, and printed on the QR-code
     // materials. Breaking those costs more than a tidier path is worth.
     slug: "parenting-plan",
-    short: "Paternity Parenting Plan",
+    short: "Parenting Plan",
     priceLabel: "$600 flat",
-    name: "Paternity Cases – Parenting Plan",
+    name: "Parenting Plan Preparation",
     description:
-      "A Parenting Plan for a paternity case, customised to one family's schedule and structure, delivered in a clear, court-ready format.",
+      "A Parenting Plan customised to one family's schedule and structure, delivered in a clear, court-ready format.",
     price: "600.00",
   },
   {
     slug: "court-packet",
     short: "Turn-Key Court Packet",
-    priceLabel: "$600 flat",
+    // Priced by case type as of 2026-09-02, so there is no single figure to
+    // publish. `price` is omitted deliberately: an Offer carrying a fixed
+    // price for something quoted per case is a wrong answer, not a rounded one.
+    priceLabel: "Priced by case type",
     name: "Turn-Key Court Packet",
     description:
-      "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable.",
-    price: "600.00",
+      "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable. Priced by the type and complexity of the case.",
   },
   {
     slug: "notary",

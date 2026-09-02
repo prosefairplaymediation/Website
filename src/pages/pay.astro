@@ -22,6 +22,8 @@ const med8hSplitUrl = "https://buy.stripe.com/5kQ28qfukf0Ydl32gI3sI0a";
 // const med1hGoldUrl = "https://buy.stripe.com/8x29ASdmcaKI3Kt6wY3sI0b";
 
 const parentingPlanUrl = "https://buy.stripe.com/4gM28q4PG3ig5SBdZq3sI01";
+// Unused while the packet is quoted by case type. See documentProducts below.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const courtPacketUrl = "https://buy.stripe.com/5kQfZg1DucSQ0yh6wY3sI00";
 
 const mediationDetail = "/services/hourly-mediation";
@@ -133,24 +135,24 @@ const mediationGroups = [
 const documentProducts = [
   {
     slug: "parenting_plan",
-    title: "Paternity Cases – Parenting Plan",
+    title: "Parenting Plan Preparation",
     price: "$600 flat",
     value: 600,
     description:
-      "A customized Parenting Plan for a paternity case, tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
+      "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
     detail: "/services/parenting-plan",
     payUrl: parentingPlanUrl,
   },
-  {
-    slug: "court_packet",
-    title: "Turn-Key Court Packet",
-    price: "$600 flat",
-    value: 600,
-    description:
-      "A complete, organized set of family-law documents — Parenting Plan, required Florida Supreme Court forms, and notarization where applicable — assembled into a filing-ready packet.",
-    detail: "/services/court-packet",
-    payUrl: courtPacketUrl,
-  },
+  // The Turn-Key Court Packet was removed from this page on 2026-09-02, when
+  // it moved from a $600 flat fee to pricing by case type. A fixed pay button
+  // beside a variable price is the one failure mode worth avoiding here: the
+  // client pays $600 for something quoted at more, and there is no graceful
+  // way to ask for the balance afterwards. /pricing now sends them to the
+  // consultation, which is where the quote comes from, and Marie can issue a
+  // payment link once the amount is known.
+  //
+  // The Stripe link itself is kept in `courtPacketUrl` above rather than
+  // deleted, so the product is still reachable if a flat rate ever returns.
 ];
 ---
 
@@ -158,7 +160,7 @@ const documentProducts = [
   noChat
   noStickyCta
   title="Pay for a Service · Pro Se Fair Play Mediation"
-  description="Pay online for mediation (hourly, half-day, or full-day), Paternity Cases – Parenting Plan, or the Turn-Key Court Packet. Secure payment processed by Stripe."
+  description="Pay online for mediation (hourly, half-day, or full-day), Parenting Plan Preparation, or the Turn-Key Court Packet. Secure payment processed by Stripe."
 >
   <!-- ========================== HEADER ========================== -->
   <header class="pay-header">
