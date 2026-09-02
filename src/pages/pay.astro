@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PayCard from "../components/PayCard.astro";
+import { QUOTED_AMOUNT_URL } from "../consts.ts";
 
 // Stripe Payment Links (Stripe Dashboard > Payment Links). Each mediation
 // link redirects (Stripe side) to the matching /thank-you-*-hour scheduling
@@ -312,6 +313,35 @@ const documentProducts = [
           </div>
         )}
       </div>
+
+      {/*
+        Pay a quoted amount. Gold Service and Additional Document Preparation
+        have no published rate, so this is the one card where the client types
+        the figure rather than reading it. Marie quotes it first; the field is
+        for entering what she said, not for deciding what to pay.
+
+        Rendered only when QUOTED_AMOUNT_URL is filled in — see src/consts.ts,
+        which also carries the Stripe-side settings that make this safe to
+        offer at all, the minimum amount especially.
+      */}
+      {QUOTED_AMOUNT_URL && (
+        <div class="pay-section" id="quoted-amount">
+          <h2 class="pay-section-title display">Pay a Quoted Amount</h2>
+          <ul class="pay-products" role="list">
+            <PayCard
+              title="Quoted Amount"
+              context="a quoted amount for Gold Service or additional document preparation"
+              price="You enter the amount"
+              description="For Gold Service Mediation, additional document preparation, and anything else quoted individually. Enter the figure Marie quoted you — not an estimate — and put the matter name in the field provided so the payment can be matched to your file."
+              detail="/pricing"
+              payUrl={QUOTED_AMOUNT_URL}
+              slug="quoted_amount"
+              value={0}
+              headingLevel="h3"
+            />
+          </ul>
+        </div>
+      )}
 
       {/*
         Zelle. This used to sit in the hero, above the agreement checkbox,

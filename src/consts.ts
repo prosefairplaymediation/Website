@@ -85,3 +85,38 @@ export interface OpeningHours {
 }
 
 export const OPENING_HOURS: OpeningHours[] = [];
+
+// ============================================================
+// QUOTED-AMOUNT PAYMENT LINK
+//
+// One Stripe Payment Link with a "customer chooses price" amount, used by the
+// two services that have no published rate: Gold Service Mediation and
+// Additional Document Preparation. Marie quotes a figure, the client types
+// that figure in, and pays.
+//
+// EMPTY UNTIL THE LINK EXISTS. While it is empty those two rows show no Pay
+// Now button and read "Inquire within", which is the current behaviour and a
+// perfectly good fallback — a payment button that leads nowhere is worse than
+// no button.
+//
+// Creating it, per docs/drafts/stripe-setup.md (product 5):
+//
+//   1. Stripe -> Add product -> "Quoted amount — Pro Se Fair Play Mediation"
+//   2. On the price, choose "Customer chooses price", currency USD
+//   3. SET A MINIMUM. Without one, a typo sends a $6 payment for a $6,000
+//      matter. Set it at or just below the smallest realistic quote, and
+//      consider a maximum for the opposite typo.
+//   4. Leave the preset amount blank, so nobody anchors on a number that was
+//      never quoted to them
+//   5. Add two required fields: "Matter name" and "Amount quoted to you". The
+//      second reads as redundant beside the amount they type and is not: when
+//      the two disagree you see it immediately rather than at reconciliation
+//   6. After payment -> redirect to
+//      https://prosefairplaymediation.com/thank-you
+//
+// Worth knowing: for a large Gold matter a Stripe INVOICE is the safer
+// instrument, because you set the amount and the client cannot mistype it.
+// This button trades that safety for speed. Use the button for convenience,
+// an invoice when the number is big enough that a typo would hurt.
+// ============================================================
+export const QUOTED_AMOUNT_URL = "";
