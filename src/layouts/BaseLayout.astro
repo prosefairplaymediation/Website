@@ -6,11 +6,66 @@ import MusicPlayer from "../components/MusicPlayer.astro";
 import ChatWidget from "../components/ChatWidget.astro";
 import StickyCta from "../components/StickyCta.astro";
 import { BING_SITE_VERIFICATION } from "../consts.ts";
+import { OPENING_HOURS } from "../consts.ts";
+import { getReviewData } from "../lib/reviews.ts";
 import {
   ATTRIBUTION_KEY,
   ATTRIBUTION_TTL_DAYS,
   AW_CONVERSION_ID,
 } from "../lib/attribution.ts";
+
+/**
+ * The parts of the business schema that come from data rather than from a
+ * literal, emitted as a second JSON-LD block carrying the same `@id` as the
+ * main one. Nodes sharing an `@id` are merged, so this adds to that entity
+ * rather than describing a second business — which is also why the two can
+ * live apart without the 120-line literal above having to become a template.
+ *
+ * Nothing here is emitted unless there is something true to say.
+ */
+const reviewData = await getReviewData();
+
+const openingHoursSpecification = OPENING_HOURS.map((slot) => ({
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: slot.days,
+  opens: slot.opens,
+  closes: slot.closes,
+}));
+
+/**
+ * The rating shown on the site, declared so a machine can read it.
+ *
+ * Worth knowing before expecting stars in search results: Google restricts
+ * review snippets for a business's own page, and ratings gathered on a
+ * third-party site — which is what these are, since they are Google's own
+ * reviews via Featurable — are generally not eligible. The usual outcome of
+ * this markup is therefore "no stars", not a penalty. It is here because the
+ * declaration is honest and costs nothing; the stars in local results come
+ * from the Google Business Profile itself, which is where that effort belongs.
+ *
+ * Only emitted when there are real reviews behind it. Never a hard-coded 5.0.
+ */
+const rated = reviewData.reviews.filter((r) => typeof r.stars === "number");
+const aggregateRating =
+  reviewData.average && rated.length > 0
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: reviewData.average,
+        reviewCount: rated.length,
+        bestRating: "5",
+        worstRating: "1",
+      }
+    : null;
+
+const businessExtras = {
+  "@context": "https://schema.org",
+  "@id": "https://prosefairplaymediation.com/#business",
+  ...(openingHoursSpecification.length && { openingHoursSpecification }),
+  ...(aggregateRating && { aggregateRating }),
+};
+
+// Two keys means only @context and @id — nothing worth emitting.
+const hasBusinessExtras = Object.keys(businessExtras).length > 2;
 
 interface Props {
   title?: string;
@@ -222,6 +277,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": "https://prosefairplaymediation.com/#business",
       "name": "Pro Se Fair Play Mediation LLC",
       "alternateName": "Pro Se Fair Play Mediation",
       "url": "https://prosefairplaymediation.com",
@@ -338,6 +394,14 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
       ]
     }
     </script>
+
+    {hasBusinessExtras && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(businessExtras)}
+      />
+    )}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

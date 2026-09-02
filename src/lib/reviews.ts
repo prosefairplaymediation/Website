@@ -23,8 +23,10 @@ export interface ReviewData {
   placeId: string | null;
   /** Average across every review fetched, not a subset. */
   average: string | null;
-  /** True when the fetch produced usable reviews. */
+  /** True when there are usable reviews, live or from the snapshot. */
   ok: boolean;
+  /** ISO date the snapshot was taken. Absent on a live fetch. */
+  fetchedAt?: string;
 }
 
 // Featurable mirrors the Google Business Profile review shape, which spells
@@ -94,22 +96,79 @@ function findPlaceId(json: any): string | null {
 
 let cache: ReviewData | null = null;
 
+/**
+ * Last known good reviews, committed to the repository.
+ *
+ * This exists because the previous behaviour failed in the worst possible
+ * way: reviews are fetched from a third party while the site builds, and if
+ * that service was slow or down during a deploy the section quietly emptied
+ * and nobody was told. It degraded gracefully, which sounds like a virtue and
+ * is not — the site would simply stop showing social proof, indefinitely, and
+ * the first person to notice would be whoever eventually looked.
+ *
+ * So a successful fetch is written to disk and committed, and a failed one
+ * falls back to it and shouts. Refresh it with `npm run reviews:refresh`.
+ */
+const SNAPSHOT = "content/reviews-snapshot.json";
+
+async function readSnapshot(): Promise<ReviewData | null> {
+  try {
+    const { readFile } = await import("node:fs/promises");
+    const parsed = JSON.parse(await readFile(SNAPSHOT, "utf8"));
+    if (!Array.isArray(parsed?.reviews) || parsed.reviews.length === 0) return null;
+    return { ...parsed, ok: true } as ReviewData;
+  } catch {
+    return null;
+  }
+}
+
+/** Only ever called from the refresh script, never during a normal build. */
+export async function writeSnapshot(data: ReviewData): Promise<void> {
+  const { writeFile, mkdir } = await import("node:fs/promises");
+  await mkdir("content", { recursive: true });
+  await writeFile(SNAPSHOT, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+}
+
 export async function getReviewData(): Promise<ReviewData> {
   if (cache) return cache;
 
   let reviews: Review[] = [];
   let placeId: string | null = null;
+  let reachable = false;
 
   try {
     const res = await fetch(ENDPOINT);
     if (res.ok) {
+      reachable = true;
       const json = await res.json();
       const raw = json?.data?.reviews ?? json?.reviews ?? json?.data ?? [];
       if (Array.isArray(raw)) reviews = raw.map(normalize).filter((r) => r.text.length > 0);
       placeId = findPlaceId(json);
     }
   } catch {
-    // Network unavailable or shape unexpected — callers fall back.
+    // Network unavailable or shape unexpected — the snapshot covers it.
+  }
+
+  if (reviews.length === 0) {
+    const snapshot = await readSnapshot();
+    if (snapshot) {
+      // Loud on purpose. This line is the only warning anyone gets that the
+      // reviews on the live site are no longer coming from Google, and it
+      // needs to be visible in a Cloudflare build log at a glance.
+      console.warn(
+        `\n  ⚠  REVIEWS: live fetch returned nothing (${reachable ? "reachable but empty" : "unreachable"}).` +
+          `\n     Falling back to ${SNAPSHOT}, last updated ${snapshot.fetchedAt ?? "unknown"}.` +
+          `\n     The site still shows reviews, but they are a copy. If this repeats,` +
+          `\n     check the Featurable widget — the section is no longer live.\n`,
+      );
+      cache = snapshot;
+      return cache;
+    }
+    console.warn(
+      `\n  ⚠  REVIEWS: live fetch returned nothing and there is no snapshot at ${SNAPSHOT}.` +
+        `\n     The reviews section will not render. Run \`npm run reviews:refresh\` from a` +
+        `\n     machine with network access to seed it.\n`,
+    );
   }
 
   const rated = reviews.filter((r) => typeof r.stars === "number") as (Review & { stars: number })[];
