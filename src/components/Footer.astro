@@ -1,6 +1,7 @@
 ---
 import pkg from "../../package.json";
 import { getReviewUrl } from "../lib/reviews";
+import { PHONE_DISPLAY, TEL_HREF, SMS_HREF } from "../consts.ts";
 const GOOGLE_REVIEW_URL = await getReviewUrl();
 const year = new Date().getFullYear();
 const version = pkg.version;
@@ -8,12 +9,13 @@ const version = pkg.version;
 
 <footer class="footer">
   <div class="container footer-inner">
+    {/*
+      No slogan and no company name here. Both sit in the nav at the top of
+      every page, and repeating them at the foot of the same screen read as
+      padding rather than as branding. The company name is still stated in
+      full in the copyright line below, which is where it is actually needed.
+    */}
     <div class="footer-top">
-      <div class="footer-brand">
-        <h2 class="footer-motto display display-italic">Where we level the playing field.</h2>
-        <p class="footer-name smallcaps">Pro Se Fair Play Mediation LLC</p>
-      </div>
-
       <nav class="footer-nav" aria-label="Footer">
         <div>
           <h3>Learn</h3>
@@ -61,7 +63,11 @@ const version = pkg.version;
     */}
     <div class="footer-contactbar">
       <address class="footer-contact">
-        <a href="tel:+15619410896" class="footer-phone">561-941-0896</a>
+        <a href={TEL_HREF} class="footer-phone">{PHONE_DISPLAY}</a>
+        {/* Call and text sit together because the line is a mobile and takes
+            both. Tapping the number still calls, which is what a phone number
+            is expected to do; Text is its own target so neither is guessed at. */}
+        <a href={SMS_HREF} class="footer-text-link">Text me</a>
         <span class="footer-sep" aria-hidden="true">&middot;</span>
         <a href="mailto:info@prosefairplaymediation.com" class="footer-email">info@prosefairplaymediation.com</a>
         <span class="footer-sep" aria-hidden="true">&middot;</span>
@@ -70,6 +76,14 @@ const version = pkg.version;
 
       <a href="/book" class="footer-cta">Book a free consultation</a>
     </div>
+
+    {/* The caution belongs next to the invitation, not on a policy page
+        nobody opens. A text message is not a confidential channel, and this
+        site is careful to say so everywhere else it invites contact. */}
+    <p class="footer-textnote">
+      Calls and texts both reach Marie directly. Texts are not a confidential
+      channel &mdash; please keep details of your situation out of them.
+    </p>
 
     <div class="footer-bottom">
       <p class="copy">
@@ -113,7 +127,7 @@ const version = pkg.version;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-md) var(--space-lg);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
   }
   .footer-contact {
     display: flex;
@@ -153,6 +167,13 @@ const version = pkg.version;
   .footer-email {
     font-size: var(--step-sm);
   }
+  /* Gold rather than cream, and a shade smaller than the number beside it: it
+     is a second action on the same line, not a competing one. */
+  .footer-text-link {
+    font-size: var(--step-sm);
+    color: var(--color-gold);
+    letter-spacing: 0.06em;
+  }
   .footer-sep {
     color: var(--color-gold);
     opacity: 0.5;
@@ -162,6 +183,13 @@ const version = pkg.version;
     font-size: var(--step-xs);
     letter-spacing: 0.04em;
     color: color-mix(in srgb, var(--color-cream) 62%, var(--color-navy));
+  }
+  .footer-textnote {
+    margin: 0 0 var(--space-lg);
+    max-width: 62ch;
+    font-size: var(--step-xs);
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--color-cream) 55%, var(--color-navy));
   }
   .footer-cta {
     display: inline-block;
@@ -186,31 +214,15 @@ const version = pkg.version;
     outline-offset: 3px;
   }
   .footer-top {
-    display: grid;
-    grid-template-columns: 1.2fr 2fr;
-    gap: var(--space-2xl);
     margin-bottom: var(--space-xl);
-  }
-  .footer-motto {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--color-cream);
-    max-width: 20ch;
-  }
-  .footer-name {
-    margin-top: 1.25rem;
-    color: var(--color-gold);
-    font-size: var(--step-xs);
-    letter-spacing: 0.24em;
   }
 
   .footer-nav {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
+    /* Learn holds twelve links in two sub-columns, Legal five in one, so the
+       row is split to match rather than into equal halves. */
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
   }
   /* Learn carries twelve links and Legal five, so a single column left the
      footer twice as tall as it needed to be — and once the contact block moved
@@ -296,7 +308,6 @@ const version = pkg.version;
   }
 
   @media (max-width: 780px) {
-    .footer-top { grid-template-columns: 1fr; gap: var(--space-xl); }
     /* space-between stops earning its keep once this wraps — it strands the
        button against the right edge under a ragged line of text. Stacked and
        left-aligned reads as one block instead. */
@@ -305,14 +316,10 @@ const version = pkg.version;
       align-items: flex-start;
       gap: var(--space-md);
     }
-    .footer-nav { grid-template-columns: repeat(2, 1fr); }
-    /* Keep the slogan on one line: drop the width cap and scale the font
-       to fit the phone width. */
-    .footer-motto {
-      max-width: none;
-      white-space: nowrap;
-      font-size: var(--step-2);
-    }
+    /* Two even columns on a phone, and Learn drops its sub-columns: three
+       narrow columns of link text is unreadable at this width. */
+    .footer-nav { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+    .footer-nav > div:first-child ul { columns: 1; }
     /* Right (Legal) column hugs the right edge. */
     .footer-nav > div:last-child { text-align: right; }
   }

@@ -1,4 +1,5 @@
 ---
+import { SMS_HREF } from "../consts.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const email = "info@prosefairplaymediation.com";
@@ -100,12 +101,28 @@ const addressMapsUrl = "https://maps.google.com/?q=700+South+Rosemary+Avenue+Sui
         </div>
 
         <div class="contact-card">
-          <p class="contact-label">Phone</p>
+          <p class="contact-label">Call</p>
           <a
             href={`tel:${phoneTel}`}
             class="contact-value display"
             aria-label={`Call ${phoneDisplay}`}
           >{phoneDisplay}</a>
+        </div>
+
+        {/* Text sits beside Phone, same weight. The line is a mobile and takes
+            both, and someone weighing up a divorce at eleven at night will send
+            a message where they would never make a call. */}
+        <div class="contact-card">
+          <p class="contact-label">Text</p>
+          <a
+            href={SMS_HREF}
+            class="contact-value display"
+            aria-label={`Send a text message to ${phoneDisplay}`}
+          >{phoneDisplay}</a>
+          <p class="contact-note">
+            Messages are not confidential. Please keep details of your situation
+            out of them.
+          </p>
         </div>
 
         <div class="contact-card">
@@ -263,6 +280,14 @@ const addressMapsUrl = "https://maps.google.com/?q=700+South+Rosemary+Avenue+Sui
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+  }
+  .contact-note {
+    margin-top: 0.6rem;
+    font-family: var(--font-body);
+    font-size: var(--step-xs);
+    line-height: 1.5;
+    color: var(--color-slate);
+    max-width: 32ch;
   }
   .contact-card {
     padding: clamp(2rem, 4vw, 3rem);
