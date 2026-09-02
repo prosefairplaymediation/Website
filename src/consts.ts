@@ -84,7 +84,13 @@ export interface OpeningHours {
   closes: string;
 }
 
-export const OPENING_HOURS: OpeningHours[] = [];
+export const OPENING_HOURS: OpeningHours[] = [
+  // Supplied by Marie on 2026-09-02, matching the Google Business Profile.
+  // Open seven days; the weekend hours are shorter rather than absent.
+  { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "21:00" },
+  { days: ["Saturday"], opens: "12:00", closes: "16:00" },
+  { days: ["Sunday"], opens: "11:00", closes: "15:00" },
+];
 
 // ============================================================
 // QUOTED-AMOUNT PAYMENT LINK

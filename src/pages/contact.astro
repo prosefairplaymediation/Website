@@ -1,5 +1,6 @@
 ---
 import { SMS_HREF } from "../consts.ts";
+import { hoursRows } from "../lib/hours.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const email = "info@prosefairplaymediation.com";
@@ -122,6 +123,27 @@ const addressMapsUrl = "https://maps.google.com/?q=700+South+Rosemary+Avenue+Sui
           <p class="contact-note">
             Messages are not confidential. Please keep details of your situation
             out of them.
+          </p>
+        </div>
+
+        {/* Hours come from OPENING_HOURS in consts.ts, the same array that
+            feeds the openingHoursSpecification in the page's structured data.
+            One source, so what a visitor reads and what Google reads cannot
+            drift apart — which they would within a month if this page kept
+            its own copy. */}
+        <div class="contact-card contact-card-hours">
+          <p class="contact-label">Hours</p>
+          <dl class="hours-list">
+            {hoursRows.map((row) => (
+              <div class="hours-row">
+                <dt>{row.days}</dt>
+                <dd>{row.hours}</dd>
+              </div>
+            ))}
+          </dl>
+          <p class="contact-note">
+            Sessions are by appointment. Evening and weekend mediations are
+            available within these hours.
           </p>
         </div>
 
@@ -280,6 +302,37 @@ const addressMapsUrl = "https://maps.google.com/?q=700+South+Rosemary+Avenue+Sui
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+  }
+  .hours-list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .hours-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.35rem 1rem;
+    /* A hairline between rows rather than a box around each: the card already
+       carries the border, and a second one would read as a table. */
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .hours-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .hours-row dt {
+    font-family: var(--font-body);
+    font-size: var(--step-sm);
+    color: var(--color-ink);
+  }
+  .hours-row dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-sm);
+    color: var(--color-navy);
+    /* Digits line up down the column. */
+    font-variant-numeric: tabular-nums;
   }
   .contact-note {
     margin-top: 0.6rem;
