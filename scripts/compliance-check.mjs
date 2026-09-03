@@ -32,8 +32,22 @@ const RULES = [
     why: "Never predict what a court will do. That is legal advice and it is often wrong.",
     patterns: [
       /\b(?:the court|a judge|the judge)\s+will\s+(?:likely|probably|almost certainly|award|grant|order|rule)\b/gi,
-      /\byou (?:will|would) (?:likely |probably )?(?:win|lose|receive|be awarded|get)\b/gi,
+      // Winning and losing are predictions on their own. Nobody wins a
+      // confirmation email, so these need no object to be a violation.
+      /\byou (?:will|would) (?:(?:not|never|likely|probably|almost certainly)\s+)*(?:win|lose|prevail)\b/gi,
+      // Receiving is an everyday word, so it only predicts an outcome when the
+      // thing received is one a court decides. Bare "you will get" flagged
+      // "you will get a short acknowledgement", a sentence about an email,
+      // on 17 live pages, which is the same over-matching the legal-advice
+      // rule was already narrowed to avoid. Same fix: require the legal object.
+      /\byou (?:will|would) (?:(?:not|never|likely|probably|almost certainly)\s+)*(?:receive|get|be awarded|be granted|keep|retain)\s+(?:\w+\s+){0,3}?(?:custody|time-?sharing|parental responsibility|alimony|spousal support|child support|equitable distribution|marital home|marital residence|the (?:house|home|property|car|vehicle)|primary (?:custody|residence)|majority (?:custody|time-?sharing)|a favou?rable (?:ruling|outcome|result|judgment|judgement)|more than half)\b/gi,
     ],
+    // Clears the disclaimer framing ("no one can tell you what a judge will
+    // award") while deliberately NOT clearing a negative prediction: "you will
+    // not get custody" predicts an outcome just as much as the positive does,
+    // so a plain negation window would be too generous here.
+    unless:
+      /\b(?:cannot|can't|can not|could not|couldn't|no one|nobody|never|not able to|impossible to|unable to)\s+(?:\w+\s+){0,3}?(?:tell|say|predict|promise|guarantee|know|forecast)\b/i,
   },
   {
     rule: "certification-claim",
@@ -143,12 +157,81 @@ export function htmlToText(html) {
     .replace(/[ \t]+/g, " ");
 }
 
+/**
+ * Calibration fixtures.
+ *
+ * A gate has two failure modes and both are silent. It can stop matching, and
+ * then it passes everything; or it can match too broadly, and then it cries
+ * wolf until someone starts ignoring it. The second one is what happened: a
+ * bare "you will get" flagged an ordinary sentence about an email on 17 live
+ * pages. So both directions are pinned here.
+ *
+ * Add a case whenever a rule is changed. MUST_FAIL keeps the rules honest;
+ * MUST_PASS is real copy from the live site and keeps them proportionate.
+ */
+const MUST_FAIL = [
+  ["legal-advice", "You should file a motion to compel."],
+  ["legal-advice", "In your case, the court will decide timesharing."],
+  ["outcome-prediction", "The judge will likely award primary residence to the mother."],
+  ["outcome-prediction", "You will probably get custody of the children."],
+  ["outcome-prediction", "You will be awarded the marital home."],
+  ["outcome-prediction", "If you hold firm, you will win."],
+  ["outcome-prediction", "You will not get custody if you move out."],
+  ["certification-claim", "Marie is a certified family mediator."],
+  ["we-file", "We will file the petition with the court."],
+  ["we-file", "The agreement is filed with the court on your behalf."],
+  ["stale-alimony", "Permanent alimony may be available to you."],
+  ["fabricated-proof", "One client said the process changed her life."],
+  ["fabricated-proof", "Studies show that mediation is faster."],
+  ["fabricated-proof", "94% of couples settle at the first session."],
+  ["law-firm-framing", "Our attorneys will review the agreement."],
+];
+
+const MUST_PASS = [
+  "Leave your first name and email and you will get a short acknowledgement straight away.",
+  "Once it is booked, a confirmation and Zoom details will be emailed to you.",
+  "I do not provide legal advice.",
+  "No legal advice, just clarity on what is possible and what comes next.",
+  "Everything you need to get started.",
+  "Clients are responsible for filing their own documents with the appropriate court.",
+  "Prior to 2023, permanent alimony was available in Florida.",
+  "No one can tell you what a judge will award in your matter.",
+  "I will not tell you what you should accept.",
+  "Document preparation covers the document only, and the client files it themselves.",
+];
+
+/** @returns {string[]} Empty means the gate is calibrated. */
+export function selfTest() {
+  const problems = [];
+  for (const [rule, text] of MUST_FAIL) {
+    const hit = checkCompliance(text).some((f) => f.rule === rule);
+    if (!hit) problems.push(`MISSED [${rule}]  ${text}`);
+  }
+  for (const text of MUST_PASS) {
+    for (const f of checkCompliance(text)) {
+      problems.push(`FALSE POSITIVE [${f.rule}] on "${f.match}"  ${text}`);
+    }
+  }
+  return problems;
+}
+
 // CLI: node scripts/compliance-check.mjs <file>
+//      node scripts/compliance-check.mjs --selftest
 if (process.argv[1] && process.argv[1].endsWith("compliance-check.mjs")) {
   const fs = await import("node:fs");
   const file = process.argv[2];
+  if (file === "--selftest") {
+    const problems = selfTest();
+    if (problems.length === 0) {
+      console.log(`PASS  gate calibrated (${MUST_FAIL.length} caught, ${MUST_PASS.length} cleared)`);
+      process.exit(0);
+    }
+    console.error(`FAIL  gate is miscalibrated, ${problems.length} problem(s)\n`);
+    for (const p of problems) console.error(`  ${p}`);
+    process.exit(1);
+  }
   if (!file) {
-    console.error("usage: node scripts/compliance-check.mjs <file>");
+    console.error("usage: node scripts/compliance-check.mjs <file|--selftest>");
     process.exit(2);
   }
   const findings = checkCompliance(htmlToText(fs.readFileSync(file, "utf8")));

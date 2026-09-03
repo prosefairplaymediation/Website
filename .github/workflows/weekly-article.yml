@@ -64,14 +64,15 @@ jobs:
         run: npm install --no-save @anthropic-ai/sdk
 
       - name: Verify the compliance gate still works
-        # The gate is the only thing protecting the live site, so prove it
-        # catches violations before trusting it to clear a draft. A gate that
-        # silently stopped matching would pass everything.
+        # The gate is the only thing protecting the live site, so prove it is
+        # calibrated before trusting it to clear a draft. This checks both
+        # directions: a gate that stopped matching would pass everything, and
+        # a gate that matched too broadly would cry wolf until someone started
+        # ignoring it. The fixtures live in the script next to the rules.
         run: |
           set -euo pipefail
-          printf 'You should file a motion to compel.\n' > /tmp/should-fail.txt
-          if node scripts/compliance-check.mjs /tmp/should-fail.txt; then
-            echo "::error::Compliance gate did not flag a known violation. Refusing to run."
+          if ! node scripts/compliance-check.mjs --selftest; then
+            echo "::error::Compliance gate is miscalibrated. Refusing to run."
             exit 1
           fi
           echo "Gate is live."

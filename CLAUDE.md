@@ -371,14 +371,27 @@ section above: legal advice, outcome prediction, certification claims,
 we-file language, permanent alimony as current, fabricated proof, law-firm
 framing. Run on the draft and again on the rendered HTML.
 
-Calibration matters more than the rules. A first pass flagged five phrases on
-the live site, all false positives — it caught the Documents page's "everything
-you need to get started" and the disclaimers themselves. Two fixes: a directive
-only counts as advice when it points at a legal verb, and negations are tested
-across a surrounding window because disclaimers put the "not" before the phrase
-as often as after. **Current state: 9/9 known violations caught, 0 findings
-across the whole live site.** Re-run it against `dist/` after any content change
-that might trip it.
+Calibration matters more than the rules, and it is now pinned by fixtures
+rather than by memory. `node scripts/compliance-check.mjs --selftest` runs
+`MUST_FAIL` (known violations that must still be caught) and `MUST_PASS` (real
+live-site copy that must stay clean), and the publishing workflow runs it before
+it will trust the gate on a draft. **Add a case to both lists whenever a rule
+changes.**
+
+The rules have been narrowed twice, both times for the same reason. A directive
+only counts as advice when it points at a legal verb, because "you should" alone
+flagged the Documents page's "everything you need to get started". A prediction
+only counts when the thing predicted is something a court decides, because a
+bare "you will get" flagged "you will get a short acknowledgement", a sentence
+about an email, on 17 pages. Negations are tested across a surrounding window,
+since disclaimers put the "not" before the phrase as often as after — except in
+outcome-prediction, where the window is deliberately narrow to the epistemic
+hedges ("no one can tell you what a judge will award"), because "you will not
+get custody" is a prediction too and must still fail.
+
+**Current state: 15/15 known violations caught, 10/10 clean phrases cleared,
+0 findings across all 37 built pages.** Re-run it against `dist/` after any
+content change that might trip it.
 
 ### `.github/workflows/indexnow.yml`
 
