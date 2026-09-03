@@ -1,14 +1,13 @@
 ---
 /**
  * The single shell for every policy and legal page: /legal/privacy,
- * /legal/disclaimer, /legal/terms, /refund, /cancellation.
+ * /legal/disclaimer, /legal/terms.
  *
- * These five pages each carried their own near-identical copy of the same
- * header and prose styling, which is how /refund and /cancellation ended up
- * looking subtly unlike the rest of the site -- different heading sizes, a
- * grey rule instead of the gold one, links without the gold underline. One
- * layout means a new policy page inherits the type and color of the site
- * rather than approximating it.
+ * These pages each carried their own near-identical copy of the same header
+ * and prose styling, which is how policy pages ended up looking subtly unlike
+ * the rest of the site -- different heading sizes, a grey rule instead of the
+ * gold one, links without the gold underline. One layout means a new policy
+ * page inherits the type and color of the site rather than approximating it.
  *
  * Body content goes in the default slot and is styled by `.legal-prose`:
  * write plain <h2 class="display section-h2">, <h3 class="section-h3">, <p>,

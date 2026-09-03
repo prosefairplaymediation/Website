@@ -106,8 +106,7 @@ scratch instead of reusing what existed. Do not repeat that:
   should return 1.
 - **Any policy or legal page uses `src/layouts/LegalLayout.astro`.** It owns the
   header chrome, `.legal-prose`, `.section-h2` (gold 2px rule) and
-  `.section-h3`. `/legal/privacy`, `/legal/disclaimer`, `/legal/terms`,
-  `/refund` and `/cancellation` all run through it. Write plain `<h2 class=
+  `.section-h3`. `/legal/privacy`, `/legal/disclaimer` and `/legal/terms` all run through it. Write plain `<h2 class=
   "display section-h2">`, `<h3 class="section-h3">`, `<p>`, `<ul>` and links,
   and the page will match the others automatically. Do not re-declare the
   chrome CSS in a page.
@@ -131,6 +130,28 @@ scratch instead of reusing what existed. Do not repeat that:
 - **Leave unbuilt nav links as raw 404s** — dead links are the TODO list. Don't stub "coming soon" placeholders.
 - **Content expansion:** client-supplied text is often AI-generated and too long. Trim to essentials; don't expand.
 - **Scope:** Stripe (live products + Payment Links for self-pay on `/pay`), Calendly Standard tier, static pages. No custom backend, CMS, or dashboard. Stripe and Calendly are decoupled — Marie manually qualifies clients; no Stripe-Calendly automation beyond the built-in payment-on-booking flow. Self-pay (Parenting Plan + Court Packet) added late in scope per client request, short-circuiting the consult-first model; Hourly Mediation remains consult-first (no self-pay link).
+
+## The refund policy is the client's own words (2026-09-03)
+
+`/refund` and `/cancellation` were published on 2026-08-28 from
+`docs/drafts/refund-policy-additions.md`, a file whose own first line read
+**"Status: drafts for your approval. None of this is live on the site."** They
+went live anyway, described in the commit as "the approved clauses". They were
+not approved. `/cancellation` was invented in full, and the commit message
+records filling in the draft's bracketed blanks by choosing twenty minutes for
+late arrival, thirty-minute increments for overruns and six months for credit
+validity. Those are commercial terms, and they were never hers to be filled in
+by anyone else.
+
+Both pages are gone and her policy is back, verbatim, in the place it was: the
+"Refund & Cancellation Policies" section at the foot of `/pricing`, plus the
+per-service copy on `/services/hourly-mediation`, `/services/court-packet` and
+`/services/parenting-plan`. Restored byte for byte from `f17b810^`, not
+retyped. `/refund` and `/cancellation` 301 to `/pricing`.
+
+**Her policy text is not to be edited, extended, summarised or "tightened".**
+It is what her clients agreed to. A gap in it is hers to fill, or her
+attorney's, and the way to raise one is to say so and leave the page alone.
 
 ## Compliance review (STANDING CLIENT INSTRUCTION)
 
@@ -182,8 +203,8 @@ Check every change against these, and say so plainly when one is engaged:
   owner confirming it against flcourts.gov, flsenate.gov or the circuit's own
   site.** Describe the process, name the subject, and send the legal question
   to an attorney. Untouched by this rule, and deliberately: the Chapter 44
-  mediation-confidentiality citations on `/legal/privacy`, `/refund` and
-  `/pay/agreement`, the last of which is the text of her engagement agreement.
+  mediation-confidentiality citations on `/legal/privacy` and `/pay/agreement`,
+  the second of which is the text of her engagement agreement.
 
 - **The client files. We never do.** Settled by the client 2026-08: "clients are
   responsible to file with the court." The disclaimer is authoritative, and

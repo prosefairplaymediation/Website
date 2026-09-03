@@ -14,3 +14,9 @@
 /process/real-estate-mediation                            /faq  301
 /process/is-mediation-required-before-divorce-in-florida  /faq  301
 /process/pro-se-divorce-florida                           /faq  301
+
+# /refund and /cancellation were published on 2026-08-28 from drafts the owner
+# had not approved. The policy they replaced is hers, verbatim, and is back on
+# /pricing where it was. Both URLs were indexed, so they are sent there.
+/refund        /pricing  301
+/cancellation  /pricing  301
