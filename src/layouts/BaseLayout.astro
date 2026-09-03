@@ -7,7 +7,6 @@ import ChatWidget from "../components/ChatWidget.astro";
 import StickyCta from "../components/StickyCta.astro";
 import { BING_SITE_VERIFICATION } from "../consts.ts";
 import { OPENING_HOURS } from "../consts.ts";
-import { getReviewData } from "../lib/reviews.ts";
 import {
   ATTRIBUTION_KEY,
   ATTRIBUTION_TTL_DAYS,
@@ -18,12 +17,16 @@ import {
  * The parts of the business schema that come from data rather than from a
  * literal, emitted as a second JSON-LD block carrying the same `@id` as the
  * main one. Nodes sharing an `@id` are merged, so this adds to that entity
- * rather than describing a second business — which is also why the two can
+ * rather than describing a second business, which is also why the two can
  * live apart without the 120-line literal above having to become a template.
+ *
+ * It carries `@type` as well as `@id`. Without the type it was a bare node
+ * that only resolved if a consumer chose to merge it, and the opening hours
+ * are the whole reason this block exists: they are what puts the practice in
+ * an "open now" filter, and that is a poor thing to leave to inference.
  *
  * Nothing here is emitted unless there is something true to say.
  */
-const reviewData = await getReviewData();
 
 const openingHoursSpecification = OPENING_HOURS.map((slot) => ({
   "@type": "OpeningHoursSpecification",
@@ -32,40 +35,34 @@ const openingHoursSpecification = OPENING_HOURS.map((slot) => ({
   closes: slot.closes,
 }));
 
-/**
- * The rating shown on the site, declared so a machine can read it.
+/*
+ * NO AggregateRating HERE, DELIBERATELY. Removed 2026-09-03.
  *
- * Worth knowing before expecting stars in search results: Google restricts
- * review snippets for a business's own page, and ratings gathered on a
- * third-party site — which is what these are, since they are Google's own
- * reviews via Featurable — are generally not eligible. The usual outcome of
- * this markup is therefore "no stars", not a penalty. It is here because the
- * declaration is honest and costs nothing; the stars in local results come
- * from the Google Business Profile itself, which is where that effort belongs.
+ * The reviews this site displays are Google's own, fetched from Featurable.
+ * They are third-party reviews, and marking them up as this site's own review
+ * snippets is against Google's structured-data guidelines and risks a manual
+ * action. That is the standing rule in CLAUDE.md.
  *
- * Only emitted when there are real reviews behind it. Never a hard-coded 5.0.
+ * The code that stood here argued the markup was harmless because such
+ * ratings are usually ineligible for stars anyway, so the likely outcome was
+ * "no stars" rather than a penalty. That reasoning traded a real risk against
+ * a benefit it conceded was unlikely, and it was dormant only because the feed
+ * happened to return no star values. Displaying the review text is fine. The
+ * stars in local results come from the Google Business Profile, which is where
+ * that effort belongs.
+ *
+ * Do not reintroduce it.
  */
-const rated = reviewData.reviews.filter((r) => typeof r.stars === "number");
-const aggregateRating =
-  reviewData.average && rated.length > 0
-    ? {
-        "@type": "AggregateRating",
-        ratingValue: reviewData.average,
-        reviewCount: rated.length,
-        bestRating: "5",
-        worstRating: "1",
-      }
-    : null;
 
 const businessExtras = {
   "@context": "https://schema.org",
+  "@type": "ProfessionalService",
   "@id": "https://prosefairplaymediation.com/#business",
   ...(openingHoursSpecification.length && { openingHoursSpecification }),
-  ...(aggregateRating && { aggregateRating }),
 };
 
-// Two keys means only @context and @id — nothing worth emitting.
-const hasBusinessExtras = Object.keys(businessExtras).length > 2;
+// Three keys means only @context, @type and @id, nothing worth emitting.
+const hasBusinessExtras = Object.keys(businessExtras).length > 3;
 
 interface Props {
   title?: string;
@@ -404,6 +401,25 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
         set:html={JSON.stringify(businessExtras)}
       />
     )}
+
+    {/*
+      The site as an entity, distinct from the business that publishes it, and
+      tied to it by @id. Without this the pages describe a business and a set
+      of services with nothing saying what the website itself is, which leaves
+      a search engine to infer the link. Named rather than titled, because the
+      name is what gets shown when the site is cited as a source.
+    */}
+    <script is:inline type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://prosefairplaymediation.com/#website",
+      "url": "https://prosefairplaymediation.com",
+      "name": "Pro Se Fair Play Mediation",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://prosefairplaymediation.com/#business" }
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -7,7 +7,14 @@ const phoneDisplay = "(561) 941-0896";
 const phoneTel = "+15619410896";
 ---
 
+{/*
+  noindex because this is the destination for a printed QR code, not a search
+  result. It says much what the homepage says, is linked from nowhere on the
+  site, and indexed it split the signal for the practice's own name between
+  three pages. Scanning the code still works exactly as before.
+*/}
 <BaseLayout
+  noindex
   title="Pro Se Fair Play Mediation"
   description="Florida family law support, mediation and court-ready document preparation for self-represented parties. Book a free 15-minute consultation."
   ogImage="/og/landing.jpg"

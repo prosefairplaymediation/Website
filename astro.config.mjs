@@ -69,12 +69,16 @@ export default defineConfig({
       //                   error. A prefix also covers the next one added.
       //  /pay/agreement — reference page opened from the pay checkbox,
       //                   not meant to be discovered via search
+      //  /landing       — the printed QR code's destination. Reached by
+      //                   scanning, never by searching, and linked from
+      //                   nowhere on the site. Indexed it competed with / and
+      //                   /book for the practice's own name.
       //
       // Anything excluded here must also carry `noindex` on the page itself,
       // and vice versa. A sitemap omission alone does not deindex anything.
       filter: (page) => {
         const p = new URL(page).pathname;
-        return !p.startsWith('/thank-you') && p !== '/pay/agreement/';
+        return !p.startsWith('/thank-you') && p !== '/pay/agreement/' && p !== '/landing/';
       },
       serialize: (item) => {
         const iso = lastModified(new URL(item.url).pathname);

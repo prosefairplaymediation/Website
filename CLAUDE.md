@@ -182,7 +182,10 @@ Check every change against these, and say so plainly when one is engaged:
 - **Third-party reviews get no `Review`/`AggregateRating` markup.** The Google
   reviews are third-party; marking them up as our own review snippets violates
   Google's structured-data guidelines and risks a manual action. Displaying the
-  text is fine.
+  text is fine. An `aggregateRating` block that contradicted this rule sat in
+  `BaseLayout.astro` until 2026-09-03, dormant only because the review feed
+  returned no star values; the comment in its place says why it is not coming
+  back. The stars in local results come from the Google Business Profile.
 - **Outbound email needs CAN-SPAM basics.** Physical postal address (present),
   a working unsubscribe (the sending platform must populate it), accurate
   from/subject. Email-only scope: telephone, SMS, and fax outreach raise TCPA

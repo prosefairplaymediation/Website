@@ -38,11 +38,38 @@ function urlsFromSitemap() {
 // Not pages, so not in the sitemap, but engines should still be told when they
 // change. llms.txt is the one that matters: it is what an assistant reads to
 // describe this practice and quote its prices, so a stale copy is worse than
-// no copy — it is confidently wrong, in Marie's name.
+// no copy, it is confidently wrong, in Marie's name.
 const EXTRA_URLS = [`${ORIGIN}/llms.txt`];
 
-const urlList = [...urlsFromSitemap(), ...EXTRA_URLS];
-console.log(`${urlList.length} URLs (sitemap, plus ${EXTRA_URLS.length} non-page file)`);
+// Removed pages, submitted so the engines recrawl them and see the 301.
+// IndexNow is explicitly for this: a submitted URL that no longer resolves to
+// content is how you say "recheck this", and it is the only lever here that
+// works without a Search Console session. They cannot come from the sitemap,
+// because the whole point is that they are not in it any more.
+//
+// These can be deleted once the URLs stop appearing in results. Leaving them
+// costs one line in a submission that is already twenty URLs long, so there is
+// no hurry; removing them by guesswork before the engines have caught up is
+// the only way to get this wrong.
+const REMOVED_URLS = [
+  "/process",
+  "/process/how-mediation-works",
+  "/process/pre-litigation-disputes",
+  "/process/child-support-rules",
+  "/process/alimony-rules",
+  "/process/real-estate-mediation",
+  "/process/is-mediation-required-before-divorce-in-florida",
+  "/process/pro-se-divorce-florida",
+  "/refund",
+  "/cancellation",
+  "/landing",
+].map((p) => `${ORIGIN}${p}`);
+
+const urlList = [...urlsFromSitemap(), ...EXTRA_URLS, ...REMOVED_URLS];
+console.log(
+  `${urlList.length} URLs (sitemap, plus ${EXTRA_URLS.length} non-page file ` +
+    `and ${REMOVED_URLS.length} removed URLs submitted for recrawl)`
+);
 
 // Fail loudly if the key file is not actually being served. A 404 here is the
 // difference between "submitted" and "silently rejected".
