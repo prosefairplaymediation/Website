@@ -12,19 +12,19 @@ export interface Faq {
 export const faqs = [
   {
     q: "Why should I choose mediation instead of letting a judge decide?",
-    a: `Mediation allows you to maintain control over decisions that directly affect your life and your family. In court, outcomes are determined by a judge with limited time and limited insight into your day-to-day reality. Mediation provides a structured environment where you can actively participate in shaping the outcome — heard, understood, and involved in meaningful decision-making. This often leads to more practical, sustainable, and thoughtful resolutions.`,
+    a: `Mediation allows you to maintain control over decisions that directly affect your life and your family. In court, outcomes are determined by a judge with limited time and limited insight into your day-to-day reality. Mediation provides a structured environment where you can actively participate in shaping the outcome. You are heard, understood, and involved in meaningful decision-making. This often leads to more practical, sustainable, and thoughtful resolutions.`,
   },
   {
     q: "How do I know this process will be fair?",
-    a: `Fairness in mediation comes from structure — not chance. I manage the process to ensure balanced participation from both parties, controlled and respectful communication, and clear boundaries that prevent one-sided discussions. My role is not to take sides, but to maintain a neutral, structured environment where both parties can engage productively.`,
+    a: `Fairness in mediation comes from structure, not chance. I manage the process to ensure balanced participation from both parties, controlled and respectful communication, and clear boundaries that prevent one-sided discussions. My role is not to take sides, but to maintain a neutral, structured environment where both parties can engage productively.`,
   },
   {
     q: "Will I actually be heard, or will this feel like another stressful conversation?",
-    a: `You will be heard. Many clients come into mediation feeling overlooked, interrupted, or unable to fully express themselves. My role is to ensure that does not happen. I create a setting where each party has the opportunity to speak clearly, conversations are guided rather than chaotic, and communication remains focused and productive. The process is designed so you feel seen, respected, and engaged — not overwhelmed.`,
+    a: `You will be heard. Many clients come into mediation feeling overlooked, interrupted, or unable to fully express themselves. My role is to ensure that does not happen. I create a setting where each party has the opportunity to speak clearly, conversations are guided rather than chaotic, and communication remains focused and productive. The process is designed so you feel seen, respected, and engaged, not overwhelmed.`,
   },
   {
     q: "What if the other party is difficult, controlling, or unwilling to cooperate?",
-    a: `This is one of the most common concerns — and one of the primary reasons mediation is needed. I guide the process in a way that maintains structure regardless of behavior, prevents conversations from escalating, and keeps discussions moving forward. While I cannot control the other party, I control the framework of the process, which is often what creates progress even in high-conflict situations.`,
+    a: `This is one of the most common concerns, and one of the primary reasons mediation is needed. I guide the process in a way that maintains structure regardless of behavior, prevents conversations from escalating, and keeps discussions moving forward. While I cannot control the other party, I control the framework of the process, which is often what creates progress even in high-conflict situations.`,
   },
   {
     q: "Is mediation a safe and confidential environment?",
@@ -32,7 +32,7 @@ export const faqs = [
   },
   {
     q: "How are you selected as a mediator, and can attorneys be involved?",
-    a: `I am engaged as a mediator in two primary ways. Parties may privately and mutually choose me as their mediator — whether they are represented by counsel, unrepresented, or a combination of both. In other cases, the court requires mediation, and I may be appointed or selected to serve within that structure. In both situations I regularly work with parties represented by counsel as well as situations where only one party has an attorney. I remain a neutral facilitator throughout, maintaining a structured and balanced process.`,
+    a: `I am engaged as a mediator in two primary ways. Parties may privately and mutually choose me as their mediator, whether they are represented by counsel, unrepresented, or a combination of both. In other cases, the court requires mediation, and I may be appointed or selected to serve within that structure. In both situations I regularly work with parties represented by counsel as well as situations where only one party has an attorney. I remain a neutral facilitator throughout, maintaining a structured and balanced process.`,
   },
   {
     q: "Do I need an attorney to work with you?",
@@ -40,7 +40,7 @@ export const faqs = [
   },
   {
     q: "Will you tell me what I should do or give legal advice?",
-    a: `My role is to guide the process — not to make decisions for you. I facilitate discussions, maintain structure, and help organize outcomes. All decisions remain yours. If legal advice is needed, you may consult with an attorney at any time.`,
+    a: `My role is to guide the process, not to make decisions for you. I facilitate discussions, maintain structure, and help organize outcomes. All decisions remain yours. If legal advice is needed, you may consult with an attorney at any time.`,
   },
   {
     q: "What if we don't reach an agreement?",
@@ -52,7 +52,7 @@ export const faqs = [
   },
   {
     q: "What is the biggest benefit of working with you as a mediator?",
-    a: `The ability to move forward with clarity, control, and confidence. My approach is designed to reduce chaos and confusion, provide structure where it's needed most, and create outcomes that are organized and practical. This is not just about resolving a dispute — it's about creating a path forward that works.`,
+    a: `The ability to move forward with clarity, control, and confidence. My approach is designed to reduce chaos and confusion, provide structure where it's needed most, and create outcomes that are organized and practical. This is not just about resolving a dispute. It's about creating a path forward that works.`,
   },
 
   // ---------------------------------------------------------------

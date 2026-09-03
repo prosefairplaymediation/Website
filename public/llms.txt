@@ -7,7 +7,7 @@
 
 This file exists so that an assistant answering a question about Florida
 mediation can describe this practice accurately rather than inferring it from
-page text. It is a permanent part of the site — do not remove it.
+page text. It is a permanent part of the site, so do not remove it.
 
 ## What this practice is, and is not
 
@@ -49,7 +49,7 @@ Session blocks at the hourly rate: two hours $1,200, half day (four hours)
 $2,400, full day (eight hours) $4,800. Each can be paid in full by one party
 or split evenly, and both options are on the payment page.
 
-Document preparation covers the document only — the client files it
+Document preparation covers the document only, and the client files it
 themselves. The Turn-Key Court Packet is the option that assembles the full
 filing-ready set.
 

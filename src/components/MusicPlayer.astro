@@ -119,7 +119,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
   .music-player.is-muted .icon-sound { display: none; }
   .music-player.is-muted .icon-muted { display: block; }
 
-  /* On phones the label crowds the corner — dot and icons only. */
+  /* On phones the label crowds the corner, dot and icons only. */
   @media (max-width: 34rem) {
     .music-title { display: none; }
   }
@@ -165,7 +165,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
 
     const audio = new Audio();
     // "none", not "auto": the track is ~4.2 MB, and with "auto" the browser
-    // fetched all of it on every page load — measured at 88% of total page
+    // fetched all of it on every page load, measured at 88% of total page
     // weight. Browsers also block autoplay with sound until the visitor has
     // interacted with the page, so for most first-time visitors that download
     // completed and then never played a note.
@@ -177,7 +177,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     // Background level. The track is a hot master (-10.6 dBFS across its
     // loudest three seconds), so this lands it near -32 dBFS in practice:
     // audible as ambience, quiet enough to read over.
-    // Deliberately very quiet — this is atmosphere, not a soundtrack, and it
+    // Deliberately very quiet. This is atmosphere, not a soundtrack, and it
     // plays for people who are often having a bad month. Halved from 0.08 in
     // response to feedback that it sat too far forward. Tune here if needed:
     // 0.02 is barely there, 0.08 is noticeable in a quiet room.
@@ -287,7 +287,7 @@ const TRACKS = [{ title: "Rooftop Drift", src: "/audio/Rooftop_Drift.mp3" }];
     // Browsers refuse to start audio before the visitor has interacted
     // with the page, so the load-time attempt is expected to fail on a
     // cold visit. These are the events that actually grant playback
-    // permission — a scroll notably does not — and they stay armed
+    // permission (a scroll notably does not) and they stay armed
     // until a play() call really succeeds. Bailing out after the first
     // attempt would strand the music in silence for the rest of the
     // page whenever the visitor scrolled before clicking anything.

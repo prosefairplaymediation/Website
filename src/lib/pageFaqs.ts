@@ -122,7 +122,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Who is Gold Service Mediation designed for?",
-      a: "High-profile individuals, executives, athletes, entertainers and business owners, and parties involved in sensitive or high-conflict disputes — anyone for whom confidentiality, reputation and a professionally managed environment are as important as the outcome.",
+      a: "High-profile individuals, executives, athletes, entertainers and business owners, and parties involved in sensitive or high-conflict disputes: anyone for whom confidentiality, reputation and a professionally managed environment are as important as the outcome.",
     },
     {
       q: "What does Gold Service include that hourly mediation does not?",

@@ -41,7 +41,7 @@ const mediationGroups = [
         price: "$600",
         value: 600,
         description:
-          "The full combined rate for a one-hour mediation session, charged to a single payer — not split between the parties.",
+          "The full combined rate for a one-hour mediation session, charged to a single payer, not split between the parties.",
         payUrl: med1hFullUrl,
       },
       {
@@ -66,7 +66,7 @@ const mediationGroups = [
         price: "$1,200",
         value: 1200,
         description:
-          "The full combined rate for a two-hour mediation session, charged to a single payer — not split between the parties.",
+          "The full combined rate for a two-hour mediation session, charged to a single payer, not split between the parties.",
         payUrl: med2hFullUrl,
       },
       {
@@ -91,7 +91,7 @@ const mediationGroups = [
         price: "$2,400",
         value: 2400,
         description:
-          "The full combined rate for a four-hour mediation session, charged to a single payer — not split between the parties.",
+          "The full combined rate for a four-hour mediation session, charged to a single payer, not split between the parties.",
         payUrl: med4hFullUrl,
       },
       {
@@ -116,7 +116,7 @@ const mediationGroups = [
         price: "$4,800",
         value: 4800,
         description:
-          "The full combined rate for an eight-hour mediation session, charged to a single payer — not split between the parties.",
+          "The full combined rate for an eight-hour mediation session, charged to a single payer, not split between the parties.",
         payUrl: med8hFullUrl,
       },
       {
@@ -140,7 +140,7 @@ const documentProducts = [
     price: "$600 flat",
     value: 600,
     description:
-      "A complete, organized set of family-law documents — Parenting Plan, required Florida Supreme Court forms, and notarization where applicable — assembled into a filing-ready packet.",
+      "A complete, organized set of family-law documents, including the Parenting Plan, required Florida Supreme Court forms, and notarization where applicable, assembled into a filing-ready packet.",
     detail: "/services/court-packet",
     payUrl: courtPacketUrl,
   },
@@ -332,7 +332,7 @@ const documentProducts = [
               title="Quoted Amount"
               context="a quoted amount for Gold Service or additional document preparation"
               price="You enter the amount"
-              description="For Gold Service Mediation, additional document preparation, and anything else quoted individually. Enter the figure Marie quoted you — not an estimate — and put the matter name in the field provided so the payment can be matched to your file."
+              description="For Gold Service Mediation, additional document preparation, and anything else quoted individually. Enter the figure Marie quoted you, not an estimate, and put the matter name in the field provided so the payment can be matched to your file."
               detail="/pricing"
               payUrl={QUOTED_AMOUNT_URL}
               slug="quoted_amount"
@@ -420,12 +420,12 @@ const documentProducts = [
 
       // The browser restores the checkbox state on back/forward navigation
       // (e.g. returning from Stripe), but no "change" event fires for that
-      // restore — so the buttons would stay in their disabled markup default
+      // restore, so the buttons would stay in their disabled markup default
       // while the box shows checked. Re-sync on pageshow, which fires on
       // initial load, bfcache restores, and back-navigation alike.
       window.addEventListener("pageshow", sync);
 
-      // Anchor tags can't be truly disabled — block clicks while the
+      // Anchor tags can't be truly disabled, so block clicks while the
       // checkbox is unchecked. When enabled, fire a GA4 event before
       // the browser navigates away to Stripe so we can measure how
       // often each product's Pay Now button is actually used.

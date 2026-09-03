@@ -221,15 +221,15 @@ async function emailVisitor(env: NotifyEnv, lead: Lead): Promise<void> {
     `  ${booking}`,
     ``,
     `It is a conversation about how mediation works and whether it fits your`,
-    `situation — not a commitment to anything.`,
+    `situation, not a commitment to anything.`,
     ``,
     // Second, for the minority who arrive already decided. Offered plainly and
     // after the consultation, never instead of it: someone who does not yet
     // know what they need should not be steered to a payment page. Every
     // service except the Gold Service has a fixed price, and /pay puts the
     // Engagement Agreement in front of the buttons.
-    `If you already know what you need — a parenting plan, a court packet, or`,
-    `a mediation session you have both agreed on — you can arrange and pay for`,
+    `If you already know what you need, whether a parenting plan, a court packet,`,
+    `or a mediation session you have both agreed on, you can arrange and pay for`,
     `it directly, without waiting for me:`,
     ``,
     `  ${PAY_URL}`,
@@ -238,7 +238,7 @@ async function emailVisitor(env: NotifyEnv, lead: Lead): Promise<void> {
     `not an attorney, and nothing from me is legal advice. If you want an`,
     `opinion about your rights, that is a lawyer's job.`,
     ``,
-    `— Marie VanGinHoven`,
+    `Marie VanGinHoven`,
     `${PRACTICE_NAME}`,
     `${PRACTICE_PHONE} · ${PRACTICE_EMAIL}`,
     ``,
@@ -259,7 +259,7 @@ async function textVisitor(env: NotifyEnv, lead: Lead): Promise<void> {
   await sendSms(env, {
     to: lead.phone,
     body:
-      `Hi ${lead.first_name}, this is ${PRACTICE_NAME}. Thank you for reaching out — ` +
+      `Hi ${lead.first_name}, this is ${PRACTICE_NAME}. Thank you for reaching out. ` +
       `I have your request and will follow up. Book a free 15-minute consultation ` +
       `any time: ${booking} Reply STOP to stop.`,
   });

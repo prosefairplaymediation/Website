@@ -27,7 +27,7 @@ interface Props {
 }
 const {
   heading = "Book a free, private consultation",
-  blurb = "Fifteen minutes by Zoom, at no cost. We establish whether mediation fits your situation — and if it does not, you will be told that too.",
+  blurb = "Fifteen minutes by Zoom, at no cost. We establish whether mediation fits your situation. If it does not, you will be told that too.",
   source = "inline",
 } = Astro.props;
 
@@ -81,7 +81,7 @@ const calendlyUrl =
       }
     }
 
-    // Older browsers without IntersectionObserver just load it immediately —
+    // Older browsers without IntersectionObserver just load it immediately,
     // a working calendar matters more than the saved bytes.
     if (!("IntersectionObserver" in window)) { load(); return; }
 

@@ -1,8 +1,8 @@
-# robots.txt — prosefairplaymediation.com
+# robots.txt for prosefairplaymediation.com
 #
 # Everything on this site is meant to be crawled, indexed, and cited.
 # Two pages carry a noindex meta tag instead of being blocked here
-# (/thank-you and /pay/agreement) — a crawler has to fetch a page to see
+# (/thank-you and /pay/agreement), and a crawler has to fetch a page to see
 # that tag, so disallowing them would keep them indexed, not remove them.
 
 User-agent: *
@@ -17,7 +17,7 @@ Allow: /
 # blocks one should have to make that choice deliberately rather than
 # catching the others by accident.
 #
-# OAI-SearchBot is the one that matters most for appearing in ChatGPT —
+# OAI-SearchBot is the one that matters most for appearing in ChatGPT:
 # it handles search retrieval, which is a different crawler from GPTBot.
 # ---------------------------------------------------------------------
 

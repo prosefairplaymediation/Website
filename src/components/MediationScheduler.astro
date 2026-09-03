@@ -38,7 +38,7 @@ const { calendlyUrl, duration } = Astro.props;
         Schedule your <span class="display-italic">{duration}</span> session<span class="display-italic">.</span>
       </h1>
       <p class="lede reveal reveal-d3">
-        Thank you — your payment has been received. Choose a time below to
+        Thank you, your payment has been received. Choose a time below to
         reserve your session. Once it's booked, a confirmation and Zoom
         details will be emailed to you.
       </p>
@@ -55,7 +55,7 @@ const { calendlyUrl, duration } = Astro.props;
       <p class="sched-note">
         <strong>Splitting the cost with the other party?</strong> Only one of
         you needs to schedule. If your agreed-upon time already shows as
-        unavailable, that means the other party has booked it — your session is
+        unavailable, that means the other party has booked it, so your session is
         set, and you do not need to book again.
       </p>
       <div class="calendly-inline-widget" data-url={calendlyUrl}></div>
@@ -77,7 +77,7 @@ const { calendlyUrl, duration } = Astro.props;
   <script is:inline>
     // Fire a GA4 event whenever a post-payment mediation page loads.
     // Stripe Payment Links don't pass transaction details back on redirect,
-    // so this is a simple counter — actual purchase data lives in the Stripe
+    // so this is a simple counter, actual purchase data lives in the Stripe
     // Dashboard. Tagged product:"mediation" to separate it from the document
     // services thank-you page.
     if (typeof window.gtag === "function") {
