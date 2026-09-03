@@ -170,7 +170,7 @@ Check every change against these, and say so plainly when one is engaged:
   credential, including as placeholder or layout-test content that could ship.
 
 - **No unapproved statements of Florida law.** Settled by the client 2026-09-03:
-  "I did not approve that." Four `/process` articles have now been removed for
+  "I did not approve that." Seven `/process` articles were removed for
   stating Florida family law that was never checked with her, between them
   citing sections 61.30, 61.075, 44.102 and Rule 12.740, the Income Shares
   Model, durational alimony caps as percentages of the length of the marriage,
@@ -187,9 +187,8 @@ Check every change against these, and say so plainly when one is engaged:
 
 - **The client files. We never do.** Settled by the client 2026-08: "clients are
   responsible to file with the court." The disclaimer is authoritative, and
-  `/process/how-mediation-works` was corrected to match (it had claimed the
-  settlement agreement "is submitted to the court on the parties' behalf as part
-  of our concierge mediation service"). Documents are prepared **court-ready**;
+  `/process/how-mediation-works` was corrected to match, and has since been
+  removed with the rest of the guides. Documents are prepared **court-ready**;
   filing is the client's. Never write copy implying we submit, e-file, or
   transmit anything to a court, and never use "court-submitted" as a
   description. Approved phrasings already on the site: "Clients are responsible
@@ -277,7 +276,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/contact` | Two-column header: text on left ("Get in Touch / Have a question?"), portrait (`New_Contact.jpg`) on right. Email + phone + eFax cards below, secondary booking CTA. |
 | `/documents` | Three-section portal: Intake Forms (`Parental_Decisions_Intake_PSFP.docx`, `Financial_Info_Intake_PSFP.docx`), Engagement Agreement (PDF + Word downloads inlined), and the official Florida Family Law Forms (external `flcourts.gov` link). Same two-column header pattern as `/contact` with portrait on right; alternating cream / cream-warm bands per section. Download cards use container queries (`container-type: inline-size` on the stack) so labels scale with the card column and collapse cleanly to single-column at narrow widths. |
 | `/landing` | QR-code destination — photo hero, three service cards with prices + Lucide icons. Below, a two-column "Book a free consultation" row with text/CTA/pay-strip on the left and a portrait (`new_Landing.jpg`) on the right, then the Calendly embed full-width. |
-| `/process` | Index for the guides, most-recently-revised first. Two remain: how-mediation-works and pre-litigation-disputes. Carries `CollectionPage` schema. Reachable from the nav as "All Guides" — the dropdown trigger is a `<button>`, so without that entry the page is unreachable from the nav. |
 | `/services` | Index for the six service pages, driven by `src/lib/services.ts`. |
 | `/areas-served` | Local SEO, built as one substantive page rather than per-city doorway pages. Per-county sections for Palm Beach (15th), Broward (17th), Miami-Dade (11th) and Martin/St. Lucie (19th), carrying county, circuit and courthouse seat plus a note about this practice. The circuits' published fees, income caps and filing requirements were removed 2026-09-03 as unapproved and unverified; do not restore a number here without the owner checking it against that circuit's own site. **Deliberately frames every circuit programme as the court's and this practice as the private alternative, because court-referred family work needs the pending certification.** Linked from the footer, not the nav (nav is already at seven top-level items). |
 | `/404` | Branded not-found page listing the five routes people actually want, plus phone and email. `noindex`, excluded from the sitemap. |
@@ -313,7 +311,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | File | Purpose |
 |------|---------|
 | `src/layouts/BaseLayout.astro` | HTML shell, font loading, nav, footer. Optional `noindex` prop for `/pay/agreement` and `/thank-you`. Optional `ogImage` / `ogImageAlt` props for the per-page link-preview card (see below); default is the site card `/og-image.jpg`. Delegated `book_intent_click` GA4 event listener on any `/book` link. |
-| `scripts/generate-og-images.mjs` | Builds the 17 per-page link-preview cards in `public/og/`. **Not part of `npm run build`** — outputs are committed, so run it only when a card changes. Needs Lora installed locally (`~/.local/share/fonts`); it exits rather than shipping fallback-serif titles. Add a card here, then set `ogImage` on the page. `/process` and all guides deliberately share `og/guides.jpg` because the weekly workflow publishes new guides with no human in the loop. |
+| `scripts/generate-og-images.mjs` | Builds the per-page link-preview cards in `public/og/`. **Not part of `npm run build`** — outputs are committed, so run it only when a card changes. Needs Lora installed locally (`~/.local/share/fonts`); it exits rather than shipping fallback-serif titles. Add a card here, then set `ogImage` on the page. |
 | `src/components/Nav.astro` | Sticky nav (navy-deep bg, gold/cream text, gold CTA, mobile hamburger). Brand mark uses `/GOLD-LOGO.png` and links to `/`; brand block locked with `flex-shrink: 0` to prevent compression on narrow widths. Services dropdown lists all six service pages (Divorce, Hourly, Gold Service, Parenting Plan, Court Packet, Notary). Top-level order: Services → FAQ → Documents → Contact. Mobile menu caps its height at `min(48rem, calc(100dvh - 5rem))`, scrolls internally with `overscroll-behavior: contain`, and locks body scroll while open (JS) so swipes don't bleed through to the page underneath. |
 | `src/components/Footer.astro` | Two-column nav (Learn + Legal), copyright, `v{version}` tag from package.json |
 | `src/styles/global.css` | Design tokens, type primitives, button/link styles, page-load animation |
@@ -321,78 +319,59 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/components/GoldService.astro` | Dark-box "Gold Service" premium-tier callout (markup + CSS + paragraph-fade JS). Used by `/` and `/services/hourly-mediation` and `/services/gold-service`. Gold `<em>` wordmarks stay visible; cream prose fades in around them. |
 | `src/pages/landing.astro` | QR-code landing page — service cards + Calendly embed |
 | `astro.config.mjs` | Sitemap integration; site URL configured for canonical generation. Excludes only `/thank-you/` and `/pay/agreement/` (the `/` exclusion was removed at launch). |
-| `src/lib/articles.ts` | Single source for the `/process` guides: slug, title, kicker, blurb, and real published/updated dates read from git history. Consumed by the `/process` index and by `ArticleSchema`. Add a guide here or it will not appear anywhere. |
 | `src/lib/services.ts` | Same shape for the six service pages, including the prices that must match the pages and the Stripe products. Note `divorce-mediation` is listed for display only — it keeps its own inline `Service` block, so adding `<ServiceSchema>` to that page would emit two. |
-| `src/components/ArticleSchema.astro` | One-line `BlogPosting` JSON-LD for a `/process` page (type set per client instruction; `BlogPosting` is a subtype of `Article`, so the same properties apply). **Throws at build time** on a slug with no entry in `articles.ts`, so a guide cannot ship without its metadata. The `/process` index's `CollectionPage.hasPart` uses the same type — change both together or the library describes itself two ways. |
 | `src/components/ServiceSchema.astro` | Same for `Service` on a `/services` page. |
-| `src/components/ArticleLayout.astro` | Header + prose styling + CTA for generated articles, so a generated file is content only. The remaining hand-written guides keep their own inline styles; computed values were checked to match. |
 | `src/components/Breadcrumbs.astro` | Visible trail plus `BreadcrumbList` schema, on 12 pages. `tone="dark"` over the photo heroes, `tone="light"` on cream headers. Both halves together deliberately — schema without a visible trail marks up a hierarchy the visitor cannot see. |
 | `public/_headers` | Cloudflare response headers: nosniff, referrer policy, SAMEORIGIN, permissions policy, plus cache lifetimes. **No CSP** — the site loads Google Fonts, Analytics, Calendly, Stripe, YouTube and Featurable, so one written without a report-only pass would silently break booking or payment. |
 
-## Automation (READ THIS BEFORE TOUCHING `/process`)
+## Article publishing: REMOVED, and not to be rebuilt (2026-09-03)
 
-**This repository publishes to the live site by itself.** Two GitHub Actions
-workflows run without a human in the loop. Neither is dormant.
+**The site publishes no articles, and there is no machinery left that could.**
+The owner ended it: "I don't want any more written articles or topics ... the
+information that you're providing is unverifiable and inaccurate."
 
-### Publishing cadence: one article every three weeks, ON REQUEST (2026-08-24)
+Deleted in full, not disabled: the `/process` section and every guide in it,
+`src/lib/articles.ts`, `src/components/ArticleSchema.astro`,
+`src/components/ArticleLayout.astro`, `scripts/generate-article.mjs`,
+`content/topic-queue.json` and `.github/workflows/weekly-article.yml`. The nav
+dropdown, the footer links, the `/404` route list, the `/pricing` and
+`/services/divorce-mediation` cross-links and the `llms.txt` entry went with
+them. Every removed URL 301s to `/faq` from `public/_redirects`.
 
-**The automated schedule is OFF and this is the live arrangement.** The client
-decided against creating the API key needed for automatic publishing, and asked
-instead for **one new `/process` article every three weeks, written on request.**
-Treat that cadence as a standing instruction: if she asks for "the next one",
-take the first `queued` topic from `content/topic-queue.json`, write it by hand
-to the same standards the generator enforces, and mark the entry
-`"status": "published"` with `publishedOn` and `"publishedBy": "hand"`.
+**Do not rebuild any of it, and do not add an article, guide, blog or news
+page, without the owner asking for it in those words.** The reason is not
+tooling and cannot be fixed with a better gate: seven articles were published
+under her name and professional credential stating Florida family law she had
+never approved, and the compliance gate passed every one of them, because a
+regex can check for the phrase "you should file" but cannot check whether
+section 61.30 says what the draft claims it says. Verification was the missing
+step and no script supplies it.
 
-Writing one by hand means meeting the generator's own bar, not a lower one:
-research from primary sources (flcourts.gov, flsenate.gov, leg.state.fl.us)
-before writing a word, the compliance rules in `generate-article.mjs`'s `RULES`
-string, no em dashes, 300–1200 words, `ArticleLayout` so the page is content
-only, registered in `articles.ts`, and `scripts/compliance-check.mjs` run
-against the built HTML before committing.
-
-The cron stays commented out until `ANTHROPIC_API_KEY` exists. It is already
-retargeted to the three-week cadence, and `generate-article.mjs` carries a
-cadence guard that drops any *scheduled* run inside 18 days of the last
-published article. Manual runs are never dropped.
-
-### `.github/workflows/weekly-article.yml`
-
-Written to publish one article a week, straight to `main`, with no review step:
-the client chose full automation after the risks were laid out, so the entire
-safety story is machine-checkable gates. **Every gate is blocking, and none of
-them should be softened to get a draft through.** The schedule is currently
-disabled per the section above, but the gates still apply to manual runs and to
-hand-written articles.
-
-The generator is `scripts/generate-article.mjs`. Flow: take the first `queued`
-topic from `content/topic-queue.json` → research it with the `web_search`
-server tool → draft it under the compliance rules via structured output → run
-the compliance gate → write the page → register it in `articles.ts` → build.
-Commits only if every step passes.
-
-- An **empty queue exits 78**, which the workflow treats as a clean no-op. That
-  is correct behaviour, not a failure. A blog with nothing to say should say
-  nothing.
-- The workflow **proves the compliance gate still catches a known violation**
-  before trusting it to clear a draft. A gate that silently stopped matching
-  would pass everything.
-- Requires the repository secret `ANTHROPIC_API_KEY`. Without it the run fails
-  at the generate step and publishes nothing, which is the safe failure.
+If she ever does ask for one, it is written by her or checked line by line by
+her against flcourts.gov, flsenate.gov or the relevant circuit's own site
+before it goes anywhere near the repository.
 
 ### `scripts/compliance-check.mjs`
 
-The gate. Seven rules, each tracing to a standing rule in the Compliance
-section above: legal advice, outcome prediction, certification claims,
-we-file language, permanent alimony as current, fabricated proof, law-firm
-framing. Run on the draft and again on the rendered HTML.
+Kept as an auditing tool after the generator was removed, because it is still
+the fastest way to sweep the built site. Seven rules, each tracing to a
+standing rule in the Compliance section above: legal advice, outcome
+prediction, certification claims, we-file language, permanent alimony as
+current, fabricated proof, law-firm framing.
+
+**It is an auditor, not an approver.** It never validated a factual claim about
+Florida law and cannot: it matches phrasing, so it passed every one of the
+seven removed articles. Do not treat a clean run as sign-off on content.
+
+Run it over `dist/`: `for f in $(find dist -name '*.html'); do node
+scripts/compliance-check.mjs "$f"; done`
 
 Calibration matters more than the rules, and it is now pinned by fixtures
 rather than by memory. `node scripts/compliance-check.mjs --selftest` runs
 `MUST_FAIL` (known violations that must still be caught) and `MUST_PASS` (real
-live-site copy that must stay clean), and the publishing workflow runs it before
-it will trust the gate on a draft. **Add a case to both lists whenever a rule
-changes.**
+live-site copy that must stay clean). It was wired into the publishing workflow,
+which has since been removed with the rest of the article machinery. **Add a
+case to both lists whenever a rule changes.**
 
 The rules have been narrowed twice, both times for the same reason. A directive
 only counts as advice when it points at a legal verb, because "you should" alone
@@ -406,7 +385,7 @@ hedges ("no one can tell you what a judge will award"), because "you will not
 get custody" is a prediction too and must still fail.
 
 **Current state: 15/15 known violations caught, 10/10 clean phrases cleared,
-0 findings across all 37 built pages.** Re-run it against `dist/` after any
+0 findings across all 30 built pages.** Re-run it against `dist/` after any
 content change that might trip it.
 
 ### `.github/workflows/indexnow.yml`

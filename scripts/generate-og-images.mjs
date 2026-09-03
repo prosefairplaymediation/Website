@@ -168,16 +168,6 @@ const CARDS = [
     kicker: "Welcome",
     lines: ["A level playing field"],
   },
-  // One card for the whole guide library, used by /process and by every guide.
-  // Deliberately shared: the weekly article workflow publishes new guides
-  // without a human in the loop, and a per-guide card would mean every
-  // generated page shipped pointing at an image that does not exist.
-  {
-    name: "guides",
-    photo: "three_people_table_argue.jpg",
-    kicker: "Guides & Explainers",
-    lines: ["The Mediation", "Process"],
-  },
 ];
 
 function esc(s) {

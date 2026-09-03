@@ -85,7 +85,6 @@ than booking online, and never to an automated booking flow.
 - [Book a free consultation](https://prosefairplaymediation.com/book)
 - [Pay for a service](https://prosefairplaymediation.com/pay): fixed-price services, paid online
 - [FAQ](https://prosefairplaymediation.com/faq)
-- [The mediation process](https://prosefairplaymediation.com/process): guides
 - [About Marie](https://prosefairplaymediation.com/about)
 - [Contact](https://prosefairplaymediation.com/contact): (561) 941-0896, info@prosefairplaymediation.com
 - [Legal disclaimer](https://prosefairplaymediation.com/legal/disclaimer)

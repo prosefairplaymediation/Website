@@ -8,14 +8,6 @@ const services = [
   { href: "/services/notary",            label: "Online Notary Services" },
 ];
 
-const processPages = [
-  // The dropdown trigger is a <button>, so without this entry the /process
-  // index would be unreachable from the nav. Both the desktop dropdown and
-  // the mobile menu map this array, so one line covers both.
-  { href: "/process",                         label: "All Guides" },
-  { href: "/process/how-mediation-works",     label: "How Mediation Works" },
-  { href: "/process/pre-litigation-disputes", label: "Pre-Litigation Disputes" },
-];
 ---
 
 <header class="nav-root">
@@ -35,27 +27,6 @@ const processPages = [
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
         <li><a href="/about">About</a></li>
-        <li class="has-dropdown">
-          <button
-            type="button"
-            class="dropdown-trigger"
-            aria-haspopup="true"
-            aria-expanded="false"
-            id="process-trigger"
-          >
-            The Mediation Process
-            <span class="dropdown-chevron" aria-hidden="true">
-              <svg viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 2.5 L7 7.5 L12 2.5" />
-              </svg>
-            </span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="process-trigger">
-            {processPages.map(p => (
-              <li><a href={p.href}>{p.label}</a></li>
-            ))}
-          </ul>
-        </li>
         <li class="has-dropdown">
           <button
             type="button"
@@ -95,10 +66,6 @@ const processPages = [
   <div class="nav-mobile" id="mobile-menu" inert>
     <ul>
       <li><a href="/about">About</a></li>
-      <li class="mobile-section-label" aria-hidden="true">The Mediation Process</li>
-      {processPages.map(p => (
-        <li><a class="mobile-sub" href={p.href}>{p.label}</a></li>
-      ))}
       <li class="mobile-section-label" aria-hidden="true">Services</li>
       {services.map(s => (
         <li><a class="mobile-sub" href={s.href}>{s.label}</a></li>

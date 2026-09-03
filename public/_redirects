@@ -1,12 +1,16 @@
 # Cloudflare reads this from the asset directory, the same way it reads
 # _headers. Astro copies public/ into dist/ verbatim, so this file ships.
 #
-# Removed pages, sent to the closest page that still exists rather than left
-# to 404. Both were published, indexed and submitted through IndexNow before
-# they came down, so the URLs are out there in search results and in links.
-# The reason each one was removed is recorded in src/lib/articles.ts.
-/process/is-mediation-required-before-divorce-in-florida  /process  301
-/process/pro-se-divorce-florida                           /process  301
-/process/child-support-rules                              /process  301
-/process/alimony-rules                                    /process  301
-/process/real-estate-mediation                            /process  301
+# The /process guides section was removed in full on 2026-09-03 at the owner's
+# instruction. Every page in it had been published, indexed and submitted
+# through IndexNow, so the URLs are out there in search results and in links.
+# They are sent to the FAQ, which is the page that now answers the questions
+# they were written to answer.
+/process                                                  /faq  301
+/process/how-mediation-works                              /faq  301
+/process/pre-litigation-disputes                          /faq  301
+/process/child-support-rules                              /faq  301
+/process/alimony-rules                                    /faq  301
+/process/real-estate-mediation                            /faq  301
+/process/is-mediation-required-before-divorce-in-florida  /faq  301
+/process/pro-se-divorce-florida                           /faq  301
