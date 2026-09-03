@@ -1,0 +1,9 @@
+# Cloudflare reads this from the asset directory, the same way it reads
+# _headers. Astro copies public/ into dist/ verbatim, so this file ships.
+#
+# Removed pages, sent to the closest page that still exists rather than left
+# to 404. Both were published, indexed and submitted through IndexNow before
+# they came down, so the URLs are out there in search results and in links.
+# The reason each one was removed is recorded in src/lib/articles.ts.
+/process/is-mediation-required-before-divorce-in-florida  /process  301
+/process/pro-se-divorce-florida                           /process  301

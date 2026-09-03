@@ -24,21 +24,22 @@ export interface Article {
   updated: string;
 }
 
-// "pro-se-divorce-florida" ("Filing for Divorce in Florida Without a Lawyer")
-// was removed on 2026-09-01 at the owner's instruction: it stated Florida
-// filing requirements, eligibility rules and dollar costs that could not be
-// verified. Anything added here makes factual claims about Florida family law
-// under the practice's name — check every one with the owner before publishing.
+// Two articles have been removed for the same reason, which is why this note
+// sits above the list rather than in a commit message nobody will read again.
+//
+//   "pro-se-divorce-florida" ("Filing for Divorce in Florida Without a Lawyer")
+//   removed 2026-09-01: stated Florida filing requirements, eligibility rules
+//   and dollar costs that could not be verified.
+//
+//   "is-mediation-required-before-divorce-in-florida" removed 2026-09-03: its
+//   whole thesis was a contrast between Rule 12.740 ("may" refer) and section
+//   44.102 ("shall" refer), which the owner identified as not accurate. The
+//   claim ran through the body, the lede and the meta description, so the page
+//   went rather than the summary.
+//
+// Anything added here makes factual claims about Florida family law under the
+// practice's name. Check every one with the owner before publishing.
 export const articles: Article[] = [
-  {
-    slug: "is-mediation-required-before-divorce-in-florida",
-    title: "Is Mediation Required Before Divorce in Florida?",
-    kicker: "Florida Law",
-    blurb:
-      "Rule 12.740 says a contested family matter may be referred to mediation. Section 44.102 says parental responsibility disputes shall be. The difference is the whole answer.",
-    published: "2026-08-24",
-    updated: "2026-08-24",
-  },
   {
     slug: "how-mediation-works",
     title: "How Mediation Works",

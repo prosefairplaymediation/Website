@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { articles, formatDate } from "../../lib/articles.ts";
+import { articles } from "../../lib/articles.ts";
 
 // /process was a 404: the five articles were reachable only through the nav
 // dropdown and the footer. This gives them a hub — a page that can rank on
@@ -64,9 +64,6 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
               <a href={`/process/${a.slug}`}>{a.title}</a>
             </h2>
             <p class="index-blurb">{a.blurb}</p>
-            <p class="index-meta">
-              <time datetime={a.updated}>Updated {formatDate(a.updated)}</time>
-            </p>
           </li>
         ))}
       </ol>
@@ -161,15 +158,6 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
     color: var(--color-ink-soft);
     max-width: 62ch;
   }
-  .index-meta {
-    margin-top: 0.7rem;
-    font-family: var(--font-body);
-    font-size: var(--step-xs);
-    letter-spacing: 0.06em;
-    color: var(--color-slate);
-    font-variant-numeric: tabular-nums;
-  }
-
   .index-foot {
     margin-top: var(--space-xl);
     font-family: var(--font-body);

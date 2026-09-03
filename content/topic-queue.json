@@ -19,9 +19,11 @@
       "kicker": "Florida Law",
       "question": "is mediation required before divorce in florida",
       "angle": "Florida Family Law Rule 12.740 and local circuit practice: when a court must refer a contested case to mediation, when a judge can waive it (domestic violence history, inability to pay), and what that means for someone who has not filed yet. Describe the rule, never advise on whether a specific case qualifies.",
-      "status": "published",
+      "status": "withdrawn",
       "publishedOn": "2026-08-24",
-      "publishedBy": "hand"
+      "publishedBy": "hand",
+      "withdrawnOn": "2026-09-03",
+      "withdrawnWhy": "Published then unpublished: the Rule 12.740 vs section 44.102 framing in this angle is not accurate. Do not regenerate from this angle. Re-queue only with an angle the owner has confirmed against flcourts.gov or flsenate.gov."
     },
     {
       "slug": "mediation-vs-arbitration",
