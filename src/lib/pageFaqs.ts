@@ -38,7 +38,7 @@ export const pageFaqs: Record<string, Faq[]> = {
   "divorce-mediation": [
     {
       q: "What actually gets decided in a Florida divorce mediation?",
-      a: "Four things, in most cases. Time-sharing and parental responsibility, which becomes your Parenting Plan. Child support, which Florida sets by statutory guidelines. Alimony, reshaped by the 2023 reform that ended permanent alimony. And the division of property, debts and the marital home, which is usually the hardest of the four.",
+      a: "Four things, in most cases. Time-sharing and parental responsibility, which becomes your Parenting Plan. Child support. Alimony, if there is any. And the division of property, debts and the marital home, which is usually the hardest of the four. What the law provides on any of them is a question for an attorney.",
     },
     {
       q: "Are divorce mediation sessions held in person or over Zoom?",
@@ -160,11 +160,11 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "What is the difference between court-referred and private mediation in Florida?",
-      a: "Court-referred mediation follows a filed case: a judge orders the parties to mediate and the circuit's own program handles it, under rules and income limits that circuit sets. Private mediation is chosen voluntarily by both parties and requires no filed case, no judge's order and no involvement from the court at all. Parties often use it before filing, so that what they eventually file is uncontested. Private mediation is the service offered here.",
+      a: "Court-referred mediation follows a filed case: a judge orders the parties to mediate, and the court handles the referral. Private mediation is chosen voluntarily by both parties and requires no filed case, no judge's order and no involvement from the court at all. Parties often use it before filing, so that what they eventually file is uncontested. Private mediation is the service offered here.",
     },
     {
-      q: "We earn too much for the court's mediation program. What are our options?",
-      a: "Several Florida circuits limit their staff mediation programs to households under roughly $100,000 in combined income. Couples above that threshold are generally not eligible for the court's own mediators and arrange private mediation instead. Whether mediation is required in your particular case, and which programs you qualify for, are questions for the court where the case would be filed or for an attorney who represents you.",
+      q: "We do not qualify for the court's mediation program. What are our options?",
+      a: "Private mediation, which is the service offered here. It is chosen by both parties rather than ordered, so eligibility for a court's own program does not affect it. Whether mediation is required in your particular case, and which programs you qualify for, are questions for the court where the case would be filed or for an attorney who represents you.",
     },
   ],
 };

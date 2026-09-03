@@ -11,7 +11,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
 
 <BaseLayout
   title="The Mediation Process · Pro Se Fair Play Mediation"
-  description="Plain-language guides to Florida mediation: how a session works, the 2023 child support and alimony changes, and dividing the marital home."
+  description="Plain-language guides to how mediation works: what happens in a session, what each outcome means, and how mediating before anything is filed differs."
   ogImage="/og/guides.jpg"
 >
   {/*
@@ -25,7 +25,7 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
     name: "The Mediation Process",
     url: "https://prosefairplaymediation.com/process",
     description:
-      "Plain-language guides to mediation and Florida family law for self-represented parties.",
+      "Plain-language guides to how mediation works, for self-represented parties.",
     hasPart: sorted.map((a) => ({
       "@type": "BlogPosting",
       headline: a.title,
@@ -46,9 +46,9 @@ const sorted = [...articles].sort((a, b) => (a.updated < b.updated ? 1 : -1));
         The Mediation <span class="display-italic">Process</span><span class="display-italic">.</span>
       </h1>
       <p class="lede reveal reveal-d3">
-        Plain-language guides to how mediation actually works and to the
-        Florida rules that shape what gets decided. Written for people
-        representing themselves, without the jargon.
+        Plain-language guides to how mediation actually works, what happens in
+        a session, and what each outcome means. Written for people representing
+        themselves, without the jargon.
       </p>
     </div>
   </header>

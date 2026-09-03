@@ -169,6 +169,22 @@ Check every change against these, and say so plainly when one is engaged:
 - **No fabricated social proof.** Never invent a review, testimonial, or
   credential, including as placeholder or layout-test content that could ship.
 
+- **No unapproved statements of Florida law.** Settled by the client 2026-09-03:
+  "I did not approve that." Four `/process` articles have now been removed for
+  stating Florida family law that was never checked with her, between them
+  citing sections 61.30, 61.075, 44.102 and Rule 12.740, the Income Shares
+  Model, durational alimony caps as percentages of the length of the marriage,
+  an award formula, enforcement powers, circuit filing-fee figures and income
+  caps, and dated "what changed" claims. Precise figures are the worst of it:
+  wrong by a little is still wrong, and a reader plans around them. **Do not
+  publish a statement of what Florida law requires, provides, or has changed,
+  and do not publish a court's fees or eligibility thresholds, without the
+  owner confirming it against flcourts.gov, flsenate.gov or the circuit's own
+  site.** Describe the process, name the subject, and send the legal question
+  to an attorney. Untouched by this rule, and deliberately: the Chapter 44
+  mediation-confidentiality citations on `/legal/privacy`, `/refund` and
+  `/pay/agreement`, the last of which is the text of her engagement agreement.
+
 - **The client files. We never do.** Settled by the client 2026-08: "clients are
   responsible to file with the court." The disclaimer is authoritative, and
   `/process/how-mediation-works` was corrected to match (it had claimed the
@@ -250,7 +266,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 |-------|---------|
 | `/` | **Real homepage** (formerly coming-soon gate, flipped at launch). Stacked hero, animated "Level" underline, photo service cards (reveal on hover/tap), Gold Service premium-tier callout with paragraph-by-paragraph reveal animation (gold "Gold Service" wordmark stays visible while cream text fades in around it), cream CTA before footer. Lives in `src/pages/index.astro`. |
 | `/services/hourly-mediation` | Photo hero + facts grid + prose section + Gold Service callout + CTA (CTA on cream-warm to keep the cream/cream-warm alternation) |
-| `/services/divorce-mediation` | SEO hub for the practice's highest-volume term. Photo hero (`handshake2.jpg`) + facts grid + prose with `<h2>` subheads and a four-item list routing to parenting-plan, child-support-rules, alimony-rules, and real-estate-mediation + CTA. Carries its own `Service` JSON-LD. Delivered through Hourly Mediation, so it links there for session mechanics and the refund policy rather than restating them. |
+| `/services/divorce-mediation` | SEO hub for the practice's highest-volume term. Photo hero (`handshake2.jpg`) + facts grid + prose with `<h2>` subheads and a four-item list naming what a divorce settles (the three law guides it used to route to were removed 2026-09-03) + CTA. Carries its own `Service` JSON-LD. Delivered through Hourly Mediation, so it links there for session mechanics and the refund policy rather than restating them. |
 | `/services/gold-service` | Photo hero (`Goldservice.jpg`) + embedded `<GoldService />` callout + CTA. Dedicated landing page for the premium tier; CTA copy emphasizes discretion/privacy/professionalism |
 | `/services/parenting-plan` | Same layout pattern, cross-references court packet from facts-note. Notary line clarifies it's a $10 add-on (not included), with link to `/services/notary` |
 | `/services/court-packet` | Same layout pattern (darker overlay since photo has bright paper). Notary included at no extra cost |
@@ -261,9 +277,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 | `/contact` | Two-column header: text on left ("Get in Touch / Have a question?"), portrait (`New_Contact.jpg`) on right. Email + phone + eFax cards below, secondary booking CTA. |
 | `/documents` | Three-section portal: Intake Forms (`Parental_Decisions_Intake_PSFP.docx`, `Financial_Info_Intake_PSFP.docx`), Engagement Agreement (PDF + Word downloads inlined), and the official Florida Family Law Forms (external `flcourts.gov` link). Same two-column header pattern as `/contact` with portrait on right; alternating cream / cream-warm bands per section. Download cards use container queries (`container-type: inline-size` on the stack) so labels scale with the card column and collapse cleanly to single-column at narrow widths. |
 | `/landing` | QR-code destination — photo hero, three service cards with prices + Lucide icons. Below, a two-column "Book a free consultation" row with text/CTA/pay-strip on the left and a portrait (`new_Landing.jpg`) on the right, then the Calendly embed full-width. |
-| `/process` | Index for the five guides, most-recently-revised first. Carries `CollectionPage` schema. Reachable from the nav as "All Guides" — the dropdown trigger is a `<button>`, so without that entry the page is unreachable from the nav. |
+| `/process` | Index for the guides, most-recently-revised first. Two remain: how-mediation-works and pre-litigation-disputes. Carries `CollectionPage` schema. Reachable from the nav as "All Guides" — the dropdown trigger is a `<button>`, so without that entry the page is unreachable from the nav. |
 | `/services` | Index for the six service pages, driven by `src/lib/services.ts`. |
-| `/areas-served` | Local SEO, built as one substantive page rather than per-city doorway pages. Per-county sections for Palm Beach (15th), Broward (17th), Miami-Dade (11th) and Martin/St. Lucie (19th), each carrying facts that genuinely differ — chiefly that the circuits cap their staff mediation programmes near $100k combined income, which is the factual reason a private mediator exists. **Deliberately frames every circuit programme as the court's and this practice as the private alternative, because court-referred family work needs the pending certification.** Linked from the footer, not the nav (nav is already at seven top-level items). |
+| `/areas-served` | Local SEO, built as one substantive page rather than per-city doorway pages. Per-county sections for Palm Beach (15th), Broward (17th), Miami-Dade (11th) and Martin/St. Lucie (19th), carrying county, circuit and courthouse seat plus a note about this practice. The circuits' published fees, income caps and filing requirements were removed 2026-09-03 as unapproved and unverified; do not restore a number here without the owner checking it against that circuit's own site. **Deliberately frames every circuit programme as the court's and this practice as the private alternative, because court-referred family work needs the pending certification.** Linked from the footer, not the nav (nav is already at seven top-level items). |
 | `/404` | Branded not-found page listing the five routes people actually want, plus phone and email. `noindex`, excluded from the sitemap. |
 | `/legal/disclaimer` | Verbatim attorney-reviewed disclaimer text. Includes a WCAG 2.1 AA accessibility statement section. |
 | `/legal/terms` | Engagement Agreement download in PDF and Word formats |
@@ -309,7 +325,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 | `src/lib/services.ts` | Same shape for the six service pages, including the prices that must match the pages and the Stripe products. Note `divorce-mediation` is listed for display only — it keeps its own inline `Service` block, so adding `<ServiceSchema>` to that page would emit two. |
 | `src/components/ArticleSchema.astro` | One-line `BlogPosting` JSON-LD for a `/process` page (type set per client instruction; `BlogPosting` is a subtype of `Article`, so the same properties apply). **Throws at build time** on a slug with no entry in `articles.ts`, so a guide cannot ship without its metadata. The `/process` index's `CollectionPage.hasPart` uses the same type — change both together or the library describes itself two ways. |
 | `src/components/ServiceSchema.astro` | Same for `Service` on a `/services` page. |
-| `src/components/ArticleLayout.astro` | Header + prose styling + CTA for generated articles, so a generated file is content only. The five hand-written guides keep their own inline styles; computed values were checked to match. |
+| `src/components/ArticleLayout.astro` | Header + prose styling + CTA for generated articles, so a generated file is content only. The remaining hand-written guides keep their own inline styles; computed values were checked to match. |
 | `src/components/Breadcrumbs.astro` | Visible trail plus `BreadcrumbList` schema, on 12 pages. `tone="dark"` over the photo heroes, `tone="light"` on cream headers. Both halves together deliberately — schema without a visible trail marks up a hierarchy the visitor cannot see. |
 | `public/_headers` | Cloudflare response headers: nosniff, referrer policy, SAMEORIGIN, permissions policy, plus cache lifetimes. **No CSP** — the site loads Google Fonts, Analytics, Calendly, Stripe, YouTube and Featurable, so one written without a report-only pass would silently break booking or payment. |
 

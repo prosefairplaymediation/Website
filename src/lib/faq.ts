@@ -71,7 +71,7 @@ export const faqs = [
   },
   {
     q: "Is mediation required before a divorce in Florida?",
-    a: `In most Florida circuits, family cases are ordered to mediation before a final hearing. The exact requirement depends on the circuit and on the case, and the court handling your matter is what sets it. Many people also choose to mediate voluntarily before anything is filed.`,
+    a: `That depends on the circuit and on the case, and the court handling your matter is what sets it. The court's own website, or an attorney who represents you, is where to get the answer for your situation. Separately from any requirement, many people choose to mediate voluntarily before anything is filed.`,
   },
   {
     q: "Can we mediate before filing for divorce?",
@@ -107,7 +107,7 @@ export const faqs = [
   },
   {
     q: "What is a parenting plan?",
-    a: `A parenting plan sets out how parents will share time with their children and how decisions about the children will be made. Florida courts require one in cases involving minor children. It is prepared to be clear, practical, and court-ready.`,
+    a: `A parenting plan sets out how parents will share time with their children and how decisions about the children will be made. Whether one is required in your case is a legal question for an attorney or for the court. The plan is prepared to be clear, practical, and court-ready.`,
   },
   {
     q: "What forms do I need to file for a divorce in Florida?",

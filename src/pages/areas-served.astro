@@ -26,8 +26,6 @@ const counties = [
     name: "Palm Beach County",
     circuit: "Fifteenth Judicial Circuit",
     seat: "West Palm Beach",
-    court:
-      "The circuit runs its own family mediation program using staff mediators, for dissolution, paternity and custody cases where the parties' combined income is up to $100,000. Its published fees are $60 per person per session below $50,000 combined, and $120 per person between $50,000 and $100,000.",
     note:
       "This is the home county. The office address on the Contact page is here, though sessions are still held over Zoom.",
   },
@@ -35,17 +33,13 @@ const counties = [
     name: "Broward County",
     circuit: "Seventeenth Judicial Circuit",
     seat: "Fort Lauderdale",
-    court:
-      "The circuit's family mediation program requires that the case already be filed in Broward and that a Broward judge has signed a family mediation order. It is subject to a legislative income limit, described by the circuit as combined net income under $100,000.",
     note:
-      "Because the program needs a filed case and a signed order, it is not available to a couple who have not filed yet.",
+      "Private mediation here needs no filed case and no order, so parties often use it before anything is filed.",
   },
   {
     name: "Miami-Dade County",
     circuit: "Eleventh Judicial Circuit",
     seat: "Miami",
-    court:
-      "Miami-Dade treats mediation as a step to be completed before a dissolution case can be set for trial. The circuit operates its own Mediation and Arbitration Division for court-referred matters.",
     note:
       "Couples here often reach agreement privately first, then file, rather than waiting for the court to refer them.",
   },
@@ -53,10 +47,8 @@ const counties = [
     name: "Martin and St. Lucie Counties",
     circuit: "Nineteenth Judicial Circuit",
     seat: "Stuart and Fort Pierce",
-    court:
-      "The Treasure Coast circuit covers Martin, St. Lucie, Indian River and Okeechobee counties, and operates its own alternative dispute resolution programs for filed cases.",
     note:
-      "A largely rural circuit where travel to the courthouse is a real cost, which is part of why remote sessions suit it.",
+      "Sessions run over Zoom, so the Treasure Coast is no further away than the home county.",
   },
 ];
 import FaqBlock from "../components/FaqBlock.astro";
@@ -123,8 +115,8 @@ import LeadCapture from "../components/LeadCapture.astro";
       <p>
         The first is <strong>court-referred mediation</strong>. A case has
         already been filed, a judge orders the parties to mediate, and the
-        circuit's own program handles it. Each circuit below runs one, and each
-        sets its own rules and income limits.
+        court handles the referral. Whether a circuit runs its own program, and
+        on what terms, is published by that circuit.
       </p>
       <p>
         The second is <strong>private mediation</strong>, chosen voluntarily by
@@ -134,21 +126,13 @@ import LeadCapture from "../components/LeadCapture.astro";
         offered here.</strong>
       </p>
 
-      <div class="areas-callout">
-        <p>
-          One practical consequence worth knowing: several circuits limit their
-          staff mediation programs to households under roughly $100,000 in
-          combined income. Couples above that threshold are generally not
-          eligible for the court's own mediators and arrange private mediation
-          instead.
-        </p>
-      </div>
 
       <p>
         Whether mediation is required in your particular case, and which
         programs you qualify for, are questions for the court where your case
-        would be filed or for an attorney who represents you. The summaries
-        below describe each circuit's published program, not your situation.
+        would be filed or for an attorney who represents you. Each circuit
+        publishes its own requirements, and the court's website is the place to
+        read them.
       </p>
     </div>
   </section>
@@ -164,7 +148,6 @@ import LeadCapture from "../components/LeadCapture.astro";
               <p class="area-circuit smallcaps">{c.circuit}</p>
             </div>
             <p class="area-seat">Courthouse seat: {c.seat}</p>
-            <p class="area-court">{c.court}</p>
             <p class="area-note">{c.note}</p>
           </li>
         ))}
@@ -298,7 +281,6 @@ import LeadCapture from "../components/LeadCapture.astro";
     white-space: nowrap;
   }
   .area-seat,
-  .area-court,
   .area-note {
     font-family: var(--font-body);
     line-height: 1.6;
@@ -310,7 +292,6 @@ import LeadCapture from "../components/LeadCapture.astro";
     letter-spacing: 0.04em;
     color: var(--color-slate);
   }
-  .area-court { margin-top: 0.7rem; font-size: var(--step-0); color: var(--color-ink-soft); }
   .area-note {
     margin-top: 0.7rem;
     font-size: var(--step-sm);

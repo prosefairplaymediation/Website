@@ -37,6 +37,16 @@ export interface Article {
 //   claim ran through the body, the lede and the meta description, so the page
 //   went rather than the summary.
 //
+//   "child-support-rules", "alimony-rules" and "real-estate-mediation" removed
+//   2026-09-03, on the owner's instruction that none of this had been approved.
+//   Between them they stated section 61.30 and section 61.075, the Income
+//   Shares Model, durational alimony caps of 50/60/75 percent of the length of
+//   the marriage, an award formula of 35 percent of the difference in net
+//   incomes, enforcement powers, and a set of "what changed in 2026" claims
+//   including a July 1 2026 paternity procedure. Precise numbers are the worst
+//   kind of unverified claim: wrong by a little is still wrong, and a reader
+//   plans around them.
+//
 // Anything added here makes factual claims about Florida family law under the
 // practice's name. Check every one with the owner before publishing.
 export const articles: Article[] = [
@@ -47,33 +57,6 @@ export const articles: Article[] = [
     blurb:
       "What actually happens in a session, from preparation through negotiation to a signed, court-ready agreement, and what each possible outcome means.",
     published: "2026-06-26",
-    updated: "2026-08-22",
-  },
-  {
-    slug: "child-support-rules",
-    title: "Updated Child Support Rules",
-    kicker: "Florida Law",
-    blurb:
-      "Florida uses statutory guidelines to calculate support. The 2023 changes altered how overnights factor into the number.",
-    published: "2026-06-26",
-    updated: "2026-07-12",
-  },
-  {
-    slug: "alimony-rules",
-    title: "Updated Alimony Rules",
-    kicker: "Florida Law",
-    blurb:
-      "Florida's alimony laws changed on July 1, 2023. Permanent alimony ended, and what remains is shorter-term support aimed at financial independence.",
-    published: "2026-06-26",
-    updated: "2026-08-22",
-  },
-  {
-    slug: "real-estate-mediation",
-    title: "Real Estate Mediation",
-    kicker: "Property & Real Estate",
-    blurb:
-      "The marital home is usually the largest asset and the hardest to divide. How real property is handled, what happens to the mortgage, and where mediation fits.",
-    published: "2026-08-19",
     updated: "2026-08-22",
   },
   {
