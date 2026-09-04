@@ -16,10 +16,10 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
-# wrangler's local secret file. The Referent CRM token and the Twilio and
+# wrangler's local secret file. The Twilio and
 # Resend credentials go here when running the Worker locally; in production
 # they are Worker secrets. It was not ignored, which is one careless
-# `git add -A` away from publishing the key that opens the CRM.
+# `git add -A` away from publishing live credentials.
 .dev.vars
 
 # macOS-specific files

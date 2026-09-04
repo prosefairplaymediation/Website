@@ -41,11 +41,11 @@
  *
  * ## Failure
  *
- * Nothing in this file can fail the lead. The contact is created in Referent
+ * The practice alert can fail the lead, and is the only thing that may:
  * first and the visitor is answered; these run after, and a dead provider
  * produces a log line, not a lost lead.
  */
-import type { Lead } from "./referent.ts";
+import type { Lead } from "./lead.ts";
 
 export interface NotifyEnv {
   /** Resend. Without a key, no email is sent and it says so in the log. */
@@ -127,25 +127,49 @@ export function screen(lead: Lead): Screen {
 /* ------------------------------------------------------------------- send */
 
 /**
- * Everything that happens after the contact exists in Referent.
+ * Everything that happens after the practice has been alerted.
  * Never throws: each leg reports into the log and the others carry on.
  */
-export async function notify(env: NotifyEnv, lead: Lead, result: Screen): Promise<void> {
-  const jobs: Array<Promise<void>> = [alertPractice(env, lead, result)];
+/**
+ * The practice alert, and whether it actually sent.
+ *
+ * This is the one message that must land. There is no CRM behind the form, so
+ * this email IS the record of the lead, and its caller turns a false here into
+ * a non-2xx so the visitor's own mail client opens instead. Returning void,
+ * as this did when a CRM held the lead, would mean a failed send looked
+ * exactly like a successful one.
+ */
+export async function alertPractice(
+  env: NotifyEnv,
+  lead: Lead,
+  result: Screen,
+): Promise<boolean> {
+  return sendPracticeAlert(env, lead, result);
+}
 
+/**
+ * The visitor's acknowledgement. Best effort, deliberately.
+ *
+ * Nothing here is allowed to fail the submission: the lead is already recorded
+ * by the time this runs, and a slow provider must not turn it into an error on
+ * the form. A flagged inquiry gets nothing at all; a person replies to that
+ * one, or nobody does.
+ */
+export async function acknowledge(
+  env: NotifyEnv,
+  lead: Lead,
+  result: Screen,
+): Promise<void> {
   if (result.personalReview) {
-    // Deliberately nothing to the visitor. A person replies to this one, or
-    // nobody does.
-    console.log(`lead: personal review (${result.reason}) — no automated reply sent`);
-  } else {
-    jobs.push(emailVisitor(env, lead));
-    if (lead.phone && lead.sms_consent) jobs.push(textVisitor(env, lead));
+    console.log(`lead: personal review (${result.reason}), no automated reply sent`);
+    return;
   }
-
+  const jobs: Array<Promise<unknown>> = [emailVisitor(env, lead)];
+  if (lead.phone && lead.sms_consent) jobs.push(textVisitor(env, lead));
   await Promise.allSettled(jobs);
 }
 
-async function alertPractice(env: NotifyEnv, lead: Lead, result: Screen): Promise<void> {
+async function sendPracticeAlert(env: NotifyEnv, lead: Lead, result: Screen): Promise<boolean> {
   const urgent = result.personalReview;
   const lines = [
     urgent
@@ -154,7 +178,7 @@ async function alertPractice(env: NotifyEnv, lead: Lead, result: Screen): Promis
     ``,
     `Name:      ${lead.first_name}`,
     `Email:     ${lead.email}`,
-    `Mobile:    ${lead.phone || "not given"}${lead.phone && !lead.sms_consent ? " (no texting consent — call, do not text)" : ""}`,
+    `Mobile:    ${lead.phone || "not given"}${lead.phone && !lead.sms_consent ? " (no texting consent, call, do not text)" : ""}`,
     `Timeframe: ${lead.timeframe || "not given"}`,
     `They said: ${lead.topic || "nothing"}`,
     `Page:      ${lead.source_url}`,
@@ -168,28 +192,33 @@ async function alertPractice(env: NotifyEnv, lead: Lead, result: Screen): Promis
       .join(" / ");
     lines.push(
       `Came from: ${campaign || "an ad click"}${
-        arrival.gclid || arrival.gbraid || arrival.wbraid ? " (paid click — recorded in the CRM)" : ""
+        arrival.gclid || arrival.gbraid || arrival.wbraid ? " (paid click)" : ""
       }`,
     );
   }
 
-  await Promise.allSettled([
-    sendEmail(env, {
-      to: env.NOTIFY_TO || PRACTICE_EMAIL,
-      subject: urgent
-        ? `PERSONAL REVIEW — inquiry from ${lead.first_name}`
-        : `New inquiry — ${lead.first_name} (${lead.timeframe || "no timeframe"})`,
-      text: lines.join("\n"),
-    }),
-    env.PRACTICE_SMS
-      ? sendSms(env, {
-          to: env.PRACTICE_SMS,
-          body: urgent
-            ? `${PRACTICE_NAME}: inquiry from ${lead.first_name} mentions ${result.reason}. No auto-reply sent. Please read it.`
-            : `${PRACTICE_NAME}: new inquiry from ${lead.first_name}, ${lead.timeframe || "no timeframe"}. ${lead.email}`,
-        })
-      : Promise.resolve(),
-  ]);
+  // The email is the record, so its result is returned. The text is a nudge
+  // to look at the inbox and is not allowed to decide whether the lead was
+  // captured: a Twilio outage must not send a visitor to their mail client
+  // when the inquiry is already sitting in the practice inbox.
+  const emailed = await sendEmail(env, {
+    to: env.NOTIFY_TO || PRACTICE_EMAIL,
+    subject: urgent
+      ? `PERSONAL REVIEW: inquiry from ${lead.first_name}`
+      : `New inquiry: ${lead.first_name} (${lead.timeframe || "no timeframe"})`,
+    text: lines.join("\n"),
+  });
+
+  if (env.PRACTICE_SMS) {
+    await sendSms(env, {
+      to: env.PRACTICE_SMS,
+      body: urgent
+        ? `${PRACTICE_NAME}: inquiry from ${lead.first_name} mentions ${result.reason}. No auto-reply sent. Please read it.`
+        : `${PRACTICE_NAME}: new inquiry from ${lead.first_name}, ${lead.timeframe || "no timeframe"}. ${lead.email}`,
+    }).catch(() => undefined);
+  }
+
+  return emailed;
 }
 
 /**
@@ -273,10 +302,10 @@ interface EmailMessage {
   text: string;
 }
 
-async function sendEmail(env: NotifyEnv, message: EmailMessage): Promise<void> {
+async function sendEmail(env: NotifyEnv, message: EmailMessage): Promise<boolean> {
   if (!env.RESEND_API_KEY || !env.NOTIFY_FROM) {
-    console.log(`notify: email to ${redact(message.to)} skipped — RESEND_API_KEY/NOTIFY_FROM unset`);
-    return;
+    console.error(`notify: email to ${redact(message.to)} skipped, RESEND_API_KEY/NOTIFY_FROM unset`);
+    return false;
   }
 
   try {
@@ -295,12 +324,14 @@ async function sendEmail(env: NotifyEnv, message: EmailMessage): Promise<void> {
       }),
     });
     if (!res.ok) {
-      console.error(`notify: email to ${redact(message.to)} failed — HTTP ${res.status} ${await safeText(res)}`);
-      return;
+      console.error(`notify: email to ${redact(message.to)} failed, HTTP ${res.status} ${await safeText(res)}`);
+      return false;
     }
     console.log(`notify: emailed ${redact(message.to)}`);
+    return true;
   } catch (error) {
-    console.error(`notify: email to ${redact(message.to)} threw — ${String(error)}`);
+    console.error(`notify: email to ${redact(message.to)} threw, ${String(error)}`);
+    return false;
   }
 }
 

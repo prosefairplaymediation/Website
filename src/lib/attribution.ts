@@ -8,7 +8,7 @@
  * the ad click that produced them.
  *
  * So the site captures `gclid` / `gbraid` / `wbraid` and the UTM parameters on
- * arrival, keeps them, and sends them with the lead into Referent. Whether or
+ * arrival, keeps them, and sends them with the lead to the Worker. Whether or
  * not the Google Ads side is ever configured, the identifiers accumulate in
  * the CRM from today, and the funnel Marie actually cares about —
  *
@@ -29,7 +29,7 @@
  * ## What is deliberately not here
  *
  * No third-party advertising cookie, no cross-site identifier, nothing shared
- * with anyone but Referent. These are Google's own click parameters, already
+ * with anyone. These are Google's own click parameters, already
  * present in the URL Google itself sent the visitor to, plus the campaign tags
  * the practice puts on its own links.
  */

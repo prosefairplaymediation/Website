@@ -2,48 +2,45 @@
  * The site's only server-side code.
  *
  * Everything under this Worker is still the same static Astro build served
- * from `./dist` — Cloudflare serves an asset without invoking this file at
- * all. The one exception is `/api/*`, which exists so that the capture form
- * can reach Referent (the CRM) without the CRM's credential being published
- * in a page anyone can view-source.
+ * from `./dist`; Cloudflare serves an asset without invoking this file at
+ * all. The one exception is `/api/*`, which exists so the capture form has
+ * somewhere same-origin to post to and so the mail and text credentials stay
+ * out of a page anyone can view-source.
  *
  * Routes:
- *   POST /api/lead        the capture form posts here; creates the contact
- *   GET  /api/lead/tools  what the live Referent server reports it can do,
- *                         gated behind REFERENT_DEBUG_KEY (see below)
+ *   POST /api/lead   the capture form posts here
  *
  * Secrets, set with `wrangler secret put <name>` or in the Cloudflare
- * dashboard under Settings → Variables and Secrets. None of them are in the
- * repository and none of them reach the browser:
+ * dashboard under Settings -> Variables and Secrets. None are in the
+ * repository and none reach the browser. They are listed in notify.ts, which
+ * is what uses them.
  *
- *   REFERENT_API_TOKEN   required. Sent as `Authorization: Bearer …`.
- *   REFERENT_MCP_URL     optional. Defaults to https://mcp.referent.law/mcp
- *   REFERENT_LEAD_TOOL   optional. The exact tool name to call. Leave unset
- *                        and the Worker picks the tool that looks like
- *                        "create a contact"; set it once the real name is
- *                        known from /api/lead/tools, which is one fewer thing
- *                        to go wrong at 2am.
- *   REFERENT_DEBUG_KEY   optional. Enables the diagnostic route above; the
- *                        route 404s while it is unset.
+ * ## Where a lead goes, and why the alert is the thing that must land
  *
- * If REFERENT_API_TOKEN is missing, or Referent is down, or the tool call is
- * rejected, this returns a non-2xx. That is deliberate and load-bearing: the
- * browser then falls back to opening the visitor's mail client, exactly as
- * the site did before any CRM existed. A lead is never dropped on the floor
- * because a third party had a bad afternoon.
+ * A CRM used to sit in front of this, and the practice alert was sent only
+ * after the CRM had accepted the contact. That ordering had a failure mode
+ * worth remembering now it is gone: when the CRM was unreachable this route
+ * returned a non-2xx and the alert was never sent at all.
+ *
+ * With no CRM, the email to the practice IS the record of the lead. So it is
+ * awaited, and its result decides the response. If it did not send, this
+ * returns a non-2xx and the browser opens the visitor's mail client instead,
+ * exactly as the site did before any of this existed. A lead is never
+ * silently accepted by a page and then lost.
+ *
+ * The visitor's own acknowledgement is deliberately not part of that test. It
+ * is a courtesy, and a slow or failing provider should not turn a captured
+ * lead into an error on the form.
  */
 import {
-  ReferentClient,
-  ReferentError,
-  buildArguments,
-  pickLeadTool,
-  type Attribution,
-  type AttributionTouch,
-  type JsonSchema,
-  type Lead,
-  type McpTool,
-} from "./referent.ts";
-import { notify, screen, toE164, type NotifyEnv, type Screen } from "./notify.ts";
+  acknowledge,
+  alertPractice,
+  screen,
+  toE164,
+  type NotifyEnv,
+  type Screen,
+} from "./notify.ts";
+import type { Attribution, AttributionTouch, Lead } from "./lead.ts";
 
 interface Fetcher {
   fetch(request: Request): Promise<Response>;
@@ -56,13 +53,7 @@ interface ExecutionContext {
 
 export interface Env extends NotifyEnv {
   ASSETS: Fetcher;
-  REFERENT_API_TOKEN?: string;
-  REFERENT_MCP_URL?: string;
-  REFERENT_LEAD_TOOL?: string;
-  REFERENT_DEBUG_KEY?: string;
 }
-
-const DEFAULT_MCP_URL = "https://mcp.referent.law/mcp";
 
 /** Hosts allowed to post a lead. Anything else is somebody else's form. */
 const ALLOWED_ORIGINS = [
@@ -88,10 +79,6 @@ export default {
     if (url.pathname === "/api/lead") {
       return handleLead(request, env, ctx);
     }
-    if (url.pathname === "/api/lead/tools") {
-      return handleTools(request, env);
-    }
-
     // Not an API path, so it is the static site. Assets are normally served
     // before this Worker runs; reaching here means nothing matched, and the
     // asset handler produces the same 404 it always did.
@@ -128,146 +115,30 @@ async function handleLead(request: Request, env: Env, ctx?: ExecutionContext): P
     return json({ ok: false, error: "invalid_lead" }, 422);
   }
 
-  const token = env.REFERENT_API_TOKEN;
-  if (!token) {
-    // Not configured yet. Say so honestly and let the page fall back to mail.
-    console.error("lead: REFERENT_API_TOKEN is not set");
-    return json({ ok: false, error: "crm_not_configured" }, 503);
-  }
-
   // Run before anything is sent anywhere. An inquiry that mentions abuse, an
-  // injunction or a threat gets a person, never an automated reply — the rule
+  // injunction or a threat gets a person, never an automated reply. The rule
   // is set out in docs/marketing/lead-automation.md and enforced in notify.ts.
   const flagged: Screen = screen(lead);
 
-  try {
-    const toolName = await deliver(env, token, lead, flagged);
-    console.log(
-      `lead: created via ${toolName} from ${lead.source_page}` +
-        (flagged.personalReview ? ` — FLAGGED for personal review (${flagged.reason})` : ""),
-    );
-
-    // The visitor is answered as soon as the contact exists. Texts and emails
-    // go out after that, so a slow provider never holds up the form, and a
-    // dead one never turns a captured lead into an error.
-    const messages = notify(env, lead, flagged);
-    if (ctx) ctx.waitUntil(messages);
-    else await messages;
-
-    return json({ ok: true });
-  } catch (error) {
-    const stage = error instanceof ReferentError ? error.stage : "unknown";
-    const message = error instanceof Error ? error.message : String(error);
-    // Logged, not returned: the visitor gets the mail fallback, and the
-    // detail belongs in `wrangler tail` rather than in a page.
-    console.error(`lead: delivery failed at ${stage} — ${message}`);
-    return json({ ok: false, error: "crm_unavailable" }, 502);
-  }
-}
-
-/** Open a session, find the tool, call it. Returns the tool used. */
-async function deliver(env: Env, token: string, lead: Lead, flagged: Screen): Promise<string> {
-  const client = new ReferentClient(env.REFERENT_MCP_URL || DEFAULT_MCP_URL, token);
-
-  try {
-    await client.open();
-
-    const tools = await client.listTools();
-    const configured = env.REFERENT_LEAD_TOOL?.trim();
-
-    let tool: McpTool | null;
-    if (configured) {
-      tool = tools.find((candidate) => candidate.name === configured) ?? null;
-      if (!tool) {
-        throw new ReferentError(
-          "tools/list",
-          `REFERENT_LEAD_TOOL is "${configured}" but the server offers: ${
-            tools.map((t) => t.name).join(", ") || "nothing"
-          }`,
-        );
-      }
-    } else {
-      tool = pickLeadTool(tools);
-      if (!tool) {
-        throw new ReferentError(
-          "tools/list",
-          `no tool looks like it creates a contact; set REFERENT_LEAD_TOOL. Server offers: ${
-            tools.map((t) => t.name).join(", ") || "nothing"
-          }`,
-        );
-      }
-    }
-
-    // The flag goes into the CRM note as well as into Marie's alert, so it is
-    // visible to whoever opens the record next rather than only in an email.
-    const annotations = flagged.personalReview
-      ? [
-          `*** PERSONAL REVIEW — this inquiry mentions ${flagged.reason}.`,
-          `*** No automated message has been sent. Do not enrol in an automation.`,
-        ]
-      : [];
-
-    await client.callTool(tool.name, buildArguments(tool.inputSchema, lead, annotations));
-    return tool.name;
-  } finally {
-    await client.close();
-  }
-}
-
-/**
- * Diagnostics. This exists because the Referent server could not be reached
- * from the environment this integration was written in, so the tool names and
- * their argument schemas were never seen. One authenticated GET from the live
- * Worker answers that, and `REFERENT_LEAD_TOOL` can then be pinned.
- *
- * Constant-time-ish comparison is not warranted here — the route is unlisted,
- * returns no lead data, and the key only reveals the CRM's own tool names.
- */
-async function handleTools(request: Request, env: Env): Promise<Response> {
-  const expected = env.REFERENT_DEBUG_KEY;
-  const supplied = new URL(request.url).searchParams.get("key");
-  if (!expected || supplied !== expected) {
-    return json({ ok: false, error: "not_found" }, 404);
+  // The alert is the record. Awaited, and its result is the response, because
+  // there is no CRM behind this to hold the lead if the mail does not send.
+  const alerted = await alertPractice(env, lead, flagged);
+  if (!alerted) {
+    console.error(`lead: alert email did not send for ${lead.source_page}; visitor sent to mail fallback`);
+    return json({ ok: false, error: "notify_unavailable" }, 502);
   }
 
-  const token = env.REFERENT_API_TOKEN;
-  if (!token) {
-    return json({ ok: false, error: "crm_not_configured" }, 503);
-  }
+  console.log(
+    `lead: alerted from ${lead.source_page}` +
+      (flagged.personalReview ? ` FLAGGED for personal review (${flagged.reason})` : ""),
+  );
 
-  const client = new ReferentClient(env.REFERENT_MCP_URL || DEFAULT_MCP_URL, token);
-  try {
-    await client.open();
-    const tools = await client.listTools();
-    const chosen = env.REFERENT_LEAD_TOOL?.trim() || pickLeadTool(tools)?.name || null;
+  // Courtesy, not record. Never allowed to fail the submission.
+  const reply = acknowledge(env, lead, flagged);
+  if (ctx) ctx.waitUntil(reply);
+  else await reply;
 
-    return json({
-      ok: true,
-      would_call: chosen,
-      pinned: Boolean(env.REFERENT_LEAD_TOOL?.trim()),
-      tools: tools.map((tool) => ({
-        name: tool.name,
-        description: tool.description,
-        required: tool.inputSchema?.required ?? [],
-        properties: describeProperties(tool.inputSchema),
-      })),
-    });
-  } catch (error) {
-    const stage = error instanceof ReferentError ? error.stage : "unknown";
-    const message = error instanceof Error ? error.message : String(error);
-    return json({ ok: false, stage, error: message }, 502);
-  } finally {
-    await client.close();
-  }
-}
-
-function describeProperties(schema: JsonSchema | undefined): Record<string, string> {
-  const out: Record<string, string> = {};
-  for (const [key, property] of Object.entries(schema?.properties ?? {})) {
-    const type = Array.isArray(property.type) ? property.type.join("|") : property.type;
-    out[key] = type || "unknown";
-  }
-  return out;
+  return json({ ok: true });
 }
 
 async function readJsonBody(request: Request): Promise<Record<string, unknown> | null> {

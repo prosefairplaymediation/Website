@@ -1,5 +1,14 @@
 # CRM for a solo mediation practice
 
+
+> **Referent was removed on 2026-09-04**, at the owner's instruction: "I will
+> not be using Referent as my CRM." Every mention of it below is history, not
+> the current build. **Lawmatics is the intended replacement and has not been
+> signed up for yet**, so at the time of writing the site has no CRM at all:
+> `/api/lead` screens the inquiry, emails the practice and acknowledges the
+> visitor, and the practice alert is the record of the lead. Nothing here
+> describes anything the site currently does.
+
 Written 2026-08-28. Decision is Marie's; this records the options, the
 reasoning, and what the site now does regardless of which is chosen.
 

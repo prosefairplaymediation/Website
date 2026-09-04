@@ -4,8 +4,8 @@
   "compatibility_date": "2026-04-20",
   // The site is still the static Astro build in ./dist. `main` adds one
   // server-side route, /api/lead, which hands capture-form submissions to
-  // Referent (the CRM) with the API token kept as a Worker secret instead of
-  // published in the page. See worker/index.ts and docs/marketing/referent-crm.md.
+  // the practice by email and text, with those credentials kept as Worker
+  // secrets instead of published in the page. See worker/index.ts.
   "main": "./worker/index.ts",
   "assets": {
     "directory": "./dist",

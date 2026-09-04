@@ -12,18 +12,31 @@ Freelance brochure/services site for a Florida family-law **mediation + document
 
 - **Astro 6** (static SSG, strict TypeScript)
 - **Cloudflare Workers** for deployment (`wrangler.jsonc`)
-- **One server-side route** (added 2026-09-01). `worker/index.ts` handles
-  `/api/lead` and nothing else: it takes a capture-form submission and creates
-  the contact in **Referent** (the CRM) over MCP, so the API token stays a
-  Worker secret instead of being published in a page. Every other URL is still
-  a static asset, served without the Worker running at all
-  (`run_worker_first: ["/api/*"]`). Setup, and what is still unverified about
-  Referent's API, are in `docs/marketing/referent-crm.md`. The same route then
-  sends the practice alert and the visitor's acknowledgement (`worker/notify.ts`)
-  — **behind a keyword safety screen: an inquiry mentioning abuse, an
-  injunction or a threat never receives an automated message.** Do not loosen
-  that screen; add cases to it. `npm run test:referent` exercises all of it
-  against a stand-in MCP server.
+- **One server-side route.** `worker/index.ts` handles `/api/lead` and nothing
+  else: the capture form posts there, the inquiry goes through the keyword
+  safety screen, the practice is emailed and the visitor is acknowledged
+  (`worker/notify.ts`). Every other URL is still a static asset, served without
+  the Worker running at all (`run_worker_first: ["/api/*"]`).
+
+  **There is no CRM.** Referent was removed on 2026-09-04 at the owner's
+  instruction ("I will not be using Referent as my CRM"), and **Lawmatics is
+  the intended replacement but has not been signed up for yet.** Do not build
+  an integration against it, or any CRM, until there is an account and a
+  readable API; guessing at an API shape is what produced the last one.
+
+  **The practice alert is the record of a lead, and this is load-bearing.** It
+  is awaited, and `/api/lead` answers 2xx only if that email actually sent;
+  anything else and the form opens the visitor's mail client instead. The old
+  ordering sent the alert only after the CRM had accepted the contact, so a CRM
+  outage meant the alert never went at all. When a CRM does arrive it goes
+  **alongside** the alert, never in front of it.
+
+  **The keyword safety screen** means an inquiry mentioning abuse, an
+  injunction or a threat never receives an automated message. Do not loosen it;
+  add cases to it. `npm run test:lead` exercises all of the above, including
+  that a flagged lead still reaches the practice while the visitor is sent
+  nothing at all.
+
 - **Ad-click attribution.** `BaseLayout.astro` captures `gclid`/`gbraid`/
   `wbraid` and `utm_*` on arrival and the Worker stores them with the lead, so
   a lead who later pays can be reported back to Google against the click that

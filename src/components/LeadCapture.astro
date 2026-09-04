@@ -62,7 +62,7 @@ const {
         means the number is for calling and nothing else, and the server
         records the refusal alongside the number so nobody texts it later by
         mistake. If this wording changes, change it in worker/notify.ts and
-        worker/referent.ts in the same commit — the CRM stores a copy of it as
+        worker/notify.ts in the same commit. The practice alert records it as
         the evidence of what was agreed.
       */}
       <div class="lcap-field lcap-field-wide">
@@ -280,11 +280,11 @@ const {
             succeed(email);
           })
           .catch(function () {
-            // /api/lead is same-origin and answers 2xx only when Referent
+            // /api/lead is same-origin and answers 2xx only once the practice
             // actually took the contact, so a failure here means the CRM leg
             // broke. GA4 gets a distinct event: a run of these is the signal
             // that the token expired or the tool name moved.
-            if (mode === "referent") {
+            if (mode === "worker") {
               track("lead_capture_fallback");
               mailFallback();
               return;
