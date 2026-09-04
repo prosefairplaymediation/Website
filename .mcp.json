@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "referent": {
+      "type": "http",
+      "url": "https://mcp.referent.law/mcp",
+      "headers": {
+        "Authorization": "Bearer ${REFERENT_API_TOKEN}"
+      }
+    }
+  }
+}
