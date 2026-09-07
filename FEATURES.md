@@ -86,4 +86,15 @@ Agreed in principle but explicitly deferred. Not in current scope.
 
 - **Accepting Zelle, Apple Pay, etc. natively** beyond what Stripe provides out of the box.
 - **Payment plans / split payments** between mediation parties — handled manually via split invoicing
+- **Referral programme and referral page** (attorneys, realtors and title, therapists,
+  financial advisors) — **decided NO 2026-09-07.** Raised in the conversion audit that
+  day as the channel most likely to produce clients at this practice's price point,
+  scoped as a site page plus a one-page PDF, then dropped at the owner's instruction:
+  "let's remove the referral section". Nothing was built; no page, no PDF, no copy in
+  the repo. **Do not re-propose it or start building it without the owner asking for
+  it.** If it is ever revived, the first question is hers to put to her attorney, not
+  ours to answer: whether a mediator and non-lawyer document preparer may give or
+  accept a fee, gift or reciprocal arrangement for a referral. The second constraint
+  is that section 44.405 bars confirming to a referrer that the person they sent
+  became a client, however naturally they ask.
 
