@@ -1,0 +1,116 @@
+---
+/**
+ * The concierge phone promise, and a phone number to act on it.
+ *
+ * Why this exists. The practice pays for a live U.S.-based answering service
+ * through Posh so that a real person greets every caller, days, evenings and
+ * weekends. The owner's words: that is what sets the practice apart. On
+ * 2026-09-07 an audit found it appeared on exactly one page out of twenty
+ * eight (`/contact`), and that not one of the seven service pages offered a
+ * phone call at all -- every one of them asked only for a Calendly booking.
+ *
+ * So somebody arriving at 8:40 on a Saturday night was asked to schedule a
+ * Zoom for next week, while the person who would have answered them right
+ * then went unmentioned. This block is the fix: on a mediation site the call
+ * is the higher-intent action, so the call goes first and the calendar
+ * follows it.
+ *
+ * The copy is lifted from the concierge section of `/contact` verbatim, not
+ * rewritten. That copy is the client's own and it is the only description of
+ * this service she has approved. Do not embellish it here: in particular the
+ * concierge team schedules, explains services and explains pricing, and it
+ * does not answer legal questions. Any wording suggesting otherwise would put
+ * legal advice in the mouth of an answering service, which is exactly what
+ * /legal/disclaimer says this practice does not do.
+ *
+ * "Concierge" here means the phone answering team and nothing else. It is
+ * never a filing service -- the client files their own documents.
+ *
+ * Clicks are measured by the delegated `call_intent_click` listener in
+ * BaseLayout, which covers every tel: link on the site. Nothing to add here.
+ */
+import { PHONE_DISPLAY, TEL_HREF, SMS_HREF } from "../consts.ts";
+---
+
+<div class="ccall">
+  <p class="ccall-kicker">Every call answered</p>
+
+  {/* Her sentence, unaltered, then the availability as its own sentence
+      rather than appended with a dash. */}
+  <p class="ccall-promise">
+    No voicemail. No waiting days for a callback. Just real people providing
+    real support. Days, evenings and weekends.
+  </p>
+
+  <div class="ccall-actions">
+    <a class="btn btn-primary ccall-btn" href={TEL_HREF} aria-label={`Call ${PHONE_DISPLAY}`}>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+      </svg>
+      Call {PHONE_DISPLAY}
+    </a>
+
+    {/* Beside Call rather than instead of it, matching the sticky bar and the
+        footer: the line takes both, and a text costs the sender far less when
+        they are not yet sure what to say. */}
+    <a class="ccall-text" href={SMS_HREF} aria-label={`Send a text message to ${PHONE_DISPLAY}`}>
+      or send a text
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Transparent by design. This block sits inside sections that are cream on
+     some pages and cream-warm on others, and it inherits whichever it lands
+     on so the alternation is not broken. The gold hairline is the site's
+     standard rule, the same one LegalLayout uses on its h2s. */
+  .ccall {
+    border-top: 2px solid var(--color-gold);
+    padding-top: var(--space-md);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .ccall-kicker {
+    font-size: var(--step-sm);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+    margin: 0;
+  }
+
+  .ccall-promise {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--color-ink);
+    max-width: 54ch;
+    margin: 0.5rem auto 0;
+  }
+
+  .ccall-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .ccall-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .ccall-text {
+    font-size: var(--step-0);
+    color: var(--color-gold-deep);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    transition: color 0.25s var(--ease-out);
+  }
+  .ccall-text:hover { color: var(--color-navy); }
+</style>

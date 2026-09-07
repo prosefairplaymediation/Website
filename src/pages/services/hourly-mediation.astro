@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 import GoldService from "../../components/GoldService.astro";
@@ -19,6 +20,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   title="Hourly Mediation · Pro Se Fair Play Mediation"
   description="Family-law mediation for self-represented parties in Florida. $600 per hour combined rate. Conducted via Zoom in a structured, confidential environment."
   ogImage="/og/hourly-mediation.jpg"
+heroImage="/handshake4.jpg"
 >
   <ServiceSchema slug="hourly-mediation" />
   <!-- ========================== HEADER ========================== -->
@@ -111,6 +113,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation

@@ -82,6 +82,21 @@ interface Props {
   ogImage?: string;
   /** Alt text for the card. Defaults to the page title. */
   ogImageAlt?: string;
+  /**
+   * The page's hero photo, root-relative (e.g. "/justice_globe.jpg"), on the
+   * pages that set one as a CSS background.
+   *
+   * Those heroes are the LCP element, and a background image is the slowest
+   * kind to start: the browser cannot discover it in the markup, so it waits
+   * until the stylesheet has parsed and the element has matched before it
+   * even begins the request. Naming it here lets the download start with the
+   * HTML instead.
+   *
+   * Only for a hero that is genuinely above the fold. Preloading something
+   * further down the page competes with the thing the visitor is waiting for
+   * and makes the number worse, not better.
+   */
+  heroImage?: string;
 }
 const {
   title = "Pro Se Fair Play Mediation LLC",
@@ -91,6 +106,7 @@ const {
   noStickyCta = false,
   ogImage = "/og-image.jpg",
   ogImageAlt,
+  heroImage,
 } = Astro.props;
 
 const ogImageUrl = new URL(ogImage, Astro.site).href;
@@ -185,6 +201,31 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
         if (!link) return;
         if (typeof window.gtag === "function") {
           window.gtag("event", "book_intent_click", {
+            source: window.location.pathname,
+          });
+        }
+      });
+
+      // The same delegated pattern for the phone, and the reason it exists:
+      // there are 74 tel: links across the site and only two of them fired
+      // an event, the mobile sticky bar and one button on /landing. So the
+      // highest-intent action on the site -- a person actually calling, which
+      // a live concierge team then answers -- was invisible in GA4, and there
+      // was no way to tell which page produced a call.
+      //
+      // Matching on the href prefix rather than a class means every phone
+      // link is covered, including the ones in the nav, the footer and any
+      // added later. The per-button onclick that used to sit on /landing was
+      // removed in the same commit: it fired this same event name, and two
+      // handlers on one click would have counted every call twice.
+      //
+      // StickyCta keeps its own sticky_cta_click alongside this. That one
+      // measures the bar; this one measures calls.
+      document.addEventListener("click", function (e) {
+        var link = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+        if (!link) return;
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "call_intent_click", {
             source: window.location.pathname,
           });
         }
@@ -420,6 +461,10 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
       "publisher": { "@id": "https://prosefairplaymediation.com/#business" }
     }
     </script>
+
+    {heroImage && (
+      <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+    )}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

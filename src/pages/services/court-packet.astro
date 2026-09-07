@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 
@@ -19,6 +20,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   title="Turn-Key Court Packet · Pro Se Fair Play Mediation"
   description="Complete document preparation for self-represented parties in Florida. The Parenting Plan, all required forms, formatting and notarization, priced by case type."
   ogImage="/og/court-packet.jpg"
+heroImage="/stampgavel.jpg"
 >
   <ServiceSchema slug="court-packet" />
   <!-- ========================== HEADER ========================== -->
@@ -118,6 +120,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation

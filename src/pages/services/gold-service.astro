@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 import GoldService from "../../components/GoldService.astro";
@@ -12,6 +13,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   title="Gold Service Mediation · Pro Se Fair Play Mediation"
   description="Premium mediation for high-profile individuals, executives, and parties in sensitive or high-conflict disputes. Private, discreet, and professionally managed."
   ogImage="/og/gold-service.jpg"
+heroImage="/Goldservice.jpg"
 >
   <ServiceSchema slug="gold-service" />
   <!-- ========================== HEADER ========================== -->
@@ -50,6 +52,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation

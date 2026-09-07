@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ConciergeCall from "../components/ConciergeCall.astro";
 import Reviews from "../components/Reviews.astro";
 import LeadCapture from "../components/LeadCapture.astro";
 import YouTubeFacade from "../components/YouTubeFacade.astro";
@@ -150,6 +151,7 @@ const services = [
   <!-- ========================== CTA — closes the page ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation

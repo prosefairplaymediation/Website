@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ServiceSchema from "../../components/ServiceSchema.astro";
 
@@ -19,6 +20,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   title="Parenting Plan Preparation · Pro Se Fair Play Mediation"
   description="Customized Parenting Plan preparation for self-represented parties in Florida. $600 flat fee, court-ready format, document preparation only."
   ogImage="/og/parenting-plan.jpg"
+heroImage="/documents2.jpg"
 >
   <ServiceSchema slug="parenting-plan" />
   <!-- ========================== HEADER ========================== -->
@@ -122,6 +124,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation

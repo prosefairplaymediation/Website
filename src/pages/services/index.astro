@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { services } from "../../lib/services.ts";
 
@@ -65,6 +66,8 @@ import { services } from "../../lib/services.ts";
         Not sure which fits? <a class="link-underline" href="/book">Book a free 15-minute consultation</a>,
         or see <a class="link-underline" href="/pricing">full pricing and refund policies</a>.
       </p>
+
+      <ConciergeCall />
     </div>
   </section>
 </BaseLayout>

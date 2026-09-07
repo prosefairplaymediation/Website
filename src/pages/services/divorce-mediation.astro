@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 const facts = [
@@ -17,6 +18,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   title="Divorce Mediation in Florida · Pro Se Fair Play Mediation"
   description="Divorce mediation in Florida for self-represented (pro se) parties. Settle time-sharing, child support, alimony, and property division without a judge."
   ogImage="/og/divorce-mediation.jpg"
+heroImage="/handshake2.jpg"
 >
   {/*
     Service entity for this page. The site-wide ProfessionalService block in
@@ -179,6 +181,7 @@ import LeadCapture from "../../components/LeadCapture.astro";
   <!-- ========================== CTA ========================== -->
   <section class="cta">
     <div class="container-narrow cta-inner">
+      <ConciergeCall />
       <div class="cta-actions">
         <a class="btn btn-primary cta-btn" href="/book">
           Book a Free, Private Consultation
