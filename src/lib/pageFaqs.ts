@@ -106,6 +106,10 @@ export const pageFaqs: Record<string, Faq[]> = {
 
   "hoa-mediation": [
     {
+      q: "Does Florida require mediation before an HOA dispute can go to court?",
+      a: "Section 720.311, Florida Statutes, sets out a presuit mediation requirement for many disputes between a homeowners association and its members, including disputes over the use of or changes to a parcel or the common areas, covenant enforcement, amendments to the association documents, board and committee meetings, membership meetings other than elections, and access to the official records. It excludes the collection of assessments, fines and other financial obligations, and actions to enforce a prior mediation settlement. Whether the requirement reaches your particular dispute, and what your own governing documents add to it, are legal questions for an attorney who represents you.",
+    },
+    {
       q: "Is the $600 hourly rate charged to each side or for the session?",
       a: "It is a combined rate for the session rather than a charge per side, and it is commonly divided evenly between the parties. One side may also choose to pay the full amount.",
     },
@@ -119,7 +123,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Is this the same as court-ordered mediation?",
-      a: "No. This is private mediation that both sides choose. Nobody is ordered here: an owner and a board, two owners, or a board and a vendor agree to sit down with one neutral mediator, and the session goes ahead once both sides have agreed to proceed. Whether any particular step is required before a dispute of this kind can proceed is a legal question for an attorney.",
+      a: "No. This is private mediation conducted outside the court system, with one neutral mediator the parties come to together. Separately, section 720.311, Florida Statutes, sets out a presuit mediation requirement for many disputes between an association and its members, so in a good number of cases the attempt is required before anything can be filed. Whether it reaches your particular dispute is a legal question for an attorney who represents you.",
     },
     {
       q: "What happens if we reach an agreement?",
