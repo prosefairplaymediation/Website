@@ -359,7 +359,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
-| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02 — **the Stripe link must be updated to match; it was $400**), Turn-Key Court Packet ($1,200 flat as of 2026-09-09, being $600 document preparation and $600 mediation; the Stripe link was updated to match the same day, per the owner) |
+| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02; the Stripe link was updated to match on 2026-09-09, per the owner), Turn-Key Court Packet ($1,200 flat as of 2026-09-09, being $600 document preparation and $600 mediation; the Stripe link was updated to match the same day, per the owner) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 | Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout. Custom events: **Pay funnel** — `pay_intent_click` (entry buttons on /home, /landing, /services/parenting-plan, /services/court-packet — params: `source`, `product`), `pay_checkout_click` (the actual Pay Now buttons on /pay — params: `product`, `value`, `currency`), `pay_complete` (fires on /thank-you load — `source: 'stripe_redirect'`). **Booking** — `book_intent_click` (single delegated listener in BaseLayout, fires on any click on `<a href="/book">` site-wide — param: `source` = the path the click came from). **Calls** — `call_intent_click` (same delegated pattern, matches any `a[href^="tel:"]` — param: `source` = the path clicked from). Added 2026-09-07: there were 74 phone links on the site and only two fired anything, so the highest-intent action on a mediation site was invisible. The per-button `onclick` that fired this name on `/landing` was removed in the same commit — two handlers on one click double-counted. `StickyCta` keeps its own `sticky_cta_click` alongside it: that measures the bar, this measures calls. Actual purchase data lives in Stripe Dashboard. |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |
@@ -504,22 +504,19 @@ site carries no Stripe backend, only Payment Link URLs — so the Stripe side is
 always the owner's to perform. That is a reason to ask for it plainly and keep
 asking, not a reason to consider the work complete without it.
 
-### Open mismatches (close these, do not let them age)
+### Open mismatches
 
-- **Parenting Plan Preparation.** Site says $600, link charged $400 when
-  opened and checked twice on 2026-09-02. Button removed; restore steps are
-  in `src/pages/pay.astro`. Still open as of 2026-09-09.
+**None as of 2026-09-09.** Both entries closed that evening on the owner's
+confirmation that the Stripe links had been updated: the Turn-Key Court
+Packet to $1,200, and Parenting Plan Preparation to $600 after seven days at
+$400 against a published $600. Both pay buttons are back on `/pay` and both
+`/pricing` rows carry their `payHref` again.
 
-Closed 2026-09-09: **Turn-Key Court Packet**, raised to $1,200 that morning
-and the button pulled the same day, restored that evening on the owner's
-confirmation that the Stripe link had been updated to match. Worth noting for
-the next time: `buy.stripe.com` is not reachable from a Claude session, so
-the figure was taken on her word rather than read off the checkout page. That
-is the weaker form of the confirmation this list asks for, and it is the only
-form available from here.
-
-Delete an entry from this list only when the amount has actually been
-confirmed, and say which way it was confirmed.
+Worth knowing for the next one: `buy.stripe.com` is not reachable from a
+Claude session, so neither figure was read off a checkout page. Both rest on
+her word. That is the weaker form of confirmation and it is the only form
+available from here, so when an entry is closed, say which way it was
+confirmed. If a payment ever lands short, this is the first place to look.
 
 ## Deploy Flow
 
