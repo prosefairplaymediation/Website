@@ -445,29 +445,18 @@ first and refuses to submit rather than failing silently.
 - `FEATURES.md` — scope tracking, in-progress, deferred, out-of-scope decisions
 - `DELIVERABLES.md` — client handoff (accounts, credentials, deliverables). **Gitignored** (contains personal emails)
 
-## Price changes: Stripe first, then merge (STANDING CLIENT INSTRUCTION)
+## Stripe always matches published pricing (STANDING CLIENT INSTRUCTION)
 
-Settled by the client 2026-09-09: **"always update stripe then merge."**
+Settled by the client 2026-09-09, and amended the same day to put the
+requirement where it belongs: **"make changes to Stripe always to match
+pricing changes."**
 
-A published price and the Stripe Payment Link behind it are one change, and
-the Stripe side goes first. Do not merge a price change while the link still
-charges the old amount, and do not ship a Pay button that disagrees with the
-figure printed beside it.
+A published price and the Stripe Payment Link behind it are one change.
+Neither half is finished on its own, and a price change is not done until the
+link charges the same figure the site prints. Whenever a price moves, Stripe
+moves with it. Every time, no exceptions.
 
-The reason is that the failure is silent. A card advertising $1,200 beside a
-link that collects $600 produces no error and no complaint; the client pays
-what the link asks, believes they have paid in full, and the shortfall
-surfaces at reconciliation, by which point the only remedy is asking someone
-who has already paid to pay again. A missed instant payment is recoverable.
-That conversation is not.
-
-It has now happened twice. Parenting Plan was repriced to $600 on 2026-09-02
-while its link still charged $400, and the Court Packet was raised to $1,200
-on 2026-09-09 while its link still charged $600. Both times the button was
-pulled rather than left to undercharge, and the restore steps were written
-into `src/pages/pay.astro` beside the removed card.
-
-**So, in order, every time:**
+**Stripe first, then merge**, because that ordering never leaves a gap:
 
 1. Update the price in Stripe, or create a new Payment Link at the new
    amount. Confirm by opening the link and reading the figure on the
@@ -476,13 +465,36 @@ into `src/pages/pay.astro` beside the removed card.
 3. Restore the card and the `/pricing` row's `payHref`.
 4. Then merge.
 
-Until step 1 is confirmed, the price change may still ship, but the Pay
-button does not: the `/pay` Document Services section falls through to an
-empty state that names the fee and routes to a consultation, which is honest
-and keeps the enquiry path open. Note also that this practice has no Stripe
-API access from a Claude session — no key, no MCP server, and the site
-carries no Stripe backend, only Payment Link URLs — so step 1 is always the
-owner's to perform.
+**If a price does ship ahead of Stripe, the Pay button comes off rather than
+undercharging — and that state is temporary, not finished.** It is a
+stop-loss, and the only thing to do with it is close it. Do not let it
+settle, do not treat a page that prints a price with no way to pay it as a
+completed change, and raise it every session until the link is confirmed.
+
+The reason the button comes off at all is that the alternative fails
+silently. A card advertising $1,200 beside a link that collects $600 produces
+no error and no complaint; the client pays what the link asks, believes they
+have paid in full, and the shortfall surfaces at reconciliation, by which
+point the only remedy is asking someone who has already paid to pay again. A
+missed instant payment is recoverable. That conversation is not.
+
+**A Claude session has no Stripe access** — no key, no MCP server, and the
+site carries no Stripe backend, only Payment Link URLs — so the Stripe side is
+always the owner's to perform. That is a reason to ask for it plainly and keep
+asking, not a reason to consider the work complete without it.
+
+### Open mismatches (close these, do not let them age)
+
+- **Parenting Plan Preparation.** Site says $600, link charged $400 when
+  opened and checked twice on 2026-09-02. Button removed; restore steps are
+  in `src/pages/pay.astro`.
+- **Turn-Key Court Packet.** Site says $1,200 as of 2026-09-09, being $600
+  document preparation and $600 mediation; link still points at the old $600
+  product. Button removed; restore steps sit beside the Parenting Plan ones.
+
+Both are live right now, which means `/pay` currently sells no document
+service at all. Delete an entry from this list only when the link has been
+opened and the figure read.
 
 ## Deploy Flow
 
