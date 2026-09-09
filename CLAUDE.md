@@ -185,6 +185,27 @@ Check every change against these, and say so plainly when one is engaged:
   removed from the schema, the About credentials, and the About meta
   description. Do not restore it anywhere until the client confirms approval.
   Restore points are listed in a comment in `BaseLayout.astro`.
+
+  **The email signature carried the claim until 2026-09-09.** Every outbound
+  email read "Marie VanGinHoven / Florida Supreme Court Certified Family
+  Mediator", including messages to fellow mediators and to referral sources.
+  The owner corrected it that day to "High-Conflict Resolution Mediator",
+  which is what the site and the business schema already declared. Gmail keeps
+  a separate mobile signature, so both are worth checking if this ever
+  resurfaces. Audited clean the same day and found free of the claim: all six
+  Calendly event-type descriptions, all six downloadable documents in
+  `public/` (the Engagement Agreement in PDF and Word, the Disclosure From
+  Nonlawyer, and the three intake forms), and every built page. Surfaces
+  nobody here can see, and worth a periodic look: the Google Business Profile,
+  LinkedIn, and the Zoom display name.
+
+  **Separately, and not a licence to advertise anything:** asked on 2026-09-09
+  whether she was qualified to conduct presuit mediation under section
+  720.311, the owner answered that a certified mediator is what the work
+  requires and that she is one. That answered the qualification question for
+  the HOA page and nothing else. She said in the same breath that no
+  certification claim was to be added to the site, and none was. **This rule
+  is unchanged: do not publish a certification claim anywhere.**
 - **Non-family work is private mediation.** Business, civil, real estate, and
   pre-litigation matters are framed as private mediation chosen by both parties,
   never as court-ordered work, and carry no certification claim. Florida
