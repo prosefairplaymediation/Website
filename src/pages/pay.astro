@@ -134,25 +134,21 @@ const mediationGroups = [
 ];
 
 const documentProducts = [
-  // The Turn-Key Court Packet is deliberately absent, for the same reason the
-  // Parenting Plan below is, and it should go back the moment that reason
-  // stops being true.
-  //
-  // The fee was raised to $1,200 on 2026-09-09 at the owner's instruction:
-  // $600 document preparation and $600 mediation. The Stripe Payment Link
-  // still points at the old $600 product. A card advertising $1,200 beside a
-  // button that collects $600 would take half the fee on every sale with
-  // nothing to notice at the time: no error, no complaint, and a shortfall
-  // that only surfaces at reconciliation. Going back to a client who has
-  // already paid to ask for the other $600 is not a conversation worth having.
-  //
-  // TO RESTORE, the moment a link opens showing $1,200.00:
-  //   1. Point courtPacketUrl at it (or replace it, if a new link was made).
-  //   2. Put this card back:
-  //      { slug: "court_packet", title: "Turn-Key Court Packet",
-  //        price: "$1,200 flat", value: 1200, payUrl: courtPacketUrl,
-  //        detail: "/services/court-packet", description: "..." }
-  //   3. Restore the /pricing row's `payHref: "/pay#document-services"`.
+  {
+    // Restored 2026-09-09 on the owner's confirmation that the Stripe link was
+    // updated to $1,200. The card was pulled earlier the same day, when the
+    // fee was raised but the link still charged $600. buy.stripe.com is not
+    // reachable from a Claude session, so the figure here rests on her word
+    // rather than on a link having been opened and read.
+    slug: "court_packet",
+    title: "Turn-Key Court Packet",
+    price: "$1,200 flat",
+    value: 1200,
+    description:
+      "A complete, organized set of family-law documents, including the Parenting Plan, required Florida Supreme Court forms, and notarization where applicable, assembled into a filing-ready packet. $600 for the document preparation and $600 for the mediation.",
+    detail: "/services/court-packet",
+    payUrl: courtPacketUrl,
+  },
 
   // Parenting Plan Preparation is deliberately absent, and this is the only
   // thing on the site still out of step with its price list.
