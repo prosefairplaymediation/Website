@@ -100,6 +100,29 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
   ],
 
+  "hoa-mediation": [
+    {
+      q: "Is the $600 hourly rate charged to each side or for the session?",
+      a: "It is a combined rate for the session rather than a charge per side, and it is commonly divided evenly between the parties. One side may also choose to pay the full amount.",
+    },
+    {
+      q: "Who needs to attend from the association?",
+      a: "Whoever has the authority to settle. On the association side that usually means a board member or a manager who can agree to terms, and on the owner's side the owners themselves. Bringing someone who has to take the outcome back to a third party for approval is the most common reason a productive session ends without an agreement, so it is worth sorting out before the date is set.",
+    },
+    {
+      q: "Will the mediator tell us what our governing documents mean?",
+      a: "No. Marie VanGinHoven is a neutral third party, not an attorney, and this is not a law firm. That means your governing documents will not be interpreted for you, and you will not be told whether a rule or a fine is enforceable, what a court would likely do with the dispute, or whether the terms on the table are worth accepting. Those are legal questions and they belong with an attorney who represents you. Either side may have its own attorney involved, and associations frequently do.",
+    },
+    {
+      q: "Is this the same as court-ordered mediation?",
+      a: "No. This is private mediation that both sides choose. Nobody is ordered here: an owner and a board, two owners, or a board and a vendor agree to sit down with one neutral mediator, and the session goes ahead once both sides have agreed to proceed. Whether any particular step is required before a dispute of this kind can proceed is a legal question for an attorney.",
+    },
+    {
+      q: "What happens if we reach an agreement?",
+      a: "The terms are written up while everyone is still at the table, so that what was agreed is captured accurately rather than reconstructed a week later. Each side is free to have the written terms reviewed by its own attorney before signing. Marie is also a Notary Public, so anything arising from the session that needs notarizing can be handled at the time.",
+    },
+  ],
+
   notary: [
     {
       q: "What kinds of documents can be notarized online?",

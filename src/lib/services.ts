@@ -59,6 +59,16 @@ export const services: ServiceDef[] = [
       "The premium mediation tier, emphasizing discretion, privacy and close professional oversight throughout. Priced per matter.",
   },
   {
+    slug: "hoa-mediation",
+    short: "HOA Disputes",
+    priceLabel: "$600 / hour",
+    name: "Homeowners Association Dispute Mediation",
+    description:
+      "Private, confidential mediation of homeowners association disputes between owners, boards and neighbors, covering covenants and rules, architectural requests, assessments, maintenance responsibility and use of shared property.",
+    price: "600.00",
+    unit: "HUR",
+  },
+  {
     // The slug stays "parenting-plan" deliberately. The service was renamed and
     // repriced on 2026-09-01; the URL was not, because /services/parenting-plan
     // is indexed, linked from four other pages, and printed on the QR-code
