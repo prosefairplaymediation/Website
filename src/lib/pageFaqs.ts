@@ -60,6 +60,10 @@ export const pageFaqs: Record<string, Faq[]> = {
 
   "court-packet": [
     {
+      q: "What does the $1,200 Court Packet fee cover?",
+      a: "It is made up of two parts: $600 for the document preparation and $600 for the mediation. Notarization of forms in the packet that require it is included at no additional cost, and up to two revisions are included.",
+    },
+    {
       q: "What is included in the Turn-Key Court Packet?",
       a: "The preparation and completion of the mandatory family court forms and supporting documents required for filing, including financial affidavits, parenting plans, child support documentation, settlement agreements, supplemental petitions and other court-required filings as applicable to the matter. Documents are organized in filing-ready form and notarized where required. Up to two revisions are included.",
     },
@@ -73,7 +77,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "How is the Court Packet different from Parenting Plan Preparation?",
-      a: "Parenting Plan Preparation, at $600 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet is the full-service option and assembles the whole filing-ready set; it is priced by the type and complexity of the case, so the figure comes from the consultation. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the simpler route.",
+      a: "Parenting Plan Preparation, at $600 flat, produces only the Parenting Plan document and none of the other court forms. The Turn-Key Court Packet is the full-service option at $1,200, being $600 for the document preparation and $600 for the mediation, and it assembles the whole filing-ready set. If you are comfortable handling the remaining court forms yourself, the Parenting Plan service is the simpler route.",
     },
     {
       q: "Can I get a refund on document preparation?",
@@ -88,7 +92,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Does this include the other Florida court forms I need to file?",
-      a: "No. This service is limited strictly to preparing the Parenting Plan document itself. The remaining Florida Supreme Court family law forms are available free from the Florida Courts website, or the Turn-Key Court Packet assembles the complete filing-ready set, priced by case type.",
+      a: "No. This service is limited strictly to preparing the Parenting Plan document itself. The remaining Florida Supreme Court family law forms are available free from the Florida Courts website, or the Turn-Key Court Packet assembles the complete filing-ready set at $1,200, being $600 for the document preparation and $600 for the mediation.",
     },
     {
       q: "Can the Parenting Plan be notarized?",

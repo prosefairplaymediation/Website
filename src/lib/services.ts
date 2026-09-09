@@ -84,13 +84,15 @@ export const services: ServiceDef[] = [
   {
     slug: "court-packet",
     short: "Turn-Key Court Packet",
-    // Priced by case type as of 2026-09-02, so there is no single figure to
-    // publish. `price` is omitted deliberately: an Offer carrying a fixed
-    // price for something quoted per case is a wrong answer, not a rounded one.
-    priceLabel: "Priced by case type",
+    // A single published figure again as of 2026-09-09, at the owner's
+    // instruction: $1,200, being $600 document preparation and $600
+    // mediation. It was quoted by case type between 2026-09-02 and that date,
+    // which is why `price` was previously omitted here.
+    priceLabel: "$1,200 flat",
     name: "Turn-Key Court Packet",
     description:
-      "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable. Priced by the type and complexity of the case.",
+      "A complete family law document package, organised and assembled into a filing-ready packet, with notarisation where applicable, together with the mediation. $600 for the document preparation and $600 for the mediation.",
+    price: "1200.00",
   },
   {
     slug: "notary",

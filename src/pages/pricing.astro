@@ -102,10 +102,14 @@ const services: PriceRow[] = [
   },
   {
     name: "Turn-Key Court Packet",
-    price: "$600 flat",
-    note: "Complete document preparation for eligible pro se family-law matters. Depending on the case, the packet may include the applicable Florida Supreme Court approved family-law forms, financial documents, a Parenting Plan, settlement documents, and any other forms the filing requires.",
+    price: "$1,200 flat",
+    note: "Complete document preparation for eligible pro se family-law matters, together with the mediation: $600 for the document preparation and $600 for the mediation. Depending on the case, the packet may include the applicable Florida Supreme Court approved family-law forms, financial documents, a Parenting Plan, settlement documents, and any other forms the filing requires.",
     href: "/services/court-packet",
-    payHref: "/pay#document-services",
+    // No pay button until the Stripe link charges $1,200. The fee was raised
+    // on 2026-09-09 and the link still points at the old $600 product; a
+    // button that quietly takes half the advertised price is worse than no
+    // button. Restore payHref: "/pay#document-services" once Stripe matches.
+    cta: "Inquire",
   },
   {
     name: "Gold Service Mediation",

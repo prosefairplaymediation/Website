@@ -134,16 +134,25 @@ const mediationGroups = [
 ];
 
 const documentProducts = [
-  {
-    slug: "court_packet",
-    title: "Turn-Key Court Packet",
-    price: "$600 flat",
-    value: 600,
-    description:
-      "A complete, organized set of family-law documents, including the Parenting Plan, required Florida Supreme Court forms, and notarization where applicable, assembled into a filing-ready packet.",
-    detail: "/services/court-packet",
-    payUrl: courtPacketUrl,
-  },
+  // The Turn-Key Court Packet is deliberately absent, for the same reason the
+  // Parenting Plan below is, and it should go back the moment that reason
+  // stops being true.
+  //
+  // The fee was raised to $1,200 on 2026-09-09 at the owner's instruction:
+  // $600 document preparation and $600 mediation. The Stripe Payment Link
+  // still points at the old $600 product. A card advertising $1,200 beside a
+  // button that collects $600 would take half the fee on every sale with
+  // nothing to notice at the time: no error, no complaint, and a shortfall
+  // that only surfaces at reconciliation. Going back to a client who has
+  // already paid to ask for the other $600 is not a conversation worth having.
+  //
+  // TO RESTORE, the moment a link opens showing $1,200.00:
+  //   1. Point courtPacketUrl at it (or replace it, if a new link was made).
+  //   2. Put this card back:
+  //      { slug: "court_packet", title: "Turn-Key Court Packet",
+  //        price: "$1,200 flat", value: 1200, payUrl: courtPacketUrl,
+  //        detail: "/services/court-packet", description: "..." }
+  //   3. Restore the /pricing row's `payHref: "/pay#document-services"`.
 
   // Parenting Plan Preparation is deliberately absent, and this is the only
   // thing on the site still out of step with its price list.
@@ -304,9 +313,10 @@ const documentProducts = [
               here. The <a href="/services/parenting-plan">Parenting Plan</a> is
               a flat $600, and the{" "}
               <a href="/services/court-packet">Turn-Key Court Packet</a> is
-              priced by the type and complexity of the case. Either way a figure
-              is confirmed with you first and a payment link is issued for that
-              amount, so nothing is charged before it is agreed.{" "}
+              $1,200: $600 for the document preparation and $600 for the
+              mediation. Either way a figure is confirmed with you first and a
+              payment link is issued for that amount, so nothing is charged
+              before it is agreed.{" "}
               <a href="/book">Book a free consultation</a> or email{" "}
               <a href="mailto:info@prosefairplaymediation.com">info@prosefairplaymediation.com</a>.
             </p>
