@@ -150,26 +150,21 @@ const documentProducts = [
     payUrl: courtPacketUrl,
   },
 
-  // Parenting Plan Preparation is deliberately absent, and this is the only
-  // thing on the site still out of step with its price list.
-  //
-  // The site says $600. The Stripe link says $400 — opened and checked on
-  // 2026-09-02, twice. Putting the button back now would collect two thirds of
-  // the advertised price on every sale, with nothing to notice: no error, no
-  // complaint, and a shortfall that only surfaces when payments are
-  // reconciled. A missed instant payment is recoverable; going back to a
-  // client who has already paid to ask for another $200 is not.
-  //
-  // TO RESTORE, the moment a link opens showing $600.00:
-  //   1. Put parentingPlanUrl back below (or the new URL, if a new link was
-  //      made — a new one ends in something other than 3sI01).
-  //   2. Add: { slug: "parenting_plan", title: "Parenting Plan Preparation",
-  //      price: "$600 flat", value: 600, detail: "/services/parenting-plan",
-  //      payUrl: parentingPlanUrl, description: "A customized Parenting Plan
-  //      tailored to your family's schedule, structure, and needs. Court-ready
-  //      format, drafted from the information you provide." }
-  //   3. In src/pages/pricing.astro, swap that row's `cta: "Inquire"` for
-  //      `payHref: "/pay#document-services"`.
+  {
+    // Restored 2026-09-09 on the owner's confirmation that the Stripe links
+    // were updated. This card had been off since 2026-09-02, when the link was
+    // opened twice and read $400 against a published $600. buy.stripe.com is
+    // not reachable from a Claude session, so the figure rests on her word
+    // rather than on the checkout page having been read.
+    slug: "parenting_plan",
+    title: "Parenting Plan Preparation",
+    price: "$600 flat",
+    value: 600,
+    description:
+      "A customized Parenting Plan tailored to your family's schedule, structure, and needs. Court-ready format, drafted from the information you provide.",
+    detail: "/services/parenting-plan",
+    payUrl: parentingPlanUrl,
+  },
 ];
 ---
 
