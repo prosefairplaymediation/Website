@@ -185,6 +185,27 @@ Check every change against these, and say so plainly when one is engaged:
   removed from the schema, the About credentials, and the About meta
   description. Do not restore it anywhere until the client confirms approval.
   Restore points are listed in a comment in `BaseLayout.astro`.
+
+  **The email signature carried the claim until 2026-09-09.** Every outbound
+  email read "Marie VanGinHoven / Florida Supreme Court Certified Family
+  Mediator", including messages to fellow mediators and to referral sources.
+  The owner corrected it that day to "High-Conflict Resolution Mediator",
+  which is what the site and the business schema already declared. Gmail keeps
+  a separate mobile signature, so both are worth checking if this ever
+  resurfaces. Audited clean the same day and found free of the claim: all six
+  Calendly event-type descriptions, all six downloadable documents in
+  `public/` (the Engagement Agreement in PDF and Word, the Disclosure From
+  Nonlawyer, and the three intake forms), and every built page. Surfaces
+  nobody here can see, and worth a periodic look: the Google Business Profile,
+  LinkedIn, and the Zoom display name.
+
+  **Separately, and not a licence to advertise anything:** asked on 2026-09-09
+  whether she was qualified to conduct presuit mediation under section
+  720.311, the owner answered that a certified mediator is what the work
+  requires and that she is one. That answered the qualification question for
+  the HOA page and nothing else. She said in the same breath that no
+  certification claim was to be added to the site, and none was. **This rule
+  is unchanged: do not publish a certification claim anywhere.**
 - **Non-family work is private mediation.** Business, civil, real estate, and
   pre-litigation matters are framed as private mediation chosen by both parties,
   never as court-ordered work, and carry no certification claim. Florida
@@ -338,7 +359,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
-| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02 — **the Stripe link must be updated to match; it was $400**), Turn-Key Court Packet ($1,200 flat as of 2026-09-09, being $600 document preparation and $600 mediation — **the Stripe link must be updated to match; it was $600**) |
+| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02 — **the Stripe link must be updated to match; it was $400**), Turn-Key Court Packet ($1,200 flat as of 2026-09-09, being $600 document preparation and $600 mediation; the Stripe link was updated to match the same day, per the owner) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 | Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout. Custom events: **Pay funnel** — `pay_intent_click` (entry buttons on /home, /landing, /services/parenting-plan, /services/court-packet — params: `source`, `product`), `pay_checkout_click` (the actual Pay Now buttons on /pay — params: `product`, `value`, `currency`), `pay_complete` (fires on /thank-you load — `source: 'stripe_redirect'`). **Booking** — `book_intent_click` (single delegated listener in BaseLayout, fires on any click on `<a href="/book">` site-wide — param: `source` = the path the click came from). **Calls** — `call_intent_click` (same delegated pattern, matches any `a[href^="tel:"]` — param: `source` = the path clicked from). Added 2026-09-07: there were 74 phone links on the site and only two fired anything, so the highest-intent action on a mediation site was invisible. The per-button `onclick` that fired this name on `/landing` was removed in the same commit — two handlers on one click double-counted. `StickyCta` keeps its own `sticky_cta_click` alongside it: that measures the bar, this measures calls. Actual purchase data lives in Stripe Dashboard. |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |
@@ -487,14 +508,18 @@ asking, not a reason to consider the work complete without it.
 
 - **Parenting Plan Preparation.** Site says $600, link charged $400 when
   opened and checked twice on 2026-09-02. Button removed; restore steps are
-  in `src/pages/pay.astro`.
-- **Turn-Key Court Packet.** Site says $1,200 as of 2026-09-09, being $600
-  document preparation and $600 mediation; link still points at the old $600
-  product. Button removed; restore steps sit beside the Parenting Plan ones.
+  in `src/pages/pay.astro`. Still open as of 2026-09-09.
 
-Both are live right now, which means `/pay` currently sells no document
-service at all. Delete an entry from this list only when the link has been
-opened and the figure read.
+Closed 2026-09-09: **Turn-Key Court Packet**, raised to $1,200 that morning
+and the button pulled the same day, restored that evening on the owner's
+confirmation that the Stripe link had been updated to match. Worth noting for
+the next time: `buy.stripe.com` is not reachable from a Claude session, so
+the figure was taken on her word rather than read off the checkout page. That
+is the weaker form of the confirmation this list asks for, and it is the only
+form available from here.
+
+Delete an entry from this list only when the amount has actually been
+confirmed, and say which way it was confirmed.
 
 ## Deploy Flow
 
