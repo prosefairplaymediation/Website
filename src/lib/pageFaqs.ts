@@ -106,6 +106,10 @@ export const pageFaqs: Record<string, Faq[]> = {
 
   "hoa-mediation": [
     {
+      q: "Does Florida require mediation before an HOA dispute can go to court?",
+      a: "Florida Statute 720.311 establishes a statutory default requiring mediation before litigation for most disputes between a homeowners association and its members, including conflicts over use and enjoyment of a parcel, architectural approvals, rule enforcement, and access to meetings or records. In the majority of cases the parties are required to attempt mediation before either side can file a lawsuit. It does not extend to the collection of assessments, fines and other financial obligations, or to actions enforcing a prior mediation settlement. Every association is different besides, so your own bylaws and governing documents are worth reviewing alongside the statutory requirements.",
+    },
+    {
       q: "Is the $600 hourly rate charged to each side or for the session?",
       a: "It is a combined rate for the session rather than a charge per side, and it is commonly divided evenly between the parties. One side may also choose to pay the full amount.",
     },
@@ -119,7 +123,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Is this the same as court-ordered mediation?",
-      a: "No. This is private mediation that both sides choose. Nobody is ordered here: an owner and a board, two owners, or a board and a vendor agree to sit down with one neutral mediator, and the session goes ahead once both sides have agreed to proceed. Whether any particular step is required before a dispute of this kind can proceed is a legal question for an attorney.",
+      a: "No. This is private mediation conducted outside the court system, with one neutral mediator the parties come to together. Separately, Florida Statute 720.311 establishes a statutory default requiring mediation before litigation for most disputes between an association and its members, so in the majority of cases the attempt is required before either side can file a lawsuit.",
     },
     {
       q: "What happens if we reach an agreement?",
