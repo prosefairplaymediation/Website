@@ -338,7 +338,7 @@ All decoupled per client decision (Marie manually qualifies clients; no Stripe-C
 |---------|---------|--------|
 | Google Workspace | Email (`info@prosefairplaymediation.com`), ~$8.40/mo | Live; DKIM, SPF, DMARC configured in Cloudflare DNS |
 | Calendly Standard | Booking + Google Calendar / Zoom auto-attach; Stripe integration available | Live; free 15-min consult public; paid event URLs private (Marie distributes) |
-| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02 — **the Stripe link must be updated to match; it was $400**), Turn-Key Court Packet (product still live in Stripe but no longer sold from the site; quoted by case type) |
+| Stripe | Payment processing; EIN verified; bank payouts enabled | Live; three paid products configured — Hourly Mediation ($600/hour, sold in 2/4/8-hour blocks at $1,200 / $2,400 / $4,800), Parenting Plan Preparation ($600 flat as of 2026-09-02 — **the Stripe link must be updated to match; it was $400**), Turn-Key Court Packet ($1,200 flat as of 2026-09-09, being $600 document preparation and $600 mediation — **the Stripe link must be updated to match; it was $600**) |
 | Cloudflare | DNS + Workers deployment | Live; nameservers moved from GoDaddy; both domain + www as custom domains |
 | Google Analytics 4 | Pageview + behavior tracking | Live; Measurement ID `G-NH6HKR18MZ`; gtag installed in BaseLayout. Custom events: **Pay funnel** — `pay_intent_click` (entry buttons on /home, /landing, /services/parenting-plan, /services/court-packet — params: `source`, `product`), `pay_checkout_click` (the actual Pay Now buttons on /pay — params: `product`, `value`, `currency`), `pay_complete` (fires on /thank-you load — `source: 'stripe_redirect'`). **Booking** — `book_intent_click` (single delegated listener in BaseLayout, fires on any click on `<a href="/book">` site-wide — param: `source` = the path the click came from). **Calls** — `call_intent_click` (same delegated pattern, matches any `a[href^="tel:"]` — param: `source` = the path clicked from). Added 2026-09-07: there were 74 phone links on the site and only two fired anything, so the highest-intent action on a mediation site was invisible. The per-button `onclick` that fired this name on `/landing` was removed in the same commit — two handlers on one click double-counted. `StickyCta` keeps its own `sticky_cta_click` alongside it: that measures the bar, this measures calls. Actual purchase data lives in Stripe Dashboard. |
 | Google Search Console | Search-indexing monitoring + sitemap | Verified via the GA tag (same account ownership, no DNS TXT needed); sitemap submitted at `/sitemap-index.xml`, 12 pages discovered |
@@ -444,6 +444,45 @@ first and refuses to submit rather than failing silently.
 - `CLAUDE.md` — project context for future Claude sessions (this file)
 - `FEATURES.md` — scope tracking, in-progress, deferred, out-of-scope decisions
 - `DELIVERABLES.md` — client handoff (accounts, credentials, deliverables). **Gitignored** (contains personal emails)
+
+## Price changes: Stripe first, then merge (STANDING CLIENT INSTRUCTION)
+
+Settled by the client 2026-09-09: **"always update stripe then merge."**
+
+A published price and the Stripe Payment Link behind it are one change, and
+the Stripe side goes first. Do not merge a price change while the link still
+charges the old amount, and do not ship a Pay button that disagrees with the
+figure printed beside it.
+
+The reason is that the failure is silent. A card advertising $1,200 beside a
+link that collects $600 produces no error and no complaint; the client pays
+what the link asks, believes they have paid in full, and the shortfall
+surfaces at reconciliation, by which point the only remedy is asking someone
+who has already paid to pay again. A missed instant payment is recoverable.
+That conversation is not.
+
+It has now happened twice. Parenting Plan was repriced to $600 on 2026-09-02
+while its link still charged $400, and the Court Packet was raised to $1,200
+on 2026-09-09 while its link still charged $600. Both times the button was
+pulled rather than left to undercharge, and the restore steps were written
+into `src/pages/pay.astro` beside the removed card.
+
+**So, in order, every time:**
+
+1. Update the price in Stripe, or create a new Payment Link at the new
+   amount. Confirm by opening the link and reading the figure on the
+   checkout page.
+2. Point the URL in `src/pages/pay.astro` at it.
+3. Restore the card and the `/pricing` row's `payHref`.
+4. Then merge.
+
+Until step 1 is confirmed, the price change may still ship, but the Pay
+button does not: the `/pay` Document Services section falls through to an
+empty state that names the fee and routes to a consultation, which is honest
+and keeps the enquiry path open. Note also that this practice has no Stripe
+API access from a Claude session — no key, no MCP server, and the site
+carries no Stripe backend, only Payment Link URLs — so step 1 is always the
+owner's to perform.
 
 ## Deploy Flow
 
