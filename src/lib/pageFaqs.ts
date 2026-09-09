@@ -107,7 +107,7 @@ export const pageFaqs: Record<string, Faq[]> = {
   "hoa-mediation": [
     {
       q: "Does Florida require mediation before an HOA dispute can go to court?",
-      a: "Section 720.311, Florida Statutes, sets out a presuit mediation requirement for many disputes between a homeowners association and its members, including disputes over the use of or changes to a parcel or the common areas, covenant enforcement, amendments to the association documents, board and committee meetings, membership meetings other than elections, and access to the official records. It excludes the collection of assessments, fines and other financial obligations, and actions to enforce a prior mediation settlement. Whether the requirement reaches your particular dispute, and what your own governing documents add to it, are legal questions for an attorney who represents you.",
+      a: "Florida Statute 720.311 establishes a statutory default requiring mediation before litigation for most disputes between a homeowners association and its members, including conflicts over use and enjoyment of a parcel, architectural approvals, rule enforcement, and access to meetings or records. In the majority of cases the parties are required to attempt mediation before either side can file a lawsuit. It does not extend to the collection of assessments, fines and other financial obligations, or to actions enforcing a prior mediation settlement. Every association is different besides, so your own bylaws and governing documents are worth reviewing alongside the statutory requirements.",
     },
     {
       q: "Is the $600 hourly rate charged to each side or for the session?",
@@ -123,7 +123,7 @@ export const pageFaqs: Record<string, Faq[]> = {
     },
     {
       q: "Is this the same as court-ordered mediation?",
-      a: "No. This is private mediation conducted outside the court system, with one neutral mediator the parties come to together. Separately, section 720.311, Florida Statutes, sets out a presuit mediation requirement for many disputes between an association and its members, so in a good number of cases the attempt is required before anything can be filed. Whether it reaches your particular dispute is a legal question for an attorney who represents you.",
+      a: "No. This is private mediation conducted outside the court system, with one neutral mediator the parties come to together. Separately, Florida Statute 720.311 establishes a statutory default requiring mediation before litigation for most disputes between an association and its members, so in the majority of cases the attempt is required before either side can file a lawsuit.",
     },
     {
       q: "What happens if we reach an agreement?",
