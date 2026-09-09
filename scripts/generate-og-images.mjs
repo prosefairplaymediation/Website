@@ -80,6 +80,12 @@ const CARDS = [
     lines: ["Gold Service", "Mediation"],
   },
   {
+    name: "hoa-mediation",
+    photo: "three_people_table_argue.jpg",
+    kicker: "Service",
+    lines: ["HOA Dispute", "Mediation"],
+  },
+  {
     name: "parenting-plan",
     photo: "documents2.jpg",
     kicker: "Service",

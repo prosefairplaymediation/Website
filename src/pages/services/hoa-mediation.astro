@@ -1,0 +1,286 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ConciergeCall from "../../components/ConciergeCall.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ServiceSchema from "../../components/ServiceSchema.astro";
+
+const facts = [
+  { label: "Rate", value: "$600 / hour" },
+  { label: "Format", value: "Zoom, confidential" },
+  { label: "Parties", value: "Owner, board, or neighbor" },
+  { label: "My role", value: "Neutral third party" },
+];
+
+import FaqBlock from "../../components/FaqBlock.astro";
+import InlineScheduler from "../../components/InlineScheduler.astro";
+import LeadCapture from "../../components/LeadCapture.astro";
+---
+
+<BaseLayout
+  title="HOA Dispute Mediation in Florida · Pro Se Fair Play Mediation"
+  description="Private mediation for homeowners association disputes in Florida. $600 per hour combined rate, conducted via Zoom. A neutral mediator, not a law firm."
+  ogImage="/og/hoa-mediation.jpg"
+  heroImage="/three_people_table_argue.jpg"
+>
+  <ServiceSchema slug="hoa-mediation" />
+
+  <!-- ========================== HEADER ========================== -->
+  <header class="svc-header">
+    <div class="container svc-header-inner">
+      <Breadcrumbs trail={[{ href: "/services", label: "Services" }]} current="HOA Disputes" tone="dark" />
+      <h1 class="display svc-title reveal reveal-d2">
+        Homeowners Association <span class="display-italic">Disputes</span><span class="display-italic">.</span>
+      </h1>
+      <p class="lede reveal reveal-d3">
+        Private mediation for owners, boards and neighbors who would rather
+        settle a community dispute across a table than escalate it. Conducted
+        via Zoom, structured, confidential.
+      </p>
+      <div class="svc-header-ctas reveal reveal-d4">
+        <a class="btn btn-primary svc-header-cta" href="/book">
+          Book a Free, Private Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================== AT-A-GLANCE ========================== -->
+  <section class="svc-facts">
+    <div class="container">
+      <dl class="facts-grid">
+        {facts.map((f) => (
+          <div class="fact">
+            <dt class="fact-label smallcaps">{f.label}</dt>
+            <dd class="fact-value display">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="facts-note">
+        The $600 hourly rate is a <strong>combined rate</strong> for the
+        session rather than a charge per side, and it is commonly divided
+        evenly between the parties. One side may also pay in full. Session
+        structure, scheduling and the refund policy follow my{" "}
+        <a class="link-underline" href="/services/hourly-mediation">Hourly Mediation</a>{" "}
+        service, and every price is listed on{" "}
+        <a class="link-underline" href="/pricing">pricing</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== PROSE ========================== -->
+  <section class="svc-section svc-section-alt">
+    <div class="container-narrow">
+      <div class="svc-prose">
+        <p>
+          Community disputes are rarely about the thing they appear to be
+          about. A disagreement over a fence line, a paint color or a late
+          assessment has usually been running for months by the time anyone
+          calls a mediator, and by then the parties are neighbors who have
+          stopped speaking to each other and still have to live on the same
+          street. Mediation is a structured way to put that conversation back
+          on a footing where something can actually be settled.
+        </p>
+        <p>
+          This is <strong>private mediation that both sides choose</strong>.
+          Nobody is ordered here. An owner and a board, two owners, or a board
+          and a vendor agree to sit down with one neutral mediator, and the
+          session goes ahead once both sides have agreed to proceed.
+        </p>
+
+        <h2>What owners and boards bring to the table</h2>
+        <p>
+          The subject matter varies, and every community's governing documents
+          are its own. Matters commonly mediated include:
+        </p>
+        <ul class="svc-list">
+          <li>
+            <strong>Covenant, rule and restriction disagreements.</strong>
+            Where the parties read the same provision two different ways and
+            want a workable resolution rather than a ruling.
+          </li>
+          <li>
+            <strong>Architectural and alteration requests.</strong> Additions,
+            fences, sheds, paint, landscaping, solar, screens and other
+            improvements, whether approval, denial or conditions are in
+            dispute.
+          </li>
+          <li>
+            <strong>Assessments, fines and payment arrangements.</strong>
+            Including a schedule for bringing an account current.
+          </li>
+          <li>
+            <strong>Maintenance and repair responsibility.</strong> Who
+            maintains what, common elements and shared structures, water
+            intrusion, drainage and damage between neighboring properties.
+          </li>
+          <li>
+            <strong>Use and occupancy friction.</strong> Parking, pets,
+            leasing and short-term rentals, noise, nuisance, trash, signage and
+            guest use of shared amenities.
+          </li>
+          <li>
+            <strong>Records requests and communication breakdown.</strong>
+            Along with board and committee friction that has made ordinary
+            business difficult to conduct.
+          </li>
+        </ul>
+
+        <h2>Who sits at the table</h2>
+        <p>
+          Whoever has the authority to settle. On the association side that
+          usually means a board member or a manager with authority to agree to
+          terms, and on the owner's side the owners themselves. Bringing
+          someone who has to take the outcome back to a third party for
+          approval is the most common reason a productive session ends without
+          an agreement, so it is worth sorting out before the date is set.
+          Either side may have its own attorney involved, and associations
+          frequently do.
+        </p>
+
+        <h2>What mediation is not</h2>
+        <p>
+          I am a neutral. I am not an attorney, I do not represent either side,
+          and this is not a law firm. That means I will not interpret your
+          governing documents for you, tell you whether a rule or a fine is
+          enforceable, say what a court would likely do with the dispute, or
+          tell you whether the terms on the table are worth accepting. Those
+          are legal questions, and they belong with an attorney who represents
+          you. Whether any particular step is required before a dispute of this
+          kind can proceed is a legal question too, and one worth putting to
+          counsel early.
+        </p>
+        <p>
+          What I do is run the process: keep the discussion organized, make
+          sure both sides are genuinely heard, and hold the session to the
+          matters the parties came to resolve.
+        </p>
+
+        <h2>If you reach agreement</h2>
+        <p>
+          The terms are written up while everyone is still at the table, so
+          that what was agreed is captured accurately rather than reconstructed
+          a week later. Each side is free to have the written terms reviewed by
+          its own attorney before signing, and I encourage it. I am also a
+          Notary Public, so anything arising from the session that needs
+          notarizing can be handled at the time.
+        </p>
+        <p>
+          If the parties settle only part of it, that is a normal outcome and
+          not a wasted session. Narrowing a dispute to the one issue still in
+          contention changes what everything after it costs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CTA ========================== -->
+  <section class="cta">
+    <div class="container-narrow cta-inner">
+      <ConciergeCall />
+      <div class="cta-actions">
+        <a class="btn btn-primary cta-btn" href="/book">
+          Book a Free, Private Consultation
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <p class="scheduling-note">Flexible Scheduling Available: Evening and Weekend Mediations to Accommodate Your Busy Life.</p>
+    </div>
+  </section>
+
+  {/* Calendar inline, not a link to one — this is where the reader is
+      already at peak intent. Lazy-loaded on scroll. */}
+  <FaqBlock set="hoa-mediation" />
+  <InlineScheduler source="svc-hoa-mediation" />
+  <LeadCapture source="svc-hoa-mediation" />
+</BaseLayout>
+
+<style>
+  /* ---- Identical pattern to divorce-mediation.astro for visual consistency ---- */
+  .svc-header {
+    position: relative;
+    padding-block: clamp(5rem, 7vw + 2rem, 8rem) clamp(3rem, 4vw + 1rem, 5rem);
+    color: var(--color-cream);
+    background-color: var(--color-navy-deep);
+    background-image:
+      linear-gradient(135deg,
+        rgba(15, 27, 50, 0.9) 0%,
+        rgba(27, 42, 74, 0.78) 50%,
+        rgba(27, 42, 74, 0.9) 100%),
+      url('/three_people_table_argue.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .svc-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--color-cream));
+    pointer-events: none;
+  }
+  .svc-header-inner { position: relative; max-width: 64rem; z-index: 1; }
+  .svc-title { margin-top: 1rem; font-size: var(--step-5); line-height: 1.02; color: var(--color-cream); letter-spacing: -0.025em; max-width: 22ch; font-weight: 400; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
+  .svc-title .display-italic { color: var(--color-gold); font-weight: 400; }
+  .svc-header .lede { margin-top: 1.5rem; max-width: 60ch; color: color-mix(in srgb, var(--color-cream) 85%, transparent); text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9); }
+  .svc-header-cta { margin-top: 0; }
+  .svc-header-ctas {
+    margin-top: 1.75rem;
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .svc-facts { padding-block: var(--space-xl); background: var(--color-cream); border-bottom: 1px solid var(--color-divider); }
+  .facts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; margin: 0; }
+  .fact { display: flex; flex-direction: column; gap: 0.35rem; }
+  .fact-label { font-size: var(--step-0); color: var(--color-gold-deep); font-weight: 700; letter-spacing: 0.24em; }
+  .fact-value { margin: 0; font-size: var(--step-1); color: var(--color-navy); font-variation-settings: "opsz" 24; line-height: 1.2; }
+  .facts-note { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-divider); font-family: var(--font-body); font-size: var(--step-sm); line-height: 1.6; color: var(--color-ink-soft); max-width: 70ch; font-style: italic; }
+  .facts-note strong { color: var(--color-navy); font-weight: 600; font-style: normal; }
+  .facts-note a { font-style: normal; }
+
+  .svc-section { padding-block: var(--space-2xl); }
+  .svc-section-alt { background: var(--color-cream-warm); }
+  .svc-prose { font-family: var(--font-body); font-size: var(--step-1); line-height: 1.7; color: var(--color-ink-soft); max-width: 60ch; }
+  .svc-prose p + p { margin-top: 1.25rem; }
+  .svc-prose strong { color: var(--color-navy); font-weight: 500; }
+
+  /* Subheads and the topic list, matching divorce-mediation: this page is an
+     explanatory hub rather than one block of prose, so it needs the same
+     structure that page needed. */
+  .svc-prose h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-navy);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .svc-list {
+    margin: 1.25rem 0 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .svc-list li { padding-left: 0.25rem; }
+  .svc-list li::marker { color: var(--color-gold-deep); }
+
+  .cta { position: relative; padding-block: var(--space-lg); background: var(--color-cream); color: var(--color-ink); overflow: hidden; border-top: 1px solid var(--color-divider); }
+  .cta::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, var(--color-gold) 40%, var(--color-gold) 60%, transparent); opacity: 0.7; }
+  .cta-actions { margin-top: 0; display: flex; justify-content: center; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .cta-btn { background: var(--color-navy); color: var(--color-cream); border-color: var(--color-navy); }
+  .cta-btn:hover { background: var(--color-navy-deep); color: var(--color-cream); border-color: var(--color-gold); }
+
+  @media (max-width: 720px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .facts-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -26,7 +26,7 @@ page text. It is a permanent part of the site, so do not remove it.
 
 ## Services and prices
 
-Current as of 2 September 2026. Mediation is billed hourly at a combined rate,
+Current as of 9 September 2026. Mediation is billed hourly at a combined rate,
 most often divided equally between the two parties.
 
 | Service | Price |
@@ -37,6 +37,7 @@ most often divided equally between the two parties.
 | Pre-Litigation Dispute Resolution | $600/hour, two-hour minimum ($1,200) |
 | Paternity Mediation & Document Preparation | $600/hour |
 | Marital Home & Real Estate Settlement Mediation | from $600/hour |
+| Homeowners Association Dispute Mediation | $600/hour combined |
 | One-on-One Mediation Preparation Session | $600/hour |
 | Parenting Plan Preparation | $600 flat |
 | Mediated Settlement Agreement Preparation | from $600, by complexity |
@@ -62,7 +63,10 @@ stating a total is not.
 
 People handling a Florida family law matter without lawyers on either side:
 divorcing couples, unmarried parents needing a parenting plan or time-sharing
-schedule, and parties to business, partnership or real estate disputes.
+schedule, and parties to business, partnership or real estate disputes. Also
+homeowners, community association boards and neighbors in a homeowners
+association dispute, which is private mediation both sides agree to rather
+than court-ordered mediation.
 Evening and weekend sessions are available.
 
 ## Where
